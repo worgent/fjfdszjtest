@@ -1,0 +1,12 @@
+<input type="text" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($parameters.value)" #parse("/template/simple/scripting-events.vm")/>
+<script>
+	fm2.add(new Ext.form.TimeField({
+		#if ($parameters.required == true) allowBlank:false, #end
+    	blankText:#if ($parameters.msg) '$!webwork.htmlEncode($parameters.msg)' #else '该字段不能为空，请输入！' #end,
+		#if ($parameters.increment) increment:$!webwork.htmlEncode($parameters.increment), #end
+		minValue: #if ($parameters.minValue) '$!webwork.htmlEncode($parameters.minValue)' #else '8:00am' #end,
+        maxValue: #if ($parameters.maxValue) '$!webwork.htmlEncode($parameters.maxValue)' #else '6:00pm' #end,
+		width: #if ($parameters.width) $!webwork.htmlEncode($parameters.width) #else 120 #end, 
+		applyTo : '$!webwork.htmlEncode($parameters.name)'
+	}));
+</script>

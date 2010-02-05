@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/classes/applicationContext.xml
+			/WEB-INF/classes/applicationContext-domian.xml
+			/WEB-INF/classes/applicationContext-security.xml 
+			/WEB-INF/classes/applicationContext-action.xml
+		</param-value>
+	</context-param>
+	
+   <!-- log4j 的配置信息 -->
+	 <context-param> 
+		<param-name>webAppRootKey</param-name> 
+		<param-value>netprint.Netprint</param-value> 
+	</context-param> 
+	<context-param> 
+	  <param-name>log4jConfigLocation</param-name> 
+	  <param-value>/WEB-INF/classes/netprint_log4j.properties</param-value> 
+	</context-param> 
+	
+	<context-param>
+		<param-name>GcConfig</param-name>
+		<param-value>open=false, minMemory=200, timer=10</param-value>
+	</context-param>
+
+
+	
+	
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.opensymphony.xwork.spring.SpringObjectFactoryListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>
+			com.qzgf.webutils.listener.ContextListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.qzgf.webutils.listener.SessionListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.qzgf.webutils.listener.TimerListener
+		</listener-class>
+	</listener>
+
+    <!-- Log4j 的监听类 -->
+	<listener> 
+	  <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> 
+	</listener>
+
+	<filter>
+		<filter-name>securityFilter</filter-name>
+		<filter-class>
+			com.qzgf.webutils.filter.FilterToBeanProxy
+		</filter-class>
+		<init-param>
+			<param-name>targetBean</param-name>
+			<param-value>securityFilter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>lifecycle</param-name>
+			<param-value>servlet-container-managed</param-value>
+		</init-param>
+	</filter>
+    
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.shtml</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.ftl</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>webwork</servlet-name>
+		<servlet-class>
+			com.opensymphony.webwork.dispatcher.ServletDispatcher
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>webwork</servlet-name>
+		<url-pattern>*.shtml</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<description>
+			服务容器字符集设置 URIEncoding="GB2312" tomcat server.xml Connector
+			节点 jboss server.xml Connector 节点
+		</description>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>
+			com.qzgf.webutils.filter.SetCharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>GBK</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>*.shtml</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>*.ftl</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<description>用于的使 Browser 不缓存页面的过滤器</description>
+		<filter-name>ForceNoCacheFilter</filter-name>
+		<filter-class>
+			com.qzgf.webutils.filter.ForceNoCacheFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ForceNoCacheFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>ForceNoCacheFilter</filter-name>
+		<url-pattern>*.shtml</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>ForceNoCacheFilter</filter-name>
+		<url-pattern>*.ftl</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<description>用于jsp布局过滤器</description>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>
+			com.opensymphony.module.sitemesh.filter.PageFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<!-- webwork相关配置 -->
+	<servlet>
+		<servlet-name>velocity</servlet-name>
+		<servlet-class>
+			com.opensymphony.webwork.views.velocity.WebWorkVelocityServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>velocity</servlet-name>
+		<url-pattern>*.vm</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>freemarker</servlet-name>
+		<servlet-class>
+			com.opensymphony.webwork.views.freemarker.FreemarkerServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>freemarker</servlet-name>
+		<url-pattern>*.ftl</url-pattern>
+	</servlet-mapping>
+	<!-- DWR配置 -->
+	<servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-admin</param-name>
+			<param-value>/WEB-INF/classes/dwr.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>classes</param-name>
+			<param-value>java.lang.Object</param-value>
+		</init-param>
+		<init-param>
+			<param-name>exposeInternals</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowImpossibleTests</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>export</servlet-name>
+		<servlet-class>com.qzgf.webutils.servlet.Export</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/export-config.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>export</servlet-name>
+		<url-pattern>/export.do</url-pattern>
+	</servlet-mapping>
+	<!-- Html页面编码配置 -->
+	<mime-mapping>
+		<extension>htm</extension>
+		<mime-type>text/html;charset=gb2312</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html;charset=gb2312</mime-type>
+	</mime-mapping>
+	<!-- 出错页配置 -->
+	<error-page>
+		<error-code>400</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/err403.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/err404.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>
+			java.lang.reflect.UndeclaredThrowableException
+		</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.ClassCastException</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+	<!-- 欢迎页面配置 -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>index.shtml</welcome-file>
+	</welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>index.htm</welcome-file>
+	</welcome-file-list>
+</web-app>

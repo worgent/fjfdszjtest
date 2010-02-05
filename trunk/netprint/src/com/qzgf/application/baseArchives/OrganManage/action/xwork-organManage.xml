@@ -1,0 +1,31 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+	<package name="OrganManage" extends="BaseArchivesPackage" namespace="/basearchives/organ">
+	    <action name="organTree" class="com.opensymphony.xwork.ActionSupport">
+	        <result name="success">/WEB-INF/pages/application/baseArchives/OrganManage/organTree.jsp</result>
+	    </action>
+		<action name="organManage" class="organManageAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/baseArchives/OrganManage/organTree.jsp</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/baseArchives/OrganManage/editOrgan.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+			    <param name="location">/WEB-INF/pages/application/baseArchives/OrganManage/editOrgan.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+	</package>
+</xwork>

@@ -1,0 +1,27 @@
+<select name="$!webwork.htmlEncode($parameters.name)">
+	#foreach($map in $parameters.list)
+		<option value="$!webwork.htmlEncode($map.id)" #if ($map.id.toString() == $parameters.value) selected #end>$!webwork.htmlEncode($map.text)</option>
+	#end
+</select>
+<script>
+   fm2.add(new Ext.form.ComboBox({
+   		blankText:'«Î—°‘Ò',
+    	#if ($parameters.required == true) allowBlank:false, #end
+    	blankText:#if ($parameters.msg) '$!webwork.htmlEncode($parameters.msg)' #else '«Î—°‘Ò' #end,
+    	anchor:'90%',
+    	editable: $!webwork.htmlEncode($parameters.editable),
+    	forceSelection: true,
+    	mode: 'local',
+    	triggerAction: 'all',
+	    transform:'$!webwork.htmlEncode($parameters.name)',
+	    width:#if ($parameters.width) $!webwork.htmlEncode($parameters.width) #else 120 #end
+	    
+	    #if ($parameters.onchange)
+	    	,listeners:{
+                "select":function(){
+                            $!webwork.htmlEncode($parameters.onchange)
+                         }
+            }
+	    #end
+	}));
+</script>

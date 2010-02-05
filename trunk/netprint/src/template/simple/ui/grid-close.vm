@@ -1,0 +1,166 @@
+#if ($parameters.nodata == "true")
+<tr>
+		<td align="right">
+			<font color="red">Find no record!</font>
+		</td>
+</td>
+#end
+
+</table>
+<table width="100%">
+	#*
+		如果分页对象不为空画出分页信息
+	*#
+	
+	#set($Qp=$parameters.Qpagination)
+	#set($exp = $parameters.xls == "true" || $parameters.xml == "true" || $parameters.pdf == "true")
+	
+	#if($Qp || $exp || $parameters.portal)
+	
+		<tr>
+			<td colspan=$stack.getContext().get("colCount") align="left">
+				#if($Qp)
+					<form></form>
+					<form name="pageForm" method="get" 
+						#*
+							如果是自定义桌面里的列表，那么点击分页时进行在MainFrm框里展示
+						*#
+						#if($parameters.isportal == "true")
+							target="MainFrm"
+						#end
+					>
+						<input type="hidden" name="turnPage" value="$Qp.currentPage"  />
+					    <input type="hidden" name="queryFlag" value="1"/>
+					</form>
+				    <script language="javascript">
+				    	function fn_turnPage(vflag){
+				    		document.all.turnPage.value=vflag;
+				    		document.pageForm.submit();
+				    	}
+				    	function fn_goPage(iPage){
+				    		if(window.event.keyCode==13){
+				    			fn_turnPage(iPage);
+				    		}
+				    	}
+				    </script>
+					Total:$Qp.totalPage Page/$Qp.totalRecord Item;Now:$Qp.getPageStart() To $Qp.pageEnd Item
+					##如果已经到达首页
+					#if($Qp.first)
+			    		<label class="Epagebtn" title="First">9</label><label class="Epagebtn" title="Previous">3</label>
+			    	#else
+			    		<label class="pagebtn" title="First" onclick ="fn_turnPage('first')" >9</label><label class="pagebtn" title="Previous" onclick ="fn_turnPage('previous')">3</label>
+					#end
+					<input type="text" class="InputTxt" value=$Qp.currentPage size="3" reg="int+" check onkeyup="fn_goPage(this.value)"/>
+					#if($Qp.last)
+			    		<label class="Epagebtn" title="Next">&nbsp;4</label><label class="Epagebtn" title="Last">:</label>
+					#else
+						<label class="pagebtn" title="Next" onclick ="fn_turnPage('next')">&nbsp;4</label><label class="pagebtn" title="Last" onclick ="fn_turnPage('last')">:</label>
+					#end
+				#end
+				&nbsp;
+				#if($exp)
+					数据导出:
+					#if($parameters.xls == "true")
+						<a href="export.do?type=xls" target="export" title="导出Excel"><img src="/themes/default/images/ico_file_excel.png"/>Excel</a> 
+					#end
+					#if($parameters.xml == "true")
+						<!--|<a href="export.do?type=xml" target="export" title="导出Xml"><img src="/themes/default/images/ico_file_xml.png"/>XML </a-->
+					#end
+					#if($parameters.pdf == "true")
+						<!--|<a href="export.do?type=pdf" target="export" title="导出Pdf电子文档"><img src="/themes/default/images/ico_file_pdf.png"/>PDF </a--> 
+					#end
+				#end
+				&nbsp;
+				#if($parameters.portal == "true" && $parameters.isportal != "true")
+					<script language="javascript">
+						function fun_customportal(url){
+							window.open(url,"customportal","left="+(screen.width-396)/2+",top="+(screen.height-288)/2+",height=288,width=396,status=no,toolbar=no,menubar=no,location=no,resizable=no");
+						}
+					</script>
+					<a style="cursor:hadn;font-color:red;" onclick="fun_customportal('/customportal.shtml?modelurl=$parameters.portalurl&model=$parameters.portalparams')">定义成桌面栏目</a>
+				#end
+			</td>
+		</tr>
+	#end
+		
+</table>
+</div>
+
+<script language="javascript">
+		Ext.onReady(function() {
+		    
+		        var grid = new Ext.grid.TableGrid("$!webwork.htmlEncode($parameters.id)");
+		        grid.render();
+		});
+		Ext.grid.TableGrid = function(table, config) {
+		    config = config || {};
+		    var cf = config.fields || [], ch = config.columns || [];
+		    table = Ext.get(table);
+		
+		    var ct = table.insertSibling();
+			
+		    var fields = [], cols = [];
+		    var headers = table.query("thead td");
+			for (var i = 0, h; h = headers[i]; i++) {
+				var text = h.innerHTML;
+				var name = 'tcol-'+i;
+				var visible = false;
+				if (h.visible == 'true')
+					visible  =true;
+				else
+					visible = false;
+					
+				var width;
+				if (h.width == '')
+					width = h.offsetWidth
+				else
+					width = h.width;
+				
+		        fields.push(Ext.applyIf(cf[i] || {}, {
+		            name: name,
+		            mapping: 'td:nth('+(i+1)+')/@innerHTML'
+		        }));
+		    	cols.push(Ext.applyIf(ch[i] || {}, {
+					'header': text,
+					'dataIndex': name,
+					'width': h.offsetWidth,
+					'tooltip': h.title,
+		            'sortable': true,
+		            'hidden': visible
+		        }));
+			}
+			
+		
+		    var ds  = new Ext.data.Store({
+		        reader: new Ext.data.XmlReader({
+		            record:'tbody tr'
+		        }, fields)
+		    });
+		
+			ds.loadData(table.dom);
+		
+		    var cm = new Ext.grid.ColumnModel(cols);
+		
+		    if(config.width || config.height){
+		        ct.setSize(config.width || 'auto', config.height || 'auto');
+		    } else {
+		        ct.setWidth(table.getWidth());
+		    }
+		
+		    if(config.remove !== false){
+		        table.remove();
+		    }
+		
+		    Ext.applyIf(this, {
+		        'ds': ds,
+		        'cm': cm,
+		        'sm': new Ext.grid.RowSelectionModel(),
+		        autoHeight:true,
+		        autoWidth:true,
+		        width:990
+		    });
+		    Ext.grid.TableGrid.superclass.constructor.call(this, ct, {});
+		};
+		
+		Ext.extend(Ext.grid.TableGrid, Ext.grid.GridPanel);
+	</script>

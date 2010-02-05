@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="RoleManage">
+  	<!-- 查询角色总记录数 -->
+	<select id="findRoleCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) from TD_ROLE_INFO
+		 where ROLE_STATE = 1  and role_Id &lt;&gt;'admini'	
+		<isNotEmpty prepend="and" property="staffId">
+	   			create_staff='$staffId$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend="and" property="commdept">
+	   			FB_GET_DEPT_ID_BY_ID(Create_Staff)  in ($commdept$)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="roleName">
+		   		ROLE_NAME like  '%$roleName$%'
+		</isNotEmpty>		
+        <isNotEmpty prepend="and" property="createStaff">
+		   		FB_GET_STAFF_NAME_BY_ID(CREATE_STAFF) like '%$createStaff$%'
+		</isNotEmpty>	
+	</select>
+	
+	<!-- 
+		查询角色信息
+	  -->
+	<select id="findRoleInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+          select (select tt.staff_name 
+               		from tf_operator tt 
+                   where tt.staff_id=t.create_staff) createStaff,
+				    FB_GET_DEPT_NAME_BY_ID(t.create_staff) DeptName,
+             	 t.*
+            from TD_ROLE_INFO t
+           where ROLE_STATE = 1 and	t.role_Id &lt;&gt;'admini'
+	  	<isNotEmpty prepend="and" property="staffId">
+	   			t.create_staff='$staffId$'
+		</isNotEmpty>            
+	  	<isNotEmpty prepend="and" property="commdept">
+	   			FB_GET_DEPT_ID_BY_ID(t.Create_Staff)  in ($commdept$)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="roleName">
+		   		t.ROLE_NAME like  '%$roleName$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="roleId">
+		   		t.role_Id='$roleId$'
+		</isNotEmpty>	
+        <isNotEmpty prepend="and" property="createStaff">
+		   		FB_GET_STAFF_NAME_BY_ID(t.CREATE_STAFF) like '%$createStaff$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+    <insert id="insertRole" parameterClass="java.util.HashMap">
+       insert into TD_ROLE_INFO 
+              (ROLE_ID,
+               ROLE_NAME,
+               ROLE_TYPE,
+               ROLE_STATE,
+               CREATE_STAFF,
+               CONTENT)
+		values
+              (pb_get_sequences(@in_seq_name:='role_id'),
+               #roleName#,
+               1,
+               1,
+               #staffId#,
+               #content#)                
+                   
+    </insert>  
+    
+	
+	<update id="updateRole" parameterClass="java.util.HashMap">
+	<![CDATA[update TD_ROLE_INFO]]>
+	  <dynamic prepend="set">	      
+           	<isNotEmpty prepend="," property="roleName">
+				   		ROLE_NAME=#roleName#
+			</isNotEmpty>		
+			<isNotEmpty prepend="," property="content">
+				   		CONTENT=#content#
+			</isNotEmpty>	
+	      <![CDATA[where ROLE_ID=#roleId#]]>
+	  </dynamic>
+	</update>
+    
+    <!-- 
+		删除角色信息
+	  -->
+	<delete id="deleteRole" parameterClass="java.util.HashMap">
+		<![CDATA[update TD_ROLE_INFO  set ROLE_STATE=0 where ROLE_ID=#roleId#]]>
+	</delete>
+    
+    <!--
+    	获取当前人员所捅有的权限树 
+     -->
+    <select id="findMenuTree" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	select menu_id as id,
+		       menu_name as text,
+		       (select count(1)
+		          from tf_role_menu a
+		         where a.menu_id = m.menu_id
+		           and a.role_id = '$roleId$') checked,
+		     false leaf
+		  from td_menu_info m
+		 where m.state = 1
+		   and exists (select distinct menu_id
+		          from TF_STAFF_ROLE u, tf_role_menu r
+		         where u.role_id = r.role_id
+		           and m.menu_id = r.menu_id
+		           and u.staff_id = '$staffId$')
+		   and m.super_id = '$superId$'
+		   order by  menu_order
+    </select>
+    
+     <!--
+    	添加权限 
+     -->
+    <insert id="insertRoleMenu" parameterClass="java.util.HashMap">
+    	insert into tf_role_menu 
+    		(role_id,menu_id)
+		values 
+			(#roleId#,#menuId#)
+    </insert>
+   
+
+   <delete id="deleteRoleMenu" parameterClass="java.util.HashMap">
+    	delete 
+    	  from tf_role_menu
+		 where role_id = #roleId#
+    </delete>
+    
+    <!-- 权限菜单树 -->
+   <procedure id="findMenuTreeProc" parameterClass="java.util.HashMap" resultClass="com.qzgf.utils.node.Node">
+    	<![CDATA[{call pb_get_menu_tree(@in_role_id:='$roleId$', @in_staff_id:='$commstaffId$', @in_super_id:='$superId$')}]]>
+    </procedure>
+</sqlMap>

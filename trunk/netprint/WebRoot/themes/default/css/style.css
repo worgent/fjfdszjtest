@@ -1,0 +1,58 @@
+@charset "utf-8";
+/*如果提示消息集中显示时,选择所对应的元素时改变信息样式*/
+.selErrMsg{
+	font-size: 12px;
+	padding: 2 5 2 5;
+	color:crimson;
+}
+/*如果提示消息集中显示时样式*/
+.errMsg{
+	font-size: 12px;
+	padding: 2 5 2 5;
+}
+/*正常信息样式*/
+.msg{
+	background-color:"#FFFFDD";
+	border:1px solid #000000;
+	font-size: 12px;
+	padding: 2 5 2 5;
+}
+
+.check{
+	behavior: url(/themes/default/htc/Check.htc);
+}
+form{
+	behavior: url(/themes/default/htc/formcheck.htc);
+}
+
+body {font-size:12px; margin:0 0 0 0; font-family: arial,宋体; color:#333333;}
+a,td,form,table,p{font-size:12px; FONT-FAMILY: Arial;}
+a{text-decoration:none; color:#333333;} 
+a:hover{text-decoration:underline; color: #EF5908}
+
+table.simple thead tr th {
+  font-family:Verdana, Geneva, Arial, Helvetica, sans-serif; 
+  font-size: 12px;
+  background:url(/images/summary-group-bg.gif);
+  height:25;
+  text-align:center;
+  font-weight:bold;
+}
+table.simple {
+	width:100%;
+	border: 1px solid ccc;
+	border-collapse: collapse;
+	background-color:#ffffff;
+	table-layout:auto ;
+}
+table.tbody.simple td,table.simple {
+	height:25px;
+	line-height:20px ;
+	border: 1px solid #ccc;
+	
+}
+.wenbenkuang {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #999999 1px solid; COLOR: #333333; BORDER-BOTTOM: #999999 1px solid; FONT-FAMILY: Arial, Helvetica, sans-serif;
+}
+
+.text_field{border:1px solid #C0C0C0;}

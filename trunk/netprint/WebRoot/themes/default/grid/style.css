@@ -1,0 +1,198 @@
+/* ---------------------------------------------------- */
+/* coolGrid                                             */
+/* ---------------------------------------------------- */
+.coolGrid
+{
+	behavior: url(/themes/default/grid/coolGrid.htc);
+	transparentImageUrl: /themes/default/grid/images/transparent.gif;
+	sortNoneImageUrl: /themes/default/grid/images/sortBlank.gif;
+	sortUpImageUrl: /themes/default/grid/images/sortUp.gif;
+	sortDownImageUrl: /themes/default/grid/images/sortDown.gif;
+	posUpImageUrl: /themes/default/grid/images/uparrow.gif;
+	posDownImageUrl: /themes/default/grid/images/downarrow.gif;
+	sortAscImageUrl: /themes/default/grid/images/sort_ascending.gif;
+	sortDesImageUrl: /themes/default/grid/images/sort_descending.gif;
+	fieldChooserImageUrl: /themes/default/grid/images/fieldchooser.gif;
+	table-layout: fixed;
+	position: relative;
+    margin: 0px;
+    width: 100%;
+ 	font: menu;
+	highlightBackgroundColor: #C1D2EE;
+	highlightBorderColor: #316AC5;
+	color: windowtext;
+    cursor: default;
+} 
+.coolGrid THEAD TD
+{
+	border-left: 1px solid buttonhighlight;
+	border-top: 1px solid buttonhighlight;
+	border-bottom: 1px solid buttonshadow;
+	border-right: 1px solid buttonshadow;
+	font: menu;
+	color: menutext;
+	background-color: buttonface;
+    cursor: hand;
+    padding-top: 0px;
+    padding-bottom: 1px;
+}
+.coolGrid TFOOT TD
+{
+	border-left: 1px solid buttonhighlight;
+	border-top: 1px solid buttonhighlight;
+	border-bottom: 1px solid buttonshadow;
+	border-right: 1px solid buttonshadow;
+	font: menu;
+	color: menutext;
+	background-color: buttonface;
+    padding-top: 0px;
+    padding-bottom: 1px;
+}
+.coolGrid TBODY TR
+{
+	color: windowtext;
+	background: window;
+}
+/* ---------------------------------------------------- */
+/* coolMenu                                             */
+/* ---------------------------------------------------- */
+.coolMenuRoot
+{
+	behavior: url(/themes/default/grid/coolMenuRoot.htc);
+	background-color: buttonface;
+	border: 1px solid buttonface;
+	cursor: hand;
+	font: menu;
+	width: 1px;
+	vertical-align: bottom; 
+	padding-top: 2px;
+	padding-bottom: 3px;
+	padding-left: 7px;
+	padding-right: 7px;
+	text-align: center;
+}
+.coolMenu
+{
+	behavior: url(/themes/default/grid/coolMenu.htc);
+	position: absolute;
+	height: 1px;
+	width: 1px;
+	font: menu;
+	background-color: menu;
+	border-top: 2px outset buttonhighlight;
+	border-left: 2px outset buttonhighlight;
+	border-bottom: 1px solid buttonshadow;
+	border-right: 1px solid buttonshadow;
+	visibility: hidden;
+}
+.coolMenu .coolMenuItem
+{
+	behavior: url(/themes/default/grid/coolMenuItem.htc);
+	height: 20px;
+	margin: 1px;
+	padding-right: 25px;
+	cursor: hand;
+}
+.coolMenu .coolMenuItem	IMG
+{
+	vertical-align: middle; 
+	margin-left: 1px;
+	margin-right: 6px;
+}
+.coolMenu .coolMenuItem .coolMenuMore
+{
+	font-family: webdings;
+}
+.coolMenu .coolMenuDivider
+{
+	border: 1px inset;
+	border-top-color: buttonshadow;
+	border-bottom-color: buttonhighlight;
+	height: 2px;
+	overflow: hidden;
+	margin-left: 2px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+/* ---------------------------------------------------- */
+/* coolWindowEX                                         */
+/* ---------------------------------------------------- */
+.coolWindowEx
+{
+ 	behavior: url(/themes/default/grid/coolWindowEx.htc);
+	transparentImageUrl: /themes/default/grid/images/transparent.gif;
+	restoreImageUrl: /themes/default/grid/images/restore.gif;
+	minimizeImageUrl: /themes/default/grid/images/minimize.gif;
+	maximizeImageUrl: /themes/default/grid/images/maximize.gif;
+	closeImageUrl: /themes/default/grid/images/close.gif;
+	position: absolute;
+	border: outset 2px window;
+	background-color: buttonface;
+	overflow: hidden;
+	cursor: default;
+}
+.coolWindowEx .windowCaption
+{
+	background-color: activecaption;
+	padding-top: 2px;
+	padding-bottom: 3px;
+	padding-left: 4px;
+	padding-right: 2px;
+	margin: 2px;
+	width: 100%;
+	overflow: hidden;
+	color: captiontext;
+	font: caption;
+	cursor: default;
+	filter: Alpha(Opacity=100, FinishOpacity=0, Style=1, StartX=0, StartY=0, FinishX=100, FinishY=0);
+}
+.coolWindowEx .captionButton
+{
+	position: absolute;
+	top: 4px;
+	border-left: 1px solid buttonhighlight;
+	border-top: 1px solid buttonhighlight;
+	border-bottom: 1px solid threeddarkshadow;
+	border-right: 1px solid threeddarkshadow;
+	background-color: buttonface;
+	cursor: default;
+}
+.coolWindowEx .captionImage
+{
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	cursor: default;
+}
+.coolWindowEx .captionButton IMG
+{
+	border-bottom: 1px solid buttonshadow;
+	border-right: 1px solid buttonshadow;
+	cursor: default;
+}
+.coolWindowEx .windowContent
+{
+	background-color: window;
+	color: windowtext;
+	font: window;
+	padding: 0px;
+	margin-top: 0px;
+	margin-left: 2px;
+	margin-right: 3px;
+	margin-bottom: 3px;
+	width: 0px;
+	height: 0px;
+}
+.Epagebtn{
+	font-family: webdings;
+	padding-right: 6px;
+	font-size: 16px;
+}
+
+.pagebtn{
+	font-family: webdings;
+	padding-right: 6px;
+	font-size: 16px;
+	color: blue;
+	cursor:hand;
+}

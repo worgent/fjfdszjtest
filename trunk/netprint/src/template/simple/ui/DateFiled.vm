@@ -1,0 +1,12 @@
+<input type="text" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($parameters.value)"
+	#parse("/template/simple/scripting-events.vm")
+/>
+<script>
+	fm2.add(new Ext.form.DateField({
+		#if ($parameters.required == true) allowBlank:false, #end
+    	blankText:#if ($parameters.msg) '$!webwork.htmlEncode($parameters.msg)' #else '«Î—°‘Ò»’∆⁄' #end,
+		format: 'Y-m-d',
+		width:#if ($parameters.width) $!webwork.htmlEncode($parameters.width) #else 120 #end,
+		applyTo: '$!webwork.htmlEncode($parameters.name)'
+	}));
+</script>

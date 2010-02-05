@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gb2312"?>
+
+<!-- 
+	 公共SQLMAP配置
+-->
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "./sql-map-2.dtd">
+
+<sqlMap >
+	<select id="getSequencesValue" parameterClass="java.lang.String" resultClass="java.lang.String" remapResults="true">
+		select pb_get_sequences(@in_seq_name:='$seqName$');
+	</select>
+	
+	<select id="dynamicSql" parameterClass="java.lang.String" resultClass="java.util.HashMap" remapResults="true" >
+		$dynamicSql$
+	</select>
+	
+	<!-- 通过对函数的间接访问存储过程,得到机构的层级关系,即本级和下级所有结点信息 -->
+	<select id="getAllSubDept" parameterClass="java.lang.String" resultClass="java.lang.String" remapResults="true">   
+		select Func_getAllSubDept(@pid:='$pid$');
+	</select>	
+</sqlMap>

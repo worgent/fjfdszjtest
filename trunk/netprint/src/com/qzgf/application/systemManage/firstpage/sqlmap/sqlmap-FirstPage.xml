@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 首页资讯
+	* @author swq
+-->
+<sqlMap namespace="FirstPage">
+	
+	<!-- 根据ID查询属性信息 -->
+	<select id="findPropById" parameterClass="java.lang.Integer" resultClass="java.util.HashMap" remapResults="true">
+		select ParamId,ParamName from  t_parameter where paramTypeId=#value#
+	</select>
+	
+		<select id="findFirstPageList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select  noticeID,noticeContent from  notice;
+	    </select>
+	    
+	    <select id="gobackFirstList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select  noticeID,noticeContent,dTime from  notice;
+	    </select>
+	    
+	    
+		<select id="findFirstPageCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(*) from notice;
+	    </select>
+	
+	<insert id="insertFirstPage" parameterClass="java.util.HashMap" >
+		insert into notice(noticeContent)  values(#noticeContent#)  
+    </insert>
+    
+     <delete id="delFirstPage" parameterClass="java.lang.String">
+		delete from notice  
+	</delete>
+</sqlMap>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 客户信息
+	* @author lsr
+-->
+<sqlMap namespace="Clientmsg">
+	<!-- 查询客户信息总记录数 -->
+	<select id="findClientmsgCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(*) from td_clientmsg where state=1 
+		<isNotEmpty prepend=" and " property="pid">id = #pid#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcode">code = #pcode#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pname">name = #pname#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="punit">unit =#punit#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pnation">nation = #pnation#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pprovince">province = #pprovince#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="pcity">city = #pcity#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcounty">county =#pcounty#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="paddress">address like '%$paddress$%'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ptel">tel = #ptel#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmobile">mobile = #pmobile#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ppost">post =#ppost#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbill_sort">bill_sort = #pbill_sort#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreate_man">create_man = #pcreate_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="endcreate_date">create_date  &lt;= cast(#endcreate_date# as datetime)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="begincreate_date">create_date  &gt;= cast(#begincreate_date# as datetime)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_man">editor_man = #peditor_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_date">editor_date = #peditor_date#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pexecute_man">execute_man = #pexecute_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pexecute_date">execute_date =#pexecute_date#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="commdept">FB_GET_DEPT_ID_BY_ID(create_man) in($commdept$)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="commstaffId">create_man=#commstaffId#</isNotEmpty>
+	</select>
+
+	<!-- 查询客户信息-->
+	<select id="findClientmsg" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select t.id,t.code,t.name,t.unit,t.nation,t.province,
+		(select  the_name from td_province m where m.the_code=t.province) provincename,
+	    t.city,
+	    (select  the_name from td_citys m where m.the_code=t.city) cityname,
+	    t.county,
+	    (select  the_name from td_county m where m.the_code=t.county) countyname,
+		t.address,t.tel,t.mobile,t.post,t.bill_sort,t.state,
+		t.create_man,
+		(select distinct m.staff_name  from tf_operator m where m.staff_id=t.create_man ) create_manname,
+		cast(t.create_date as char) create_date,
+		t.editor_man,
+		(select distinct m.staff_name  from tf_operator m where m.staff_id=t.editor_man ) editor_manname,
+		cast(t.editor_date as char) editor_date,
+		t.execute_man,
+		(select distinct m.staff_name  from tf_operator m where m.staff_id=t.execute_man ) execute_manname,
+		cast(t.execute_date as char) execute_date,
+		t.deptid  
+		from td_clientmsg t where t.state=1 
+		<isNotEmpty prepend=" and " property="pid">t.id = #pid#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcode">t.code = #pcode#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pname">t.name = #pname#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="punit">t.unit =#punit#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pnation">t.nation = #pnation#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pprovince">t.province = #pprovince#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="pcity">t.city = #pcity#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcounty">t.county =#pcounty#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="paddress">t.address like '%$paddress$%'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ptel">t.tel = #ptel#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmobile">t.mobile = #pmobile#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ppost">t.post =#ppost#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbill_sort">t.bill_sort = #pbill_sort#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreate_man">t.create_man = #pcreate_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="endcreate_date">create_date  &lt;= cast(#endcreate_date# as datetime)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="begincreate_date">create_date  &gt;= cast(#begincreate_date# as datetime)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_man">t.editor_man = #peditor_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_date">t.editor_date = #peditor_date#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pexecute_man">t.execute_man = #pexecute_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pexecute_date">t.execute_date =#pexecute_date#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="commdept">FB_GET_DEPT_ID_BY_ID(t.create_man) in($commdept$)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="commstaffId">t.create_man=#commstaffId#</isNotEmpty>
+		order by t.id desc
+		<isNotEmpty prepend=" " property="START">
+	        limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 更新客户信息 JSRQ=cast(#JSRQ# AS DATE) -->
+	<update id="updateClientmsg" parameterClass="java.util.HashMap">
+		update td_clientmsg set editor_date=now(),execute_date=now()
+		<isNotEmpty prepend="," property="pcode">code=#pcode#</isNotEmpty>
+		<isNotEmpty prepend="," property="pname">name=#pname#</isNotEmpty>
+		<isNotEmpty prepend="," property="punit">unit=#punit#</isNotEmpty>
+		<isNotEmpty prepend="," property="pnation">nation=#pnation#</isNotEmpty>
+		<isNotEmpty prepend="," property="pprovince">province=#pprovince#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcity">city=#pcity#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcounty">county=#pcounty#</isNotEmpty>
+		<isNotEmpty prepend="," property="paddress">address=#paddress#</isNotEmpty>
+		<isNotEmpty prepend="," property="ptel">tel=#ptel#</isNotEmpty>
+		<isNotEmpty prepend="," property="pmobile">mobile=#pmobile#</isNotEmpty>
+		<isNotEmpty prepend="," property="ppost">post=#ppost#</isNotEmpty>
+		<isNotEmpty prepend="," property="pbill_sort">bill_sort=#pbill_sort#</isNotEmpty>
+		<isNotEmpty prepend="," property="pstate">state=#pstate#</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">editor_man=#commstaffId#</isNotEmpty>
+		<isNotEmpty prepend="," property="pexecute_man">execute_man=#pexecute_man#</isNotEmpty>
+		where id = #pid#
+	</update>
+	
+	<!--  添加客户信息 -->
+	<insert id="insertClientmsg" parameterClass="java.util.HashMap">
+		insert into td_clientmsg (id
+		<isNotEmpty prepend="," property="pcode">code</isNotEmpty>
+		<isNotEmpty prepend="," property="pname">name</isNotEmpty>
+		<isNotEmpty prepend="," property="punit">unit</isNotEmpty>
+		<isNotEmpty prepend="," property="pnation">nation</isNotEmpty>
+		<isNotEmpty prepend="," property="pprovince">province</isNotEmpty>
+		<isNotEmpty prepend="," property="pcity">city</isNotEmpty>
+		<isNotEmpty prepend="," property="pcounty">county</isNotEmpty>
+		<isNotEmpty prepend="," property="paddress">address</isNotEmpty>
+		<isNotEmpty prepend="," property="ptel">tel</isNotEmpty>
+		<isNotEmpty prepend="," property="pmobile">mobile</isNotEmpty>
+		<isNotEmpty prepend="," property="ppost">post</isNotEmpty>
+		<isNotEmpty prepend="," property="pbill_sort">bill_sort</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">create_man</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">editor_man</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">execute_man</isNotEmpty>
+		<isNotEmpty prepend="," property="pdeptid">deptid</isNotEmpty>
+		,state,create_date,editor_date,execute_date) values
+		(pb_get_sequences(@in_seq_name := 'clientmsg_id')
+		<isNotEmpty prepend="," property="pcode">#pcode#</isNotEmpty>
+		<isNotEmpty prepend="," property="pname">#pname#</isNotEmpty>
+		<isNotEmpty prepend="," property="punit">#punit#</isNotEmpty>
+		<isNotEmpty prepend="," property="pnation">#pnation#</isNotEmpty>
+		<isNotEmpty prepend="," property="pprovince">#pprovince#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcity">#pcity#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcounty">#pcounty#</isNotEmpty>
+		<isNotEmpty prepend="," property="paddress">#paddress#</isNotEmpty>
+		<isNotEmpty prepend="," property="ptel">#ptel#</isNotEmpty>
+		<isNotEmpty prepend="," property="pmobile">#pmobile#</isNotEmpty>
+		<isNotEmpty prepend="," property="ppost">#ppost#</isNotEmpty>
+		<isNotEmpty prepend="," property="pbill_sort">#pbill_sort#</isNotEmpty>
+		<isNotEmpty prepend="," property="pstate">#pstate#</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">#commstaffId#</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">#commstaffId#</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">#commstaffId#</isNotEmpty>
+		<isNotEmpty prepend="," property="pdeptid">#pdeptid#</isNotEmpty>
+		,1,now(),now(),now())
+	</insert>
+
+
+
+
+	
+	<!--删除客户信息-->
+	<delete id="deleteClientmsg" parameterClass="java.util.HashMap">
+		update td_clientmsg set state=0 
+		where id = #pid#
+	</delete>
+	
+	<!-- 省份信息-->
+	<select id="findProvince" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select the_code,the_name from td_province
+	</select>
+	<!-- 地市信息-->
+	<select id="findCity" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select the_code,the_name from td_citys
+		<isNotEmpty prepend=" " property="pprovince_code"> where cast(province_code as char(6)) = #pprovince_code#</isNotEmpty>
+	</select>
+	<!-- 区县信息-->
+	<select id="findCounty" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select the_code,the_name from td_county
+		<isNotEmpty prepend=" " property="pcity_code"> where cast(city_code as char(6)) = #pcity_code#</isNotEmpty>
+	</select>				
+</sqlMap>
