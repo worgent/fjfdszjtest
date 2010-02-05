@@ -1,0 +1,434 @@
+/* ---------------------------------------------------- */
+/* xpWidgets (xpMenu) Stylesheet                        */
+/*                                                      */
+/* Copyright ?002-2003 Stedy Software and Systems      */
+/* Please see http://www.stedy.com for terms of use.    */
+/* ---------------------------------------------------- */
+
+
+/* ---------------------------------------------------- */
+/* MDI application styles                               */
+/* ---------------------------------------------------- */
+.downMenu{
+	behavior:url(themes/default/menu/downMenu.htc);
+}
+
+/* ---------------------------------------------------- */
+/* xpMainMenu                                             */
+/* ---------------------------------------------------- */
+.xpMainMenu
+{
+	behavior: url(themes/default/menu/xpMenu.htc);
+	background-color: white;
+
+	position: absolute;  
+
+	font: menu;
+	color: menutext;
+	cursor: default;
+	white-space: nowrap;
+}
+.xpMainMenu THEAD,
+.xpMainMenu TFOOT
+{
+	background-color: white;
+	height: 1px;
+}
+.xpMainMenu THEAD .xpMenuRootConnector
+{
+	background-color: buttonface;
+	height: 1px;
+	width: 0px;
+	position: absolute;
+	overflow: hidden;
+}
+
+
+/* ---------------------------------------------------- */
+/* xpMenuSeperator                                      */
+/* ---------------------------------------------------- */
+.xpMainMenu TBODY .xpMenuSeperator TD
+{
+	border-width: 1px 0px 1px 0px;
+	border-style: solid;
+	border-color: white;
+}
+.xpMainMenu TBODY .xpMenuSeperator IMG
+{
+	background-color: white;
+	height: 1px;
+	width: 8px;
+}
+
+/* ---------------------------------------------------- */
+/* xpMenuItem                                           */
+/* ---------------------------------------------------- */
+.xpMainMenu TBODY .xpMenuItem
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.xpMainMenu TBODY .xpMenuItem .xpMenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.xpMainMenu TBODY .xpMenuItem .xpMenuImage
+{
+	background-color: white;
+	border: 0 none;
+}
+.xpMainMenu TBODY .xpMenuItem .xpMenuImage .xpMenuImageShadow
+{
+	width: 0px;
+	background-color: white;
+	filter:	progid:DXImageTransform.Microsoft.BasicImage(Opacity=0.60)
+}
+.xpMainMenu TBODY .xpMenuItem .xpMenuImage .xpMenuImageShadow IMG
+{
+	margin: 4px 4px 4px 4px;
+}
+.xpMainMenu TBODY .xpMenuItem .xpMenuCaption
+{
+	background-color: white;
+	padding: 0px 18px 0px 8px;
+}
+.xpMainMenu TBODY .xpMenuItem .xpMenuMore,
+.xpMainMenu TBODY .xpMenuItem .xpMenuNoMore
+{
+	background-color: white;
+	font-family: webdings;
+	padding-right: 6px;
+}
+.xpMainMenu TBODY .xpMenuItem .xpMenuNoMore
+{
+	color: white;
+}
+.xpMainMenu TBODY .xpMenuItem .xpMenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}
+
+
+/* ---------------------------------------------------- */
+/* xpMenuItemOver                                       */
+/* ---------------------------------------------------- */
+.xpMainMenu TBODY .xpMenuItemOver
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuImage
+{
+	background-color: #C1D2EE;
+	border-width: 1px 0px 1px 1px;
+	border-style: solid;
+	border-color: #316AC5;
+}
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuImage .xpMenuImageShadow
+{
+	width: 0px;
+	/*background-color: transparent;*/
+	filter: progid:DXImageTransform.Microsoft.BasicImage(Opacity=1.0)
+			progid:DXImageTransform.Microsoft.DropShadow(color=#909DB2, offx=2, offy=2);
+}
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuImage .xpMenuImageShadow IMG
+{
+	margin: 2px 3px 2px 2px;
+}
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuCaption
+{
+	background-color: #C1D2EE;
+	padding: 0px 18px 0px 8px;
+	border-width: 1px 0px 1px 0px;
+	border-style: solid;
+	border-color: #316AC5;
+}
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuMore,
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuNoMore
+{
+	background-color: #C1D2EE;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid;
+	border-color: #316AC5;
+	font-family: webdings;
+	padding-right: 5px;
+}
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuNoMore
+{
+	color: #C1D2EE;
+}
+.xpMainMenu TBODY .xpMenuItemOver .xpMenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}
+
+
+/* ---------------------------------------------------- */
+/* xpMenuItemDisabled                                   */
+/* ---------------------------------------------------- */
+.xpMainMenu TBODY .xpMenuItemDisabled
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuImage
+{
+	/*background-color: transparent;*/
+	border: 0 none;
+}
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuImage .xpMenuImageShadow
+{
+	/*background-color: transparent;*/
+	width: 0px;
+	filter:	Gray() Alpha(Opacity=40);
+}
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuImage IMG
+{
+	margin: 4px 4px 4px 4px;
+}
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuCaption
+{
+	background-color: white;
+	color: graytext;
+	padding: 0px 18px 0px 8px;
+}
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuMore,
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuNoMore
+{
+	background-color: white;
+	color: graytext;
+	font-family: webdings;
+	padding-right: 6px;
+}
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuNoMore
+{
+	color: white;
+}
+.xpMainMenu TBODY .xpMenuItemDisabled .xpMenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}
+
+.xpMainMenu TBODY .xpBottomHead{
+	background-color: white;
+}
+.xpMainMenu TBODY .xpBottomBody{
+	background-color: white;
+}
+/* ---------------------------------------------------- */
+/* xpMenu                                               */
+/* ---------------------------------------------------- */
+.xpMenu
+{
+	behavior: url(themes/default/menu/xpMenu.htc);
+	background-color: buttonface;
+	border: 1px solid buttonshadow;
+	position: absolute;  
+	visibility: hidden;  
+	font: menu;
+	color: menutext;
+	cursor: default;
+	white-space: nowrap;
+}
+.xpMenu THEAD,
+.xpMenu TFOOT
+{
+	background-color: white;
+	height: 1px;
+}
+.xpMenu THEAD .xpMenuRootConnector
+{
+	background-color: buttonface;
+	height: 1px;
+	width: 0px;
+	position: absolute;
+	overflow: hidden;
+}
+
+
+/* ---------------------------------------------------- */
+/* xpMenuSeperator                                      */
+/* ---------------------------------------------------- */
+.xpMenu TBODY .xpMenuSeperator TD
+{
+	border-width: 1px 0px 1px 0px;
+	border-style: solid;
+	border-color: white;
+}
+.xpMenu TBODY .xpMenuSeperator IMG
+{
+	background-color: white;
+	height: 1px;
+	width: 8px;
+}
+
+/* ---------------------------------------------------- */
+/* xpMenuItem                                           */
+/* ---------------------------------------------------- */
+.xpMenu TBODY .xpMenuItem
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.xpMenu TBODY .xpMenuItem .xpMenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.xpMenu TBODY .xpMenuItem .xpMenuImage
+{
+	background-color: transparent;
+	border: 0 none;
+}
+.xpMenu TBODY .xpMenuItem .xpMenuImage .xpMenuImageShadow
+{
+	width: 0px;
+	background-color: transparent;
+	filter:	progid:DXImageTransform.Microsoft.BasicImage(Opacity=0.60)
+}
+.xpMenu TBODY .xpMenuItem .xpMenuImage .xpMenuImageShadow IMG
+{
+	margin: 4px 4px 4px 4px;
+}
+.xpMenu TBODY .xpMenuItem .xpMenuCaption
+{
+	background-color: white;
+	padding: 0px 12px 0px 8px;
+}
+.xpMenu TBODY .xpMenuItem .xpMenuMore,
+.xpMenu TBODY .xpMenuItem .xpMenuNoMore
+{
+	background-color: white;
+	font-family: webdings;
+	padding-right: 6px;
+}
+.xpMenu TBODY .xpMenuItem .xpMenuNoMore
+{
+	color: white;
+}
+.xpMenu TBODY .xpMenuItem .xpMenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}
+
+
+/* ---------------------------------------------------- */
+/* xpMenuItemOver                                       */
+/* ---------------------------------------------------- */
+.xpMenu TBODY .xpMenuItemOver
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.xpMenu TBODY .xpMenuItemOver .xpMenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.xpMenu TBODY .xpMenuItemOver .xpMenuImage
+{
+	background-color: #C1D2EE;
+	border-width: 1px 0px 1px 1px;
+	border-style: solid;
+	border-color: #316AC5;
+}
+.xpMenu TBODY .xpMenuItemOver .xpMenuImage .xpMenuImageShadow
+{
+	width: 0px;
+	background-color: transparent;
+	filter: progid:DXImageTransform.Microsoft.BasicImage(Opacity=1.0)
+			progid:DXImageTransform.Microsoft.DropShadow(color=#909DB2, offx=2, offy=2);
+}
+.xpMenu TBODY .xpMenuItemOver .xpMenuImage .xpMenuImageShadow IMG
+{
+	margin: 2px 3px 2px 2px;
+}
+.xpMenu TBODY .xpMenuItemOver .xpMenuCaption
+{
+	background-color: #C1D2EE;
+	padding: 0px 12px 0px 8px;
+	border-width: 1px 0px 1px 0px;
+	border-style: solid;
+	border-color: #316AC5;
+}
+.xpMenu TBODY .xpMenuItemOver .xpMenuMore,
+.xpMenu TBODY .xpMenuItemOver .xpMenuNoMore
+{
+	background-color: #C1D2EE;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid;
+	border-color: #316AC5;
+	font-family: webdings;
+	padding-right: 5px;
+}
+.xpMenu TBODY .xpMenuItemOver .xpMenuNoMore
+{
+	color: #C1D2EE;
+}
+.xpMenu TBODY .xpMenuItemOver .xpMenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}
+
+
+/* ---------------------------------------------------- */
+/* xpMenuItemDisabled                                   */
+/* ---------------------------------------------------- */
+.xpMenu TBODY .xpMenuItemDisabled
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuImage
+{
+	background-color: transparent;
+	border: 0 none;
+}
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuImage .xpMenuImageShadow
+{
+	background-color: transparent;
+	width: 0px;
+	filter:	Gray() Alpha(Opacity=40);
+}
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuImage IMG
+{
+	margin: 4px 4px 4px 4px;
+}
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuCaption
+{
+	background-color: white;
+	color: graytext;
+	padding: 0px 12px 0px 8px;
+}
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuMore,
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuNoMore
+{
+	background-color: white;
+	color: graytext;
+	font-family: webdings;
+	padding-right: 6px;
+}
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuNoMore
+{
+	color: white;
+}
+.xpMenu TBODY .xpMenuItemDisabled .xpMenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}

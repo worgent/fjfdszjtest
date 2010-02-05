@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- ====================================公共或配置性的Action类请配置在此下====================================== -->
+	<bean id="selectAction" class="com.qzgf.application.common.action.SelectAction" singleton="false">
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	
+	
+	<!-- ====================================系统相关Action类请配置在此下=========================================== -->
+	<!-- 管理员登录 lsr 20081103 -->
+	<bean id="loginAction" class="com.qzgf.application.systemManage.login.action.LoginAction" singleton="false">
+		<property name="loginFacade" ref="loginFacade" />
+	</bean>
+
+
+	<!-- 载入菜单 lsr 20081103 -->
+	<bean id="loadMenuAction" class="com.qzgf.application.systemManage.login.action.LoadMenuAction" singleton="false">
+		<property name="loginFacade" ref="loginFacade" />
+	</bean>
+	
+
+	<!-- 系统管理员类 lsr 20081103 -->
+	<bean id="managerAction" class="com.qzgf.application.systemManage.manager.action.ManagerAction" singleton="false">
+		<property name="managerFacade" ref="managerFacade" />
+	</bean>
+	<!-- 系统菜单 lsr 20081103 -->
+	<bean id="menuAction" class="com.qzgf.application.systemManage.menu.action.MenuAction" singleton="false">
+		<property name="menuFacade" ref="menuFacade" />
+	</bean>
+	<!-- 系统角色  lsr 20081103 -->
+	<bean id="roleInfoAction"
+		class="com.qzgf.application.systemManage.role.action.RoleInfoAction"
+		singleton="false">
+		<property name="roleFacade" ref="roleFacade" />
+	</bean>
+	<!-- 系统日记 lsr 20081103 -->
+	<bean id="logAction"
+		class="com.qzgf.application.systemManage.log.action.LogAcition"
+		singleton="false">
+		<property name="logFacade" ref="logFacade" />
+	</bean>
+	<!-- 起始页面 -->
+	<bean id="firstPageAction" class="com.qzgf.application.systemManage.firstpage.action.FirstPageAction" singleton="false">
+		<property name="firstPageFacade" ref="firstPageFacade"></property>
+	</bean>
+	
+	<!--==================================================档案模块======================================================  -->
+	<!-- 机构档案管理 -->
+	<bean id="organManageAction"
+		class="com.qzgf.application.baseArchives.OrganManage.action.OrganManageAction"
+		singleton="false">
+		<property name="organManageFacade" ref="organManageFacade"></property>
+	</bean>
+	<!-- Excel导入导出示例 -->
+    <bean id="uploadExcelAction" class="com.qzgf.application.baseArchives.UploadExcel.action.UploadExcelAction" singleton="false">
+		<property name="uploadExcelFacade" ref="uploadExcelFacade"></property>
+	</bean>
+	
+	<!-- ==================================网上打单系统================================= -->
+	<!-- 客户信息 -->
+	<bean id="clientmsgAction" class="com.qzgf.application.netprint.clientmsg.action.ClientmsgAction" singleton="false">
+		<property name="clientmsgFacade" ref="clientmsgFacade"></property>
+	</bean>
+	<!-- EMS格式打印 -->
+	<bean id="emsmailAction" class="com.qzgf.application.netprint.emsmail.action.EmsmailAction" singleton="false">
+		<property name="emsmailFacade" ref="emsmailFacade"></property>
+	</bean>
+</beans>

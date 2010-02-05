@@ -1,0 +1,111 @@
+<input type="text" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($parameters.value)" #parse("/template/simple/scripting-events.vm")/>
+<script>
+	fm2.add(new Ext.form.TextField({
+		applyTo : '$!webwork.htmlEncode($parameters.name)'
+		,anchor:'90%'
+		#if ($parameters.required == true) ,allowBlank:false #end
+    	,blankText:#if ($parameters.msg) '$!webwork.htmlEncode($parameters.msg)' #else '该字段不能为空，请输入！' #end
+		,width:#if ($parameters.width) $!webwork.htmlEncode($parameters.width) #else 120 #end
+		#if ($parameters.verify == 'string')
+			
+		#end
+		#if ($parameters.verify == 'numchar')
+			,regex : /^[A-Za-z0-9]+$/
+			,regexText : '您只能输入数字和英文字母,请重新检查!'
+		#end
+		#if ($parameters.verify == 'int')
+			,regex : /^[-\+]?\d+$/
+			,regexText : '输入必须是整数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'int+')
+			,regex : new RegExp("^[0-9]*[1-9][0-9]*$")
+			,regexText : '输入必须是正整数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'int+0')
+			,regex : new RegExp("^\\d+$")
+			,regexText : '输入必须是非负整数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'int-')
+			,regex : new RegExp("^-[0-9]*[1-9][0-9]*$")
+			,regexText : '输入必须是负整数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'int-0')
+			,regex : new RegExp("^((-\\d+)|(0+))$")
+			,regexText : '输入必须是非正整数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'double')
+			,regex : new RegExp("^(-?\\d+)(\\.\\d+)?$")
+			,regexText : '输入必须是浮点数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'double+')
+			,regex : new RegExp("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$")
+			,regexText : '输入必须是正浮点,请重新检查!'
+		#end
+		#if ($parameters.verify == 'double+0')
+			,regex : new RegExp("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$")
+			,regexText : '输入必须是非负浮点数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'double-')
+			,regex : new RegExp("^(-(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*)))$")
+			,regexText : '输入必须是负浮点数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'double-0')
+			,regex : new RegExp("^((-\\d+(\\.\\d+)?)|(0+(\\.0+)?))$")
+			,regexText : '输入必须是非正浮点数,请重新检查!'
+		#end
+		#if ($parameters.verify == 'email')
+			,regex : /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/
+			,regexText : 'email格式不正确,请重新检查!'
+		#end
+		#if ($parameters.verify == 'ip')
+			,regex : /(\d+)\.(\d+)\.(\d+)\.(\d+)/g
+			,regexText : 'IP地址格式不正确,请重新检查!'
+		#end
+		#if ($parameters.verify == 'post')
+			,regex : /^\d{6}$/
+			,regexText : '邮政编码不正确,请重新检查!'
+		#end
+		#if ($parameters.verify == 'url')
+			,regex : new RegExp("^[a-zA-z]+://(\\w+(-\\w+)*)(\\.(\\w+(-\\w+)*))*(\\?\\S*)?$")
+			,regexText : 'url地址格式不正确,请重新检查!'
+		#end
+		#if ($parameters.verify == 'card')
+			,invalidText : '身份证格式不正确,请重新检查!'
+			,validator : function(value){
+				if (value.length == 15){
+					var tempstr = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+					return tempstr.test(value);
+				}else if (value.length == 18){
+					var tempstr = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
+					return tempstr.test(value);
+				}
+			}
+		#end
+		#if ($parameters.verify == 'date')
+			,invalidText : '日期格式不正确,请重新检查!'
+			,validator : function(value){
+				var r = value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/); 
+				if(r==null)
+					bool = false; 
+				else {
+					var d = new Date(r[1], r[3]-1, r[4]); 
+					bool= (d.getFullYear()==r[1]&&(d.getMonth()+1)==r[3]&&d.getDate()==r[4]);
+				}
+				return bool;
+			}
+		#end
+		#if ($parameters.verify == 'datetime')
+			,invalidText : '时间格式不正确,请重新检查!'
+			,validator : function(value){
+				var r = value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/); 
+				if(r==null){
+					bool = false; 
+				}else{
+					var d = new Date(r[1], r[3]-1,r[4],r[5],r[6],r[7]); 
+					bool = (d.getFullYear()==r[1]&&(d.getMonth()+1)==r[3]&&d.getDate()==r[4]&&d.getHours()==r[5]&&d.getMinutes()==r[6]&&d.getSeconds()==r[7]);
+				}
+				return bool;
+			}
+		#end
+	}));
+</script>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+	节点
+	export 导出信息描述的开始
+	属性
+	id 唯一标志
+	sqlId 与ibatis的sql配置文件里的该功能SQLID对应
+	filename 为导出文件的名称
+	
+	节点
+	description 说明
+	节点
+	column 列信息
+	属性
+	name 为要导出的字段
+	值 导出字段的中文名称，即为导出文件的列头
+-->
+<exports>
+	 <export id="uploadExcelExport" sqlId="UploadExcel.UploadExcelQueryList" filename="uploadExcelExport">
+		<description>Excel导出</description>
+		<title>Excel导出</title>
+		<column name="number">号码</column>
+		<column name="money">总金额</column>
+		<column name="JFtime">最近缴费时间</column>	
+	    <column name="address">所属地</column>
+	    <column name="Brand">品牌</column>
+		<column name="Operators">运营商</column>
+		<column name="userName">用户名</column>
+		<column name="payNet">缴费网点</column>		
+		<column name="updateNet">更新网点</column>
+		<column name="ImportTime">导入时间</column>
+		<column name="fileName">文件名</column>
+	</export>
+	
+	<export id="uploadExcelImport" sqlId="UploadExcel.insertUploadExcel" filename="uploadExcelExport">
+		<description>Excel导入</description>
+		<title>Excel导出</title>
+		<column name="pnumber">号码</column>
+		<column name="pmoney">总金额</column>
+		<column name="pJFtime">最近缴费时间</column>	
+	    <column name="paddress">所属地</column>
+	    <column name="pBrand">品牌</column>
+		<column name="pOperators">运营商</column>
+		<column name="puserName">用户名</column>
+		<column name="ppayNet">缴费网点</column>		
+		<column name="pupdateNet">更新网点</column>
+		<column name="pImportTime">导入时间</column>
+		<column name="pfileName">文件名</column>
+	</export>
+</exports>

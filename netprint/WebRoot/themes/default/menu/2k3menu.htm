@@ -1,0 +1,638 @@
+<!-- ---------------------------------------------------- -->
+<!-- 2k3Widgets: 2k3MenuBar/2k3Menu Example               -->
+<!--                                                      -->
+<!-- Copyright ?002-2004 Stedy Software and Systems      -->
+<!-- Please see http://www.stedy.com for terms of use.    -->
+<!-- ---------------------------------------------------- -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:stedysoft="http://www.stedy.com">
+	<head>
+		<title>2k3Widgets: 2k3MenuBar/2k3Menu Example</title>
+		<meta name="generator" content="Microsoft Visual Studio .NET 7.1">
+		<meta name="code_language" content="C#">
+		<meta name="progid" content="VisualStudio.HTML">
+		<meta name="vs_defaultClientScript" content="jscript">
+		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+		<meta http-equiv="MSThemeCompatible" content="Yes">
+		<link rel="stylesheet" type="text/css" href="2k3Menu.css">
+		<script id="windowFunctions" language="jscript" src="../../scripts/windowFunctions.js"></script>
+		<script language="jscript">
+		<!--
+			//place holders for the onclick events
+			function openLocation(url) {
+				alert("OpenWindow('" + url + "');") ;
+			}
+			function openLinkLocation(url) {
+				alert("OpenExternalWindow('" + url + "');") ;
+			}
+			function showCopyright() {
+				alert("OpenModalWindow('Copyright');") ;
+			}
+			function cascadeWindows() {
+				alert("2k3Windows.cascadeWindows();") ;
+			}
+			function tileWindowsH() {
+				alert("2k3Windows.tileWindowsH();") ;
+			}
+			function tileWindowsV() {
+				alert("2k3Windows.tileWindowsV();") ;
+			}
+			function closeWindows() {
+				alert("2k3Windows.closeWindows();") ;
+			}
+		-->
+		</script>
+	</head>
+	<body>
+	<div>
+		<table class="2k3MenuBar" id="myMenuBar" cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="2k3MenuBarHandle"></td>
+				<td class="2k3MenuRoot" id="mnuRoot1" menu="mnuRoot1Menu"><div class="2k3MenuRootCaption">File</div></td>
+				<td class="2k3MenuRoot" id="mnuRoot2" menu="mnuRoot2Menu"><div class="2k3MenuRootCaption">Development</div></td>
+				<td class="2k3MenuRoot" id="mnuRoot3" menu="mnuRoot3Menu"><div class="2k3MenuRootCaption">Contact</div></td>
+				<td class="2k3MenuRoot" id="mnuRoot4" menu="mnuRoot4Menu"><div class="2k3MenuRootCaption">Links</div></td>
+				<td class="2k3MenuRoot" id="mnuRoot5" menu="windowMenu"><div class="2k3MenuRootCaption">Window</div></td>
+				<td class="2k3MenuRoot" id="mnuRoot6" menu="mnuRoot6Menu"><div class="2k3MenuRootCaption">About</div></td>
+			</tr>
+		</table>
+		</div>
+		<div id="bodyDiv" align="right">
+			<div style="margin: 10px 10px 0px 10px;">
+				<label for="themeSelect" accesskey="t"><u>T</u>heme:</label>
+				<select id="themeSelect" onchange='jscript: window.document.styleSheets.item(0).href = "themes/" + this.value + "/2k3Menu.css";'>
+					<option value="blue">Blue [default]</option>
+					<option value="olive">Olive</option>
+					<option value="silver">Silver</option>
+					<option value="classic">Classic Windows</option>
+				</select>
+			</div>
+		</div>
+		<table class="2k3Menu" id="mnuRoot1Menu" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('news.asp');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuNewsJournal.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">News Journal</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuSeperator">
+					<td class="2k3MenuImage" colspan="2"></td>
+					<td class="2k3MenuCaption" colspan="3"><img></td>
+				</tr>
+				<tr class="2k3MenuItem" subMenu="mnuRoot1MenuSubMenu1">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuResumes.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Resumes</td>
+					<td class="2k3MenuMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot1MenuSubMenu1" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('/resumes/kab.rtf');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuDocument.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Karen A. Boelzner</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('/resumes/ejb.rtf');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuDocument.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Edward J. Boelzner</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot2Menu" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" subMenu="mnuRoot2MenuSubMenu1">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnu2k3.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">2k3 Widgets (HTML Behaviors)</td>
+					<td class="2k3MenuMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" subMenu="mnuRoot2MenuSubMenu2">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuXP.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">XP Widgets (HTML Behaviors)</td>
+					<td class="2k3MenuMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" subMenu="mnuRoot2MenuSubMenu3">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuIEWidgets.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">IE Widgets (HTML Behaviors)</td>
+					<td class="2k3MenuMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" subMenu="mnuRoot2MenuSubMenu4">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuOS.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">OS Widgets (ActiveX Controls)</td>
+					<td class="2k3MenuMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" subMenu="mnuRoot2MenuSubMenu5">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuVBEditor.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Visual Basic Add-Ins</td>
+					<td class="2k3MenuMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuSeperator">
+					<td class="2k3MenuImage" colspan="2"></td>
+					<td class="2k3MenuCaption" colspan="3"><img></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/misc/uiStylesheetValues.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuUIConstants.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">UI CSS Constants</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot2MenuSubMenu1" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/2k3Widgets/2k3Menu/2k3Menu.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuMenu.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">2k3Menu</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/2k3Widgets/2k3Buttton/2k3Buttton.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuButton.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">2k3Buttton</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot2MenuSubMenu2" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpBarSelect/xpBarSelect.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuSelect.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpBarSelect</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpButton/xpButton.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuButton.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpButton</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpDatePicker/xpDatePicker.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuDatePicker.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpDatePicker</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpListbox/xpListbox.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuListbox.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpListbox</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpMask/xpMask.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuMask.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpMask</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpMenu/xpMenu.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuMenu.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpMenu</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpMenuButton/xpMenuButton.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuMenuButton.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpMenuButton</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpOutlookBar/xpOutlookBar.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuOLBar.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpOutlookBar</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpSelect/xpSelect.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuSelect.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpSelect</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpSlideBar/xpSlideBar.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuOLBar.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpSlideBar</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpSpin/xpSpin.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuSpin.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpSpin</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpTab/xpTab.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuTab.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpTab</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpTable/xpTable.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuTable.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpTable</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/xpWidgets/xpTree/xpTree.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuTree.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">xpTree</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot2MenuSubMenu3" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolBar/coolBar.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuBar.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolBar</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolButton/coolButton.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuButton.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolButton</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolCombo/coolCombo.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuSelect.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolCombo</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolDatePicker/coolDatePicker.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuDatePicker.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolDatePicker</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolLookup/coolLookup.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuFilter.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolLookup</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolSelect/coolSelect.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuSelect.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolSelect</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolMask/coolMask.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuMask.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolMask</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolMenu/coolMenu.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuMenu.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolMenu</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolOutlookBar/coolOutlookBar.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuOLBar.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolOutlookBar</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolTable/coolTable.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuTable.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolTable</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolGrid/coolGrid.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuGrid.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolGrid</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolUltraGrid/coolUltraGrid.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuUltraGrid.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolUltraGrid</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolTree/coolTree.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuTree.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolTree</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/coolWindowEx/coolWindowEx.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuWindow.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolWindowEx</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuSeperator">
+					<td class="2k3MenuImage" colspan="2"></td>
+					<td class="2k3MenuCaption" colspan="3"><img></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/ieWidgets/webOutlook/webOutlook.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuOutlook.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Outlook 2000 Example</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/coolChat/default.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuUser.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">coolChat!</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot2MenuSubMenu4" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/osWidgets/pcTV/pctv.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuPCTV.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">PCTV (view TV in browser)</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot2MenuSubMenu5" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('/vbAddIns/projExpPlus/projExpPlus.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuProjExpPlus.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Project Explorer Plus</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot3Menu" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: window.location.href = 'mailto:ed@stedy.com'">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuEmail.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">E-mail</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuSeperator">
+					<td class="2k3MenuImage" colspan="2"></td>
+					<td class="2k3MenuCaption" colspan="3"><img></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('messaging/textMessage.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuTextMessage.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Send message via cell phone...</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot4Menu" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://webfx.eae.net');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">WebFx</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.dansteinman.com/dynduo/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Dynamic Duo</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.siteexperts.com/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">InsideDHTML/Site Experts</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.webreference.com/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">WebReference.com</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.dhtmlcentral.com/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">DHTML Central</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.dynamicdrive.com/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Dynamic Drive</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.xs4all.nl/~ppk/2k3/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Koch's Javascript Section</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.brainjar.com/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">BrainJar.com</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.pbwizard.com/HomePage.htm');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">PBWizard on the Web</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.pwhitrow.com');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">-= P.Whitrow - Web Designs =-</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuSeperator">
+					<td class="2k3MenuImage" colspan="2"></td>
+					<td class="2k3MenuCaption" colspan="3"><img></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.w3.org/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">W3C.org</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: openLinkLocation('http://www.webstandards.org/');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">The Web Standards Project</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuSeperator">
+					<td class="2k3MenuImage" colspan="2"></td>
+					<td class="2k3MenuCaption" colspan="3"><img></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: window.external.AddFavorite('http://www.stedy.com', 'Stedy Software and Systems - Windows style DHTML Behaviors');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuLinks.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Bookmark this site...</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="windowMenu" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: cascadeWindows();">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuCascade.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Cascade</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: tileWindowsH();">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuTileHorizontal.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Tile Horizontally</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: tileWindowsV();">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuTileVertical.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Tile Vertically</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: closeWindows();">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuCloseAll.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Close All Documents</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuSeperator">
+					<td class="2k3MenuImage" colspan="2"></td>
+					<td class="2k3MenuCaption" colspan="3"><img></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: alert('No windows are present!!!');" enabled="false">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/transparent.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">(Empty)</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+		<table class="2k3Menu" id="mnuRoot6Menu" cellspacing="0" cellpadding="0">
+			<thead><tr><td colspan="5"><div class="2k3MenuRootConnector"></div></td></tr></thead>
+			<tbody>
+				<tr class="2k3MenuItem" onclick="javascript: openLocation('about.asp');">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuAbout.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Stedy Software and Systems</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+				<tr class="2k3MenuSeperator">
+					<td class="2k3MenuImage" colspan="2"></td>
+					<td class="2k3MenuCaption" colspan="3"><img></td>
+				</tr>
+				<tr class="2k3MenuItem" onclick="javascript: showCopyright();">
+					<td class="2k3MenuVerticalSpacerLeft"></td>
+					<td class="2k3MenuImage"><img src="images/mnuHelp.gif" width="16" height="16"></td>
+					<td class="2k3MenuCaption">Terms of Use</td>
+					<td class="2k3MenuNoMore">4</td>
+					<td class="2k3MenuVerticalSpacerRight"></td>
+				</tr>
+			</tbody>
+			<tfoot><tr><td colspan="5"></td></tr></tfoot>
+		</table>
+	</body>
+</html>

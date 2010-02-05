@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* ems邮件信息
+	* @author lsr
+-->
+<sqlMap namespace="Emsmail">
+	<!-- 查询ems邮件信息总记录数 -->
+	<select id="findEmsmailCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(*) from td_emsmailmsg where state=1 
+		<isNotEmpty prepend=" and " property="pid">id =#pid#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmailno">mailno = #pmailno#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendoffice">sendoffice = #psendoffice#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="psenddateyear">senddateyear = #psenddateyear#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psenddatemonth">senddatemonth =#psenddatemonth#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psenddateday">senddateday = #psenddateday#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psenddatehour">senddatehour = #psenddatehour#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psenddatatime">senddatatime = #psenddatatime#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendname">sendname =#psendname#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="psendtel">sendtel = #psendtel#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendunit">sendunit = #psendunit#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendprovince">sendprovince = #psendprovince#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendcity">sendcity =#psendcity#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendcounty">sendcounty = #psendcounty#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendaddress">sendaddress = #psendaddress#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="psendcode">sendcode = #psendcode#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendpost">sendpost =#psendpost#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendmailtype">sendmailtype = #psendmailtype#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendgoodsname">sendgoodsname = #psendgoodsname#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendcount">sendcount = #psendcount#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendinsure">sendinsure =#psendinsure#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendinsuremoney">sendinsuremoney = #psendinsuremoney#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendsign">sendsign = #psendsign#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precname">recname = #precname#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="prectel">rectel =#prectel#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precunit">recunit = #precunit#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precprovince">recprovince = #precprovince#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="preccity">reccity = #preccity#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="preccounty">reccounty =#preccounty#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precaddress">recaddress = #precaddress#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="preccode">reccode = #preccode#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precpost">recpost = #precpost#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pweight">weight =#pweight#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="plength">length = #plength#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pwidth">width = #pwidth#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pheight">height = #pheight#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psolidity">solidity =#psolidity#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcharge">charge = #pcharge#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precinsuremoney">recinsuremoney = #precinsuremoney#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="ptotalcharge">totalcharge = #ptotalcharge#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pacceptsign">acceptsign =#pacceptsign#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precsign">recsign = #precsign#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precdateyear">recdateyear = #precdateyear#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precdatemonth">recdatemonth = #precdatemonth#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precdateday">recdateday =#precdateday#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precdatehour">recdatehour = #precdatehour#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="premark">remark = #premark#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pstate">state = #pstate#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreate_man">create_man = #pcreate_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="endcreate_date">create_date  &lt;= cast(#endcreate_date# as datetime)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="begincreate_date">create_date  &gt;= cast(#begincreate_date# as datetime)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_man">editor_man = #peditor_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_date">editor_date = #peditor_date#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pexecute_man">execute_man = #pexecute_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pexecute_date">execute_date =#pexecute_date#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="pmail_feearea">mail_feearea=#pmail_feearea#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmail_sendoffice">mail_sendoffice=#pmail_sendoffice#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pprintcount">printcount=#pprintcount#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="commdept">FB_GET_DEPT_ID_BY_ID(create_man) in($commdept$)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="commstaffId">create_man=#commstaffId#</isNotEmpty>
+	</select>
+
+	<!-- 查询ems邮件信息 -->
+	<select id="findEmsmail" parameterClass="java.util.HashMap"	resultClass="java.util.HashMap" remapResults="true">
+		select t.sendtel,t.sendunit,t.sendprovince,t.email_fee,
+		(select  the_name from td_province m where m.the_code=t.sendprovince) sendprovincename,
+		t.sendcity,
+		(select  the_name from td_citys m where m.the_code=t.sendcity) sendcityname,
+		t.sendcounty,
+		(select  the_name from td_county m where m.the_code=t.sendcounty) sendcountyname,
+		t.sendaddress,
+		t.sendcode,t.sendpost,
+		t.sendmailtype,t.sendgoodsname,t.sendcount,t.sendinsure,t.sendinsuremoney,t.sendsign,t.recname,
+		t.rectel,t.recunit,
+		t.recprovince,
+		(select  the_name from td_province m where m.the_code=t.recprovince) recprovincename,
+		t.reccity,
+		(select  the_name from td_citys m where m.the_code=t.reccity) reccityname,
+		t.reccounty,
+		(select  the_name from td_county m where m.the_code=t.reccounty) reccountyname,
+		t.recaddress,t.reccode,
+		t.recpost,t.weight,t.length,t.width,t.height,t.solidity,t.charge,
+		t.recinsuremoney,t.totalcharge,t.acceptsign,t.recsign,t.recdateyear,t.recdatemonth,t.recdateday,
+		t.recdatehour,t.remark,t.state,
+		t.create_man,
+		(select distinct m.staff_name  from tf_operator m where m.staff_id=t.create_man ) create_manname,
+		cast(t.create_date as char) create_date,
+		t.editor_man,
+		(select distinct m.staff_name  from tf_operator m where m.staff_id=t.editor_man ) editor_manname,
+		cast(t.editor_date as char) editor_date,
+		t.execute_man,
+		(select distinct m.staff_name  from tf_operator m where m.staff_id=t.execute_man ) execute_manname,
+		cast(t.execute_date as char) execute_date,
+		t.id,t.mailno,t.sendoffice,t.senddateyear,t.senddatemonth,
+		t.senddateday,t.senddatehour,t.senddatatime,t.sendname,t.mail_feearea,t.mail_sendoffice,t.printcount,cast(t.printtime as char) printtime
+		 from  td_emsmailmsg t  where t.state=1 
+		<isNotEmpty prepend=" and " property="pid">t.id =#pid#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmailno">t.mailno = #pmailno#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendoffice">t.sendoffice = #psendoffice#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="psenddateyear">t.senddateyear = #psenddateyear#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psenddatemonth">t.senddatemonth =#psenddatemonth#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psenddateday">t.senddateday = #psenddateday#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psenddatehour">t.senddatehour = #psenddatehour#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psenddatatime">t.senddatatime = #psenddatatime#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendname">t.sendname =#psendname#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="psendtel">t.sendtel = #psendtel#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendunit">t.sendunit = #psendunit#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendprovince">t.sendprovince = #psendprovince#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendcity">t.sendcity =#psendcity#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendcounty">t.sendcounty = #psendcounty#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendaddress">t.sendaddress = #psendaddress#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="psendcode">t.sendcode = #psendcode#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendpost">t.sendpost =#psendpost#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendmailtype">t.sendmailtype = #psendmailtype#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendgoodsname">t.sendgoodsname = #psendgoodsname#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendcount">t.sendcount = #psendcount#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendinsure">t.sendinsure =#psendinsure#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendinsuremoney">t.sendinsuremoney = #psendinsuremoney#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psendsign">t.sendsign = #psendsign#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precname">t.recname = #precname#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="prectel">t.rectel =#prectel#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precunit">t.recunit = #precunit#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precprovince">t.recprovince = #precprovince#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="preccity">t.reccity = #preccity#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="preccounty">t.reccounty =#preccounty#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precaddress">t.recaddress = #precaddress#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="preccode">t.reccode = #preccode#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precpost">t.recpost = #precpost#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pweight">t.weight =#pweight#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="plength">t.length = #plength#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pwidth">t.width = #pwidth#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pheight">t.height = #pheight#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="psolidity">t.solidity =#psolidity#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcharge">t.charge = #pcharge#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precinsuremoney">t.recinsuremoney = #precinsuremoney#</isNotEmpty>	
+		<isNotEmpty prepend=" and " property="ptotalcharge">t.totalcharge = #ptotalcharge#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pacceptsign">t.acceptsign =#pacceptsign#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precsign">t.recsign = #precsign#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precdateyear">t.recdateyear = #precdateyear#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precdatemonth">t.recdatemonth = #precdatemonth#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precdateday">t.recdateday =#precdateday#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="precdatehour">t.recdatehour = #precdatehour#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="premark">t.remark = #premark#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pstate">t.state = #pstate#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreate_man">t.create_man = #pcreate_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="endcreate_date">create_date  &lt;= cast(#endcreate_date# as datetime)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="begincreate_date">create_date  &gt;= cast(#begincreate_date# as datetime)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_man">t.editor_man = #peditor_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_date">t.editor_date = #peditor_date#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pexecute_man">t.execute_man = #pexecute_man#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pexecute_date">t.execute_date =#pexecute_date#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmail_feearea">t.mail_feearea=#pmail_feearea#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmail_sendoffice">t.mail_sendoffice=#pmail_sendoffice#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pprintcount">t.printcount=#pprintcount#</isNotEmpty>
+		<isNotEmpty prepend=" and " property="commdept">FB_GET_DEPT_ID_BY_ID(t.create_man) in($commdept$)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="commstaffId">t.create_man=#commstaffId#</isNotEmpty>
+		order by t.id desc
+		<isNotEmpty prepend=" " property="START">
+	        limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	
+	
+	
+	
+	<!-- 更新ems邮件信息-->
+	<update id="updateEmsmail" parameterClass="java.util.HashMap">
+		update td_emsmailmsg set editor_date=now()
+		<isNotEmpty prepend="," property="pmailno">mailno = #pmailno#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendoffice">sendoffice = #psendoffice#</isNotEmpty>	
+		<isNotEmpty prepend="," property="psenddateyear">senddateyear = #psenddateyear#</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatemonth">senddatemonth =#psenddatemonth#</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddateday">senddateday = #psenddateday#</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatehour">senddatehour = #psenddatehour#</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatatime">senddatatime = #psenddatatime#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendname">sendname =#psendname#</isNotEmpty>	
+		<isNotEmpty prepend="," property="psendtel">sendtel = #psendtel#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendunit">sendunit = #psendunit#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendprovince">sendprovince = #psendprovince#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcity">sendcity =#psendcity#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcounty">sendcounty = #psendcounty#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendaddress">sendaddress = #psendaddress#</isNotEmpty>	
+		<isNotEmpty prepend="," property="psendcode">sendcode = #psendcode#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendpost">sendpost =#psendpost#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendmailtype">sendmailtype = #psendmailtype#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendgoodsname">sendgoodsname = #psendgoodsname#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcount">sendcount = #psendcount#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendinsure">sendinsure =#psendinsure#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendinsuremoney">sendinsuremoney = #psendinsuremoney#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendsign">sendsign = #psendsign#</isNotEmpty>
+		<isNotEmpty prepend="," property="precname">recname = #precname#</isNotEmpty>
+		<isNotEmpty prepend="," property="prectel">rectel =#prectel#</isNotEmpty>
+		<isNotEmpty prepend="," property="precunit">recunit = #precunit#</isNotEmpty>
+		<isNotEmpty prepend="," property="precprovince">recprovince = #precprovince#</isNotEmpty>	
+		<isNotEmpty prepend="," property="preccity">reccity = #preccity#</isNotEmpty>
+		<isNotEmpty prepend="," property="preccounty">reccounty =#preccounty#</isNotEmpty>
+		<isNotEmpty prepend="," property="precaddress">recaddress = #precaddress#</isNotEmpty>
+		<isNotEmpty prepend="," property="preccode">reccode = #preccode#</isNotEmpty>
+		<isNotEmpty prepend="," property="precpost">recpost = #precpost#</isNotEmpty>
+		<isNotEmpty prepend="," property="pweight">weight =#pweight#</isNotEmpty>
+		<isNotEmpty prepend="," property="plength">length = #plength#</isNotEmpty>
+		<isNotEmpty prepend="," property="pwidth">width = #pwidth#</isNotEmpty>
+		<isNotEmpty prepend="," property="pheight">height = #pheight#</isNotEmpty>
+		<isNotEmpty prepend="," property="psolidity">solidity =#psolidity#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcharge">charge = #pcharge#</isNotEmpty>
+		<isNotEmpty prepend="," property="precinsuremoney">recinsuremoney = #precinsuremoney#</isNotEmpty>	
+		<isNotEmpty prepend="," property="ptotalcharge">totalcharge = #ptotalcharge#</isNotEmpty>
+		<isNotEmpty prepend="," property="pacceptsign">acceptsign =#pacceptsign#</isNotEmpty>
+		<isNotEmpty prepend="," property="precsign">recsign = #precsign#</isNotEmpty>
+		<isNotEmpty prepend="," property="precdateyear">recdateyear = #precdateyear#</isNotEmpty>
+		<isNotEmpty prepend="," property="precdatemonth">recdatemonth = #precdatemonth#</isNotEmpty>
+		<isNotEmpty prepend="," property="precdateday">recdateday =#precdateday#</isNotEmpty>
+		<isNotEmpty prepend="," property="precdatehour">recdatehour = #precdatehour#</isNotEmpty>
+		<isNotEmpty prepend="," property="premark">remark = #premark#</isNotEmpty>
+		<isNotEmpty prepend="," property="pstate">state = #pstate#</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">editor_man = #commstaffId#</isNotEmpty>
+		<isNotEmpty prepend="," property="pmail_feearea">mail_feearea=#pmail_feearea#</isNotEmpty>
+		<isNotEmpty prepend="," property="pmail_sendoffice">mail_sendoffice=#pmail_sendoffice#</isNotEmpty>
+		<isNotEmpty prepend="," property="pprintcount">printcount=#pprintcount#</isNotEmpty>
+		<isNotEmpty prepend="," property="pemail_fee">email_fee=#pemail_fee#</isNotEmpty>
+		where id = #pid#
+	</update>
+	<!--  添加ems邮件信息 -->
+	<insert id="insertEmsmail" parameterClass="java.util.HashMap">
+		insert into td_emsmailmsg (id
+		<isNotEmpty prepend="," property="pmailno">mailno</isNotEmpty>
+		<isNotEmpty prepend="," property="psendoffice">sendoffice</isNotEmpty>	
+		<isNotEmpty prepend="," property="psenddateyear">senddateyear</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatemonth">senddatemonth</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddateday">senddateday</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatehour">senddatehour</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatatime">senddatatime</isNotEmpty>
+		<isNotEmpty prepend="," property="psendname">sendname</isNotEmpty>	
+		<isNotEmpty prepend="," property="psendtel">sendtel</isNotEmpty>
+		<isNotEmpty prepend="," property="psendunit">sendunit</isNotEmpty>
+		<isNotEmpty prepend="," property="psendprovince">sendprovince</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcity">sendcity</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcounty">sendcounty</isNotEmpty>
+		<isNotEmpty prepend="," property="psendaddress">sendaddress</isNotEmpty>	
+		<isNotEmpty prepend="," property="psendcode">sendcode</isNotEmpty>
+		<isNotEmpty prepend="," property="psendpost">sendpost</isNotEmpty>
+		<isNotEmpty prepend="," property="psendmailtype">sendmailtype</isNotEmpty>
+		<isNotEmpty prepend="," property="psendgoodsname">sendgoodsname</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcount">sendcount</isNotEmpty>
+		<isNotEmpty prepend="," property="psendinsure">sendinsure</isNotEmpty>
+		<isNotEmpty prepend="," property="psendinsuremoney">sendinsuremoney</isNotEmpty>
+		<isNotEmpty prepend="," property="psendsign">sendsign</isNotEmpty>
+		<isNotEmpty prepend="," property="precname">recname</isNotEmpty>
+		<isNotEmpty prepend="," property="prectel">rectel</isNotEmpty>
+		<isNotEmpty prepend="," property="precunit">recunit</isNotEmpty>
+		<isNotEmpty prepend="," property="precprovince">recprovince</isNotEmpty>	
+		<isNotEmpty prepend="," property="preccity">reccity</isNotEmpty>
+		<isNotEmpty prepend="," property="preccounty">reccounty</isNotEmpty>
+		<isNotEmpty prepend="," property="precaddress">recaddress</isNotEmpty>
+		<isNotEmpty prepend="," property="preccode">reccode</isNotEmpty>
+		<isNotEmpty prepend="," property="precpost">recpost</isNotEmpty>
+		<isNotEmpty prepend="," property="pweight">weight</isNotEmpty>
+		<isNotEmpty prepend="," property="plength">length</isNotEmpty>
+		<isNotEmpty prepend="," property="pwidth">width</isNotEmpty>
+		<isNotEmpty prepend="," property="pheight">height</isNotEmpty>
+		<isNotEmpty prepend="," property="psolidity">solidity</isNotEmpty>
+		<isNotEmpty prepend="," property="pcharge">charge</isNotEmpty>
+		<isNotEmpty prepend="," property="precinsuremoney">recinsuremoney</isNotEmpty>	
+		<isNotEmpty prepend="," property="ptotalcharge">totalcharge</isNotEmpty>
+		<isNotEmpty prepend="," property="pacceptsign">acceptsign</isNotEmpty>
+		<isNotEmpty prepend="," property="precsign">recsign</isNotEmpty>
+		<isNotEmpty prepend="," property="precdateyear">recdateyear</isNotEmpty>
+		<isNotEmpty prepend="," property="precdatemonth">recdatemonth</isNotEmpty>
+		<isNotEmpty prepend="," property="precdateday">recdateday</isNotEmpty>
+		<isNotEmpty prepend="," property="precdatehour">recdatehour</isNotEmpty>
+		<isNotEmpty prepend="," property="premark">remark</isNotEmpty>
+		<isNotEmpty prepend="," property="pstate">state</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">create_man</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">editor_man</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">execute_man</isNotEmpty>
+		<isNotEmpty prepend="," property="pmail_feearea">mail_feearea</isNotEmpty>
+		<isNotEmpty prepend="," property="pmail_sendoffice">mail_sendoffice</isNotEmpty>	
+		<isNotEmpty prepend="," property="pprintcount">printcount</isNotEmpty>
+		<isNotEmpty prepend="," property="pdeptid">deptid</isNotEmpty>
+		<isNotEmpty prepend="," property="pemail_fee">email_fee</isNotEmpty>
+		,state,create_date,editor_date,execute_date) values
+		(pb_get_sequences(@in_seq_name := 'emsmailmsg_id')
+		<isNotEmpty prepend="," property="pmailno">#pmailno#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendoffice">#psendoffice#</isNotEmpty>	
+		<isNotEmpty prepend="," property="psenddateyear">#psenddateyear#</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatemonth">#psenddatemonth#</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddateday">#psenddateday#</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatehour">#psenddatehour#</isNotEmpty>
+		<isNotEmpty prepend="," property="psenddatatime">#psenddatatime#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendname">#psendname#</isNotEmpty>	
+		<isNotEmpty prepend="," property="psendtel">#psendtel#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendunit">#psendunit#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendprovince">#psendprovince#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcity">#psendcity#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcounty">#psendcounty#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendaddress">#psendaddress#</isNotEmpty>	
+		<isNotEmpty prepend="," property="psendcode">#psendcode#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendpost">#psendpost#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendmailtype">#psendmailtype#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendgoodsname">#psendgoodsname#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendcount">#psendcount#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendinsure">#psendinsure#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendinsuremoney">#psendinsuremoney#</isNotEmpty>
+		<isNotEmpty prepend="," property="psendsign">#psendsign#</isNotEmpty>
+		<isNotEmpty prepend="," property="precname">#precname#</isNotEmpty>
+		<isNotEmpty prepend="," property="prectel">#prectel#</isNotEmpty>
+		<isNotEmpty prepend="," property="precunit">#precunit#</isNotEmpty>
+		<isNotEmpty prepend="," property="precprovince">#precprovince#</isNotEmpty>	
+		<isNotEmpty prepend="," property="preccity">#preccity#</isNotEmpty>
+		<isNotEmpty prepend="," property="preccounty">#preccounty#</isNotEmpty>
+		<isNotEmpty prepend="," property="precaddress">#precaddress#</isNotEmpty>
+		<isNotEmpty prepend="," property="preccode">#preccode#</isNotEmpty>
+		<isNotEmpty prepend="," property="precpost">#precpost#</isNotEmpty>
+		<isNotEmpty prepend="," property="pweight">#pweight#</isNotEmpty>
+		<isNotEmpty prepend="," property="plength">#plength#</isNotEmpty>
+		<isNotEmpty prepend="," property="pwidth">#pwidth#</isNotEmpty>
+		<isNotEmpty prepend="," property="pheight">#pheight#</isNotEmpty>
+		<isNotEmpty prepend="," property="psolidity">#psolidity#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcharge">#pcharge#</isNotEmpty>
+		<isNotEmpty prepend="," property="precinsuremoney">#precinsuremoney#</isNotEmpty>	
+		<isNotEmpty prepend="," property="ptotalcharge">#ptotalcharge#</isNotEmpty>
+		<isNotEmpty prepend="," property="pacceptsign">#pacceptsign#</isNotEmpty>
+		<isNotEmpty prepend="," property="precsign">#precsign#</isNotEmpty>
+		<isNotEmpty prepend="," property="precdateyear">#precdateyear#</isNotEmpty>
+		<isNotEmpty prepend="," property="precdatemonth">#precdatemonth#</isNotEmpty>
+		<isNotEmpty prepend="," property="precdateday">#precdateday#</isNotEmpty>
+		<isNotEmpty prepend="," property="precdatehour">#precdatehour#</isNotEmpty>
+		<isNotEmpty prepend="," property="premark">#premark#</isNotEmpty>
+		<isNotEmpty prepend="," property="pstate">#pstate#</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">#commstaffId#</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">#commstaffId#</isNotEmpty>
+		<isNotEmpty prepend="," property="commstaffId">#commstaffId#</isNotEmpty>
+		<isNotEmpty prepend="," property="pmail_feearea">#pmail_feearea#</isNotEmpty>
+		<isNotEmpty prepend="," property="pmail_sendoffice">#pmail_sendoffice#</isNotEmpty>
+		<isNotEmpty prepend="," property="pprintcount">#pprintcount#</isNotEmpty>
+		<isNotEmpty prepend="," property="pdeptid">#pdeptid#</isNotEmpty>
+		<isNotEmpty prepend="," property="pemail_fee">#pemail_fee#</isNotEmpty>
+		,1,now(),now(),now())
+	</insert>
+	
+	<!-- 删除ems邮件信息-->
+	<delete id="deleteEmsmail" parameterClass="java.util.HashMap">
+		update td_emsmailmsg set state=0 
+		where id = #pid#
+	</delete>
+	
+	<!-- 取得计费区信息
+	    select province_name,city_name,county_name,send_office,email_fee,mail_feearea
+		from td_mailfeearea  where province_name in(select the_name from td_province where the_code=#precprovince#)
+		and city_name in (select the_name from td_citys where the_code=#preccity#) 
+		and county_name in(select the_name from td_county where the_code=#preccounty#)
+		and belong_city='泉州'
+	 -->
+	<procedure id="procEmsmailFeeArea" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[
+    	{call Proc_getFeeArea(@paddress:='$psendaddress$')}
+    	]]>
+    </procedure>
+	
+	
+	
+	<!-- 查询ems邮件信息 -->
+	<select id="findEmsmailPrint" parameterClass="java.util.HashMap"	resultClass="java.util.HashMap" remapResults="true">
+		select t.sendtel,t.sendunit,t.sendprovince,t.email_fee,
+		(select  the_name from td_province m where m.the_code=t.sendprovince) sendprovincename,
+		t.sendcity,
+		(select  the_name from td_citys m where m.the_code=t.sendcity) sendcityname,
+		t.sendcounty,
+		(select  the_name from td_county m where m.the_code=t.sendcounty) sendcountyname,
+		t.sendaddress,
+		t.sendcode,t.sendpost,
+		t.sendmailtype,t.sendgoodsname,t.sendcount,t.sendinsure,t.sendinsuremoney,t.sendsign,t.recname,
+		t.rectel,t.recunit,
+		t.recprovince,
+		(select  the_name from td_province m where m.the_code=t.recprovince) recprovincename,
+		t.reccity,
+		(select  the_name from td_citys m where m.the_code=t.reccity) reccityname,
+		t.reccounty,
+		(select  the_name from td_county m where m.the_code=t.reccounty) reccountyname,
+		t.recaddress,t.reccode,
+		t.recpost,t.weight,t.length,t.width,t.height,t.solidity,t.charge,
+		t.recinsuremoney,t.totalcharge,t.acceptsign,t.recsign,t.recdateyear,t.recdatemonth,t.recdateday,
+		t.recdatehour,t.remark,t.state,t.create_man,
+		cast(t.create_date as char) create_date,
+		t.editor_man,
+		cast(t.editor_date as char) editor_date,
+		t.execute_man,
+		cast(t.execute_date as char) execute_date,
+		t.id,t.mailno,t.sendoffice,t.senddateyear,t.senddatemonth,
+		t.senddateday,t.senddatehour,t.senddatatime,t.sendname,t.mail_feearea,t.mail_sendoffice,t.printcount,cast(t.printtime as char) printtime
+		from  td_emsmailmsg t  where t.state=1
+		<isNotEmpty prepend=" and " property="pid">t.id in ($pid$)</isNotEmpty>
+		order by t.id desc
+	</select>
+
+	<!-- 更新ems邮件信息-->
+	<update id="updateEmsmailPrint" parameterClass="java.util.HashMap">
+		update td_emsmailmsg set printcount=printcount+1
+		<isNotEmpty prepend=" where " property="pid">id in ($pid$)</isNotEmpty>
+	</update>
+</sqlMap>

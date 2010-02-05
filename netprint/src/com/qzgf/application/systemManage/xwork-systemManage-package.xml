@@ -1,0 +1,16 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	会员相关所有xwork均配置在此文件中统一管理
+  -->
+<xwork>
+	<package name="SystemManagePackage" extends="default" namespace="/system">
+	</package>
+	<include file="/com/qzgf/application/systemManage/login/action/xwork-login.xml"/><!-- 管理登录 lsr 20081103 -->
+	<include file="/com/qzgf/application/systemManage/login/action/xwork-loadmenu.xml"/><!-- 载入菜单 lsr 20081103 -->
+	<include file="/com/qzgf/application/systemManage/manager/action/xwork-manager.xml"/><!-- 管理人员 lsr 20081103 -->
+	<include file="/com/qzgf/application/systemManage/menu/action/xwork-menu.xml"/><!-- 系统菜单 lsr 20081103 -->
+	<include file="/com/qzgf/application/systemManage/role/action/xwork-roleinfo.xml"/><!-- 系统角色 lsr 20081103 -->
+    <include file="/com/qzgf/application/systemManage/log/action/xwork-log.xml"/><!-- 系统日志 lsr 20081103 -->
+    <include file="/com/qzgf/application/systemManage/firstpage/action/xwork-FirstPageManage.xml" /><!--首页资讯-->
+    
+</xwork>

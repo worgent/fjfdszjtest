@@ -1,0 +1,368 @@
+<PUBLIC:COMPONENT
+牋牋lightWeight?=爐rue
+>
+
+<PUBLIC:DEFAULTS
+牋牋contentEditable?=爁alse
+牋牋tabStop?=爐rue
+/>
+
+<PUBLIC:attach event="ondocumentready" onevent="initElement()" />
+<PUBLIC:attach event="onmouseover" onevent="elementOnMouseOver()" />
+<PUBLIC:attach event="onmouseout" onevent="elementOnMouseOut()" />
+<PUBLIC:attach event="onmousedown" onevent="elementOnMouseDown()" />
+<PUBLIC:attach event="onmouseup" onevent="elementOnMouseUp()" />
+<PUBLIC:attach event="onpropertychange" onevent="elementPropertyChange()" />
+<PUBLIC:attach event="onselectstart" onevent="elementOnSelect()" />
+<PUBLIC:attach event="oncontextmenu" onevent="elementOnContextMenu()" />
+<PUBLIC:attach event="ondetach" onevent="cleanupElement()" />
+
+<PUBLIC:property name="enabled" value=true />
+<PUBLIC:property name="menu" value />
+<PUBLIC:property name="menuState" value />
+
+<PUBLIC:method   name="hideMenu" />
+
+<script language="jscript">
+
+// ----------------------------------------------------
+// 2k3Widgets: 2k3MenuRoot
+//                                                     
+// Copyright ?2002-2004 Stedy Software and Systems     
+// Please see http://www.stedy.com for terms of use.   
+// ----------------------------------------------------
+
+var menuShadowArray = new Array(null, null, null, null) ;
+var vbLeftButton = 1 ;
+
+function initElement() {
+	for (var i = 3; i >= 0; i--) {
+		menuShadowArray[i] = window.document.createElement("TD") ;
+		menuShadowArray[i].className = "2k3ShadowElement" ;
+		element.parentElement.insertAdjacentElement("afterBegin", menuShadowArray[i]) ;
+	}
+	element.enabled = makeBooleanOfAttribute("enabled") ;
+	element.subMenuState = makeBooleanOfAttribute("subMenuState") ;
+	if (!element.enabled) {
+		showDisabled(element) ;
+	}
+}
+
+function cleanupElement() {
+	for (var i = 0; i <= 3; i++) {
+		if (menuShadowArray[i] != null) {
+			menuShadowArray[i].style.visibility = "hidden" ;
+			menuShadowArray[i].removeNode(true) ;
+			menuShadowArray[i] = null ;
+		}
+	}
+}
+
+function elementOnMouseOver() {
+
+	var el = window.event.srcElement ;
+	if (el.className == "2k3MenuRootCaption") {
+		el = el.parentElement ;
+	}
+	if (el.className == "2k3MenuRoot") {
+		if (isElementEnabled(el)) {
+			if (checkMenuStates()) {
+				if (element.parentElement.parentElement.parentElement.activeChild == null) {
+					if(menu==null || menu=="")
+						return ;	
+					showActive(el) ;
+					showMenu() ;
+					element.menuState = true ;
+				}
+			}
+			else {
+				if (!element.menuState) {
+					if (element.parentElement.parentElement.parentElement.activeChild != null) {
+						if (element.parentElement.parentElement.parentElement.activeChild.parentElement == element.parentElement) {
+							showOver(el) ;
+						}
+					}
+					else {
+						showOver(el) ;
+					}
+				}
+			}
+		}
+	}
+}
+
+function elementOnMouseOut() {
+	var el = window.event.srcElement ;
+	if (el.className == "2k3MenuRootCaption") {
+		el = el.parentElement ;
+	}
+	if (el.className == "2k3MenuRootOver") { 
+		if (isElementEnabled(el)) {
+			if (!element.menuState) {
+				showNormal(el) ;
+			}
+		}
+	}
+}
+
+function elementOnMouseDown() {
+	if(menu==null || menu=="")
+		return ;
+
+	var el = window.event.srcElement ;
+	if (el.className == "2k3MenuRootCaption") {
+		el = el.parentElement ;
+	}
+	if (el.className == "2k3MenuRootOver") { 
+		if ((window.event.button == vbLeftButton) && isElementEnabled(el)) {
+			if (!element.menuState) {
+				showActive(el) ;
+				showMenu() ;
+			}
+		}
+	}
+}
+
+function elementOnMouseUp() {
+	
+	var el = window.event.srcElement ;
+	if (el.className == "2k3MenuRootCaption") {
+		el = el.parentElement ;
+	}
+	if (el.className == "2k3MenuRootActive") { 
+		if ((window.event.button == vbLeftButton) && isElementEnabled(el)) {
+			if (element.menuState) {
+				if(menu==null || menu==""){
+					return ;
+				}
+				hideMenu() ;
+				showOver(el) ;
+			}
+			else {
+				element.menuState = true ;
+			}
+		}
+	}
+}
+
+function elementPropertyChange() {
+	if (window.event.propertyName == "enabled") {
+		if (element.enabled) {
+			showEnabled(element) ;
+		}
+		else {
+			showDisabled(element) ;
+		}
+	}
+}
+
+function elementOnSelect() {
+	with (window.event) {
+		cancelBubble = true ;
+		returnValue = false ;
+	}
+	return false ;
+}
+
+function elementOnContextMenu() {
+	with (window.event) {
+		cancelBubble = true ;
+		returnValue = false ;
+	}
+	return false ;
+}
+
+function isElementEnabled(el) {
+	return el.enabled ;
+}
+
+function showNormal(el) {
+	for (var i = 0; i <= 3; i++) {
+		if (menuShadowArray[i] != null) {
+			menuShadowArray[i].style.visibility = "hidden" ;
+		}
+	}
+	el.className = "2k3MenuRoot" ;
+}
+
+function showOver(el) {
+	el.className = "2k3MenuRootOver" ;
+}
+
+function showActive(el) {
+	el.className = "2k3MenuRootActive" ;
+	for (var i = 3; i >= 0; i--) {
+		with (menuShadowArray[i].style) {
+			left = el.offsetLeft + (4 + i) - 1 ;
+			top = el.offsetTop + (4 + i) ;
+			width =  el.offsetWidth - (i * 2) ;
+			height = el.offsetHeight - (i * 2) ;
+			zIndex = el.style.zIndex - 1 ;
+			visibility = "visible" ;
+		}
+	}
+}
+
+function showDisabled(el) {
+	el.className = "2k3MenuRootDisabled" ;
+}
+
+function showEnabled(el) {
+	el.className = "2k3MenuRoot" ;
+}
+
+function checkMenuStates() {
+	for (var i = 0; i < element.parentElement.children.length; i++) {
+		var childElement = element.parentElement.children[i] ;
+		if (childElement != element) {
+			with (childElement) {
+				if (className == "2k3MenuRootActive") {
+					hideMenu() ;
+					return true ;
+				}
+			}
+		}
+	}
+	return false ;
+}
+/*********************************************************************************
+ * 增加动态加载菜单功能
+ * 在鼠标移到某个子菜单项上，如果该菜单项含有下级菜单标志，那么先判断当前页面里是否
+ * 已经加载过该节点菜单，如果页面里没有就从服务里加载该节点菜单到客户端页面里。
+ * @ chenf 2005-09-22 山东-济南                                                   
+/**********************************************************************************/
+function isLoaded(subMenu){
+	if(subMenu!=null && subMenu!="" && window.document.getElementById(subMenu)==null){
+		return false;
+	}
+	return true;
+}
+function showMenu() {
+	if(!isLoaded(element.menu)){
+		window.document.getElementById("MenuDiv").loadMenu(parentElement.parentElement.parentElement,element,element.menu,false,true);
+		currentSubMenu = window.document.getElementById(element.menu) ;
+		if(currentSubMenu != null){
+			currentSubMenu.style.zIndex = element.style.zIndex + 5 ;
+			element.subMenuState = true ;
+		}
+	}else{
+		with (element) {
+			var x = offsetLeft + parentElement.parentElement.parentElement.offsetLeft ;
+			var y = offsetTop + offsetHeight + parentElement.parentElement.parentElement.offsetTop - 3 ;
+			var w = offsetWidth - 2 ;
+		}
+		with (window.document) {
+			getElementById(element.menu).showMenu(x, y, w) ;
+		}
+	}
+
+	window.document.attachEvent("onclick", hideMenuEx) ;
+	element.parentElement.parentElement.parentElement.activeChild = element ;
+	//window.frames["LeftFrm"].document.attachEvent("onclick", hideMenuEx) ;
+	//window.frames["LeftFrm"].document.activeChild = element ;
+	//window.frames["MainFrm"].document.attachEvent("onclick", hideMenuEx) ;
+	//window.frames["MainFrm"].document.activeChild = element ;
+}
+
+function hideMenu() {
+	//var el = window.event.srcElement ;
+    var el = null;
+    if(window.event!=null){
+    	el = window.event.srcElement;
+    }/*else if(window.frames["MainFrm"].window.event != null){
+    	el = window.frames["MainFrm"].window.event.srcElement;
+    }else if(window.frames["LeftFrm"].window.event != null){
+    	el = window.frames["LeftFrm"].window.event.srcElement;
+    }*/else{
+    	reutrn ;
+    }
+	var elParent = el.parentElement ;
+	if (elParent != null) {
+		switch (elParent.className) {
+			case "2k3MenuImageShadow":
+				elParent = elParent.parentElement ;
+				break ;
+			case "2k3MenuImage":
+				elParent = elParent.parentElement ;
+				break ;
+			case "2k3MenuItemOver":
+				el = elParent.parentElement.parentElement ;
+				if (el.subMenuState) {
+					elParent = null ;
+					el = null ;
+					return ;
+				}
+				break ;
+		}
+	}
+	
+	window.document.getElementById(element.menu).hideMenu() ;
+    if(window.event!=null){
+		with (window.document) {
+			detachEvent("onclick", hideMenuEx) ;
+		}
+    }/*else if(window.frames["MainFrm"].window.event != null){
+		with (window.frames["MainFrm"].window.document) {
+			detachEvent("onclick", hideMenuEx) ;
+		}
+    }else if(window.frames["LeftFrm"].window.event != null){
+		with (window.frames["LeftFrm"].window.document) {
+			detachEvent("onclick", hideMenuEx) ;
+		}
+    }*/else{
+    	reutrn ;
+    }	
+	
+	showNormal(element) ;
+	element.menuState = false ;
+	element.parentElement.parentElement.parentElement.activeChild = null ;
+	//window.frames["LeftFrm"].document.activeChild = null ;
+	//window.frames["MainFrm"].document.activeChild = null ;
+}
+
+function hideMenuEx() {
+    var el = null;
+    if(window.event!=null){
+    	el = window.event.srcElement;
+    }/*else if(window.frames["MainFrm"].window.event != null){
+    	el = window.frames["MainFrm"].window.event.srcElement;
+    }else if(window.frames["LeftFrm"].window.event != null){
+    	el = window.frames["LeftFrm"].window.event.srcElement;
+    }*/else{
+    	reutrn ;
+    }
+	//alert(window.frames["MainFrm"].window.event);
+	//var el = window.event.srcElement ;
+	if (el.className != "2k3MenuRootActive" && el.className != "2k3MenuRootCaption") {
+		hideMenu() ;
+		try{
+			with (window.event) {
+				cancelBubble = true ;
+				returnValue = false ;
+			}
+		}catch(e){
+		}
+	}
+}
+
+function makeBooleanOfAttribute(attName) {
+	a = element.getAttribute(attName) ;
+	if (typeof(a) == "boolean") {
+		return a ;
+	}
+	else if (a == null) {
+		a = false ;
+	}
+	else if (typeof(a) == "string") {
+		a = a.toLowerCase() ;
+		a = (a == "true" || a == "1" || a == "yes") ;
+	}
+	else {
+		a = new Boolean(a) ;
+	}
+	return a ;
+}
+
+</script>
+
+</PUBLIC:COMPONENT>

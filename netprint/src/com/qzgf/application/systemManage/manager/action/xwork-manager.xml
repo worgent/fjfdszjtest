@@ -1,0 +1,69 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+	<package name="Manager" extends="SystemManagePackage" namespace="/system/manage">
+	
+		<action name="manager" class="managerAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/manager/managerlist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/manager/editmanager.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/manager/editmanager.jsp</param>
+			</result>
+			<result name="role" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/manager/roleallot.jsp</param>
+			</result>
+			<result name="city" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/manager/cityallot.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+
+		<!-- 修改密码 -->
+		<action name="modifyPassword" class="managerAction" method="modifyPassword">
+			<result name="success" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		<!-- 用户信息配置 -->
+		<action name="userConfig" class="managerAction" method="userConfig">
+			<result name="success" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />
+		</action>		
+		<!-- 修改密码
+		<action name="modifyPassword" class="managerAction" method="modifyPassword">
+			<result name="success" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		 -->
+		<!-- 注册用户信息 -->
+		<action name="register" class="managerAction" method="register">
+			<result name="success" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+		<action name="schManager" class="com.opensymphony.xwork.ActionSupport">
+	        <result name="success">/WEB-INF/pages/application/systemManage/manager/schmanager.jsp</result>
+	    </action>
+	</package>
+</xwork>

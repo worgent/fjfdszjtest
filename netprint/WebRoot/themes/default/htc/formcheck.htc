@@ -1,0 +1,47 @@
+<PUBLIC:COMPONENT >
+<PUBLIC:attach	 event="oncontentready" onevent="init()" />
+<PUBLIC:attach   event="ondetach" onevent="cleanup()" />
+
+<PUBLIC:method   name="checkSubmit" />
+
+<script language="javascript">
+<!--
+	function init(){
+	}
+	function cleanup(){
+	}
+	function checkSubmit()
+	{
+		var tempbool=true;
+		var confirm ="";
+		var elements = element.elements;
+		for(var i=0;i<elements.length;i++)
+		{
+			try
+			{	if(elements(i).confirmAction){
+					confirm = elements(i).confirm;
+				}else{
+					elements(i).doCheck();
+					if(elements(i).bool==false)
+					tempbool=false;
+				}
+			}
+			catch(ex)
+			{	
+						
+			}
+		}
+		if(!tempbool)
+		{
+			return false;
+		}
+		if(confirm!=""){
+			if(!window.confirm(confirm)){
+				return false;
+			}
+		}
+		return true;
+	}
+//-->
+</script>
+</PUBLIC:COMPONENT>

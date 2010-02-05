@@ -1,0 +1,201 @@
+<xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882' xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882' xmlns:rs='urn:schemas-microsoft-com:rowset' xmlns:z='#RowsetSchema'>
+<s:Schema id='RowsetSchema'>
+<s:ElementType name='row'>
+<s:AttributeType name='sendtel'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='mailno'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='mail_feearea'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='reccounty'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendaddress'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='remark'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='printcount'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendcounty'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recdatemonth'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='create_man'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recprovincename'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendinsure'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='execute_date'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='height'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='create_date'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='senddateday'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendpost'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendmailtype'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recpost'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='width'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendcity'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendcityname'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='execute_man'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='editor_man'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendcount'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='solidity'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='reccity'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='weight'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recdatehour'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='mail_sendoffice'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='state'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendsign'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recprovince'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recname'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendunit'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendcode'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='id'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recdateyear'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='senddatemonth'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendgoodsname'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='printtime'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendprovincename'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='rectel'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendname'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='reccityname'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recdateday'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='editor_date'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='senddatatime'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='length'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendcountyname'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recsign'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendoffice'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recaddress'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recunit'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendinsuremoney'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='reccode'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='acceptsign'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='charge'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='sendprovince'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='senddatehour'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='senddateyear'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='totalcharge'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='reccountyname'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+<s:AttributeType name='recinsuremoney'>
+<s:datatype dt:type='string'/>
+</s:AttributeType>
+</s:ElementType>
+</s:Schema>
+<rs:data>
+<z:row  sendtel='123' mailno='123' mail_feearea='' reccounty='null' sendaddress='132' remark='132' printcount='194' sendcounty='null' recdatemonth='8' create_man='2009091700000164' recprovincename='null' sendinsure='null' execute_date='2009-09-18 10:21:17' height='null' create_date='2009-09-18 10:21:17' senddateday='null' sendpost='123' sendmailtype='null' recpost='13' width='null' sendcity='null' sendcityname='null' execute_man='2009091700000164' editor_man='2009091700000164' sendcount='12' solidity='null' reccity='null' weight='null' recdatehour='10' mail_sendoffice='' state='1' sendsign='ftest' recprovince='null' recname='132' sendunit='123' sendcode='13' id='2009091800000026' recdateyear='2009' senddatemonth='null' sendgoodsname='13' printtime='2009-10-15 09:03:02' sendprovincename='null' rectel='123' sendname='ftest' reccityname='null' recdateday='18' editor_date='2009-09-18 10:21:17' senddatatime='null' length='null' sendcountyname='null' recsign='13' sendoffice='null' recaddress='福建宁德' recunit='132' sendinsuremoney='null' reccode='132' acceptsign='null' charge='null' sendprovince='null' senddatehour='null' senddateyear='null' totalcharge='null' reccountyname='null' recinsuremoney='null'/>
+</rs:data>
+</xml>

@@ -1,0 +1,2 @@
+<div style="width: $!webwork.htmlEncode($parameters.width);#if($parameters.height)height:$!webwork.htmlEncode($parameters.height);#end  ">
+<table id="$!webwork.htmlEncode($parameters.id)" cellspacing="0" >

@@ -1,0 +1,13 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	基础档案所有xwork均配置在此文件中统一管理
+  -->
+<xwork>
+
+    <!-- lsr begin -->
+	<package name="BaseArchivesPackage" extends="default" namespace="/basearchives" />
+	<include file="/com/qzgf/application/baseArchives/OrganManage/action/xwork-organManage.xml"/><!-- 机构管理 -->
+	<include file="/com/qzgf/application/baseArchives/UploadExcel/action/xwork-UploadExcel.xml"/><!-- excel上传下载 -->
+	<!-- lsr end -->
+	
+</xwork>
