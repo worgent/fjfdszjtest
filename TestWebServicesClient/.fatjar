@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Mon Nov 03 11:18:20 CST 2008
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=false
+onejar.checkbox=false
+jarname=TestWebServicesClient_fat.jar
+manifest.mergeall=false
+manifest.mainclass=ClientApp
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

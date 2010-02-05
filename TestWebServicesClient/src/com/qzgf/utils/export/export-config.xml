@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!-- 
+	节点
+	export 导出信息描述的开始
+	属性
+	id 唯一标志
+	sqlId 与ibatis的sql配置文件里的该功能SQLID对应
+	filename 为导出文件的名称
+	
+	节点
+	description 说明
+	节点
+	column 列信息
+	属性
+	name 为要导出的字段
+	值 导出字段的中文名称，即为导出文件的列头
+-->
+<exports>
+	<export id="R" sqlId="Expedite.findExpedite" filename="车辆行驶记录">
+		<description>车辆行驶记录</description>
+		<column name="CarNum">车牌号码</column>
+		<column name="OwnerName">车主姓名</column>
+		<column name="Recetime">中心接收时间</column>
+		<column name="CarStatu">车辆状态编号</column>
+		<column name="CarStatuName">车辆状态名称</column>
+		<column name="Longitude">经度</column>
+		<column name="Latitude">纬度</column>
+		<column name="Direct">方向</column>
+		<column name="Speed">速度</column>
+		<column name="DistanceDiff">总里程</column>
+	</export>
+	<export id="C" sqlId="Expedite.findExpedite" filename="车辆信息">
+		<description>车辆信息</description>
+		<column name="CarNum">车牌号码</column>
+		<column name="OwnerName">车主姓名</column>
+		<column name="CarTypeName">车辆类型</column>
+		<column name="SimNum">车台终端手机号码</column>
+		<column name="CarModel">车辆品牌</column>
+		<column name="CarColor">车辆颜色</column>
+		<column name="PersonID">车主身份证号</column>
+		<column name="HomeAddress">车主家庭住址</column>
+		<column name="ConnectorName">出警第二联系人名字</column>
+		<column name="OwnerSimNum">车主电话号码</column>
+	</export>
+	<export id="J" sqlId="Expedite.findExpedite" filename="交接点信息">
+		<description>交接点信息</description>
+		<column name="RegionName">交接点名称</column>
+		<column name="RegionDot">交接点经度伟度</column>
+	</export>
+	<export id="GPS_TIMER" sqlId="Expedite.findExpedite" filename="车辆行驶记录">
+		<description>车辆行驶记录</description>
+		<column name="CarNum">车牌号码</column>
+		<column name="OwnerName">车主姓名</column>
+		<column name="Recetime">中心接收时间</column>
+		<column name="CarStatu">车辆状态编号</column>
+		<column name="CarStatuName">车辆状态名称</column>
+		<column name="Longitude">经度</column>
+		<column name="Latitude">纬度</column>
+		<column name="Direct">方向</column>
+		<column name="Speed">速度</column>
+		<column name="DistanceDiff">总里程</column>
+	</export>
+</exports>
