@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表 -》 行车记录
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="GpsRecord">
+	<!-- 车辆的GPS数据 -->
+	<select id="findGpsRecord" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select c.CarNum,c.OwnerName,CONVERT(varchar(20),a.Recetime,120) Recetime,isnull(a.CarStatu,'') CarStatu,
+		isnull(b.CarStatuName,'正常') CarStatuName,CONVERT(decimal(10,3), CONVERT(varbinary(20), a.Longitude)) Longitude,CONVERT(decimal(10,3), CONVERT(varbinary(20),a.Latitude)) Latitude,
+		CONVERT(decimal(10,3), CONVERT(varbinary(20), a.Direct)) Direct,CONVERT(decimal(10,3), CONVERT(varbinary(20), a.Speed)) Speed,
+		a.DistanceDiff
+		from GPSReceRealTime a left outer join GisCar c on a.telephone=c.simNum
+		left outer join CarStatuTable b on a.CarStatu=b.CarStatu
+		where c.IsDenyWebGps=0
+		<isNotEmpty prepend="and" property="AreaId">
+		   		c.AreaId ='$AreaId$'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="CarNum">
+		   		c.CarNum='$CarNum$'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begDate">
+		   		a.Recetime  &gt;= '$begDate$'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endDate">
+		   		a.Recetime  &lt;= '$endDate$'
+		</isNotEmpty> 
+		order by c.CarNum,a.Recetime
+	</select>
+	
+	<!-- 车辆信息 -->
+	<select id="findGpsCarMsg" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select a.CarNum,a.OwnerName,a.CarTypeName,a.SimNum,
+		a.CarModel,a.CarColor,a.PersonID,a.HomeAddress,a.ConnectorName,a.OwnerSimNum
+		from View_Car a where a.IsDenyWebGps=0
+		<isNotEmpty prepend="and" property="AreaId">
+		   		a.AreaId = '$AreaId$'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="CarNum">
+		   		a.CarNum  like '%$CarNum$%'
+		</isNotEmpty> 
+		order by a.CarNum
+	</select>
+	
+	<!-- 发回交接点信息 -->
+	<select id="findGpsWarnMsg" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+			select a.RegionName,a.RegionDot
+			from GPSRegionType a
+			order by a.RegionID
+	</select>
+	
+	<!-- 定时器车辆的GPS数据 -->
+	<select id="findTimeGpsRecord" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select c.CarNum,c.OwnerName,CONVERT(varchar(20),a.Recetime,120) Recetime,isnull(a.CarStatu,'') CarStatu,
+		isnull(b.CarStatuName,'正常') CarStatuName,CONVERT(decimal(10,3), CONVERT(varbinary(20), a.Longitude)) Longitude,CONVERT(decimal(10,3), CONVERT(varbinary(20),a.Latitude)) Latitude,
+		CONVERT(decimal(10,3), CONVERT(varbinary(20), a.Direct)) Direct,CONVERT(decimal(10,3), CONVERT(varbinary(20), a.Speed)) Speed,
+		a.DistanceDiff
+		from GPSReceRealTime a left outer join GisCar c on a.telephone=c.simNum
+		left outer join CarStatuTable b on a.CarStatu=b.CarStatu
+		where c.IsDenyWebGps=0 and a.Recetime>Convert(varchar(10),GetDate(),120)
+		<isNotEmpty prepend="and" property="AreaId">
+		   		c.AreaId = '$AreaId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CarNum">
+		   		c.CarNum='$CarNum$'
+		</isNotEmpty> 
+		order by c.CarNum,a.Recetime
+	</select>
+	
+	<!-- 动态sql语句 -->
+	<select id="genSelectsql" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select $FiledName$
+		from  $TableName$
+		<isNotEmpty prepend="where" property="CaseWhere">
+		  $CaseWhere$
+		</isNotEmpty>
+	</select>
+</sqlMap>

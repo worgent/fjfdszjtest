@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="false" default-dependency-check="none" default-autowire="no">
+	<!-- 导入XFire基本配置文件 -->
+	<import resource="classpath:org/codehaus/xfire/spring/xfire.xml"/>
+	<bean id="baseWebService" class="org.codehaus.xfire.spring.remoting.XFireExporter" lazy-init="false"
+	    abstract="true">
+	  <property name="serviceFactory" ref="xfire.serviceFactory"/>
+	  <property name="xfire" ref="xfire"/>
+	 </bean>
+	<!--连接池 
+    <bean id="sqlServerDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="com.microsoft.jdbc.sqlserver.SQLServerDriver"/>
+        <property name="driverUrl" value="jdbc:microsoft:sqlserver://127.0.0.1:1433;DatabaseName=gpsdb2;user=sa;password=123@123;SelectMethod=cursor;"/>
+        <property name="user" value="sa"/>
+        <property name="password" value="123@123"/>
+        <property name="alias" value="mssql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="100" />
+	    <property name="minimumConnectionCount" value="30" />
+	    <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="foo=bar" />
+    </bean>
+    -->
+    
+    <!--连接池-->
+    <bean id="sqlServerDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        <property name="driverUrl" value="jdbc:sqlserver://127.0.0.1:1434;DatabaseName=gpsDB2;user=sa;password=123@123;SelectMethod=cursor;"/>
+        <property name="user" value="sa"/>
+        <property name="password" value="123@123"/>
+        <property name="alias" value="mssql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="100" />
+	    <property name="minimumConnectionCount" value="30" />
+	    <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="user=sa,password=123@123" />
+    </bean>
+   
+  	<!-- SqlServer iBatis相关 -->
+  	<bean id="SqlServerSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" abstract="false" singleton="true" lazy-init="default" autowire="default" dependency-check="default">
+    	<property name="configLocation">
+      		<value>classpath:sqlMap-config.xml</value>
+    	</property>
+    	<property name="dataSource">
+      		<ref bean="sqlServerDataSource"/>
+    	</property>
+  	</bean>
+  	<!-- 事务 -->
+  	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+    	<property name="dataSource">
+      		<ref bean="sqlServerDataSource"/>
+    	</property>
+  	</bean>
+  	<bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+	    <property name="transactionManager" ref="transactionManager"/>
+	    <property name="transactionAttributes">
+      		<props>
+		        <prop key="insert*">PROPAGATION_REQUIRED</prop>
+		        <prop key="update*">PROPAGATION_REQUIRED</prop>
+		        <prop key="delete*">PROPAGATION_REQUIRED</prop>
+		        <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+		        <prop key="select*">PROPAGATION_REQUIRED,readOnly</prop>
+		        <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+      		</props>
+    	</property>
+  	</bean>
+  	<!-- 下面是一些公用的bean -->
+  	<!-- 该bean可以用于执行sql -->
+  	<!-- SqlServer -->
+  	<bean id="sqlServerStatementManager" class="com.qzgf.utils.StatementManager">
+  		<property name="sqlMapClient">
+  			<ref bean="SqlServerSqlMapClient"/>
+  		</property>
+  	</bean>
+  	
+  	<bean id="baseSqlMapDAO" class="com.qzgf.IbatisDaoTools.BaseSqlMapDAOImpl" singleton="false">
+		<description>SQLServer数据库基础操作工具包</description>
+		<property name="sqlMapClient">
+	  		<ref bean="SqlServerSqlMapClient"/>
+	  	</property>
+	</bean>
+	
+ <!--====================================业务层Action类请配置在此下=========================================== -->	    
+	<bean id="gpsDataServiceBean" class="com.qzgf.application.gpsdata.service.GpsDataServiceImpl" singleton="false">
+		<property name="gpsDataFacade" ref="gpsDataFacade"/>
+	</bean>
+
+  	<!-- 
+		 星网数据这个指向webservice专用
+	  -->  
+   <bean name="getListDatebyBytes" parent="baseWebService">
+        <property name="serviceBean" ref="getListDatebyBytesBean"/>
+        <property name="serviceClass" value="com.qzgf.application.gpsdata.service.GetListDatebyBytes"/>
+        <!-- 支持大文件传输
+        <property name="properties">
+    	<map>
+    		<entry key="mtom-enabled" value="true"/>
+    	</map>
+    	</property>
+    	-->
+    </bean>
+    
+	<bean id="getListDatebyBytesBean" class="com.qzgf.application.gpsdata.service.GetListDatebyBytesImpl" singleton="false">
+		<property name="gpsDataServiceBean" ref="gpsDataServiceBean"/>
+	</bean>
+	<!-- 
+		星网数据
+	-->
+	<bean id="gpsDataTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="com.qzgf.application.gpsdata.domain.GpsDataFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="gpsDataFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="com.qzgf.application.gpsdata.domain.GpsDataFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="gpsDataTargetProxy" />
+			</list>
+		</property>
+	</bean>
+</beans>

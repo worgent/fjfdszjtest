@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<mapping>
+     <method name="GetCompress">
+          <parameter index="0" componentType="java.lang.String" />
+          <return-type componentType="org.codehaus.xfire.aegis.type.basic.Base64Type" />
+     </method>
+	 <method name="GetListToByte">
+          <parameter index="0" componentType="java.lang.String" />
+          <return-type componentType="org.codehaus.xfire.aegis.type.basic.Base64Type" />
+     </method>
+  	</mapping>
+</mappings>

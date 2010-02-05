@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<!-- spring 的配置信息 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/applicationContext.xml</param-value>
+	</context-param>
+   <!-- log4j 的配置信息 -->
+	 <context-param> 
+		<param-name>webAppRootKey</param-name> 
+		<param-value>startgps.TestWebServices</param-value> 
+	</context-param> 
+	<context-param> 
+	  <param-name>log4jConfigLocation</param-name> 
+	  <param-value>/WEB-INF/classes/Statgps_log4j.properties</param-value> 
+	</context-param> 
+
+	<!-- spring 的监听类 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+
+    <!-- Log4j 的监听类 -->
+	<listener> 
+	  <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> 
+	</listener>
+
+  <!-- XFire,java webservice服务开启 -->
+  <servlet>
+    <servlet-name>XFireServlet</servlet-name>
+    <servlet-class>org.codehaus.xfire.transport.http.XFireConfigurableServlet</servlet-class>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>XFireServlet</servlet-name>
+    <url-pattern>/services/*</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
+
