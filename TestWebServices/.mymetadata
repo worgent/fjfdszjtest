@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="TestWebServices"
+  id="myeclipse.1225421282078"
+  context-root="/TestWebServices"
+  j2ee-spec="1.4"
+  archive="TestWebServices.war">
+  <attributes>
+    <attribute name="webrootdir" value="TestWebServices" />
+  </attributes>
+</project-module>
+

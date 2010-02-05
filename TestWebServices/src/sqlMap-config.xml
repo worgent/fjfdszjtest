@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+  <!-- debug环境下，将其设为false. 正式运行时应设为true,启用缓存 -->
+	<settings cacheModelsEnabled="false" enhancementEnabled="true"
+		useStatementNamespaces="true" maxSessions="64" maxTransactions="15"
+		maxRequests="128" />
+  <!-- 非常简洁，将用到的sqlMap文件列到这儿就行了 -->
+<!-- ====================================系统相关SqlMap请配置在此下=========================================== -->
+	<!-- GPS星网数据 -->
+  	<sqlMap resource="com/qzgf/application/gpsdata/sqlmap/sqlmap-gpsData.xml"/>
+</sqlMapConfig>
