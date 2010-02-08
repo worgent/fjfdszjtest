@@ -1,0 +1,12 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<xwork>
+    <!-- lsr begin -->
+	<package name="SystemPackage" extends="default" namespace="/">
+	</package>
+	<include
+		file="/com/qzgf/application/systemManage/login/action/xwork-Login.xml" /><!-- 系统登录模块 -->
+ 
+</xwork>
