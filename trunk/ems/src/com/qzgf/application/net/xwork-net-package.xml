@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<struts>
+    <!-- 扩展默认包 -->
+	<package name="net" extends="default" namespace="/">
+	</package>
+	<!-- 网上自助服务｜客户下单 -->
+	<include file="/com/qzgf/application/net/order/action/xwork-order.xml" /> 
+	<!-- 网上自助服务｜处理过程 -->
+	<include file="/com/qzgf/application/net/proLog/action/xwork-proLog.xml" /> 
+	<!-- 网上自助服务｜与派揽系统的通信 -->
+	<include file="/com/qzgf/application/net/communicate/action/xwork-communicate.xml" /> 
+</struts>

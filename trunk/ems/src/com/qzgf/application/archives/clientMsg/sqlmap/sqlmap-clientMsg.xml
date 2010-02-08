@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	自助平台|客户下订单
+	2009-12-17
+-->
+<sqlMap namespace="ClientMsg">	
+	<!-- 记录总数 -->
+	<select id="findClientMsgCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			 select count(1) 
+			 from  t_arichive_clientmsg t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+	</select>
+
+		
+	<!-- 查询记录，非分页 -->
+	<select id="findClientMsg" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id,t.name,t.unit,t.areacode,t.tel,t.mobile,t.bill_state,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+ 			from  t_arichive_clientmsg t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findClientMsgPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+			select t.id,t.name,t.unit,t.areacode,t.tel,t.mobile,t.bill_state,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+ 			from  t_arichive_clientmsg t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertClientMsg"	parameterClass="java.util.HashMap" >
+		insert into t_arichive_clientmsg
+				(id
+				<isNotEmpty prepend="," property="pname">name</isNotEmpty>
+				<isNotEmpty prepend="," property="punit">unit</isNotEmpty>
+				<isNotEmpty prepend="," property="pareacode">areacode</isNotEmpty>
+				<isNotEmpty prepend="," property="ptel">tel</isNotEmpty>
+				<isNotEmpty prepend="," property="pmobile">mobile</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">create_code</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">editor_code</isNotEmpty>
+				,bill_state,create_date,editor_date)
+				 values 
+				(seqformat('t_arichive_clientmsg')	
+				<isNotEmpty prepend="," property="pname">#pname#</isNotEmpty>
+				<isNotEmpty prepend="," property="punit">#punit#</isNotEmpty>
+				<isNotEmpty prepend="," property="pareacode">#pareacode#</isNotEmpty>
+				<isNotEmpty prepend="," property="ptel">#ptel#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmobile">#pmobile#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">#pcreate_code#</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">#peditor_code#</isNotEmpty>
+		   		,1,sysdate,sysdate)
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteClientMsgById" parameterClass="java.util.HashMap">
+    	update t_arichive_clientmsg set bill_state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateClientMsgById" parameterClass="java.util.HashMap">
+		update t_arichive_clientmsg t set t.id=t.id
+		<isNotEmpty prepend="," property="pname">name=#pname#</isNotEmpty>
+		<isNotEmpty prepend="," property="punit">unit=#punit#</isNotEmpty>
+		<isNotEmpty prepend="," property="pareacode">areacode=#pareacode#</isNotEmpty>
+		<isNotEmpty prepend="," property="ptel">tel=#ptel#</isNotEmpty>
+		<isNotEmpty prepend="," property="pmobile">mobile=#pmobile#</isNotEmpty>
+		<isNotEmpty prepend="," property="pbill_state">bill_state=#pbill_state#</isNotEmpty>
+		<isNotEmpty prepend="," property="peditor_code">editor_code=#peditor_code#</isNotEmpty>
+		<isNotEmpty prepend="," property="peditor_date">editor_date=sysdate</isNotEmpty>
+		where id=#pid# and t.bill_state &lt;&gt;0
+	</update>
+</sqlMap>

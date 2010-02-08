@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 基础档案|取件地址
+-->
+<struts>
+	<package name="address" extends="archives" namespace="/archives">
+	    <!-- 取件地址 -->
+		<action name="address" class="addressAction">
+		    <!-- ==================基础档案|取件地址========================= -->
+		    <!-- 列表信息 -->
+			<result name="list">/WEB-INF/BackModual/Archives/Address/addressList.jsp</result>
+			<!-- 具体列表信息 -->
+			<result name="listdetail">/WEB-INF/BackModual/Archives/Address/addressListDetail.jsp</result>
+			<!-- 查看 -->
+			<result name="view">/WEB-INF/BackModual/Archives/Address/addressView.jsp</result>
+			<!-- 编辑 -->
+			<result name="edit">/WEB-INF/BackModual/Archives/Address/addressEdit.jsp</result>
+			<!-- 新增 -->
+			<result name="new">/WEB-INF/BackModual/Archives/Address/addressEdit.jsp</result>
+			<!-- 框架选择信息 -->
+			<result name="frame">/WEB-INF/BackModual/Archives/Address/addressFrame.jsp</result>
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>			
+	</package>
+</struts>

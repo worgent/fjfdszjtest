@@ -1,0 +1,12 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 测试模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="login" extends="default" namespace="/">
+		<action name="login" class="loginAction">
+			<result name="input">/WEB-INF/FrontModual/login/login.jsp</result>
+		</action>
+	</package>
+</xwork>
