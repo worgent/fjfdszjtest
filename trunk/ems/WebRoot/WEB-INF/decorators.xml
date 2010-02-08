@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="gb2312"?>
+<decorators defaultdir="/decorators">
+    <excludes>
+       <pattern>/fckeditor/*</pattern>
+       <pattern>/fckeditor/*</pattern>
+       <pattern>/ajaxjson.jsp*</pattern>
+	</excludes>
+
+    <excludes>
+        <pattern>*/selfconfig/mapcardsort.do*</pattern>
+    </excludes>
+
+	<decorator name="adminFrame">
+		<pattern>/login.do</pattern>
+	</decorator>
+
+	<decorator name="guiadToff" page="guide.jsp">
+		<pattern>/guideToff.do</pattern>
+		<pattern>/coup.do</pattern>
+	</decorator>
+
+    
+
+    <decorator name="exother"  page="exother.jsp">
+
+    </decorator>
+    <decorator name="other" page="other.jsp">
+    	<pattern>*.*</pattern>
+    </decorator>
+
+</decorators>
