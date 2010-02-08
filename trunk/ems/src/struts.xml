@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor name="mapParameter" class="com.qzgf.webutils.interceptor.MapParametersInterceptor"/>
+			<interceptor-stack name="mapParam">
+				<!-- 文件控件file -->
+				<interceptor-ref name="fileUpload"/>  
+				<!-- 处理search的处理 --> 
+				<interceptor-ref name="mapParameter" />
+			</interceptor-stack>
+			
+			<interceptor name="permissionInterceptor"
+				class="com.qzgf.webutils.interceptor.PermissionInterceptor">
+			</interceptor>
+			
+			<interceptor name="sessionInterceptor"
+				class="com.qzgf.webutils.interceptor.SessionInterceptor">
+			</interceptor>
+			
+			<!-- 用户权限 -->        
+			<interceptor-stack name="authInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="permissionInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<global-results>
+			<result name="intercepthtml">/WEB-INF/jsp/intercepthtml.jsp</result>
+		</global-results>
+	</package>
+	<!-- 加载各模块的包 -->
+
+	<!-- 业务模块 -->
+	<include file="/com/qzgf/application/biz/xwork-biz-package.xml"/>
+	
+	<!-- 系统模块 -->
+	<include file="/com/qzgf/application/systemManage/xwork-system-package.xml"/>
+	
+	<!-- szj -->
+	<!-- ====================================系统管理=========================================== -->		
+	<!-- 用户登录|用户注册 -->
+	<include file="/com/qzgf/application/systemManage/frontlogin/action/xwork-login.xml" />
+	<!-- ====================================档案管理=========================================== -->		
+	<!--档案管理|用户管理 -->
+	<include file="/com/qzgf/application/archives/xwork-archives-package.xml"/>
+	<!-- ====================================自助平台=========================================== -->		
+	<!--自助平台|网上下单管理 -->
+	<include file="/com/qzgf/application/net/xwork-net-package.xml"/>
+	<!-- szj -->
+	
+</struts>

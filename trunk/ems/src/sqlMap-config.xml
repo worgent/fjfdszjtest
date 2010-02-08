@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "./sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- debug环境下，将其设为false. 正式运行时应设为true,启用缓存 -->
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		useStatementNamespaces="true" maxSessions="64" maxTransactions="15"
+		maxRequests="128" />
+	<!-- 非常简洁，将用到的sqlMap文件列到这儿就行了 -->
+	<!-- 公共 -->
+	<sqlMap resource="/sqlMap-common.xml" />
+
+	<!-- 系统管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/log/sqlmap/sqlmap-operatelog.xml"/><!-- 系统日志 -->
+
+	<!-- lsr begin -->
+	<sqlMap resource="/com/qzgf/application/systemManage/login/sqlmap/sqlmap-login.xml"/><!-- 系统日志 -->
+	<!-- lsr end -->
+
+
+
+	<!-- szj begin -->
+	<!-- ============================================档案管理======================================= -->
+	<!--  档案管理｜取件地址-->
+	<sqlMap resource="/com/qzgf/application/archives/address/sqlmap/sqlmap-address.xml" />
+	<!--  档案管理｜取件联系人-->
+	<sqlMap resource="/com/qzgf/application/archives/clientMsg/sqlmap/sqlmap-clientMsg.xml" />
+	<!--  档案管理｜服务时间-->
+	<sqlMap resource="/com/qzgf/application/archives/serTime/sqlmap/sqlmap-serTime.xml" />
+	<!--  档案管理｜注册用户管理-->
+	<sqlMap resource="/com/qzgf/application/archives/user/sqlmap/sqlmap-user.xml" />
+	<!-- ============================================自助平台======================================= -->
+	<!--  自助平台｜客户下单-->
+	<sqlMap resource="/com/qzgf/application/net/order/sqlmap/sqlmap-order.xml" />
+	<!--  自助平台｜处理过程-->
+	<sqlMap resource="/com/qzgf/application/net/proLog/sqlmap/sqlmap-proLog.xml" />
+	<!--  自助平台｜与派揽系统的通信-->
+	<sqlMap resource="/com/qzgf/application/net/communicate/sqlmap/sqlmap-communicate.xml" />
+	<!-- szj end -->
+
+
+
+	<!-- shen begin -->
+
+	<!-- shen end -->
+
+</sqlMapConfig>
