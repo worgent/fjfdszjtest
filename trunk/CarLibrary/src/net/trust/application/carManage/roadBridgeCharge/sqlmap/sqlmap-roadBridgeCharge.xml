@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 过路过桥费用管理
+ *
+ -->
+<sqlMap namespace="RoadBridgeCharge">
+	<!-- 查询过路过桥费用总记录数 -->
+	<select id="findRoadBridgeChargeCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(1)
+		  from tf_road_bridge_charge
+		 where state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="roadBridgeChargeId">
+		   		road_bridge_charge_id = '$roadBridgeChargeId$'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 			
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begChargeDate">
+		   		charge_date &gt;=cast(#begChargeDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="endChargeDate">
+		   		charge_date &lt;=cast(#endChargeDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="chargeType">
+				charge_type = $chargeType$
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询过路过桥费用 -->
+	<select id="findRoadBridgeCharge" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.create_date AS CHAR) create_date,
+           	   cast(t.editor_date AS CHAR) editor_date,           		
+          	   cast(t.execute_date AS CHAR) execute_date, 
+          	   cast(t.charge_date AS CHAR) charge_date, 
+          	   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=t.create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=t.editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=t.execute_man) execute_man_name,  
+			   (select tt.city_name 
+		          from td_city tt 
+			     where tt.city_id=t.city_id) city_name,
+          	   (select tt.car_no_code 
+			      from tf_car_info tt 
+			     where tt.car_no_id = t.car_no_id) car_no_code,
+          	   (select tt.PARA_VALUE_DESC 
+			      from td_system_para tt 
+			     where tt.para_value = t.charge_type
+			       and tt.para_name = 'CHARGE_TYPE'
+			       and tt.para_type = 'ROAD_BRIDGE_CHARGE') charge_type_desc,
+			   t.*
+		  from tf_road_bridge_charge t
+		 where state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="roadBridgeChargeId">
+		   		t.road_bridge_charge_id = '$roadBridgeChargeId$'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				t.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 			
+		<isNotEmpty prepend="and" property="carNoId">
+				t.car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begChargeDate">
+		   		t.charge_date &gt;=cast(#begChargeDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="endChargeDate">
+		   		t.charge_date &lt;=cast(#endChargeDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="chargeType">
+				charge_type = $chargeType$
+		</isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+	
+	<!-- 创建过路过桥费用 -->
+	<insert id="insertRoadBridgeCharge" parameterClass="java.util.HashMap">
+		insert into tf_road_bridge_charge(
+			road_bridge_charge_id,
+			booking_date,
+			car_no_id,
+			charge_date,
+			charge_type,
+			charge_standard,
+			charge,
+			charge_address,
+			memo,
+			city_id,
+			state,
+			create_man,
+			create_date)
+		values(
+			'$roadBridgeChargeId$',
+			NOW(),
+			'$carNoId$',
+			cast('$chargeDate$' AS DATE),
+			$chargeType$,
+			'$chargeStandard$',
+			$charge$,
+			'$chargeAddress$',
+			'$memo$',
+			$cityId$,
+			1,
+			'$createMan$',
+			NOW())
+	</insert>
+	
+	<!-- 修改过路过桥费用 -->
+	<update id="updateRoadBridgeCharge" parameterClass="java.util.HashMap">
+		update tf_road_bridge_charge
+		   set editor_date = now()
+			<isNotEmpty prepend="," property="editorMan">
+	          	editor_man = '$editorMan$'
+	      	</isNotEmpty>
+	      	<isNotEmpty prepend="," property="cityId">
+	          	city_id = $cityId$
+	      	</isNotEmpty>	
+	      	<isNotEmpty prepend="," property="memo">
+	          	memo = '$memo$'
+	      	</isNotEmpty> 
+	      	<isNotEmpty prepend="," property="carNoId">
+				car_no_id = '$carNoId$'
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="chargeDate">
+				charge_date = cast('$chargeDate$' AS DATE)
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="chargeType">
+				charge_type = $chargeType$
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="chargeStandard">
+				charge_standard = '$chargeStandard$'
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="charge">
+				charge = $charge$
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="chargeAddress">
+				charge_address = '$chargeAddress$'
+			</isNotEmpty> 
+		where road_bridge_charge_id = '$roadBridgeChargeId$'
+	</update>
+	
+	<!-- 删除过路过桥费用 -->
+	<delete id="deleteRoadBridgeCharge" parameterClass="java.util.HashMap">
+		update tf_road_bridge_charge
+		   set editor_date = now(),
+		   	   editor_man = '$editorMan$',
+		   	   state = 0
+		 where road_bridge_charge_id = '$roadBridgeChargeId$'
+	</delete>
+</sqlMap>

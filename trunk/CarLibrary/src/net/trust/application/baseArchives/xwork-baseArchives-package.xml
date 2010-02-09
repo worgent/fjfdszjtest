@@ -1,0 +1,14 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	基础档案所有xwork均配置在此文件中统一管理
+  -->
+<xwork>
+	<package name="BaseArchivesPackage" extends="default" namespace="/basearchives">
+	</package>
+	<include file="/net/trust/application/baseArchives/institutionManage/action/xwork-institution.xml"/><!-- 机构管理 -->
+	<include file="/net/trust/application/baseArchives/deptInfo/action/xwork-deptinfo.xml"/><!-- 部门信息管理 -->
+	<include file="/net/trust/application/baseArchives/employeeInfo/action/xwork-employeeinfo.xml"/><!-- 员工信息管理 -->
+	<include file="/net/trust/application/baseArchives/recunitInfo/action/xwork-recunitinfo.xml"/><!-- 往来单位信息管理 -->
+	<include file="/net/trust/application/baseArchives/carInfo/action/xwork-carinfo.xml"/><!-- 车辆信息管理 -->
+	<include file="/net/trust/application/baseArchives/equipment/action/xwork-equipment.xml"/><!-- 设备信息管理 -->
+</xwork>

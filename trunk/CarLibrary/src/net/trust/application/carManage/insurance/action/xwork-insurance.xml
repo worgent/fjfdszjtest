@@ -1,0 +1,30 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!--
+ * 保险管理
+ -->
+<xwork>
+	<package name="Insurance" extends="CarManagePackage" namespace="/carmanage/insurance">
+	
+		<action name="insurance" class="insuranceAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/insurance/insurancelist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/insurance/editinsurance.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/insurance/editinsurance.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/insurance/viewinsurance.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+	</package>
+</xwork>

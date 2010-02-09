@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+    
+<beans>
+	<bean id="baseSqlMapDAO" class="net.trust.IbatisDaoTools.BaseSqlMapDAOImpl" singleton="false">
+		<description>数据库基础操作工具包</description>
+		<property name="sqlMapClient">
+	  		<ref bean="sqlMapClient"/>
+	  	</property>
+	</bean>
+	
+	<bean id="sqlServerBaseSqlMapDAO" class="net.trust.IbatisDaoTools.BaseSqlMapDAOImpl" singleton="false">
+		<description>SQLServer数据库基础操作工具包</description>
+		<property name="sqlMapClient">
+	  		<ref bean="SqlServerSqlMapClient"/>
+	  	</property>
+	</bean>
+	
+	<bean id="methodAthur" class="net.trust.utils.interceptor.MethodBeforeAdvice">
+		<description>方法权限认证</description>
+		<property name="authoritiesMethods">
+			<ref bean="authoritiesMethods" />
+		</property>
+	</bean>
+	<bean id="managerSecurity" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="methodAthur" />
+		</property>
+		<property name="patterns">
+			<list>
+				<value>.*insert.*</value>
+				<value>.*find.*</value>
+				<value>.*update.*</value>
+				<value>.*delete.*</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="logger" class="net.trust.utils.interceptor.LoggingInterceptor">
+		<description>日志拦截器</description>
+		<property name="baseSqlMapDAO">
+			<ref bean="baseSqlMapDAO" />
+		</property>
+	</bean>
+	<bean id="loggerAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="logger" />
+		</property>
+		<property name="patterns">
+			<list>
+				<value>.*insert.*</value>
+				<!-- value>.*find.*</value-->
+				<value>.*update.*</value>
+				<value>.*delete.*</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+<!-- ====================================系统相关bean请配置在此下=========================================== -->
+	<!-- 管理登录 -->
+	<bean id="loginTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.login.domain.LoginFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="loginFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.login.domain.LoginFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="loginTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 管理人员 -->
+	<bean id="managerTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.manager.domain.ManagerFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="managerFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.manager.domain.ManagerFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="managerTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 系统菜单 -->
+	<bean id="menuTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.menu.domain.MenuFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="menuFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.menu.domain.MenuFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="menuTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 系统角色 -->
+	<bean id="roleTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.role.domain.RoleFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+				<property name="authoritiesMethods" ref="authoritiesMethods" />
+				<property name="authoritiesPages" ref="authoritiesPages" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="roleFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.role.domain.RoleFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="roleTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 系统日志 -->
+	<bean id="logTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.log.domain.LogFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="logFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.log.domain.LogFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="logTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 系统参数 -->
+	<bean id="systemParamTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.systemparam.domain.SystemParamFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="systemParamFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.systemparam.domain.SystemParamFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="systemParamTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 短信管理 -->
+	<bean id="smsManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.sms.domain.SmsManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+				<property name="smproxySendFacade" ref="smproxySendFacade"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="smsManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.sms.domain.SmsManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="smsManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 预警管理 -->
+	<bean id="warningLogManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.warninglog.domain.WarningLogManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="warningLogManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.warninglog.domain.WarningLogManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="warningLogManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 流程定义 -->
+	<bean id="flowerTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.systemManage.flower.domain.FlowerFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="flowerFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.systemManage.flower.domain.FlowerFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="flowerTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 华为短信发送基类处理 -->
+	<bean id="smproxySendTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.utils.sms.SMProxySendFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="smproxySendFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.utils.sms.SMProxySendFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="smproxySendTargetProxy" />
+			</list>
+		</property>
+	</bean>	
+<!-- ====================================基础档案相关bean请配置在此下=========================================== -->
+	<!-- 机构管理 -->
+	<bean id="institutionTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.baseArchives.institutionManage.domain.InstitutionFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="institutionFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.baseArchives.institutionManage.domain.InstitutionFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="institutionTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 部门管理 -->
+	<bean id="deptInfoTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.baseArchives.deptInfo.domain.DeptInfoFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="deptInfoFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.baseArchives.deptInfo.domain.DeptInfoFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="deptInfoTargetProxy" />
+			</list>
+		</property>
+	</bean>
+		<!-- 员工信息管理 -->
+	<bean id="employeeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.baseArchives.employeeInfo.domain.EmployeeFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="employeeFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.baseArchives.employeeInfo.domain.EmployeeFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="employeeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 往来单位信息管理 -->
+	<bean id="recUnitTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.baseArchives.recunitInfo.domain.RecUnitFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="recUnitFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.baseArchives.recunitInfo.domain.RecUnitFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="recUnitTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 设备信息管理 -->
+	<bean id="equipmentTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.baseArchives.equipment.domain.EquipmentFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="equipmentFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.baseArchives.equipment.domain.EquipmentFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="equipmentTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 车辆信息管理--> 
+	<bean id="carTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.baseArchives.carInfo.domain.CarFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+				<property name="sqlServerBaseSqlMapDAO" ref="sqlServerBaseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="carFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.baseArchives.carInfo.domain.CarFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="carTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	
+<!-- ====================================车辆管理相关bean请配置在此下=========================================== -->
+	<!-- 养路费 -->
+	<bean id="maintainRoadTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.maintainRoad.domain.MaintainRoadFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="maintainRoadFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.maintainRoad.domain.MaintainRoadFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="maintainRoadTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 保险管理 -->
+	<bean id="insuranceTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.insurance.domain.InsuranceFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="insuranceFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.insurance.domain.InsuranceFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="insuranceTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 保养管理 -->
+	<bean id="maintainManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.maintainmanage.domain.MaintainManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="maintainManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.maintainmanage.domain.MaintainManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="maintainManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 加油管理 -->
+	<bean id="putonsteamTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.putonsteam.domain.PutonsteamFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="putonsteamFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.putonsteam.domain.PutonsteamFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="putonsteamTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 违章管理 -->
+	<bean id="peccancyManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.peccancymanage.domain.PeccancyManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="peccancyManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.peccancymanage.domain.PeccancyManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="peccancyManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 派车登记 -->
+	<bean id="expediteTransferTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.expedite.domain.ExpediteFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+				<property name="smproxySendFacade" ref="smproxySendFacade"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="expediteFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.expedite.domain.ExpediteFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="expediteTransferTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 车辆维修管理 -->
+	<bean id="servicingManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.servicingmanage.domain.ServicingManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="servicingManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.servicingmanage.domain.ServicingManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="servicingManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 财务管理 -->
+	<bean id="financeManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.financemanage.domain.FinanceManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="financeManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.financemanage.domain.FinanceManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="financeManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 调度管理 -->
+	<bean id="attemperManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.attempermanage.domain.AttemperManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+				<property name="sqlServerBaseSqlMapDAO" ref="sqlServerBaseSqlMapDAO"/>
+				<property name="smproxySendFacade" ref="smproxySendFacade"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="attemperManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.attempermanage.domain.AttemperManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="attemperManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 过路过桥费用管理  -->
+	<bean id="roadBridgeChargeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.roadBridgeCharge.domain.RoadBridgeChargeFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="roadBridgeChargeFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.roadBridgeCharge.domain.RoadBridgeChargeFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="roadBridgeChargeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 人员考勤  -->
+	<bean id="staffCheckinManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.staffcheckin.domain.StaffCheckinManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="staffCheckinManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.carManage.staffcheckin.domain.StaffCheckinManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="staffCheckinManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+<!-- ====================================综合报表理相关bean请配置在此下=========================================== -->
+	<!-- 综合报表 -》 位置管理 -->
+	<bean id="localityManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.localitymanage.domain.LocalityManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="localityManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.localitymanage.domain.LocalityManageFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="localityManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 综合报表 -》 车辆费用统计 -->
+	<bean id="carChargeStatTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.carChargeStat.domain.CarChargeStatFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="carChargeStatFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.carChargeStat.domain.CarChargeStatFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="carChargeStatTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 综合报表 -》 报警查询 -->
+	<bean id="peccancyQueryTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.peccancyquery.domain.PeccancyQueryFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="peccancyQueryFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.peccancyquery.domain.PeccancyQueryFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="peccancyQueryTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 综合报表 -》 行车记录-->
+	<bean id="runRecordTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.runrecord.domain.RunRecordFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="runRecordFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.runrecord.domain.RunRecordFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="runRecordTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 综合报表 -》 车辆状态查询  -->
+	<bean id="carStateQueryTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.carstatequery.domain.CarStateQueryFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="carStateQueryFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.carstatequery.domain.CarStateQueryFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="carStateQueryTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- szj 2008-9-20 being -->
+	<!-- 综合报表 -》 行驶统计 szj -->
+	<bean id="rtpDistanceTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.rtpdistance.domain.RtpDistanceFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="rtpDistanceFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.rtpdistance.domain.RtpDistanceFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="rtpDistanceTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+		<!-- 综合报表 -》 里程异常 szj-->
+	<bean id="rtpDistanceErrorTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.rtpdistanceerror.domain.RtpDistanceErrorFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="rtpDistanceErrorFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.rtpdistanceerror.domain.RtpDistanceErrorFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="rtpDistanceErrorTargetProxy" />
+			</list>
+		</property>
+	</bean>	
+		<!-- 综合报表 -》 保养单据异常 szj-->	
+	<bean id="rtpMaintainTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.rtpmaintain.domain.RtpMaintainFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="rtpMaintainFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.rtpmaintain.domain.RtpMaintainFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="rtpMaintainTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+		<!-- 综合报表 -》签退签到统计  szj-->
+	<bean id="rtpMotormanTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.rtpmotorman.domain.RtpMotormanFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="rtpMotormanFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.rtpmotorman.domain.RtpMotormanFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="rtpMotormanTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+		<!-- 综合报表 -》 加油量异常  szj -->
+	<bean id="rtpPutonsteamTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.report.rtpputonsteam.domain.RtpPutonsteamFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="rtpPutonsteamFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.report.rtpputonsteam.domain.RtpPutonsteamFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="rtpPutonsteamTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+    <!-- szj 2008-9-20 end -->
+
+
+<!-- ====================================数据采集相关bean请配置在此下=========================================== -->
+	<!-- GPS接口数据采集规则配置  -->
+	<bean id="interFatchConfigTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.datacollection.interfetchconfig.domain.InterFatchConfigFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="interFatchConfigFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="net.trust.application.datacollection.interfetchconfig.domain.InterFatchConfigFacade"/>
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="interFatchConfigTargetProxy" />
+			</list>
+		</property>
+	</bean>
+</beans>

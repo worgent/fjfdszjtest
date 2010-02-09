@@ -1,0 +1,10 @@
+<textarea name="$!webwork.htmlEncode($parameters.name)" #if ($parameters.rows) rows="$!webwork.htmlEncode($parameters.rows)" #end #parse("/template/simple/scripting-events.vm")>$!webwork.htmlEncode($parameters.value)</textarea>
+<script>
+	fm2.add(new Ext.form.TextArea({
+		#if ($parameters.required == true) allowBlank:false, #end
+    	blankText:#if ($parameters.msg) '$!webwork.htmlEncode($parameters.msg)' #else '该字段不能为空，请输入！' #end,
+		width:#if ($parameters.width) $!webwork.htmlEncode($parameters.width) #else 120 #end,
+		height:#if ($parameters.height) $!webwork.htmlEncode($parameters.height) #end,
+		applyTo : '$!webwork.htmlEncode($parameters.name)'
+	}));
+</script>

@@ -1,0 +1,31 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	综合报表所有xwork均配置在此文件中统一管理
+  -->
+<xwork>
+	<package name="ReportPackage" extends="default" namespace="/report">
+	</package>
+	
+	<!-- 综合报表 -》 位置管理 -->
+	<include file="/net/trust/application/report/localitymanage/action/xwork-localityManage.xml"/>
+	<!-- 综合报表 -》 车辆费用统计 -->
+	<include file="/net/trust/application/report/carChargeStat/action/xwork-carChargeStat.xml"/>
+	<!-- 综合报表 -》 报警查询 -->
+	<include file="/net/trust/application/report/peccancyquery/action/xwork-peccancyQuery.xml"/>
+	<!-- 综合报表 -》 行车记录 -->
+	<include file="/net/trust/application/report/runrecord/action/xwork-RunRecord.xml"/>
+	<!-- 综合报表 -》 车辆状态查询 -->
+	<include file="/net/trust/application/report/carstatequery/action/xwork-CarStateQuery.xml"/>
+	<!-- szj 2008-9-20 being -->
+	<!-- 综合报表 -》 行驶统计 -->
+	<include file="/net/trust/application/report/rtpdistance/action/xwork-RtpDistance.xml"/>
+	<!-- 综合报表 -》 里程异常 -->
+	<include file="/net/trust/application/report/rtpdistanceerror/action/xwork-RtpDistanceError.xml"/>	
+	<!-- 综合报表 -》 保养单据异常 -->
+	<include file="/net/trust/application/report/rtpmaintain/action/xwork-RtpMaintain.xml"/>
+	<!-- 综合报表 -》 签退签到统计 -->
+	<include file="/net/trust/application/report/rtpmotorman/action/xwork-RtpMotorman.xml"/>
+	<!-- 综合报表 -》 加油量异常 -->
+	<include file="/net/trust/application/report/rtpputonsteam/action/xwork-RtpPutonsteam.xml"/>
+	<!-- szj 2008-9-20 end -->
+</xwork>

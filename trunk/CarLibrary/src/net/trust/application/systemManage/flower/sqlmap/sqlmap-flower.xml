@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="FlowerInfo">
+	<!-- 查询流程定义总记录数 -->
+	<select id="findFlowerDefineCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+			select count(*) from td_flowerdefine where bill_state=1
+			<isNotEmpty prepend="and" property="staffId">
+				   		city_id in (select a.city_id from tf_staff_city a 
+				   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="flowerdefineId">
+				        flowerdefine_id =#flowerdefineId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerdefineCode">
+				        flowerdefine_code =#flowerdefineCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerdefineName">
+				        flowerdefine_name  like '%flowerdefineName%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerdefineVersion">
+				   		flowerdefine_version=#flowerdefineVersion#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="createMan">
+				      FB_GET_STAFF_NAME_BY_ID(@in_staff_id := create_man)  like '%createMan%'
+			</isNotEmpty>	
+	</select>
+	
+	<!-- 
+		查询流程定义信息
+	  -->
+	<select id="findFlowerDefine" parameterClass="java.util.HashMap"  resultClass="java.util.HashMap" remapResults="true">
+		    select
+		    t.flowerdefine_id,t.flowerdefine_code,t.flowerdefine_name,t.flowerdefine_version,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.create_man)
+		    create_man_name, t.create_man,cast(t.create_date AS CHAR) create_date,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.editor_man)
+		    editor_man_name,t.editor_man, cast(t.editor_date AS CHAR) editor_date,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.execute_man)
+		    execute_man_name,t.execute_man, cast(t.execute_date AS CHAR) execute_date,
+		    t.city_id, (select tt.city_name from td_city tt where
+		    tt.city_id = t.city_id) city_name, bill_state,
+		    t.attemper_code,t.attemper_name
+		    from
+		    td_flowerdefine t where t.bill_state=1
+			<isNotEmpty prepend="and" property="staffId">
+				   		t.city_id in (select a.city_id from tf_staff_city a 
+				   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="flowerdefineId">
+				        t.flowerdefine_id =#flowerdefineId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerdefineCode">
+				        t.flowerdefine_code =#flowerdefineCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerdefineName">
+				        t.flowerdefine_name  like '%flowerdefineName%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerdefineVersion">
+				   		t.flowerdefine_version=#flowerdefineVersion#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="createMan">
+				      FB_GET_STAFF_NAME_BY_ID(@in_staff_id := create_man)  like '%createMan%'
+			</isNotEmpty>
+			order by flowerdefine_id desc
+			<isNotEmpty prepend=" " property="START">
+			   			limit $START$ , $END$
+			</isNotEmpty>
+	</select>
+	<!-- 
+		增加流程定义信息
+	  -->	
+	<insert id="insertFlowerDefine" parameterClass="java.util.HashMap">
+		    insert into td_flowerdefine (flowerdefine_id,
+		    <isNotEmpty prepend="" property="flowerdefineCode">
+	          	   flowerdefine_code,
+			</isNotEmpty>
+            <isNotEmpty prepend="" property="flowerdefineName">
+	          	   flowerdefine_name,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="flowerdefineVersion">
+	          	   flowerdefine_version,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="createMan">
+	          	   create_man,
+			</isNotEmpty>
+				   create_date,
+			<isNotEmpty prepend="" property="editorMan">
+	          	   editor_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="editorDate">
+	          	   editor_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeMan">
+	          	   execute_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   execute_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   city_id,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="attemperCode">
+	          	   attemper_code,
+			</isNotEmpty> 	
+			<isNotEmpty prepend="" property="attemperName">
+	          	   attemper_name,
+			</isNotEmpty>
+				bill_state)
+		values(
+			<isNotEmpty prepend="" property="flowerdefineId">
+		   		#flowerdefineId#,
+			</isNotEmpty>
+			<isEmpty prepend="" property="flowerdefineId">
+		   		pb_get_sequences(@in_seq_name:='flowerdefine_id'),
+			</isEmpty>
+            <isNotEmpty prepend="" property="flowerdefineCode">
+	          	   #flowerdefineCode#,
+			</isNotEmpty>
+            <isNotEmpty prepend="" property="flowerdefineName">
+	          	   #flowerdefineName#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="flowerdefineVersion">
+	          	   #flowerdefineVersion#,
+			</isNotEmpty>
+			
+            <isNotEmpty prepend="" property="createMan">
+	          	   #createMan#,
+			</isNotEmpty>
+				   NOW(),	
+			<isNotEmpty prepend="" property="editorMan">
+	          	   #editorMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="editorDate">
+	          	   cast(#editorDate# AS DATETime),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeMan">
+	          	   #executeMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   cast(#executeDate# AS DATETime),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   #cityId#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="attemperCode">
+	          	   #attemperCode#,
+			</isNotEmpty> 	
+			<isNotEmpty prepend="" property="attemperName">
+	          	   #attemperName#,
+			</isNotEmpty>
+				1)
+	</insert>
+	
+	<!-- 
+		更新流程定义信息
+	  -->	
+	<update id="updateFlowerDefine" parameterClass="java.util.HashMap">
+			update td_FlowerDefine
+		    set editor_date = NOW()
+		    <isNotEmpty prepend="," property="flowerdefineCode">
+					flowerdefine_code =  #flowerdefineCode# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="flowerdefineName">
+					flowerdefine_name =  #flowerdefineName# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="flowerdefineVersion">
+	          	   flowerdefine_version=#flowerdefineVersion#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="expediteMan">
+					expedite_man =  #expediteMan# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="createMan">
+	          	   create_man=#createMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="editorMan">
+	          	   editor_man=#editorMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeMan">
+	          	   execute_man=#executeMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeDate">
+	          	   execute_date=cast(#executeDate# AS DATETime)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cityId">
+	          	   city_id=#cityId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="attemperCode">
+	          	   attemper_code=#attemperCode#
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="attemperName">
+	          	  attemper_name=#attemperName#
+			</isNotEmpty>
+			where bill_state =1 and flowerdefine_id = #flowerdefineId#
+	</update>
+	<!-- 
+		删除流程定义信息
+	  -->
+	<delete id="deleteFlowerDefine" parameterClass="java.util.HashMap">
+		 update td_FlowerDefine 
+		   set bill_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date= NOW()
+		 where bill_state = 1 
+		 <isNotEmpty prepend="and" property="flowerdefineId">
+	          	    flowerdefine_id = #flowerdefineId#
+		 </isNotEmpty>
+	</delete>
+	<!--
+	    时间：090224
+	    功能：增加流程结点信息
+	 -->
+	<insert id="insertFlowerNode" parameterClass="java.util.HashMap">
+		insert into td_Flowernode
+              ( flowernode_id
+	            <isNotEmpty prepend="," property="flowerdefineId">
+		          	   flowerdefine_id
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="flowernodeRowno">
+		          	   flowernode_rowno
+				</isNotEmpty>
+	            <isNotEmpty prepend="," property="flowernodeName">
+		          	   flowernode_name
+				</isNotEmpty>
+		        ,is_flowmust,is_samedep,is_flowers	
+				<isNotEmpty prepend="," property="approveCodearray">
+		          	   approve_codearray
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="approveCodearrayname">
+		          	   approve_codearrayname
+				</isNotEmpty>
+				,record_state)
+		values (pb_get_sequences(@in_seq_name:='flowernode_id')             
+	            <isNotEmpty prepend="," property="flowerdefineId">
+		          	   #flowerdefineId#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="flowernodeRowno">
+		          	   #flowernodeRowno#
+				</isNotEmpty>
+	            <isNotEmpty prepend="," property="flowernodeName">
+		          	   #flowernodeName#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="isFlowmust">
+		          	  #isFlowmust#
+				</isNotEmpty>
+	            <isNotEmpty prepend="," property="isSamedep">
+		          	   #isSamedep#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="isFlowers">
+		          	   #isFlowers#
+				</isNotEmpty>					
+				<isNotEmpty prepend="," property="approveCodearray">
+		          	   #approveCodearray#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="approveCodearrayname">
+		          	   #approveCodearrayname#
+				</isNotEmpty>
+				,1)
+    </insert>  
+	<!--
+	    时间：090224
+	    功能：更新流程结点信息
+	 -->
+	<update id="updateFlowerNode" parameterClass="java.util.HashMap">
+			update td_Flowernode
+		  <dynamic prepend="set">
+			<isNotEmpty prepend="," property="flowernodeRowno">
+	          	   flowernode_rowno=#flowernodeRowno#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="flowernodeName">
+	          	   flowernode_name=#flowernodeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="isFlowmust">
+	          	   is_flowmust=#isFlowmust#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="isSamedep">
+	          	   is_samedep=#isSamedep#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="isFlowers">
+	          	   is_flowers=#isFlowers#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="approveCodearray">
+	          	   approve_codearray=#approveCodearray#
+			</isNotEmpty>
+		</dynamic>
+			 where record_state=1
+		<isNotEmpty prepend="and" property="flowernodeId">
+	          	    flowernode_id = #flowernodeId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="flowerdefineId">
+	          	    flowerdefine_id = #flowerdefineId#
+		</isNotEmpty>
+	</update>
+	<!--
+	    时间：090224
+	    功能：删除流程结点信息
+	    <delete id="deleteFlowerNode" parameterClass="java.util.HashMap">
+		delete from td_Flowernode    
+		where  flowerdefine_id = #flowerdefineId#
+		<isNotEmpty prepend="and" property="flowernodeId">
+	          	    flowernode_id = #flowernodeId#
+		</isNotEmpty>
+	</delete>	
+	 -->
+	<delete id="deleteFlowerNode" parameterClass="java.util.HashMap">
+		update td_Flowernode set record_state=0  
+		where  flowerdefine_id = #flowerdefineId# and record_state=1
+		<isNotEmpty prepend="and" property="flowernodeId">
+	          	    flowernode_id = #flowernodeId#
+		</isNotEmpty>
+	</delete>	
+	<!--
+	    时间：090224
+	    功能：查询流程结点信息
+	 -->
+	<select id="findFlowerNode" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select t.flowernode_id,t.flowerdefine_id,t.flowernode_rowno,t.flowernode_name,
+		t.is_flowmust,case t.is_flowmust when 1 then '是' else '否' end is_flowmust_name,
+		t.is_samedep,case t.is_flowmust when 1 then '是' else '否' end  is_samedep_name,
+		t.is_flowers,case t.is_flowmust when 1 then '是' else '否' end is_flowers_name,
+		t.approve_codearray,t.approve_codearrayname,t.record_state
+		from td_Flowernode t
+		where record_state=1
+		<isNotEmpty prepend="and" property="flowernodeId">
+				t.flowernode_id = #flowernodeId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="flowerdefineId">
+				t.flowerdefine_id = #flowerdefineId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	     </isNotEmpty>	  
+	</select>
+</sqlMap>

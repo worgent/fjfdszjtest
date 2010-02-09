@@ -1,0 +1,19 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	会员相关所有xwork均配置在此文件中统一管理
+  -->
+<xwork>
+	<package name="SystemManagePackage" extends="default" namespace="/system">
+	</package>
+	<include file="/net/trust/application/systemManage/login/action/xwork-login.xml"/><!-- 管理登录 chenqf 20070518 -->
+	<include file="/net/trust/application/systemManage/login/action/xwork-loadmenu.xml"/><!-- 载入菜单 chenqf 20070518 -->
+	<include file="/net/trust/application/systemManage/manager/action/xwork-manager.xml"/><!-- 管理人员 chenqf 20070518 -->
+	<include file="/net/trust/application/systemManage/menu/action/xwork-menu.xml"/><!-- 系统菜单 chenqf 20070518 -->
+	<include file="/net/trust/application/systemManage/role/action/xwork-roleinfo.xml"/><!-- 系统角色 -->
+    <include file="/net/trust/application/systemManage/log/action/xwork-log.xml"/><!-- 系统日志 -->
+    <include file="/net/trust/application/systemManage/systemparam/action/xwork-systemParam.xml"/><!-- 系统参数 chenqf -->
+    <include file="/net/trust/application/systemManage/sms/action/xwork-smsManage.xml"/><!-- 短信管理 chenqf -->
+    <include file="/net/trust/application/systemManage/warninglog/action/xwork-warningLog.xml"/><!-- 预警管理 chenqf -->
+    
+    <include file="/net/trust/application/systemManage/flower/action/xwork-flower.xml"/><!-- 工作流定义090224 -->
+</xwork>

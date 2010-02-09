@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!--
+ * 管理机购
+ * @author zhengmh
+ -->
+<sqlMap namespace="InstitutionManage">
+  	<!-- 查询机构总记录数 -->
+	<select id="findInstitutionCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) 
+		  from tf_manage_organ_archives
+		 where order_state = 1	
+	    <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="companyCode">
+		   		company_code like '%$companyCode$%'
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="companyName">
+		   		company_name like '%$companyName$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="companyEasyName">
+				company_easy_name  like '%$companyEasyName$%' 
+		</isNotEmpty>
+        <isNotEmpty prepend="and" property="regDate">
+      			to_char(reg_date,'yyyy-mm-dd') = #regDate#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="upCompany">
+				up_company = #upCompany#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="companyProperty">
+				company_property = #companyProperty#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="calling">
+				CALLING = #calling#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="proxyLevel">
+				proxy_level = #proxyLevel#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>	
+	</select>
+	
+	<!-- 
+		查询机构信息
+	  -->
+	<select id="findManagerInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+          select cast(t.reg_date AS CHAR) reg_date,
+            	 cast(t.create_date AS CHAR) create_date,
+            	 cast(t.editor_date AS CHAR) editor_date,           		
+           		 cast(t.execute_date AS CHAR) execute_date,     
+			     (select tt.PARA_VALUE_DESC 
+			       from td_system_para tt 
+			      where tt.para_value = t.up_company 
+			        and  tt.para_name = 'UP_COMPANY') upCompany,
+			     (select tt.para_value_desc 
+			        from td_system_para tt 
+			       where tt.para_value = t.company_property 
+			         and tt.para_name = 'COMPANY_PROPERTY') companyProperty,
+			     (select tt.para_value_desc 
+			        from td_system_para tt 
+			       where tt.para_value = t.CALLING 
+			         and tt.para_name = 'CALLING') CALLING2,
+			     (select tt.para_value_desc 
+			        from td_system_para tt 
+			           where tt.para_value = t.proxy_level 
+			              and  tt.para_name = 'PROXY_LEVEL') proxyLevel,
+			     (select tt.para_value_desc 
+			        from td_system_para tt 
+			            where tt.para_value = t.order_state 
+			              and  tt.para_name = 'ORDER_STATE') orderState,
+			     (select tt.city_name 
+			        from td_city tt 
+			       where tt.city_id = t.city_id) cityId,  
+			     FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			     FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			     FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,
+			     t.*
+            from tf_manage_organ_archives t
+           where order_state = 1
+        <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+          	<isNotEmpty prepend="and" property="companyId">
+				t.company_id = #companyId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="companyCode">
+		   		t.company_code like '%$companyCode$%'
+		</isNotEmpty>
+       	<isNotEmpty prepend="and" property="companyName">
+		   		t.company_name like '%$companyName$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="companyEasyName">
+				t.company_easy_name  like '%$companyEasyName$%' 
+		</isNotEmpty>
+        <isNotEmpty prepend="and" property="regDate">
+     			t.to_char(reg_date,'yyyy-mm-dd') = #regDate#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="upCompany">
+				t.up_company = #upCompany#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="companyProperty">
+				t.company_property = #companyProperty#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="calling">
+				t.CALLING = #calling#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="proxyLevel">
+				t.proxy_level = #proxyLevel#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>	
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>	
+    <insert id="insertInstitution" parameterClass="java.util.HashMap">
+		insert into tf_manage_organ_archives 
+               (company_id,
+               	company_code,
+               	company_name ,
+               	company_easy_name ,
+               	reg_date,up_company ,
+                company_property,
+                CALLING,
+                proxy_level,
+                link_man ,
+                link_phone,
+                memo ,
+                order_state,
+                create_man,
+                create_date,
+                city_id)
+        values	(pb_get_sequences(@in_seq_name:='company_id'),
+                 #companyCode#,
+                 #companyName#,
+                 #companyEasyName#,
+                 cast(#regDate# AS DATE),
+                 #upCompany#,
+                 #companyProperty#,
+                 #calling#,
+                 #proxyLevel#,
+                 #linkMan#,
+                 #linkPhone#,
+                 #memo#,
+                 1,
+                 #createMan#,
+                 NOW(),
+                 #cityId#)                
+    </insert>  
+    
+	
+	<update id="updateInstitution" parameterClass="java.util.HashMap">
+		update tf_manage_organ_archives
+		   set editor_date = NOW()
+	      <isNotEmpty prepend="," property="companyCode">
+	          company_code=#companyCode#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="companyName">
+	          company_name=#companyName#
+	      </isNotEmpty>
+	       <isNotEmpty prepend="," property="companyEasyName">
+	          company_easy_name=#companyEasyName#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="regDate">
+	          reg_date=cast(#regDate# AS DATE)
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="upCompany">
+	          up_company=#upCompany#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="companyProperty">
+	          company_property=#companyProperty#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="calling">
+	          CALLING=#calling#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="proxyLevel">
+	          proxy_level=#proxyLevel#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="linkMan">
+	          link_man=#linkMan#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="linkPhone">
+	          link_phone=#linkPhone#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="memo">
+	          memo=#memo#
+	      </isNotEmpty>	  	        
+	      <isNotEmpty prepend="," property="editorMan">
+	          editor_man=#editorMan#
+	      </isNotEmpty>
+	       <isNotEmpty prepend="," property="executeMan">
+	          execute_man=#executeMan#
+	      </isNotEmpty>
+	       <isNotEmpty prepend="," property="executeDate">
+	          execute_date=cast(#executeDate# AS DATE)
+	      </isNotEmpty>	  
+	      <isNotEmpty prepend="," property="cityId">
+			  city_id = #cityId#
+		  </isNotEmpty>	   
+	     where company_id=#companyId#
+	</update>
+    
+    <!-- 
+		删除机构信息
+	  -->
+	<delete id="deleteInstitution" parameterClass="java.util.HashMap">
+		update tf_manage_organ_archives 
+		   set order_state=0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date=NOW()
+		 where company_id = #companyId#
+	</delete>
+    
+    
+    
+</sqlMap>

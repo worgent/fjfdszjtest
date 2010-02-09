@@ -1,0 +1,57 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+ * 维修管理
+ -->
+<xwork>
+	<package name="ServicingManager" extends="CarManagePackage" namespace="/carmanage/servicingmanage">
+		<!-- 
+			维修申请
+		 -->
+		<action name="servicingApply" class="servicingManagerAction" method="servicingApply">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/servicingManage/servicingApply/serivcingApplyList.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/servicingManage/servicingApply/editSerivcingApply.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/servicingManage/servicingApply/editSerivcingApply.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/servicingManage/servicingApply/viewSerivcingApply.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		
+		<!-- 
+			维修登记
+		 -->
+		<action name="servicingBooking" class="servicingManagerAction" method="servicingBooking">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/servicingManage/servicingBooking/servicingBookingList.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/servicingManage/servicingBooking/editServicingBooking.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/servicingManage/servicingBooking/editServicingBooking.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/servicingManage/servicingBooking/viewServicingBooking.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+	</package>
+</xwork>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="DeptInfoManage">
+  	<!-- 查询部门总记录数 -->
+	<select id="findDeptInfoCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) from tf_dept_info
+		 where  state = 1	 
+	    <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="deptCode">
+		   		dept_code like '%$deptCode$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="deptName">
+				dept_name  like '%$deptName$%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="belongCompany">
+				belong_to_company  like '%$belongCompany$%' 
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>         	
+	</select>
+	
+	<!-- 
+		查询部门信息
+	  -->
+	<select id="findDeptInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.create_date AS CHAR) create_date,
+           	   cast(t.editor_date AS CHAR) editor_date,           		
+           	   cast(t.execute_date AS CHAR) execute_date,
+           	   (select tt.company_name 
+           		  from tf_manage_organ_archives tt 
+           		 where tt.company_id = t.belong_to_company)  belongCompany,
+           	   (select tt.city_name 
+			      from td_city tt 
+			     where tt.city_id=t.city_id) cityId,
+           	   t.*          		 
+          from tf_dept_info t
+         where state = 1
+        <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+        <isNotEmpty prepend="and" property="deptId">
+		   		t.dept_id =#deptId#
+		</isNotEmpty>
+        <isNotEmpty prepend="and" property="deptCode">
+		   		t.dept_code like '%$deptCode$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="deptName">
+				t.dept_name  like '%$deptName$%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="belongCompany">
+				t.belong_to_company  like '%$belongCompany$%' 
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty> 
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	  
+	</select>	
+    <insert id="insertDeptInfo" parameterClass="java.util.HashMap">
+       insert into tf_dept_info 
+               (dept_id,
+                dept_code ,
+                dept_name ,
+                belong_to_company ,
+                memo,
+                create_man,
+                create_date,
+                city_id,
+                state)
+		values
+				(pb_get_sequences(@in_seq_name:='dept_id'),
+                 #deptCode#,
+                 #deptName#,
+                 #belongCompany#,
+                 #memo#,
+                 #createMan#,
+                 NOW(),
+                 #cityId#,
+                 1)                
+                   
+    </insert>  
+    
+	<update id="updateDeptInfo" parameterClass="java.util.HashMap">
+		update tf_dept_info
+		   set execute_date = NOW()
+          <isNotEmpty prepend="," property="deptCode">
+	   		   dept_code=#deptCode#
+          </isNotEmpty>	
+          <isNotEmpty prepend="," property="deptName">
+			  dept_name=#deptName#
+          </isNotEmpty>
+          <isNotEmpty prepend="," property="belongCompany">
+			  belong_to_company=#belongCompany#
+          </isNotEmpty>     
+           <isNotEmpty prepend="," property="memo">
+              memo=#memo#
+	      </isNotEmpty>	  	        
+	      <isNotEmpty prepend="," property="editorMan">
+	          editor_man=#editorMan#
+	      </isNotEmpty>
+	       <isNotEmpty prepend="," property="editorDate">
+	          editor_date=cast(#editorDate# AS DATE)
+	      </isNotEmpty>
+	       <isNotEmpty prepend="," property="executeMan">
+	          execute_man=#executeMan#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="cityId">
+	          city_id=#cityId#
+	      </isNotEmpty>	     
+		where dept_id=#deptId#
+	</update>
+    
+    <!-- 
+		删除部门信息
+	  -->
+	<delete id="deleteDeptInfo" parameterClass="java.util.HashMap">
+		update tf_dept_info 
+		   set editor_man = #editorMan#,
+		   	   editor_date=NOW(),
+		   	   state = 0
+		 where dept_id = #deptId#
+	</delete>
+    
+    
+    
+</sqlMap>

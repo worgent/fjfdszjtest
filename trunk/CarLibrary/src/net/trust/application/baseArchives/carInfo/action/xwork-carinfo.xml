@@ -1,0 +1,78 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!--
+ * 车辆信息
+ * @author zhengmh
+ *
+ -->
+<xwork>
+	<package name="Car" extends="BaseArchivesPackage" namespace="/basearchives/car">
+	
+		<action name="carInfo" class="carInfoAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/baseArchives/carInfo/carinfolist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/baseArchives/carInfo/editcarinfo.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/baseArchives/carInfo/editcarinfo.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/baseArchives/carInfo/viewcarinfo.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		
+		<action name="ajaxCarInfo" class="carInfoAction" method="ajaxXML">
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		
+		<action name="ajaxGetGPSCarMileage" class="carInfoAction" method="ajaxGetGPSCarMileage">
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		
+		<!-- 20081128 -->
+		<action name="ajaxPutOilTotal" class="carInfoAction" method="ajaxPutOilTotal">
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		
+		<!-- 2009-12-19:车辆信息,通过部门过滤 派车登记中使用-->
+		<action name="ajaxJsonCar" class="carInfoAction" method="ajaxJsonCar">
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+	</package>
+</xwork>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表 -》 位置管理
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="LocalityManage">
+	<select id="findLocalityManageCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		SELECT count(1)
+		  FROM TF_CAR_INFO T, INTER_CAR_INFO B
+		 WHERE T.STATE &lt;&gt; 0
+		   AND T.CAR_NO_CODE = B.CAR_MARK
+		<isNotEmpty prepend="and" property="staffId">
+		   		T.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+		   		T.car_no_code like '%$carNoCode$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="carState">
+				T.car_state = $carState$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begLastTime">
+				cast(substring(B.LAST_TIME, 1, 10) as date) >= cast('$begLastTime$' as date)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endLastTime">
+				cast(substring(B.LAST_TIME, 1, 10) as date) &lt;= cast('$endLastTime$' as date)
+		</isNotEmpty>
+	</select>
+	
+	<select id="findLocalityManage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		SELECT (SELECT TT.PARA_VALUE_DESC
+		          FROM TD_SYSTEM_PARA TT
+		         WHERE TT.PARA_VALUE = T.BELONG_TO_COMPANY
+		           AND TT.PARA_NAME = 'UP_COMPANY') belong_to_company_name,
+		       t.car_no_id,
+		       t.car_no_code,
+		       B.LAST_LOCATION,
+		       B.LAST_SPEED,
+		       B.LAST_TIME,
+		       B.LAST_FLAG,
+		       B.LAST_ANGLE,
+		       B.LAST_LON,
+		       B.LAST_LAT,
+		       (SELECT TT.PARA_VALUE_DESC
+		          FROM TD_SYSTEM_PARA TT
+		         WHERE TT.PARA_VALUE = T.CAR_STATE
+		           AND TT.PARA_NAME = 'CAR_STATE') car_state_name
+		  FROM TF_CAR_INFO T, INTER_CAR_INFO B
+		 WHERE T.STATE &lt;&gt; 0
+		   AND T.CAR_NO_CODE = B.CAR_MARK
+		<isNotEmpty prepend="and" property="staffId">
+		   		T.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+		   		T.car_no_code like '%$carNoCode$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="carState">
+				T.car_state = $carState$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begLastTime">
+				cast(substring(B.LAST_TIME, 1, 10) as date) >= cast('$begLastTime$' as date)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endLastTime">
+				cast(substring(B.LAST_TIME, 1, 10) as date) &lt;= cast('$endLastTime$' as date)
+		</isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+</sqlMap>

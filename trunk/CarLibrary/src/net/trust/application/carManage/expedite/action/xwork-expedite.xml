@@ -1,0 +1,139 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!--
+ * 派车登记
+ -->
+<xwork>
+	<package name="Expedite" extends="CarManagePackage" namespace="/carmanage/expedite">
+        <!-- 派车信息 -->
+		<action name="expedite" class="expediteAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/expeditelist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editexpedite.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editexpedite.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/viewexpedite.jsp</param>
+			</result>
+			<result name="ExpSuccess" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/expSuccess.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+        <!-- 2009-06-08 增加:临时派车信息 -->
+		<action name="expediteex" class="expediteAction" method="expediteex">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/expediteexlist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editexpediteex.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editexpediteex.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/viewexpediteex.jsp</param>
+			</result>
+			<result name="ExpSuccess" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/expSuccess.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>		
+		<!-- 回车登记 -->
+		<action name="goback" class="expediteAction" method="goback">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/gobacklist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editgoback.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editgoback.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/viewgoback.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		<!-- 派车申请 -->
+		<action name="applyer" class="expediteAction" method="applyer">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/applyerlist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editapplyer.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editapplyer.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/viewapplyer.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		<!-- 司机行车登记 -->
+		<action name="driversms" class="expediteAction" method="driversms">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/driversmslist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editdriversms.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/editdriversms.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/expedite/viewdriversms.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+		
+		<!-- 回车登记报表处理 -->
+		<action name="gobackExcel" class="expediteAction" method="gobackExcel">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/report/rtpgobackExcel/gobackExcelList.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+	</package>
+</xwork>

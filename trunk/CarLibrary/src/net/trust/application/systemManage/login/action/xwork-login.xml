@@ -1,0 +1,16 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+    <package name="Login" extends="SystemManagePackage" namespace="/system">
+        <action name="login" class="loginAction">
+			<result name="success" type="redirect">
+			    <param name="location">/main.shtml</param>
+			</result>
+			<result name="loginfail" type="dispatcher">
+				<param name="location">/login.jsp?error=1</param>
+			</result>
+			<interceptor-ref name="model-driven" />
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+    </package>
+</xwork>

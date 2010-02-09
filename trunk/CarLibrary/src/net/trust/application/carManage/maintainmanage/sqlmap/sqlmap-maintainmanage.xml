@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 保养管理
+ -->
+<sqlMap namespace="MaintainManageManage">
+  	<!-- 查询保养管理总记录数 -->
+	<select id="findMaintainManageCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) from tf_nurse
+		 where nurse_state = 1	 
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="nurseType">
+		   		nurse_type=#nurseType#
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="nurseMileage">
+				nurse_mileage=#nurseMileage# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="nurseDate">
+				nurse_date=cast(#nurseDate# AS DATE)
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>         	
+	</select>
+	
+	<!-- 
+		查询保养管理信息
+	  -->
+	<select id="findMaintainManage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.create_date AS CHAR) create_date,
+           	   cast(t.editor_date AS CHAR) editor_date,           		
+          	   cast(t.execute_date AS CHAR) execute_date, 
+          	   cast(t.booking_date AS CHAR) booking_date,
+          	   cast(t.nurse_date AS CHAR) nurse_date,          		
+          	   (select tt.city_name 
+		          from td_city tt 
+			     where tt.city_id=t.city_id) cityName,
+          	   (select tt.car_no_code 
+			      from tf_car_info tt 
+			     where tt.car_no_id = t.car_no_id) carNoId,
+          	   (select para_value_desc
+          	      from td_system_para 
+          	     where para_type = 'NURSE_PARA'  
+          	       and para_name = 'NURSE_TYPE'
+			       and para_value = t.nurse_type) nurseType,
+			   (select tt.city_name 
+			       from td_city tt 
+			      where tt.city_id=t.city_id) cityId,  
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,
+          	   t.*          		 
+          from tf_nurse t
+         where t.nurse_state = 1
+        <isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="nurseId">
+		   		t.nurse_id=#nurseId#
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="nurseType">
+		   		t.nurse_type=#nurseType#
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="nurseMileage">
+				t.nurse_mileage=#nurseMileage# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="nurseDate">
+				t.nurse_date=cast(#nurseDate# AS DATE)
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 			
+		<isNotEmpty prepend="and" property="cityId">
+				t.city_id = #cityId#
+		</isNotEmpty>        
+		  order by nurse_id desc 	
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	  
+	</select>	
+	
+    <insert id="insertMaintainManage" parameterClass="java.util.HashMap">
+       insert into tf_nurse 
+               (nurse_id,       		   			
+		   		booking_date
+		<isNotEmpty prepend="," property="nurseType">
+		   		nurse_type
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="nurseMileage">
+		   		nurse_mileage
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="nurseDate">
+		   		nurse_date
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="nurseCharge">
+		   		nurse_charge
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNoId">
+		   		car_no_id
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNoCode">
+		   		car_no_code
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="purpose">
+		   		purpose
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="memo">
+		   		memo
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="createMan">
+		   		create_man
+		</isNotEmpty>
+	           ,create_date
+		<isNotEmpty prepend="," property="cityId">
+		   		city_id
+		</isNotEmpty>
+			   ,nurse_state	)
+			values
+			   (#nurseId#, 
+			    now()	
+		<isNotEmpty prepend="," property="nurseType">
+		   		#nurseType#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="nurseMileage">
+		   		#nurseMileage#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="nurseDate">
+		   		cast(#nurseDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="nurseCharge">
+		   		#nurseCharge#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNoId">
+		   		#carNoId#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNoCode">
+			   	#carNoCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="purpose">
+			   	#purpose#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="memo">
+			   	#memo#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="createMan">
+			   	#createMan#
+		</isNotEmpty>
+		        ,now()
+		<isNotEmpty prepend="," property="cityId">
+			   	#cityId#
+		</isNotEmpty>	
+             	,1)     
+    </insert>  
+    
+	
+	<update id="updateMaintainManage" parameterClass="java.util.HashMap">
+		update tf_nurse
+		   set editor_date = now()
+			<isNotEmpty prepend="," property="nurseType">
+		   		nurse_type=#nurseType#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="nurseMileage">
+				nurse_mileage=#nurseMileage# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="nurseDate">
+				nurse_date=cast(#nurseDate# AS DATE)
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="carNoId">
+				car_no_id = #carNoId#
+			</isNotEmpty> 			 
+			<isNotEmpty prepend="," property="carNoCode">
+				car_no_code = #carNoCode#
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="purpose">
+				purpose = #purpose#
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="memo">
+				memo = #memo#
+			</isNotEmpty>       
+	      	<isNotEmpty prepend="," property="editorMan">
+	          	editor_man = #editorMan#
+	      	</isNotEmpty>
+	      	<isNotEmpty prepend="," property="cityId">
+	          	city_id=#cityId#
+	      	</isNotEmpty>	   
+	      	<isNotEmpty prepend="," property="nurseCharge">
+	          	nurse_charge = #nurseCharge#
+	      	</isNotEmpty>	  
+		where nurse_id = #nurseId#
+	</update>
+    
+    <!-- 
+		删除保养管理信息
+	  -->
+	<delete id="deleteMaintainManage" parameterClass="java.util.HashMap">
+		update tf_nurse 
+		   set nurse_state=0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date=NOW()
+		  where nurse_id =#nurseId#
+	</delete>
+    
+    <!--
+    	添加要保养的设备记录 
+     -->
+    <insert id="insertNurseItem" parameterClass="java.util.HashMap">
+    	insert into tf_nurse_item(
+    		nurse_item_id,
+    		nurse_id,
+    		fixing_id,
+    		car_no_id)
+    	values(
+    		pb_get_sequences(@in_seq_name:='nurse_item_id'),
+    		'$nurseId$',
+    		'$fixingId$',
+    		'$carNoId$')
+    </insert>
+    
+    <!-- 清除保养的设备记录 -->
+    <delete id="deleteNurseItem" parameterClass="java.util.HashMap">
+    	delete from tf_nurse_item
+    		<dynamic prepend="where">
+				<isNotEmpty prepend="and" property="nurseItemId">
+						nurse_item_id = '$nurseItemId$'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="nurseId">
+						nurse_id = '$nurseId$'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="fixingId">
+						fixing_id = '$fixingId$'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="carNoId">
+						car_no_id = '$carNoId$'
+				</isNotEmpty>
+			</dynamic>
+    </delete>
+</sqlMap>

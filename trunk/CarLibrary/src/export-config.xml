@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!-- 
+	节点
+	export 导出信息描述的开始
+	属性
+	id 唯一标志
+	sqlId 与ibatis的sql配置文件里的该功能SQLID对应
+	filename 为导出文件的名称
+	
+	节点
+	description 说明
+	节点
+	column 列信息
+	属性
+	name 为要导出的字段
+	值 导出字段的中文名称，即为导出文件的列头
+-->
+<exports>
+	<export id="applyer" sqlId="Expedite.findApplyer" filename="applyerExport">
+		<description>导出派车申请单</description>
+		<column name="expediteapply_id">单据号</column>
+		<column name="expediteapply_type_name">派车类型</column>
+		<column name="dept_name">使用单位</column>
+		<column name="destination_local">运达地点</column>
+		<column name="use_excuse">用车事由</column>	
+		<column name="intending_date">预计用车时间</column>		
+		<column name="use_man">用车人</column>
+		<column name="use_mobile">用车人联系方式</column>
+		<column name="city_name">所属地市</column>
+		<column name="use_state_name">单据状态</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="expedite" sqlId="Expedite.findExpedite" filename="expediteExport">
+		<description>导出派车信息</description>
+		<column name="expedite_car_id">单据号</column>
+		<column name="expedite_date">派车日期</column>
+		<column name="expedite_man_name">派车人</column>
+		<column name="dept_name">用车部门</column>
+		<column name="use_car_man_name">用车人</column>	
+		<column name="car_no_code">车辆编号</column>		
+		<column name="driver_name">驾驶员</column>
+		<column name="init_mileage">起始里程(米)</column>
+		<column name="intending_date">预计回程时间</column>
+		<column name="city_name">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="goback" sqlId="Expedite.findExpediteAndGoback" filename="gobackExport">
+		<description>导出回车信息</description>
+		<column name="expedite_car_id">出车单据号</column>
+		<column name="expedite_date">派车日期</column>
+		<column name="car_no_code">车辆编号</column>		
+		<column name="expedite_type_desc">出车类型</column>
+		<column name="init_mileage">起始里程(米)</column>
+		<column name="end_mileage">终止里程(米)</column>
+		<column name="usr_time_len">用车时长</column>
+		<column name="goback_date">回车日期</column>
+		<column name="city_name">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="gobackExcel" sqlId="Expedite.findRoldInfoExcel" filename="gobackExcelExport">
+		<description>导出车辆使用清单</description>
+		<column name="expedite_car_id">出车单据号</column>
+		<column name="use_car_man_name">用车人</column>
+		<column name="dept_name">用车部门</column>
+		<column name="driver_name">司机</column>
+		<column name="car_no_code">车牌号</column>
+		<column name="first_locus">起点</column>
+		<column name="first_date">出车时间</column>		
+		<column name="first_mileage">起公里数</column>
+		<column name="transfer_locur">目的地</column>
+		<column name="transfer_date">目的地时间</column>
+		<column name="transfer_mileage">止里程</column>
+		<column name="run_mileage">实际行驶公里数</column>
+		<column name="run_time">实际用车时间</column>
+		<column name="feedback">驾驶员服务态度</column>
+	</export>
+	
+	<export id="driversms" sqlId="Expedite.findDriversms" filename="driversmsExport">
+		<description>导出司机行车记录</description>
+		<column name="driversms_id">单据号</column>
+		<column name="car_mark">车牌号</column>
+		<column name="driver_staffname">司机</column>
+		<column name="driver_mobile">司机手机</column>
+		<column name="first_locus">起点</column>
+		<column name="first_date">起点时间</column>
+		<column name="first_mileage">司机初始里程</column>
+		<column name="transfer_locur">终点</column>
+		<column name="transfer_date">终点时间</column>		
+		<column name="transfer_mileage">司机回车里程</column>
+		<column name="run_mileage">司机行车里程</column>
+		<column name="use_oil_num">加油量</column>
+		<column name="use_oil_charge">加油金额</column>
+		<column name="road_charge">路桥费</column>
+		<column name="reside_charge">住宿费</column>
+		<column name="stopcar_charge">停车费</column>
+		<column name="washcar_charge">洗车费</column>
+		<column name="sms_memo">备注</column>
+	</export>
+	<export id="servicingBooking" sqlId="ServicingManage.findServiceing" filename="servicingBookingExport">
+		<description>导出维修申请信息</description>
+		<column name="maintain_id">单据号</column>
+		<column name="maintain_date">维修时间</column>
+		<column name="maintain_end_date">维修完毕时间</column>
+		<column name="charge">金额(元)</column>	
+		<column name="car_no_code">维修车辆编号</column>		
+		<column name="proposer_name">申请人</column>
+		<column name="maintain_mileage">维修公里数(米)</column>
+		<column name="coop_unit_name">维修厂</column>
+		<column name="maintain_excuse">维修原因</column>
+		<column name="city_name">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="putOnSteam" sqlId="PutonsteamManage.findPutonsteam" filename="putOnSteamExport">
+		<description>导出加油信息</description>
+		<column name="put_on_steam_id">单据号</column>
+		<column name="put_on_date">加油时间</column>
+		<column name="last_put_on_mileage">上次加油里程</column>
+		<column name="gasStation">加油站</column>	
+		<column name="putOnType">加油类型</column>		
+		<column name="carNoId">车辆编号</column>
+		<column name="put_on_mileage">加油时公里数(米)</column>
+		<column name="run_mileage">行驶里程(米)</column>
+		<column name="put_on_num">加油量</column>
+		<column name="consume_100">百公里油耗</column>
+		<column name="price">单价</column>
+		<column name="charge">金额(元)</column>
+		<column name="cityName">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="maintainManage" sqlId="MaintainManageManage.findMaintainManage" filename="maintainManageExport">
+		<description>导出车辆保养信息</description>
+		<column name="nurse_id">单据号</column>
+		<column name="booking_date">单据日期</column>
+		<column name="nurseType">保养类型</column>
+		<column name="nurse_mileage">保养里程(米)</column>	
+		<column name="nurse_date">保养日期</column>		
+		<column name="carNoId">车辆编号</column>
+		<column name="nurse_charge">保养金额</column>
+		<column name="purpose">用途</column>
+		<column name="memo">备注</column>
+		<column name="cityName">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="maintainRoad" sqlId="MaintainRoadManage.findMaintainRoad" filename="maintainRoadExport">
+		<description>导出养路费信息</description>
+		<column name="maintain_road_id">单据号</column>
+		<column name="booking_date">单据日期</column>
+		<column name="charge_item_name">收费项目名称</column>
+		<column name="charge_standard">收费标准</column>	
+		<column name="charge_bound">收费范围</column>		
+		<column name="carNoId">车辆编号</column>
+		<column name="authorize_organ">批准机关</column>
+		<column name="cityId">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="roadBridgeCharge" sqlId="RoadBridgeCharge.findRoadBridgeCharge" filename="roadBridgeChargeExport">
+		<description>导出过路过桥费用信息</description>
+		<column name="road_bridge_charge_id">单据号</column>
+		<column name="booking_date">单据日期</column>
+		<column name="car_no_code">车辆编号</column>
+		<column name="charge_date">收费时间</column>	
+		<column name="charge_type_desc">收费类型</column>		
+		<column name="charge">费用</column>
+		<column name="city_name">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="peccancyManage" sqlId="PeccancyManage.findPeccancy" filename="peccancyManageExport">
+		<description>导出违章管理信息</description>
+		<column name="peccancy_id">单据号</column>
+		<column name="peccancy_booking_date">单据日期</column>
+		<column name="peccancy_type_desc">违章类型</column>
+		<column name="peccancy_date">违章日期</column>	
+		<column name="car_no_code">车辆编号</column>		
+		<column name="peccancy_address">违章地点</column>
+		<column name="peccancy_context">违章内容</column>
+		<column name="city_name">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="financeManage" sqlId="FinanceManage.findFinance" filename="financeManageExport">
+		<description>导出财务管理信息</description>
+		<column name="finance_id">单据号</column>
+		<column name="booking_date">单据日期</column>
+		<column name="source_order_code">源单号</column>
+		<column name="source_order_type_name">源单类型</column>	
+		<column name="car_no_code">车辆编号</column>		
+		<column name="charge">金额</column>
+		<column name="city_name">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="attemperManage" sqlId="AttemperManage.findAttemper" filename="attemperManageExport">
+		<description>导出调度管理信息</description>
+		<column name="attemper_manage_id">单据号</column>
+		<column name="booking_date">单据日期</column>
+		<column name="attemper_date">调度时间</column>
+		<column name="car_no_code">车辆编号</column>		
+		<column name="dept_id_name">用车部门</column>
+		<column name="use_car_man_name">用车人</column>
+		<column name="motor_id_name">司机</column>
+		<column name="city_name">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="localityManage" sqlId="LocalityManage.findLocalityManage" filename="localityManageExport">
+		<description>导出报表位置管理信息</description>
+		<column name="car_no_code">车辆编号</column>
+		<column name="belong_to_company_name">公司</column>
+		<column name="LAST_LOCATION">最后位置</column>
+		<column name="LAST_SPEED">最后速度</column>		
+		<column name="LAST_TIME">最后定位时间</column>
+		<column name="LAST_FLAG">最后定位状态</column>
+		<column name="LAST_ANGLE">方向</column>
+		<column name="LAST_LON">最后定位经度</column>
+		<column name="LAST_LAT">最后定位纬度</column>
+		<column name="car_state_name">车辆状态</column>
+	</export>
+	
+	<export id="carStateQuery" sqlId="CarStateQuery.findCarStateQuery" filename="carStateQueryExport">
+		<description>导出报表车辆状态查询信息</description>
+		<column name="car_no_code">车辆编号</column>
+		<column name="city_name">所属地市</column>
+		<column name="expedite_num">派车次数</column>
+		<column name="goback_num">回车次数</column>		
+		<column name="maintain_num">维修次数</column>
+	</export>
+	
+	<export id="carChargeStat" sqlId="CarChargeStat.findCarChargeStat" filename="carChargeStatExport">
+		<description>导出报表车辆费用统计信息</description>
+		<column name="source_order_type_name">单据类型</column>
+		<column name="charge">总费用(元)</column>
+	</export>
+	
+	<export id="runRecord" sqlId="RunRecord.findRunRecord" filename="runRecordExport">
+		<description>导出报表行车记录信息</description>
+		<column name="car_no_code">车辆编号</column>
+		<column name="dept_name">用车部门</column>
+		<column name="expedite_date">出车时间</column>
+		<column name="goback_date">回车时间</column>
+		<column name="end_mileage">里程数(米)</column>		
+		<column name="usr_time_len">用车时长</column>
+	</export>
+	
+	<export id="rtpMotorman" sqlId="RtpMotorman.findRtpMotorman" filename="rtpMotorman">
+		<description>导出报表签到签退信息</description>
+		<column name="driverId">人员编号</column>
+		<column name="Name">人员姓名</column>
+		<column name="groupdata">时间段</column>
+		<column name="SLogin">签到次数</column>
+		<column name="SLogOut">签退次数</column>		
+	</export>
+	
+	<export id="rtpMaintain" sqlId="RtpMaintain.findRtpMaintain" filename="rtpMaintain">
+		<description>导出报表保养异常信息</description>
+		<column name="car_no_code">车辆编号</column>
+		<column name="fixing_name">配件名称</column>
+		<column name="cityName">所属地市</column>
+		<column name="parmare">参数类型</column>
+		<column name="aa">保养日期(里程)</column>		
+		<column name="bb">参数值</column>		
+	</export>
+	
+	<export id="rtpPutonsteam" sqlId="RtpPutonsteam.findRtpPutonsteam" filename="rtpPutonsteam">
+		<description>导出报表加油异常信息</description>
+	<column name="put_on_steam_id">单据号</column>
+		<column name="put_on_date">加油时间</column>
+		<column name="last_put_on_mileage">上次加油里程</column>
+		<column name="gasStation">加油站</column>	
+		<column name="putOnType">加油类型</column>		
+		<column name="carNoId">车辆编号</column>
+		<column name="put_on_mileage">加油时公里数(米)</column>
+		<column name="run_mileage">行驶里程(米)</column>
+		<column name="put_on_num">加油量</column>
+		<column name="consume_100">百公里油耗</column>
+		<column name="price">单价</column>
+		<column name="charge">金额(元)</column>
+		<column name="cityName">所属地市</column>
+		<column name="create_man_name">创建人</column>
+		<column name="create_date">创建时间</column>
+		<column name="editor_man_name">编辑人</column>
+		<column name="editor_date">编辑时间</column>
+		<column name="execute_man_name">执行人</column>
+		<column name="execute_date">执行时间</column>
+	</export>
+	
+	<export id="rtpDistanceError" sqlId="RtpDistanceError.findRtpDistanceError" filename="rtpDistanceError">
+		<description>导出报表里程异常信息</description>
+	    <column name="car_mark">车辆编号</column>
+		<column name="intime">时间段</column>
+		<column name="GPSDistance">GPS记录里程</column>
+		<column name="BillDistance">单据统计里程</column>	
+		<column name="ChanagDistance">差值</column>
+	</export>
+	
+	<export id="rtpDistancer" sqlId="RtpDistance.findRtpDistancer" filename="rtpDistance">
+		<description>导出报表里程信息</description>
+	    <column name="car_mark">车辆编号</column>
+		<column name="carid">车辆编号</column>
+		<column name="intime">时间段</column>
+		<column name="distance">行驶里程</column>	
+	</export>
+	
+	
+	<!-- 短信的导出功能2009-03-11 -->
+	<export id="InceptSmsExport" sqlId="SmsManage.findInceptSms" filename="InceptSmsExport">
+		<description>导出接收的短信</description>
+		<column name="phone_code">发送者号码</column>
+		<column name="sms_staff_name">发送者姓名</column>
+		<column name="incept_date">发送时间</column>		
+		<column name="sms_state_name">短信状态</column>
+		<column name="coll_date">采集时间</column>
+		<column name="sms_content">接收内容</column>
+	</export>
+	
+    <export id="SendSmsRecordExport" sqlId="SmsManage.findSendSmsRecord" filename="SendSmsRecordExport">
+		<description>导出发送的短信</description>
+		<column name="call_phone">接收号码</column>
+		<column name="call_staff_name">接收者</column>
+		<column name="create_date">创建时间</column>		
+		<column name="send_date">发送时间</column>
+		<column name="source_order_type_desc">源单类型</column>
+		<column name="staff_id_name">发送者</column>
+		<column name="send_state_desc">发送状态</column>
+		<column name="send_content">发送内容</column>
+	</export>
+</exports>

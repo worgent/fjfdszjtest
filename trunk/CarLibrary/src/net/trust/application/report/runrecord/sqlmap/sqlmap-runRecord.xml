@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表 -》 行车记录
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="RunRecord">
+	<!-- 查询行车记录总数 -->
+	<select id="findRunRecordCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)
+		  from tf_car_info a, tf_expedite_car_record b, tf_goback_car_record c
+		 where a.car_no_id = b.car_no_id
+		   and b.expedite_car_id = c.expedite_car_id
+		   and a.state &lt;&gt; 0 
+		   and b.expedite_state &lt;&gt; 0
+		   and c.record_state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		a.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				a.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="deptId">
+				b.dept_id = '$deptId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begExpediteDate">
+				b.expedite_date &gt;= cast('$begExpediteDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endExpediteDate">
+				b.expedite_date &lt;= cast('$endExpediteDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begGobackDate">
+				c.goback_date &gt;= cast('$begGobackDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endGobackDate">
+				c.goback_date &lt;= cast('$endGobackDate$' as DATE)
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询行车记录 -->
+	<select id="findRunRecord" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select a.car_no_id,
+		       a.car_no_code,
+		       b.expedite_car_id,
+		       c.goback_car_id,
+		       cast(b.expedite_date as char) expedite_date,
+		       cast(c.goback_date as char) goback_date,
+		       c.end_mileage,
+		       usr_time_len,
+		       (select dept_name 
+		       	  from tf_dept_info 
+		       	 where dept_id = b.dept_id) dept_name
+		  from tf_car_info a, tf_expedite_car_record b, tf_goback_car_record c
+		 where a.car_no_id = b.car_no_id
+		   and b.expedite_car_id = c.expedite_car_id
+		   and a.state &lt;&gt; 0
+		   and b.expedite_state &lt;&gt; 0
+		   and c.record_state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		a.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				a.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="deptId">
+				b.dept_id = '$deptId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begExpediteDate">
+				b.expedite_date &gt;= cast('$begExpediteDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endExpediteDate">
+				b.expedite_date &lt;= cast('$endExpediteDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begGobackDate">
+				c.goback_date &gt;= cast('$begGobackDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endGobackDate">
+				c.goback_date &lt;= cast('$endGobackDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+</sqlMap>

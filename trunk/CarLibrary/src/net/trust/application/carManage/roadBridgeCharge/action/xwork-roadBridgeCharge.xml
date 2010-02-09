@@ -1,0 +1,30 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+ * 过路过桥费用管理
+ -->
+<xwork>
+	<package name="RoadBridgeCharge" extends="CarManagePackage" namespace="/carmanage/roadbridgecharge">
+		<action name="roadBridgeCharge" class="roadBridgeChargeAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/roadbridgecharge/roadbridgechargelist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/roadbridgecharge/editroadbridgecharge.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/roadbridgecharge/editroadbridgecharge.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/roadbridgecharge/viewroadbridgecharge.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		
+	</package>
+</xwork>

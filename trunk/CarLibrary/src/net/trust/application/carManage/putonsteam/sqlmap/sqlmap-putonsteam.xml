@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 加油管理
+ *
+ -->
+<sqlMap namespace="PutonsteamManage">
+  	<!-- 查询养路费总记录数 -->
+	<select id="findPutonsteamCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) 
+		  from tf_put_on_steam
+		 where put_on_state &lt;&gt; 0	 
+		<isNotEmpty prepend="and" property="putonsteamId">
+		   		put_on_steam_id = '$putonsteamId$'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="putOnDate">
+		   		put_on_date = cast(#putOnDate# AS DATE)
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="begPutOnDate">
+		   		put_on_date &gt;=cast(#begPutOnDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="endPutOnDate">
+		   		put_on_date &lt;=cast(#endPutOnDate# AS DATE)
+		</isNotEmpty>			
+		<isNotEmpty prepend="and" property="putOnType">
+				put_on_type=#putOnType# 
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 			
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>         	
+	</select>
+	
+	<!-- 
+		查询养路费信息
+	  -->
+	  
+	<select id="findPutonsteam" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.create_date AS CHAR) create_date,
+           	   cast(t.editor_date AS CHAR) editor_date,           		
+          	   cast(t.execute_date AS CHAR) execute_date, 
+          	   cast(t.put_on_date AS CHAR) put_on_date,            		       		
+          	   (select tt.city_name 
+		          from td_city tt 
+			     where tt.city_id=t.city_id) cityName,
+          	   (select tt.car_no_code 
+			      from tf_car_info tt 
+			     where tt.car_no_id = t.car_no_id) carNoId,
+          	   (select tt.PARA_VALUE_DESC 
+			      from td_system_para tt 
+			     where tt.para_value=t.put_on_type
+			       and tt.para_name = 'PUT_ON_STEAM_TYPE')  putOnType,
+          	   (select tt.coop_unit_name 
+			      from tf_rec_unit_info tt 
+			     where tt.coop_unit_id=t.gas_station) gasStation,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,  
+           	   t.*          		 
+          from tf_put_on_steam t
+         where put_on_state &lt;&gt; 0
+        <isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   		           		from tf_staff_city a 
+		   		               where a.staff_id=#staffId#)
+		</isNotEmpty>	
+        <isNotEmpty prepend="and" property="putonsteamId">
+		   		t.put_on_steam_id = '$putonsteamId$'
+		</isNotEmpty>	
+        <isNotEmpty prepend="and" property="putOnDate">
+		   		t.put_on_date=cast(#putOnDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="begPutOnDate">
+		   		put_on_date &gt;=cast(#begPutOnDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="endPutOnDate">
+		   		put_on_date &lt;=cast(#endPutOnDate# AS DATE)
+		</isNotEmpty>			
+		<isNotEmpty prepend="and" property="putOnType">
+				t.put_on_type=#putOnType# 
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				t.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="carNoId">
+				t.car_no_id = '$carNoId$'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="cityId">
+				t.city_id = #cityId#
+		</isNotEmpty> 
+		  order by t.put_on_steam_id desc
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	  
+	</select>	
+    <insert id="insertPutonsteam" parameterClass="java.util.HashMap">
+    	insert into tf_put_on_steam (		
+			   		put_on_steam_id			
+	    	<isNotEmpty prepend="," property="putOnDate">
+			   		put_on_date
+			</isNotEmpty>	
+        	<isNotEmpty prepend="," property="lastPutOnMileage">
+			   		last_put_on_mileage
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="gasStation">
+					gas_station
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="putOnType">
+					put_on_type
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="carNoId">
+					car_no_id
+			</isNotEmpty> 			
+			<isNotEmpty prepend="," property="carNoCode">
+					car_no_code 
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="putOnMileage">
+					put_on_mileage
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="runMileage">
+					run_mileage
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="runMileageNum">
+					run_mileage_num
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useOilNum">
+					use_oil_num
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="useOilCharge">
+					use_oil_charge
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="putOnNum">
+					put_on_num
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="consume_100">
+					consume_100
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="price">
+					price
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="charge">
+					charge
+			</isNotEmpty>		     
+      		<isNotEmpty prepend="," property="createMan">
+          			create_man
+      		</isNotEmpty>	      
+        			,create_date     
+       		<isNotEmpty prepend="," property="memo">
+           			memo
+      		</isNotEmpty>	       
+      		<isNotEmpty prepend="," property="cityId">
+           			city_id
+      		</isNotEmpty>
+      		
+      			
+      		<isNotEmpty prepend="," property="OilTotal">
+           			oil_total
+      		</isNotEmpty>	
+      		<isNotEmpty prepend="," property="putOnExoil">
+           			put_on_exoil
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="putOnoil">
+           			put_on_oil
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="lastPutonexoil">
+           			last_put_on_exoil
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="lastPutonoil">
+           			last_put_on_oil
+      		</isNotEmpty>
+      		
+					,put_on_state)
+			values (
+					#putOnSteamId#		   		
+	    	<isNotEmpty prepend="," property="putOnDate">
+			   		cast('$putOnDate$' AS DATE)
+			</isNotEmpty>	
+        	<isNotEmpty prepend="," property="lastPutOnMileage">
+			   		$lastPutOnMileage$
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="gasStation">
+					'$gasStation$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="putOnType">
+					'$putOnType$'
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="carNoId">
+					'$carNoId$'
+			</isNotEmpty> 			
+			<isNotEmpty prepend="," property="carNoCode">
+					'$carNoCode$' 
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="putOnMileage">
+					$putOnMileage$
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="runMileage">
+					$runMileage$
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="runMileageNum">
+					$runMileageNum$
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useOilNum">
+					$useOilNum$
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="useOilCharge">
+					$useOilCharge$
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="putOnNum">
+					$putOnNum$
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="consume_100">
+					$consume_100$
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="price">
+					$price$
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="charge">
+					$charge$
+			</isNotEmpty>		     
+      		<isNotEmpty prepend="," property="createMan">
+          			'$createMan$'
+      		</isNotEmpty>	      
+        			,NOW()     
+       		<isNotEmpty prepend="," property="memo">
+           			'$memo$'
+      		</isNotEmpty>	       
+      		<isNotEmpty prepend="," property="cityId">
+           			$cityId$
+      		</isNotEmpty>	
+      		
+      		<isNotEmpty prepend="," property="OilTotal">
+           			$OilTotal$
+      		</isNotEmpty>	
+      		<isNotEmpty prepend="," property="putOnExoil">
+           			$putOnExoil$
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="putOnoil">
+           			$putOnoil$
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="lastPutonexoil">
+           			$lastPutonexoil$
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="lastPutonoil">
+           			$lastPutonoil$
+      		</isNotEmpty>
+					,1)    
+    </insert>  
+    
+	
+	<update id="updatePutonsteam" parameterClass="java.util.HashMap">
+		update tf_put_on_steam
+		   set editor_date = now()
+	        <isNotEmpty prepend="," property="putOnDate">
+		   		put_on_date=#putOnDate#
+			</isNotEmpty>	
+           	<isNotEmpty prepend="," property="lastPutOnMileage">
+		   		last_put_on_mileage=#lastPutOnMileage#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="gasStation">
+				gas_station=#gasStation# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="putOnType">
+				put_on_type=#putOnType# 
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="carNoId">
+				car_no_id = #carNoId#
+			</isNotEmpty> 		
+			<isNotEmpty prepend="," property="carNoCode">
+				car_no_code = #carNoCode#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="putOnMileage">
+				put_on_mileage=#putOnMileage#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="runMileage">
+				run_mileage=#runMileage#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="runMileageNum">
+				run_mileage_num=#runMileageNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useOilNum">
+				use_oil_num=#useOilNum#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="useOilCharge">
+				use_oil_charge=#useOilCharge#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="putOnNum">
+				put_on_num=#putOnNum#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="consume_100">
+				consume_100=#consume_100#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="price">
+				price=#price#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="charge">
+				charge=#charge#
+			</isNotEmpty>		     
+	      	<isNotEmpty prepend="," property="editorMan">
+	          	editor_man=#editorMan#
+	      	</isNotEmpty>
+	      	<isNotEmpty prepend="," property="cityId">
+	          	city_id=#cityId#
+	      	</isNotEmpty>	
+	      	<isNotEmpty prepend="," property="memo">
+	          	memo = #memo#
+	      	</isNotEmpty>  
+	      	
+	      	<isNotEmpty prepend="," property="OilTotal">
+           			oil_total=#OilTotal#
+      		</isNotEmpty>	
+      		<isNotEmpty prepend="," property="putOnExoil">
+           			put_on_exoil=#putOnExoil#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="putOnoil">
+           			put_on_oil=#putOnoil#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="lastPutonexoil">
+           			last_put_on_exoil=#lastPutonexoil#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="," property="lastPutonoil">
+           			last_put_on_oil=#lastPutonoil#
+      		</isNotEmpty>   
+	     where put_on_steam_id = #putonsteamId#
+	</update>
+    
+    <!-- 
+		删除养路费信息
+	  -->
+	<delete id="deletePutonsteam" parameterClass="java.util.HashMap">
+		update tf_put_on_steam 
+		   set put_on_state = 0,
+		       editor_man = #editorMan#,
+		   	   editor_date = NOW()
+		where put_on_steam_id =#putonsteamId#
+	</delete>
+    
+    
+    
+</sqlMap>

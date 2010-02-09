@@ -1,0 +1,9 @@
+#if ($stack.getContext().get("statusAttr").index == 0)
+	<thead>
+  		<tr align=center>
+#else 
+	 #if ($stack.getContext().get("statusAttr").index == 1)
+ 		<tbody>
+ 	#end
+ 			<tr #if ($parameters.onclick) onclick="$parameters.onclick" #end #if ($parameters.ondblclick) ondblclick="$parameters.ondblclick" #end>
+#end

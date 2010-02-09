@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 车辆信息
+ * @author zhengmh
+ *
+ -->
+<sqlMap namespace="CarManage">
+  	<!-- 查询车辆总记录数 -->
+	<select id="findCarCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) from tf_car_info
+		 where state &lt;&gt; 0	
+	    <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		 <isNotEmpty prepend="and" property="carNoCode">
+		   		car_no_code like '%$carNoCode$%'
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="terminalType">
+				terminal_type=#terminalType# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="color">
+				color=#color# 
+		</isNotEmpty>
+       	<isNotEmpty prepend="and" property="belongCompany">
+      			belong_to_company = #belongCompany#
+        </isNotEmpty>
+		<isNotEmpty prepend="and" property="belongDept">
+				belong_to_dept=#belongDept# 
+		</isNotEmpty>        
+         <isNotEmpty prepend="and" property="carState">
+				car_state = #carState#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="installDate">
+				install_date = cast(#installDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="buyDate">
+				buy_date = cast(#buyDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>			
+	</select>
+	
+	<!-- 
+		查询车辆信息
+	  -->
+	<select id="findCarInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+          select cast(t.install_date AS CHAR) install_date,
+				 cast(t.buy_date AS CHAR) buy_date,
+				 cast(t.create_date AS CHAR) create_date,
+				 cast(t.editor_date AS CHAR) editor_date,           		
+				 cast(t.execute_date AS CHAR) execute_date,     
+				 (select tt.PARA_VALUE_DESC 
+			        from td_system_para tt 
+			       where tt.para_value=t.terminal_type 
+			         and tt.para_name = 'TERMINAL_TYPE') terminalType,
+				 (select tt.para_value_desc 
+			        from td_system_para tt 
+			       where tt.para_value=t.car_state  
+			         and tt.para_name = 'CAR_STATE') carState,
+			       (select company_name 
+					  from tf_manage_organ_archives a 
+					where a.company_id=t.belong_to_company ) belongCompany, 	
+				 (select tt.para_value_desc 
+			        from td_system_para tt 
+			       where tt.para_value=t.color 
+			         and tt.para_name = 'COLCOR') color2,
+				 (select tt.city_name  
+			        from td_city tt 
+			       where tt.city_id=t.city_id) cityId,
+           		   (select distinct tt.dept_name 
+           		      from tf_dept_info tt 
+           		     where tt.dept_id=t.belong_to_dept) belongDept,			       
+			     FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			     FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			     FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,
+				 t.*
+            from tf_car_info t
+           where state &lt;&gt; 0
+        <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+        <isNotEmpty prepend="and" property="carNoId">
+		   		t.car_no_id like '%$carNoId$%'
+		</isNotEmpty>
+        <isNotEmpty prepend="and" property="carNoCode">
+		   		t.car_no_code like '%$carNoCode$%'
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="terminalType">
+				t.terminal_type=#terminalType# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="color">
+				t.color=#color# 
+		</isNotEmpty>
+        <isNotEmpty prepend="and" property="belongCompany">
+      			t.belong_to_company = #belongCompany#
+        </isNotEmpty>
+ 			<isNotEmpty prepend="and" property="belongDept">
+					t.belong_to_dept=#belongDept# 
+			</isNotEmpty>       
+        <isNotEmpty prepend="and" property="carState">
+				t.car_state = #carState#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="installDate">
+				t.install_date = cast(#installDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="buyDate">
+				t.buy_date = cast(#buyDate# AS DATE)
+		</isNotEmpty>			
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>
+		  order by car_no_id desc
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>			
+	</select>	
+    <insert id="insertCar" parameterClass="java.util.HashMap">
+       insert into tf_car_info 
+              (car_no_id,
+              car_no_code,
+              terminal_type,
+              color,
+              run_mileage_init,
+              curr_run_mileage,
+              belong_to_company,
+              car_state,
+              car_phone,
+              install_date,
+              buy_date,
+              create_man,
+              create_date,
+              city_id,
+              oil_total,
+              <isNotEmpty prepend="" property="belongDept">
+                belong_to_dept,
+               </isNotEmpty>
+              state)
+		values(
+			  #carNoId#,
+              #carNoCode#,
+              #terminalType#,
+              #color#,
+              #runMileageInit#,
+              #runMileageInit#,
+              #belongCompany#,
+              1,
+              #carPhone#,
+              cast(#installDate# AS DATE),
+              cast(#buyDate# AS DATE),
+              #createMan#,
+              NOW(),
+              #cityId#,
+              #oilTotal#,
+         		<isNotEmpty prepend="" property="belongDept">
+                #belongDept#,
+                </isNotEmpty>            
+              1)                
+    </insert>  
+    
+	
+	<update id="updateCar" parameterClass="java.util.HashMap">
+		update tf_car_info
+		   set editor_date = NOW()
+      	<isNotEmpty prepend="," property="carNoCode">
+		   		car_no_code=#carNoCode#
+		</isNotEmpty>		
+		<isNotEmpty prepend="," property="terminalType">
+				terminal_type=#terminalType# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="color">
+				color=#color# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="runMileageInit">
+				run_mileage_init=#runMileageInit# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carPhone">
+				car_phone=#carPhone# 
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="belongCompany">
+         		belong_to_company = #belongCompany#
+         </isNotEmpty>
+ 		<isNotEmpty prepend="," property="belongDept">
+			   belong_to_dept=#belongDept#
+		</isNotEmpty>         
+         <isNotEmpty prepend="," property="carState">
+				car_state = #carState#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="installDate">
+				install_date = cast(#installDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="buyDate">
+				buy_date = cast(#buyDate# AS DATE)
+		</isNotEmpty>		
+	    <isNotEmpty prepend="," property="editorMan">
+          		editor_man=#editorMan#
+	    </isNotEmpty>
+       	<isNotEmpty prepend="," property="cityId">
+         		city_id=#cityId#
+      	</isNotEmpty>
+      	<isNotEmpty prepend="," property="oilTotal">
+         		oil_total=#oilTotal#
+      	</isNotEmpty>
+      	<isNotEmpty prepend="," property="state">
+         		state = #state#
+      	</isNotEmpty>
+		where car_no_id=#carNoId#
+	</update>
+    
+    <!-- 
+		删除车辆信息
+	  -->
+	<delete id="deleteCar" parameterClass="java.util.HashMap">
+		update tf_car_info
+		   set editor_man = #editorMan#,
+		   	   editor_date = NOW(),
+		   	   state = 0
+		 where car_no_id=#carNoId#
+	</delete>
+    
+    <!-- 查询车辆与设备关系 -->
+    <select id="findCarFixing" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+    	select b.*,
+    		<isNotEmpty prepend="" property="nurseId">
+		       (select 1
+		          from tf_nurse_item c
+		         where c.car_no_id = '$carNoId$'
+		           and c.nurse_id = '$nurseId$'
+		           and c.fixing_id = b.fixing_id) checked
+			</isNotEmpty>
+			<isEmpty prepend="" property="nurseId">
+				0 checked
+			</isEmpty>
+		  from tf_car_fixing a, tf_fixing_info b
+		 where a.fixing_id = b.fixing_id
+		   and b.state &lt;&gt; 0
+		   and a.car_no_id = '$carNoId$'
+		    	
+    </select>
+    
+    <!-- 添加车辆与设备关系 -->
+    <insert id="insertCarFixing" parameterClass="java.util.HashMap">
+    	insert into tf_car_fixing(
+    		car_fixing_id,
+    		car_no_id,
+    		fixing_id)
+    	values(
+    		pb_get_sequences(@in_seq_name:='car_fixing_id'),
+    		'$carNoId$',
+    		'$fixingId$')
+    </insert>
+    
+    <!-- 清除车辆与设备关系 -->
+    <delete id="deleteCarFixing" parameterClass="java.util.HashMap">
+    	delete from tf_car_fixing
+    		<dynamic prepend="where">
+				<isNotEmpty prepend="and" property="carFixingId">
+						car_fixing_id = '$carFixingId$'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="carNoId">
+						car_no_id = '$carNoId$'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="fixingId">
+						fixing_id = '$fixingId$'
+				</isNotEmpty>
+			</dynamic>
+    </delete>
+    
+    <!-- 
+    	修改车辆当前行驶里程
+    	@param opt 操作符： + -
+    	@param mileage 里程值
+    	@param carNoId 要修改的车辆ID值
+    -->
+    <update id="updateCarCurrRunMileage" parameterClass="java.util.HashMap">
+    	update tf_car_info
+    	   set curr_run_mileage = curr_run_mileage $opt$ $mileage$
+    	 where car_no_id = '$carNoId$'
+    </update>
+    
+    <!-- 查询GPS系统上车辆当前里程 -->
+    <select id="findGPSCarCurrMileage" parameterClass="java.util.HashMap" resultClass="java.lang.String" remapResults="true" >
+    	select CONVERT(decimal(10,3), CONVERT(varbinary(20), TOTAL_DISTANCE/1000.0)) TOTAL_DISTANCE
+    	  from car_info
+    	 where car_mark = '$carNoCode$' 
+    </select>
+    
+    <!-- 查询车辆油箱总容量 -->
+    <select id="findOilTotal" parameterClass="java.util.HashMap" resultClass="java.lang.String" remapResults="true" >
+    	select oil_total 
+    	  from tf_car_info
+    	 where car_no_id = '$car_no_id$'
+    </select>
+    
+    
+    <!-- 
+		查询车辆信息
+		时间:2009-12-30  
+		说明:修改过滤车辆的方法去除以下过滤,用户需要弱化车辆状态,让车辆随时都可以派车
+		and car_state = 1
+	 -->
+	<select id="ajaxJsonCar" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+	select car_no_id id, car_no_code text 
+	from tf_car_info 
+	where state = 1
+	and belong_to_dept=#belongDept#
+	and city_id in (select city_id from tf_staff_city  where staff_id=#staffId#)    
+	</select>
+</sqlMap>

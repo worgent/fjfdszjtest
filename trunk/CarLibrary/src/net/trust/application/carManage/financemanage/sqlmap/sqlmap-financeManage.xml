@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 财务管理
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="FinanceManage">
+	<!-- 查询财务单据总数 -->
+	<select id="findFinanceCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)
+		  from tf_finance t
+		 where t.finance_state = 1
+		<isNotEmpty prepend="and" property="financeId">
+				finance_id = '$financeId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sourceOrderType">
+				source_order_type = '$sourceOrderType$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sourceOrderCode">
+				source_order_code = '$sourceOrderCode$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begBookingDate">
+				booking_date &gt;= cast('$begBookingDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endBookingDate">
+				booking_date &lt;= cast('$endBookingDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+	</select>
+	
+	<!-- 查询财务单据 -->
+	<select id="findFinance" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select cast(t.booking_date AS CHAR) booking_date,
+			   cast(t.create_date AS CHAR) create_date,
+           	   cast(t.editor_date AS CHAR) editor_date,           		
+          	   cast(t.execute_date AS CHAR) execute_date, 
+          	   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,  
+			   (select a.para_value_desc
+			      from td_system_para a 
+			     where para_type = 'FINANCE_PARA' 
+			       and para_name = 'SOURCE_ORDER_TYPE'
+			       and a.para_value = t.source_order_type) source_order_type_name,
+			   (select tt.city_name 
+		          from td_city tt 
+			     where tt.city_id=t.city_id) city_name,
+			   (select tt.car_no_code 
+			      from tf_car_info tt 
+			     where tt.car_no_id = t.car_no_id) car_no_code,
+			   t.*
+		  from tf_finance t
+		 where t.finance_state = 1
+		<isNotEmpty prepend="and" property="financeId">
+				finance_id = '$financeId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sourceOrderType">
+				source_order_type = '$sourceOrderType$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sourceOrderCode">
+				source_order_code = '$sourceOrderCode$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begBookingDate">
+				booking_date &gt;= cast('$begBookingDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endBookingDate">
+				booking_date &lt;= cast('$endBookingDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		  order by finance_id desc
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+	
+	<!--
+		创建财物管理交单据 
+	  -->
+	<insert id="insertFinance" parameterClass="java.util.HashMap">
+		insert into tf_finance(
+			finance_id,
+			booking_date,
+			source_order_type,
+			source_order_code,
+			charge,
+			memo,
+			car_no_id,
+			car_no_code,
+			create_man,
+			create_date,
+			city_id,
+			finance_state)
+		values(
+			pb_get_sequences(@in_seq_name:='finance_id'),
+			NOW(),
+			'$sourceOrderType$',
+			'$sourceOrderCode$',
+			#charge#,
+			'$memo$',
+			'$carNoId$',
+			'$carNoCode$',
+			'$createMan$',
+			NOW(),
+			$cityId$,
+			1)
+	</insert>
+	
+	<!-- 修改财务单据 -->
+	<update id="updateFinance" parameterClass="java.util.HashMap">
+		update tf_finance
+		   set editor_date = NOW()
+		<isNotEmpty prepend="," property="sourceOrderCode">
+				source_order_code = '$sourceOrderCode$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="charge">
+				charge = $charge$
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="memo">
+				memo = '$memo$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNoCode">
+				car_no_id = '$carNoCode$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNoCode">
+				car_no_code = '$carNoCode$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="editorMan">
+				editor_man = '$editorMan$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="executeMan">
+				execute_man = '$executeMan$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="executeDate">
+				execute_date = cast('$executeDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cityId">
+				city_id = $cityId$
+		</isNotEmpty>
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="financeId">
+		 		finance_id = '$financeId$'
+		 	</isNotEmpty>
+		 	<isNotEmpty prepend="and" property="sourceOrderCode">
+		 		source_order_code = '$sourceOrderCode$'
+		 	</isNotEmpty>
+		 	<isNotEmpty prepend="and" property="sourceOrderType">
+				source_order_type = '$sourceOrderType$'
+			</isNotEmpty>
+		</dynamic>
+	</update>
+	
+	<!-- 删除财务单据 -->
+	<update id="deleteFinance" parameterClass="java.util.HashMap">
+		update tf_finance
+		   set finance_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date = NOW()
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="financeId">
+		 		finance_id = '$financeId$'
+		 	</isNotEmpty>
+		 	<isNotEmpty prepend="and" property="sourceOrderCode">
+		 		source_order_code = '$sourceOrderCode$'
+		 	</isNotEmpty>
+		 	<isNotEmpty prepend="and" property="sourceOrderType">
+				source_order_type = '$sourceOrderType$'
+			</isNotEmpty>
+		</dynamic>
+	</update>
+</sqlMap>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表 -》 行车记录
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="RtpDistanceError">
+	<!-- 查询行车记录总数 -->
+	<select id="findRtpDistanceErrorCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)  from
+		(
+		select a.car_mark,sum(a.GPSDistance) GPSDistance,sum(a.BillDistance) BillDistance,sum(a.GPSDistance-a.BillDistance) ChanagDistance,concat('$begTime$','~','$endTime$') intime
+		from
+		(
+			select a.car_mark,ifnull(max(a.Total_Distance),0)-ifnull(min(a.Total_Distance),0) GPSDistance,0 BillDistance 
+			from inter_car_info_distance a,TF_CAR_INFO b
+			where b.State &lt;&gt; 0 AND a.CAR_Mark =b.CAR_NO_CODE
+		    <isNotEmpty prepend="and" property="staffId">
+		   		b.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		    </isNotEmpty> 
+			<isNotEmpty prepend="and" property="car_Mark">
+				 a.car_mark like '%$car_Mark$%'
+		    </isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.record_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="endTime">
+				cast(a.record_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		   </isNotEmpty>
+		   	group by a.car_mark
+			union all
+		    select car_mark,0 GPSDistance,run_mileage BillDistance   from td_driversms_info
+			where bill_state &lt;&gt; 0 
+			<isNotEmpty prepend="and" property="car_Mark">
+				car_mark like '%$car_Mark$%'
+		    </isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(transfer_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="endTime">
+				cast(transfer_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		   </isNotEmpty>
+			)a
+			where a.car_mark is not null
+			group by a.car_mark,intime
+			<isNotEmpty prepend="having" property="chanagdistance">
+				abs(sum(a.GPSDistance-a.BillDistance))&gt;= abs($chanagdistance$)
+		   </isNotEmpty>
+		)aa
+	</select>
+	
+	<!-- 查询行车记录 -->
+	<select id="findRtpDistanceError" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select a.car_mark,sum(a.GPSDistance) GPSDistance,sum(a.BillDistance) BillDistance,sum(a.GPSDistance-a.BillDistance) ChanagDistance,concat('$begTime$','~','$endTime$') intime
+		from
+		(
+			select a.car_mark,ifnull(max(a.Total_Distance),0)-ifnull(min(a.Total_Distance),0) GPSDistance,0 BillDistance 
+			from inter_car_info_distance a,TF_CAR_INFO b
+			where b.State &lt;&gt; 0 AND a.CAR_Mark =b.CAR_NO_CODE
+			<isNotEmpty prepend="and" property="car_Mark">
+				 a.car_mark like '%$car_Mark$%'
+		    </isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.record_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="endTime">
+				cast(a.record_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		   </isNotEmpty>
+		   	group by a.car_mark
+			union all
+		    select car_mark,0 GPSDistance,run_mileage BillDistance   from td_driversms_info
+			where bill_state &lt;&gt; 0 
+			<isNotEmpty prepend="and" property="car_Mark">
+				car_mark like '%$car_Mark$%'
+		    </isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(transfer_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="endTime">
+				cast(transfer_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		   </isNotEmpty>
+			)a
+			where a.car_mark is not null
+			group by a.car_mark,intime
+			<isNotEmpty prepend="having" property="chanagdistance">
+				abs(sum(a.GPSDistance-a.BillDistance))&gt;= abs($chanagdistance$)
+		   </isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	
+	
+	
+	
+		<!-- 查询行车记录总数 -->
+	<select id="findRtpDistanceErrorCountback" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)  from
+		(
+		select a.car_mark,sum(a.GPSDistance) GPSDistance,sum(a.BillDistance) BillDistance,sum(a.GPSDistance-a.BillDistance) ChanagDistance,concat('$begTime$','~','$endTime$') intime
+		from
+		(
+			select a.car_mark,ifnull(max(a.Total_Distance),0)-ifnull(min(a.Total_Distance),0) GPSDistance,0 BillDistance 
+			from inter_car_info_distance a,TF_CAR_INFO b
+			where b.State &lt;&gt; 0 AND a.CAR_Mark =b.CAR_NO_CODE
+		    <isNotEmpty prepend="and" property="staffId">
+		   		b.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		    </isNotEmpty> 
+			<isNotEmpty prepend="and" property="car_Mark">
+				 a.car_mark like '%$car_Mark$%'
+		    </isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.record_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="endTime">
+				cast(a.record_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		   </isNotEmpty>
+		   	group by a.car_mark
+			union all
+			select c.car_no_code,0 GPSDistance,sum(a.end_mileage-b.init_mileage) BillDistance
+			from tf_goback_car_record a
+			left outer join tf_expedite_car_record b on a.expedite_car_id=b.expedite_car_id
+			left outer join tf_car_info c on b.car_no_id=c.car_no_id
+			where c.State &lt;&gt; 0 
+		    <isNotEmpty prepend="and" property="staffId">
+		   		c.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		    </isNotEmpty> 
+			<isNotEmpty prepend="and" property="car_Mark">
+				b.car_no_id like '%$car_Mark$%'
+		    </isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(goback_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="endTime">
+				cast(goback_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		   </isNotEmpty>			
+			group by c.car_no_code
+			)a
+			where a.car_mark is not null
+			group by a.car_mark,intime
+			<isNotEmpty prepend="having" property="chanagdistance">
+				abs(sum(a.GPSDistance-a.BillDistance))&gt;= abs($chanagdistance$)
+		   </isNotEmpty>
+		)aa
+	</select>
+	
+	<!-- 查询行车记录 -->
+	<select id="findRtpDistanceErrorback" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select a.car_mark,sum(a.GPSDistance) GPSDistance,sum(a.BillDistance) BillDistance,sum(a.GPSDistance-a.BillDistance) ChanagDistance,concat('$begTime$','~','$endTime$') intime
+		from
+		(
+			select a.car_mark,ifnull(max(a.Total_Distance),0)-ifnull(min(a.Total_Distance),0) GPSDistance,0 BillDistance 
+			from inter_car_info_distance a,TF_CAR_INFO b
+			where b.State &lt;&gt; 0 AND a.CAR_Mark =b.CAR_NO_CODE
+			<isNotEmpty prepend="and" property="car_Mark">
+				 a.car_mark like '%$car_Mark$%'
+		    </isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.record_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="endTime">
+				cast(a.record_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		   </isNotEmpty>
+		   	group by a.car_mark
+			union all
+			select c.car_no_code,0 GPSDistance,sum(a.end_mileage-b.init_mileage) BillDistance
+			from tf_goback_car_record a
+			left outer join tf_expedite_car_record b on a.expedite_car_id=b.expedite_car_id
+			left outer join tf_car_info c on b.car_no_id=c.car_no_id
+			where c.State &lt;&gt; 0 
+			<isNotEmpty prepend="and" property="car_Mark">
+				b.car_no_id like '%$car_Mark$%'
+		    </isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(goback_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		   </isNotEmpty>
+		   <isNotEmpty prepend="and" property="endTime">
+				cast(goback_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		   </isNotEmpty>			
+			group by c.car_no_code
+			)a
+			where a.car_mark is not null
+			group by a.car_mark,intime
+			<isNotEmpty prepend="having" property="chanagdistance">
+				abs(sum(a.GPSDistance-a.BillDistance))&gt;= abs($chanagdistance$)
+		   </isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+</sqlMap>

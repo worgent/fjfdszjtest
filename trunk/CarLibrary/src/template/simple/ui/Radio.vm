@@ -1,0 +1,9 @@
+<input type="radio" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($parameters.filedValue)" #if ($parameters.filedValue == $parameters.value) checked #end
+	#parse("/template/simple/scripting-events.vm")
+/> $!webwork.htmlEncode($parameters.text)
+<script>
+	fm2.add(new Ext.form.Radio({
+		cls :'x-grid3-check-col-td',
+		applyTo : '$!webwork.htmlEncode($parameters.name)'
+	}));
+</script>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="false" default-dependency-check="none" default-autowire="no">
+	<!-- Spring 管理数据库连接池 
+	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://134.128.182.222:3306/car_library?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123"/>
+        <property name="maxActive" value="10"/>
+        <property name="maxIdle" value="3"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+    </bean>
+    -->
+    <!--  
+    	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/car_library?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="username" value="fjfdszj"/>
+        <property name="password" value="123@123"/>
+        <property name="maxActive" value="10"/>
+        <property name="maxIdle" value="3"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+    </bean> 
+    -->
+    <bean id="mysqlDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="driverUrl" value="jdbc:mysql://127.0.0.1:3306/car_libary?useUnicode=true&amp;characterEncoding=utf8&amp;user=root&amp;password=123@123"/>
+        <property name="user" value="root"/>
+        <property name="password" value="123@123"/>
+        <property name="alias" value="mysql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="100" />
+	    <property name="minimumConnectionCount" value="30" />
+	    <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="foo=bar" />
+    </bean>
+    <!--  
+    <bean id="sqlServerDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.microsoft.jdbc.sqlserver.SQLServerDriver"/>
+        <property name="url" value="jdbc:microsoft:sqlserver://134.128.182.252:1433; DatabaseName=gpsdb_new"/>
+        <property name="username" value="gps"/>
+        <property name="password" value="gps"/>
+        <property name="maxActive" value="10"/>
+        <property name="maxIdle" value="3"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+    </bean> 
+    -->
+    <!-- 
+        <bean id="sqlServerDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.microsoft.jdbc.sqlserver.SQLServerDriver"/>
+        <property name="url" value="jdbc:microsoft:sqlserver://127.0.0.1:1433; DatabaseName=gps_new"/>
+        <property name="username" value="sa"/>
+        <property name="password" value="123@123"/>
+        <property name="maxActive" value="10"/>
+        <property name="maxIdle" value="3"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+    </bean> 
+     -->
+     
+    <bean id="sqlServerDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="com.microsoft.jdbc.sqlserver.SQLServerDriver"/>
+        <property name="driverUrl" value="jdbc:microsoft:sqlserver://127.0.0.1:1433;DatabaseName=gpsdb_new;user=sa;password=123@123"/>
+        <property name="user" value="sa"/>
+        <property name="password" value="123@123"/>
+        <property name="alias" value="mssql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="100" />
+	    <property name="minimumConnectionCount" value="30" />
+	    <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="foo=bar" />
+    </bean>
+
+	<!--  JBoos MySql 数据库连接池
+	<bean id="mysqlDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" abstract="false" singleton="true" lazy-init="default" autowire="default" dependency-check="default">
+		<property name="jndiName">
+			<value>java:CAR_DS</value>	
+    	</property>
+	</bean>
+	 -->
+	<!--  JBoos SQLServer 数据库连接池 
+	<bean id="sqlServerDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" abstract="false" singleton="true" lazy-init="default" autowire="default" dependency-check="default">
+		<property name="jndiName">
+			<value>java:GPS_DS</value>	
+    	</property>
+	</bean>
+	-->
+	<!-- 
+	<bean id="mysqlDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="driverUrl" value="jdbc:mysql://10.214.40.235:3306/car_libary?useUnicode=true&amp;characterEncoding=utf8&amp;user=root&amp;password=fzgt"/>
+        <property name="user" value="root"/>
+        <property name="password" value="fzgt"/>
+        <property name="alias" value="mysql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="100" />
+	    <property name="minimumConnectionCount" value="30" />
+	    <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="foo=bar" />
+    </bean>  
+     -->
+     <!-- 
+    <bean id="sqlServerDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="com.microsoft.jdbc.sqlserver.SQLServerDriver"/>
+        <property name="driverUrl" value="jdbc:microsoft:sqlserver://10.214.40.97:1433;DatabaseName=gpsdb_new;user=gtgps;password=123"/>
+        <property name="user" value="gtgps"/>
+        <property name="password" value="123"/>
+        <property name="alias" value="mssql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="100" />
+	    <property name="minimumConnectionCount" value="30" />
+	    <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="foo=bar" />
+    </bean>  
+	-->
+	
+ 	<!--  Tomcat 数据库连接池 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" abstract="false" singleton="true" lazy-init="default" autowire="default" dependency-check="default">
+		<property name="jndiName">
+			<value>java:comp/env/TLC_DS</value>
+		</property>
+	</bean>
+	-->
+
+
+ 	<!-- MySql iBatis相关 -->
+  	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" abstract="false" singleton="true" lazy-init="default" autowire="default" dependency-check="default">
+    	<property name="configLocation">
+      		<value>classpath:sqlMap-config.xml</value>
+    	</property>
+    	<property name="dataSource">
+      		<ref bean="mysqlDataSource"/>
+    	</property>
+  	</bean>
+  	
+  	<!-- SqlServer iBatis相关 -->
+  	<bean id="SqlServerSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" abstract="false" singleton="true" lazy-init="default" autowire="default" dependency-check="default">
+    	<property name="configLocation">
+      		<value>classpath:sqlMap-config.xml</value>
+    	</property>
+    	<property name="dataSource">
+      		<ref bean="sqlServerDataSource"/>
+    	</property>
+  	</bean>
+  	
+	<!-- 事务 -->
+  	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+    	<property name="dataSource">
+      		<ref bean="mysqlDataSource"/>
+    	</property>
+  	</bean>
+  	<bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+	    <property name="transactionManager" ref="transactionManager"/>
+	    <property name="transactionAttributes">
+      		<props>
+		        <prop key="insert*">PROPAGATION_REQUIRED</prop>
+		        <prop key="update*">PROPAGATION_REQUIRED</prop>
+		        <prop key="delete*">PROPAGATION_REQUIRED</prop>
+		        <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+		        <prop key="select*">PROPAGATION_REQUIRED,readOnly</prop>
+		        <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+      		</props>
+    	</property>
+  	</bean>
+  	
+  	<!-- 下面是一些公用的bean -->
+  	<!-- 该bean可以用于执行sql -->
+  	<bean id="statementManager" class="net.trust.utils.StatementManager">
+  		<property name="sqlMapClient">
+  			<ref bean="sqlMapClient"/>
+  		</property>
+  	</bean>
+  
+  	<!-- SqlServer -->
+  	<bean id="sqlServerStatementManager" class="net.trust.utils.StatementManager">
+  		<property name="sqlMapClient">
+  			<ref bean="SqlServerSqlMapClient"/>
+  		</property>
+  	</bean>
+</beans>

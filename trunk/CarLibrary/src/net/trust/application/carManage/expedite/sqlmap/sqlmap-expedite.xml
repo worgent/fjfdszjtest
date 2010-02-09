@@ -1,0 +1,1928 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 派车登记
+ -->
+<sqlMap namespace="Expedite">
+  	<!-- 查询派车总记录数 -->
+	<select id="findExpediteCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		 select count(1) 
+		 from tf_expedite_car_record
+		 where 1 = 1
+		<isEmpty prepend="and" property="expediteState">
+			expedite_state  &lt;&gt; 0  	
+		</isEmpty>
+		<isNotEmpty prepend="and" property="expediteState">
+			expedite_state  = $expediteState$	
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="expediteCarId">
+				expedite_car_id = #expediteCarId#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="expediteDate">
+				expedite_date = cast(#expediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begExpediteDate">
+				expedite_date &gt;= cast(#begExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endExpediteDate">
+				expedite_date &lt;= cast(#endExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="deptId">
+				dept_id = #deptId#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="expediteMan">
+				expedite_man in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$expediteMan$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useCarMan">
+				use_car_man in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$useCarMan$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useCarManName">
+				use_car_man_name like '%$useCarManName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driver">
+				driver in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$driver$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = #carNoId#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="expediteapplyId">
+				expediteapply_id like '%$expediteapplyId$%'
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="billType">
+				bill_type=#billType#
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="driverNameex">
+				driver_name=#driverNameex#
+		</isNotEmpty>	
+	</select>
+	
+	
+	<!-- 
+		查询派车信息
+	  -->
+	<select id="findExpedite" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		SELECT t.expedite_car_id,t.expediteapply_id,
+			   cast(t.expedite_date AS CHAR) expedite_date,
+			   t.expedite_man,
+			   (select m.staff_name
+			   	  from tf_staff_info m 
+			   	  where m.state = 1 and m.staff_info_id = t.expedite_man) expedite_man_name,
+			   t.dept_id,
+			   (SELECT m.dept_name 
+			   	  FROM TF_DEPT_INFO M 
+			   	 WHERE M.STATE=1 
+			   	   and m.dept_id=t.dept_id) dept_name,
+			   t.use_car_man_name,t.use_car_man_mobile,t.car_no_id,
+			   (select tt.car_no_code
+				  from tf_car_info tt
+				 where tt.car_no_id = t.car_no_id) car_no_code,
+			   t.driver,
+               case bill_type when 0 then
+			   (select m.staff_name 
+			   	  from tf_staff_info m 
+			   	 where m.state = 1 
+			   	   and m.staff_info_id=t.driver) 
+                           when 1 then t.driver_name end  driver_name,
+			   t.init_mileage,		
+			   t.use_excuse,	
+			   cast(t.intending_date AS CHAR) intending_date,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id := create_man) create_man_name,
+			   cast(t.create_date AS CHAR) create_date,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id := editor_man) editor_man_name,
+			   cast(t.editor_date AS CHAR) editor_date,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id := execute_man) execute_man_name,
+			   cast(t.execute_date AS CHAR) execute_date,
+			   t.city_id,
+			   (select tt.city_name 
+			   	  from td_city tt 
+			   	 where tt.city_id = t.city_id) city_name,
+			   t.expedite_state,t.bill_type,t.intending_dateex,t.driver_name driver_nameex,t.driver_mobile
+		  FROM tf_expedite_car_record as t
+ 		 where 1 = 1
+		<isEmpty prepend="and" property="expediteState">
+			expedite_state  &lt;&gt; 0  	
+		</isEmpty>
+		<isNotEmpty prepend="and" property="expediteState">
+			expedite_state  = $expediteState$	
+		</isNotEmpty>
+ 		<isNotEmpty prepend="and" property="expediteCarId">
+				expedite_car_id = #expediteCarId#
+		</isNotEmpty> 	
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+       
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="expediteDate">
+				expedite_date = cast(#expediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begExpediteDate">
+				expedite_date &gt;= cast(#begExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endExpediteDate">
+				expedite_date &lt;= cast(#endExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="expediteMan">
+				expedite_man like '%$expediteMan$%'
+		</isNotEmpty> 		
+		<isNotEmpty prepend="and" property="deptId">
+				dept_id = #deptId#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="useCarManName">
+				use_car_man_name like '%$useCarManName$%'
+		</isNotEmpty>		   
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="expediteMan">
+				expedite_man in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$expediteMan$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driver">
+				driver in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$driver$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = #carNoId#
+		</isNotEmpty>      
+		<isNotEmpty prepend="and" property="expediteapplyId">
+				t.expediteapply_id like '%$expediteapplyId$%'
+		</isNotEmpty>     
+		<isNotEmpty prepend="and" property="billType">
+				t.bill_type=#billType#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="driverNameex">
+				t.driver_name like '%$driverNameex$%'
+		</isNotEmpty>	    	
+		  order by expedite_car_id desc
+		<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	     </isNotEmpty>	  
+	</select>	
+	
+	<!-- 查询回车总记录数 -->
+	<select id="findGobackCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(1) 
+		  from tf_goback_car_record
+		 where record_state &lt;&gt; 0 
+		 <isNotEmpty prepend="and" property="gobackCarId">
+				goback_car_id = #gobackCarId#
+		</isNotEmpty> 	
+		 <isNotEmpty prepend="and" property="expediteCarId">
+				expedite_car_id = #expediteCarId#
+		</isNotEmpty> 		  
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="gobackDate">
+				goback_date = cast(#goback_date# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begGobackDate">
+				goback_date &gt;= cast(#begGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endGobackDate">
+				goback_date &lt;= cast(#endGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="expediteType">
+				expedite_type = #expediteType#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>   
+	</select>
+	
+	<!-- 
+		查询回车信息
+	-->
+	<select id="findGoback" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		SELECT goback_car_id,		    
+			   t.expedite_type,
+			   t.expedite_car_id,
+			   (select tt.para_value_desc
+				  from TD_SYSTEM_PARA tt
+				 where tt.para_value = t.expedite_type
+				   and tt.para_name = 'EXPEDITE_TYPE') expedite_type_desc,
+			   cast(t.goback_date AS CHAR) goback_date,			 
+			   t.end_mileage,
+			   t.usr_time_len,			 				 
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id := create_man) create_man_name,
+			   cast(t.create_date AS CHAR) create_date,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id := editor_man) editor_man_name,
+			   cast(t.editor_date AS CHAR) editor_date,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id := execute_man) execute_man_name,
+			   t.car_no_id,
+			   (select tt.car_no_code
+				  from tf_car_info tt
+				 where tt.car_no_id = t.car_no_id) car_no_code,
+			   t.city_id,
+			   (select tt.city_name 
+			   	  from td_city tt 
+			   	 where tt.city_id = t.city_id) city_name,
+			   record_state		     
+		  FROM tf_goback_car_record as t
+		 where record_state &lt;&gt; 0 	
+ 		<isNotEmpty prepend="and" property="gobackCarId">
+				goback_car_id = #gobackCarId#
+		</isNotEmpty> 	 
+ 		<isNotEmpty prepend="and" property="expediteCarId">
+				expedite_car_id = #expediteCarId#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="gobackDate">
+				goback_date = cast(#goback_date# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begGobackDate">
+				goback_date &gt;= cast(#begGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endGobackDate">
+				goback_date &lt;= cast(#endGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="expediteType">
+				expedite_type = #expediteType#
+		</isNotEmpty>         
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>    	
+		<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	     </isNotEmpty>	  
+	</select>
+	
+	<!-- 查询派车与回车关系总数 -->
+	<select id="findExpediteAndGobackCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(1)
+		  from tf_expedite_car_record a
+		  left join tf_goback_car_record b 
+		    on a.expedite_car_id = b.expedite_car_id
+		   and b.record_state &lt;&gt; 0
+		 where a.expedite_state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		a.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="expediteType">
+				b.expedite_type = #expediteType#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="begExpediteDate">
+				a.expedite_date &gt;= cast(#begExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endExpediteDate">
+				a.expedite_date &lt;= cast(#endExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="gobackDate">
+				b.goback_date = cast(#goback_date# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begGobackDate">
+				b.goback_date &gt;= cast(#begGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endGobackDate">
+				b.goback_date &lt;= cast(#endGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begRegressDate">
+				b.regress_date &gt;= cast(#begRegressDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endRegressDate">
+				b.regress_date &lt;= cast(#endRegressDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				a.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="expediteMan">
+				a.expedite_man in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$expediteMan$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useCarManName">
+				a.use_car_man_name like '$useCarManName$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driver">
+				a.driver in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$driver$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="deptId">
+				a.dept_id = #deptId#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoId">
+				a.car_no_id = #carNoId#
+		</isNotEmpty>   
+	</select>
+	
+	<!-- 查询派车与回车关系 -->
+	<select id="findExpediteAndGoback" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(a.expedite_date as char) expedite_date,
+		       fb_get_employee_name(@in_staff_info_id := a.expedite_man) expedite_man_name,
+		       fb_get_employee_name(@in_staff_info_id := a.driver) driver_name,
+		       (select m.dept_name
+		          from tf_dept_info m
+		         where m.state = 1
+		           and m.dept_id = a.dept_id) dept_name,
+		       (select tt.car_no_code
+		          from tf_car_info tt
+		         where tt.car_no_id = a.car_no_id) car_no_code,
+		       fb_get_staff_name_by_id(@in_staff_id := a.create_man) create_man_name,
+		       fb_get_staff_name_by_id(@in_staff_id := a.editor_man) editor_man_name,
+		       fb_get_staff_name_by_id(@in_staff_id := a.execute_man) execute_man_name,
+		       cast(a.create_date as char) create_date,
+		       cast(a.editor_date as char) editor_date,
+		       cast(a.execute_date as char) execute_date,
+		       (select tt.city_name from td_city tt where tt.city_id = a.city_id) city_name,
+		       (select tt.para_value_desc
+		          from td_system_para tt
+		         where tt.para_value = b.expedite_type
+		           and tt.para_name = 'expedite_type') expedite_type_desc,
+		       cast(b.goback_date as char) goback_date,
+		       cast(b.regress_date as char) regress_date,
+		       a.expedite_car_id,a.init_mileage,b.end_mileage,b.usr_time_len,b.feedback_state,
+               b.goback_car_id,a.use_car_man_name,a.use_car_man_mobile,a.bill_type,a.driver,
+			   a.driver_name driver_nameex,a.driver_mobile,b.feedback,a.city_id
+		  from tf_expedite_car_record a
+		  left join tf_goback_car_record b on a.expedite_car_id = b.expedite_car_id
+		   and b.record_state &lt;&gt; 0
+		 where a.expedite_state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		a.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="expediteType">
+				b.expedite_type = #expediteType#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="gobackDate">
+				b.goback_date = cast(#goback_date# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begExpediteDate">
+				a.expedite_date &gt;= cast(#begExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endExpediteDate">
+				a.expedite_date &lt;= cast(#endExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begGobackDate">
+				b.goback_date &gt;= cast(#begGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endGobackDate">
+				b.goback_date &lt;= cast(#endGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begRegressDate">
+				b.regress_date &gt;= cast(#begRegressDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endRegressDate">
+				b.regress_date &lt;= cast(#endRegressDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				a.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="expediteMan">
+				a.expedite_man in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$expediteMan$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useCarManName">
+				a.use_car_man_name like '%$useCarManName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driver">
+				a.driver in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$driver$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="deptId">
+				a.dept_id = #deptId#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoId">
+				a.car_no_id = #carNoId#
+		</isNotEmpty> 
+		  order by a.expedite_car_id desc
+		<isNotEmpty prepend=" " property="START">
+	      limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+	
+	<!-- 
+		查询中转路途信息
+	-->
+	<select id="findRoldInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		SELECT t.road_id,
+			   t.expedite_car_id,			 
+			   t.first_locus,
+			   t.first_manager,
+			   cast(t.first_date AS CHAR) first_date,
+			   t.transfer_locur,
+			   cast(t.transfer_date AS CHAR) transfer_date,
+			   t.transfer_manager,
+			   t.run_mileage,
+			   t.use_oil_num,
+			   t.use_oil_charge,
+			   t.bei_zhu,	
+			   t.first_mileage,t.transfer_mileage,t.run_time,t.road_charge,		
+			   record_state		     
+		  FROM tf_drive_rold_info as t
+		 where record_state=1 		
+		<isNotEmpty prepend="and" property="expediteCarId">
+				t.expedite_car_id = #expediteCarId#
+		</isNotEmpty>     	
+		<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	     </isNotEmpty>	  
+	</select>
+	
+	<!-- 
+		查询中转路途信息(导出Excel专用)
+	-->
+	<select id="findRoldInfoExcel" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+SELECT t.road_id,t.use_oil_charge,s.use_car_man_name,
+ (select m.dept_name
+		          from tf_dept_info m
+		         where m.state = 1
+		           and m.dept_id = s.dept_id) dept_name,
+ (select tt.car_no_code
+		          from tf_car_info tt
+		         where tt.car_no_id = s.car_no_id) car_no_code,
+			   (select m.staff_name 
+			   	  from tf_staff_info m 
+			   	 where m.state = 1 
+			   	   and m.staff_info_id=s.driver) driver_name,
+			   t.expedite_car_id,			 
+			   t.first_locus,
+			   t.first_manager,
+			   cast(t.first_date AS CHAR) first_date,
+			   t.transfer_locur,
+			   cast(t.transfer_date AS CHAR) transfer_date,
+			   t.transfer_manager,
+			   t.run_mileage,
+			   t.use_oil_num,
+			   t.use_oil_charge,
+			   t.bei_zhu,	
+			   t.first_mileage,t.transfer_mileage,t.run_time,t.road_charge,	
+			   t.record_state,
+               b.feedback		     
+		  FROM tf_drive_rold_info as t left outer join tf_expedite_car_record s on t.expedite_car_id=s.expedite_car_id
+		  left join tf_goback_car_record b 
+		    on s.expedite_car_id = b.expedite_car_id
+		 where t.record_state &lt;&gt; 0 and s.expedite_state &lt;&gt; 0 and b.record_state &lt;&gt; 0	 
+		<isNotEmpty prepend="and" property="staffId">
+		   		s.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="expediteType">
+				b.expedite_type = #expediteType#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="begExpediteDate">
+				s.expedite_date &gt;= cast(#begExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endExpediteDate">
+				s.expedite_date &lt;= cast(#endExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="gobackDate">
+				b.goback_date = cast(#goback_date# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begGobackDate">
+				b.goback_date &gt;= cast(#begGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endGobackDate">
+				b.goback_date &lt;= cast(#endGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begRegressDate">
+				b.regress_date &gt;= cast(#begRegressDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endRegressDate">
+				b.regress_date &lt;= cast(#endRegressDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				s.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="expediteMan">
+				s.expedite_man in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$expediteMan$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useCarManName">
+				s.use_car_man_name like '$useCarManName$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driver">
+				s.driver in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$driver$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="deptId">
+				s.dept_id = #deptId#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoId">
+				s.car_no_id = #carNoId#
+		</isNotEmpty>   	
+		<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	     </isNotEmpty>  
+	</select>
+
+	<!-- 
+		查询中转路途信息总数(导出Excel专用)
+	-->
+	<select id="findRoldInfoExcelCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		  SELECT count(1)	     
+		  FROM tf_drive_rold_info as t left outer join tf_expedite_car_record s on t.expedite_car_id=s.expedite_car_id
+		  left join tf_goback_car_record b 
+		    on s.expedite_car_id = b.expedite_car_id
+		 where t.record_state &lt;&gt; 0 and s.expedite_state &lt;&gt; 0 and b.record_state &lt;&gt; 0
+ 		<isNotEmpty prepend="and" property="staffId">
+		   		s.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="expediteType">
+				b.expedite_type = #expediteType#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="begExpediteDate">
+				s.expedite_date &gt;= cast(#begExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endExpediteDate">
+				s.expedite_date &lt;= cast(#endExpediteDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="gobackDate">
+				b.goback_date = cast(#goback_date# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begGobackDate">
+				b.goback_date &gt;= cast(#begGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endGobackDate">
+				b.goback_date &lt;= cast(#endGobackDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begRegressDate">
+				b.regress_date &gt;= cast(#begRegressDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="endRegressDate">
+				b.regress_date &lt;= cast(#endRegressDate# AS DATE)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				s.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="expediteMan">
+				s.expedite_man in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$expediteMan$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="useCarManName">
+				s.use_car_man_name like '$useCarManName$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driver">
+				s.driver in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$driver$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="deptId">
+				s.dept_id = #deptId#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoId">
+				s.car_no_id = #carNoId#
+		</isNotEmpty>   	
+	</select>
+	
+	
+
+
+    <insert id="insertExpedite" parameterClass="java.util.HashMap">
+		insert into tf_expedite_car_record 
+              ( expedite_car_id,
+            <isNotEmpty prepend="" property="expediteapplyId">
+			   		expediteapply_id,
+			</isNotEmpty>	
+            <isNotEmpty prepend="" property="expediteDate">
+			   		expedite_date,
+			</isNotEmpty>			
+			<isNotEmpty prepend="" property="expediteMan">
+					expedite_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="deptId">
+					dept_id,
+			</isNotEmpty>						
+			<isNotEmpty prepend="" property="useCarManName">
+					use_car_man_name,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="useCarManmobile">
+					use_car_man_mobile,
+			</isNotEmpty> 		 
+			<isNotEmpty prepend="" property="carNoId">
+					car_no_id,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="driver">
+					driver,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="initMileage">
+					init_mileage,
+			</isNotEmpty> 				
+	      	<isNotEmpty prepend="" property="useExcuse">
+	          	   use_excuse,
+	      	</isNotEmpty>
+	       	<isNotEmpty prepend="" property="intendingDate">
+	          	   intending_date,	
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="createMan">
+	          	   create_man,
+			</isNotEmpty>
+				   create_date,
+			<isNotEmpty prepend="" property="editorMan">
+	          	   editor_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="editorDate">
+	          	   editor_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeMan">
+	          	   execute_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   execute_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   city_id,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="billType">
+	          	   bill_type,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="driverNameex">
+	          	   driver_name,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="driverMobile">
+	          	   driver_mobile,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="intendingDateex">
+	          	   intending_dateex,
+			</isNotEmpty>
+				expedite_state)
+		values( 
+			<isNotEmpty prepend="" property="expediteCarId">
+		   		#expediteCarId#,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="expediteapplyId">
+			   	#expediteapplyId#,
+			</isNotEmpty>	
+			<isEmpty prepend="" property="expediteCarId">
+		   		pb_get_sequences(@in_seq_name:='expedite_car_id'),
+			</isEmpty> 	
+			<isNotEmpty prepend="" property="expediteDate">
+			   		cast(#expediteDate# AS DATETIME),
+			</isNotEmpty>			
+			<isNotEmpty prepend="" property="expediteMan">
+					#expediteMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="deptId">
+					#deptId#,
+			</isNotEmpty>						
+			<isNotEmpty prepend="" property="useCarManName">
+					#useCarManName#,
+			</isNotEmpty> 	
+			<isNotEmpty prepend="" property="useCarManmobile">
+					#useCarManmobile#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="carNoId">
+					#carNoId#,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="driver">
+					#driver#,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="initMileage">
+					#initMileage#,
+			</isNotEmpty> 				
+	      	<isNotEmpty prepend="" property="useExcuse">
+	          	   #useExcuse#,
+	      	</isNotEmpty>
+	       	<isNotEmpty prepend="" property="intendingDate">
+	          	   cast(#intendingDate# AS DATETIME),
+			</isNotEmpty>	
+            <isNotEmpty prepend="" property="createMan">
+	          	   #createMan#,
+			</isNotEmpty>
+				   NOW(),	
+			<isNotEmpty prepend="" property="editorMan">
+	          	   #editorMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="editorDate">
+	          	   cast(#editorDate# AS DATE),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeMan">
+	          	   #executeMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   cast(#executeDate# AS DATE),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   #cityId#,
+			</isNotEmpty>   
+			<isNotEmpty prepend="" property="billType">
+	          	   #billType#,
+			</isNotEmpty>   
+			<isNotEmpty prepend="" property="driverNameex">
+	          	   #driverNameex#,
+			</isNotEmpty>  	
+			<isNotEmpty prepend="" property="driverMobile">
+	          	   #driverMobile#,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="intendingDateex">
+	          	   #intendingDateex#,
+			</isNotEmpty>  		
+				1
+               )  
+    </insert>  
+    <update id="updateExpedite" parameterClass="java.util.HashMap">
+		update tf_expedite_car_record
+		   set editor_date = NOW()	
+		    <isNotEmpty prepend="," property="expediteapplyId">
+			   	expediteapply_id=#expediteapplyId#
+			</isNotEmpty>	 				
+            <isNotEmpty prepend="," property="expediteDate">
+			   		expedite_date = cast(#expediteDate# AS DATETIME)
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="expediteMan">
+					expedite_man =  #expediteMan# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="deptId">
+					dept_id =  #deptId#
+			</isNotEmpty>						
+			<isNotEmpty prepend="," property="useCarManName">
+					use_car_man_name = #useCarManName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useCarManmobile">
+					use_car_man_mobile=#useCarManmobile# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="carNoId">
+					car_no_id = #carNoId#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="driver">
+					driver = #driver#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="initMileage">
+					init_mileage = #initMileage#
+			</isNotEmpty> 				
+	      	<isNotEmpty prepend="," property="useExcuse">
+	          	   use_excuse=#useExcuse#
+	      	</isNotEmpty>
+	       	<isNotEmpty prepend="," property="intendingDate">
+	          	   intending_date=cast(#intendingDate# AS DATETIME) 
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="createMan">
+	          	   create_man=#createMan#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="editorMan">
+	          	   editor_man=#editorMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeMan">
+	          	   execute_man=#executeMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeDate">
+	          	   execute_date=cast(#executeDate# AS DATE)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cityId">
+	          	   city_id=#cityId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="expediteState">
+	          	   expedite_state=#expediteState#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="billType">
+	          	   bill_type=#billType#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="driverNameex">
+	          	   driver_name=#driverNameex#
+			</isNotEmpty>		
+			<isNotEmpty prepend="," property="driverMobile">
+	          	   driver_mobile=#driverMobile#
+			</isNotEmpty>		
+			<isNotEmpty prepend="," property="intendingDateex">
+	          	   intending_dateex=#intendingDateex#
+			</isNotEmpty>									
+		     ,editor_date=NOW()
+		where expedite_state =1 and expedite_car_id = #expediteCarId#
+	</update>
+	
+    <insert id="insertGoBack" parameterClass="java.util.HashMap">
+		insert into tf_goback_car_record 
+              ( goback_car_id,			
+			<isNotEmpty prepend="" property="gobackDate">
+			   		goback_date,
+			</isNotEmpty>				 
+			<isNotEmpty prepend="" property="endMileage">
+	          	   end_mileage,
+			</isNotEmpty>
+		    <isNotEmpty prepend="" property="usrTimeLen">
+	          	   usr_time_len,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="expediteType">
+	          	   expedite_type,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="expediteCarId">
+	          	   expedite_car_id,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="createMan">
+	          	   create_man,
+			</isNotEmpty>	
+	          	   create_date,
+			<isNotEmpty prepend="" property="editorMan">
+	          	   editor_man,
+			</isNotEmpty>			
+			<isNotEmpty prepend="" property="executeMan">
+	          	   execute_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   execute_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   city_id,
+			</isNotEmpty>
+				record_state	)
+		values
+              (pb_get_sequences(@in_seq_name:='goback_car_id'),
+            <isNotEmpty prepend="" property="gobackDate">
+			   		cast(#gobackDate# AS DATETIME),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="endMileage">
+	          	   #endMileage#,	
+			</isNotEmpty>
+		    <isNotEmpty prepend="" property="usrTimeLen">
+	          	   #usrTimeLen#,	
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="expediteType">
+	          	   #expediteType#,		
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="expediteCarId">
+	          	   #expediteCarId#,
+			</isNotEmpty>		 
+			<isNotEmpty prepend="" property="createMan">
+	          	   #createMan#,
+			</isNotEmpty>	
+				   NOW(),			          	  		
+			<isNotEmpty prepend="" property="editorMan">
+	          	   #editorMan#,
+			</isNotEmpty>			
+			<isNotEmpty prepend="" property="executeMan">
+	          	  #executeMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   cast(#executeDate# AS DATE),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   #cityId#,
+			</isNotEmpty>
+				1
+               )  
+    </insert>  
+    
+    <update id="updateGoBack" parameterClass="java.util.HashMap">
+		update tf_goback_car_record
+		   set editor_date = NOW()	 				
+           <isNotEmpty prepend="," property="gobackDate">
+			   		goback_date = cast(#gobackDate# AS DATETIME)
+			</isNotEmpty>				 
+			<isNotEmpty prepend="," property="endMileage">
+	          	   end_mileage=#endMileage#
+			</isNotEmpty>
+		    <isNotEmpty prepend="," property="usrTimeLen">
+	          	   usr_time_len=#usrTimeLen#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="expediteType">
+	          	   expedite_type=#expediteType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="expediteCarId">
+	          	   expedite_car_id=#expediteCarId#
+			</isNotEmpty>		 
+			<isNotEmpty prepend="," property="createMan">
+	          	   create_man=#createMan#
+			</isNotEmpty>				          	  		
+			<isNotEmpty prepend="," property="editorMan">
+	          	   editor_man=#editorMan#
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="executeMan">
+	          	   execute_man=#executeMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeDate">
+	          	   execute_date=cast(#executeDate# AS DATE)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cityId">
+	          	   city_id=#cityId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="recordState">
+	          	   record_state=#recordState#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="feedbackState">
+	          	   feedback_state=#feedbackState#
+			</isNotEmpty>
+		     ,editor_date=NOW()
+		where record_state = 1 and goback_car_id = #gobackCarId#
+	</update>
+	
+    <insert id="insertRoldInfo" parameterClass="java.util.HashMap">
+		insert into tf_drive_rold_info 
+              ( road_id,
+            <isNotEmpty prepend="" property="expediteCarId">
+	          	   expedite_car_id,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="firstLocus">
+	          	   first_locus,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="firstManager">
+	          	   first_manager,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="firstDate">
+	          	   first_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="transferLocur">
+	          	   transfer_locur,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="transferDate">
+	          	   transfer_date,
+			</isNotEmpty>		
+			<isNotEmpty prepend="" property="transferManager">
+	          	   transfer_manager,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="runMileage">
+	          	  run_mileage,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useOilNum">
+	          	   use_oil_num,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useOilCharge">
+	          	   use_oil_charge,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="beiZhu">
+	          	  bei_zhu,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="roadType">
+	          	  road_type,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="firstMileage">
+	          	  first_mileage,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="transferMileage">
+	          	  transfer_mileage,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="runTime">
+	          	  run_time,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="roadCharge">
+	          	  road_charge,
+			</isNotEmpty>	
+				record_state	)
+		values
+              (pb_get_sequences(@in_seq_name:='road_id'),               
+            <isNotEmpty prepend="" property="expediteCarId">
+	          	   #expediteCarId#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="firstLocus">
+	          	   #firstLocus#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="firstManager">
+	          	   #firstManager#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="firstDate">
+	          	   cast(#firstDate# AS DATETIME),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="transferLocur">
+	          	   #transferLocur#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="transferDate">
+	          	   cast(#transferDate# AS DATETIME),
+			</isNotEmpty>		
+			<isNotEmpty prepend="" property="transferManager">
+	          	   #transferManager#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="runMileage">
+	          	   #runMileage#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useOilNum">
+	          	   #useOilNum#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useOilCharge">
+	          	   #useOilCharge#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="beiZhu">
+	          	  #beiZhu#,	
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="roadType">
+	          	  #roadType#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="firstMileage">
+	          	  #firstMileage#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="transferMileage">
+	          	  #transferMileage#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="runTime">
+	          	  #runTime#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="roadCharge">
+	          	  #roadCharge#,
+			</isNotEmpty>
+				1)  
+    </insert>  
+	
+	<update id="updateRoldInfo" parameterClass="java.util.HashMap">
+		update tf_drive_rold_info
+		  <dynamic prepend="set">	
+			<isNotEmpty prepend="," property="firstLocus">
+	          	   first_locus=#firstLocus#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="firstManager">
+	          	   first_manager=#firstManager#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="firstDate">
+	          	   first_date=cast(#firstDate# AS DATETIME)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="transferLocur">
+	          	   transfer_locur=#transferLocur#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="transferDate">
+	          	   transfer_date=cast(#transferDate# AS DATETIME)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="transferManager">
+	          	   transfer_manager=#transferManager#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="runMileage">
+	          	   run_mileage=#runMileage#
+			</isNotEmpty>		
+			<isNotEmpty prepend="," property="useOilNum">
+	          	   use_oil_num=#useOilNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useOilCharge">
+	          	   use_oil_charge=#useOilCharge#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="beiZhu">
+	          	   bei_zhu=#beiZhu#
+			</isNotEmpty>			 
+			<isNotEmpty prepend="," property="recordState">
+	          	   record_state=#recordState#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="firstMileage">
+	          	 first_mileage=#firstMileage#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="transferMileage">
+	          	  transfer_mileage=#transferMileage#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="runTime">
+	          	  run_time=#runTime#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="roadCharge">
+	          	  road_charge=#roadCharge#,
+			</isNotEmpty>
+		</dynamic>
+		where record_state =1 
+		 <isNotEmpty prepend="and" property="roadId">
+	          	    road_id = #roadId#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="and" property="expediteCarId">
+	          	    expedite_car_id = #expediteCarId#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="and" property="roadType">
+	          	    road_type = #roadType#
+		 </isNotEmpty>
+	</update>
+    
+    <!-- 
+		删除派车信息
+	  -->
+	<delete id="deleteExpedite" parameterClass="java.util.HashMap">
+		update tf_expedite_car_record 
+		   set expedite_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date=NOW()
+		 where expedite_state = 1 
+		  <isNotEmpty prepend="and" property="expediteCarId">
+	          	    expedite_car_id = #expediteCarId#
+		 </isNotEmpty>
+	</delete>
+    
+    <delete id="deleteGoback" parameterClass="java.util.HashMap">
+		update tf_goback_car_record 
+		   set record_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date=NOW()
+		 where record_state = 1 
+		  <isNotEmpty prepend="and" property="expediteCarId">
+	          	    expedite_car_id = #expediteCarId#
+		 </isNotEmpty>
+	</delete>
+	
+	<delete id="deleteRoldInfo" parameterClass="java.util.HashMap">
+		update tf_drive_rold_info 
+		   set record_state = 0		   	   
+		 where record_state = 1 
+		 <isNotEmpty prepend="and" property="roadId">
+	          	    road_id = #roadId#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="and" property="expediteCarId">
+	          	    expedite_car_id = #expediteCarId#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="and" property="roadType">
+	          	    road_type = #roadType#
+		 </isNotEmpty>
+	</delete>
+	
+<!-- 
+	人员: fjfdszj
+	时间：2009-02-26
+	功能：派车申请单的审批流程 
+-->
+	<!-- 查询派车申请总记录数 -->
+	<select id="findApplyerCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+			select count(*) from td_expedite_apply t where t.bill_state=1
+			<isNotEmpty prepend=" and" property="extdeptId">
+				   		FB_GetParm_ById(t.create_man,"companyid")=FB_GetParm_ById(#extdeptId#,"depttocompanyid")
+			</isNotEmpty> 
+		    <isNotEmpty prepend=" and" property="staffId">
+				   		city_id in (select a.city_id 
+				   					  from tf_staff_city a 
+				   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend=" and" property="expediteapplyId">
+				        expediteapply_id =#expediteapplyId#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="expediteapplyType">
+	          	     expediteapply_type=#expediteapplyType#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="deptId">
+				        dept_id =#deptId#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="begintendingDate">
+					intending_date &gt;= cast(#begintendingDate# AS DATETime)
+			</isNotEmpty> 
+			<isNotEmpty prepend=" and" property="endintendingDate">
+					intending_date &lt;= cast(#endintendingDate# AS DATETime)
+			</isNotEmpty> 			
+		
+			<isNotEmpty prepend=" and" property="createMan">
+				       create_name  like '%createMan%'
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="useMan">
+				       use_man  like '%useMan%'
+			</isNotEmpty>	 
+			<isNotEmpty prepend=" and" property="useMobile">
+				       use_mobile =#useMobile#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="useState">
+				       use_state =#useState#
+			</isNotEmpty>			 
+	</select>
+	
+	
+	<!-- 查询派车申请 -->
+	<select id="findApplyer" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		    select
+		    t.expediteapply_id,t.expediteapply_type,
+		    case t.expediteapply_type when 0 then '市内' else '长途' end expediteapply_type_name,
+		    t.dept_id,
+		    (SELECT m.dept_name FROM TF_DEPT_INFO M 
+			  WHERE M.STATE=1 and m.dept_id=t.dept_id) dept_name,
+		    t.destination_local,
+		    t.use_excuse,cast(t.intending_date as char) intending_date,t.use_man,t.use_mobile,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.create_man)
+		    create_man_name, t.create_man,cast(t.create_date AS CHAR) create_date,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.editor_man)
+		    editor_man_name,t.editor_man, cast(t.editor_date AS CHAR) editor_date,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.execute_man)
+		    execute_man_name,t.execute_man, cast(t.execute_date AS CHAR) execute_date,
+		    t.city_id, (select tt.city_name from td_city tt where
+		    tt.city_id = t.city_id) city_name, t.bill_state,t.use_state,
+		    FB_GetFlowType(t.use_state) use_state_name
+		    from td_expedite_apply t where t.bill_state=1
+			<isNotEmpty prepend=" and" property="extdeptId">
+				   		FB_GetParm_ById(t.create_man,"companyid")=FB_GetParm_ById(#extdeptId#,"depttocompanyid")
+			</isNotEmpty>
+		    <isNotEmpty prepend=" and" property="staffId">
+				   		city_id in (select a.city_id 
+				   					  from tf_staff_city a 
+				   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend=" and" property="expediteapplyId">
+				        t.expediteapply_id =#expediteapplyId#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="expediteapplyType">
+	          	   t.expediteapply_type=#expediteapplyType#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="deptId">
+				        t.dept_id =#deptId#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="begintendingDate">
+					t.intending_date &gt;= cast(#begintendingDate# AS DATETime)
+			</isNotEmpty> 
+			<isNotEmpty prepend=" and" property="endintendingDate">
+					t.intending_date &lt;= cast(#endintendingDate# AS DATETime)
+			</isNotEmpty> 			
+		
+			<isNotEmpty prepend=" and" property="createMan">
+				       t.create_name  like '%createMan%'
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="useMan">
+				       t.use_man  like '%useMan%'
+			</isNotEmpty>	 
+			<isNotEmpty prepend=" and" property="useMobile">
+				       t.use_mobile =#useMobile#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="useState">
+				       t.use_state =#useState#
+			</isNotEmpty>
+			 order by t.expediteapply_id desc
+			<isNotEmpty prepend=" " property="START">
+			   			limit $START$ , $END$
+			</isNotEmpty>
+	</select>
+	<!-- 
+		增加派车申请
+	 -->	
+	<insert id="insertApplyer" parameterClass="java.util.HashMap">
+		    insert into td_expedite_apply (expediteapply_id,
+		    <isNotEmpty prepend="" property="expediteapplyType">
+	          	   expediteapply_type,
+			</isNotEmpty>
+            <isNotEmpty prepend="" property="deptId">
+	          	   dept_id,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="destinationLocal">
+	          	   destination_local,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useExcuse">
+	          	   use_excuse,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="intendingDate">
+	          	   intending_date,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="useMan">
+	          	   use_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useMobile">
+	          	   use_mobile,
+			</isNotEmpty>			
+			<isNotEmpty prepend="" property="createMan">
+	          	   create_man,
+			</isNotEmpty>
+				   create_date,
+			<isNotEmpty prepend="" property="editorMan">
+	          	   editor_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="editorDate">
+	          	   editor_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeMan">
+	          	   execute_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   execute_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   city_id,
+			</isNotEmpty> 
+			<isNotEmpty prepend="" property="useState">
+	          	   use_state,
+			</isNotEmpty> 
+				   bill_state
+				)
+		values(
+			<isNotEmpty prepend="" property="expediteapplyId">
+		   		#expediteapplyId#,
+			</isNotEmpty>
+			<isEmpty prepend="" property="expediteapplyId">
+		   		pb_get_sequences(@in_seq_name:='expediteapply_id'),
+			</isEmpty>
+            <isNotEmpty prepend="" property="expediteapplyType">
+	          	   #expediteapplyType#,
+			</isNotEmpty>
+            <isNotEmpty prepend="" property="deptId">
+	          	   #deptId#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="destinationLocal">
+	          	   #destinationLocal#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useExcuse">
+	          	   #useExcuse#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="intendingDate">
+	          	   cast(#intendingDate# as DateTime),
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="useMan">
+	          	   #useMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useMobile">
+	          	   #useMobile#,
+			</isNotEmpty>
+            <isNotEmpty prepend="" property="createMan">
+	          	   #createMan#,
+			</isNotEmpty>
+				   NOW(),	
+			<isNotEmpty prepend="" property="editorMan">
+	          	   #editorMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="editorDate">
+	          	   cast(#editorDate# AS DATETime),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeMan">
+	          	   #executeMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   cast(#executeDate# AS DATETime),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   #cityId#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useState">
+	          	   #useState#,
+			</isNotEmpty> 
+				1)
+	</insert>
+	<!-- 
+		更新派车申请信息
+	  -->	
+	<update id="updateApplyer" parameterClass="java.util.HashMap">
+			update td_expedite_apply
+		    set editor_date = NOW()
+		    <isNotEmpty prepend="," property="expediteapplyType">
+	          	   expediteapply_type=#expediteapplyType#
+			</isNotEmpty>
+            <isNotEmpty prepend="," property="deptId">
+	          	   dept_id=#deptId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="destinationLocal">
+	          	   destination_local=#destinationLocal#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useExcuse">
+	          	   use_excuse=#useExcuse#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="intendingDate">
+	          	   intending_date=cast(#intendingDate# as Datetime)
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="useMan">
+	          	   use_man=#useMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useMobile">
+	          	   use_mobile=#useMobile#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="createMan">
+	          	   create_man=#createMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="editorMan">
+	          	   editor_man=#editorMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeMan">
+	          	   execute_man=#executeMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeDate">
+	          	   execute_date=cast(#executeDate# AS DATETime)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cityId">
+	          	   city_id=#cityId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useState">
+	          	   use_state=#useState#
+			</isNotEmpty>
+			where bill_state =1 and expediteapply_id=#expediteapplyId#
+	</update>
+	
+	<!-- 
+		删除派车申请信息
+	  -->
+	<delete id="deleteApplyer" parameterClass="java.util.HashMap">
+		 update td_expedite_apply 
+		   set bill_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date= NOW()
+		 where bill_state = 1 
+		 <isNotEmpty prepend="and" property="expediteapplyId">
+	          	    expediteapply_id = #expediteapplyId#
+		 </isNotEmpty>
+	</delete>
+	
+	
+	<!-- 查询审批日志总记录数 -->
+	<select id="findFlowerTaskCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+			select count(*) from td_flowertask where bill_state=1
+		    <isNotEmpty prepend="and" property="staffId">
+				   		city_id in (select a.city_id 
+				   					  from tf_staff_city a 
+				   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="expediteapplyId">
+				        expediteapply_id =#expediteapplyId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerdefineId">
+				        flowerdefine_id =#flowerdefineId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="approveCode">
+				        approve_code=#approveCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="approveDate">
+				        cast(approve_date as char)=#approveDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerapproveCode">
+				        flowerapprove_code=#flowerapproveCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerapproveMobile">
+				       flowerapprove_mobile=#flowerapproveMobile#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property="createMan">
+				       create_name  like '%createMan%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="cityId">
+				       city_id =#cityId#
+			</isNotEmpty>	
+	</select>
+
+	
+	<!-- 查询审批日志 -->
+	<select id="findFlowerTask" parameterClass="java.util.HashMap"  resultClass="java.util.HashMap" remapResults="true">
+		    select t.approve_code,FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.approve_code) approve_name,
+		    cast(t.approve_date as char) approve_date,t.approve_remark,t.approve_state,
+		    case t.approve_state when 0 then '待处理' when 1 then '同意' else '不同意' end approve_state_name,
+		    (select mm.flowernode_name from td_flowernode mm where
+		    mm.flowernode_id = t.flowernode_id) flowernode_name,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.create_man)
+		    create_man_name, t.create_man,cast(t.create_date AS CHAR) create_date,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.editor_man)
+		    editor_man_name,t.editor_man, cast(t.editor_date AS CHAR) editor_date,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.execute_man)
+		    execute_man_name,t.execute_man, cast(t.execute_date AS CHAR) execute_date,
+		    t.city_id, (select tt.city_name from td_city tt where
+		    tt.city_id = t.city_id) city_name, bill_state from
+		    td_flowertask t where t.bill_state=1
+		    <isNotEmpty prepend="and" property="staffId">
+				   		t.city_id in (select a.city_id 
+				   					  from tf_staff_city a 
+				   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="expediteapplyId">
+				        t.expediteapply_id =#expediteapplyId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerdefineId">
+				        t.flowerdefine_id =#flowerdefineId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="approveCode">
+				        t.approve_code=#approveCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="approveDate">
+				        cast(approve_date as char)=#approveDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerapproveCode">
+				        t.flowerapprove_code=#flowerapproveCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerapproveMobile">
+				       t.flowerapprove_mobile=#flowerapproveMobile#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property="createMan">
+				       t.create_name  like '%createMan%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="cityId">
+				       t.city_id =#cityId#
+			</isNotEmpty>
+			<isNotEmpty prepend=" " property="START">
+			   			limit $START$ , $END$
+			</isNotEmpty>
+	</select>	
+	<!-- 更新审批日志 -->
+	<update id="updateFlowerTask" parameterClass="java.util.HashMap">
+			update td_flowertask
+		    set editor_date = NOW(),approve_date =  Now()
+		    <isNotEmpty prepend="," property="approveCode">
+					approve_code =  #approveCode# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="approveRemark">
+	          	   approve_remark=#approveRemark#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="approveState">
+					approve_state =  #approveState# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="createMan">
+	          	   create_man=#createMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="editorMan">
+	          	   editor_man=#editorMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeMan">
+	          	   execute_man=#executeMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeDate">
+	          	   execute_date=cast(#executeDate# AS DATETime)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cityId">
+	          	   city_id=#cityId#
+			</isNotEmpty>
+			where bill_state =1 
+			<isNotEmpty prepend="and" property="flowertaskId">
+	          	  flowertask_id = #flowertaskId#
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property="expediteapplyId">
+	          	   expediteapply_id=#expediteapplyId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowernodeRowno">
+	          	   flowernode_rowno=#flowernodeRowno#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="flowerapproveCode">
+	          	   flowerapprove_code=#flowerapproveCode#
+			</isNotEmpty>
+	</update>
+	
+	<!-- 审批日志的自动生成 -->
+	<procedure id="proFlowerTask" parameterClass="java.util.HashMap">
+    	<![CDATA[{call pro_flowertaskdept(@applyer_id:='$expediteapplyId$',@flowerdefine_code:='$flowerdefineCode$', @user_name:='$useMan$',@dept_id:='$extdeptId$',@apply_type:='$expediteapplyType$')}]]>
+    </procedure>
+     <!-- 取得当前需要审批的日志   		
+	<procedure id="getFlowerTask" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call get_flowertask(@applyer_id:='$expediteapplyId$',@promptcontent:='$promptcontent$')}]]>
+    	     /*msistype 0:异常,1:需要加msid编号,2:不需要加msid编号*/
+    </procedure>
+	-->
+    <select id="getFlowerTask" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		    select flowertask_id,expediteapply_id,flowernode_rowno,flowernode_id,approve_code,approve_date,approve_remark,
+			flowerapprove_code smsstaffid, FB_GET_STAFF_NAME_BY_ID(@in_staff_id := flowerapprove_code) smsstaffname,flowerapprove_mobile mobile,
+			is_flowers,city_id,concat(expediteapply_id,'|',flowernode_rowno,'|','$promptcontent$','|','1,2') content,1 msistype  
+			from td_flowertask
+			where approve_state=0 and flowernode_rowno=
+			(select min(m.flowernode_rowno) from td_flowertask m where m.bill_state=1 and m.approve_state=0
+				 <isNotEmpty prepend=" and" property="expediteapplyId">
+		          	   m.expediteapply_id=#expediteapplyId#
+				 </isNotEmpty>
+			)
+			<isNotEmpty prepend=" and" property="expediteapplyId">
+	          	   expediteapply_id=#expediteapplyId#
+			</isNotEmpty>
+	</select>
+
+	<!-- 取得当前需要审批的日志 --> 			
+	<procedure id="getAttempermsg" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call get_flowerattempermsgdept(@flower_code:='Exp_apply',@deptId:='$extdeptId$',@srcnocontent:='$srcnoContent$')}]]>
+    </procedure>
+    	
+	<!-- 处理用户的审核操作 -->
+	<procedure id="proAuditing" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pro_Auditing(@staffId:='$staffId$',@deptId:='$extdeptId$',@content:='$content$')}]]>
+    </procedure>
+    
+    
+    <!-- 
+	人员: fjfdszj
+	时间：2009-04-14
+	功能：司机行车登记
+	-->
+	<!-- 查询司机行车登记总记录数 -->
+	<select id="findDriversmsCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+			select count(*) 
+            from td_driversms_info t where t.bill_state=1
+		    <isNotEmpty prepend=" and" property="staffId">
+				   		t.city_id in (select a.city_id 
+				   					  from tf_staff_city a 
+				   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend=" and" property="carMark">
+				        t.car_mark like '%$carMark$%'
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="driversmsId">
+				        t.driversms_id =#driversmsId#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="begintransferDate">
+					t.transfer_date &gt;= cast(#begintransferDate# AS DATETime)
+			</isNotEmpty> 
+			<isNotEmpty prepend=" and" property="endtransferDate">
+					t.transfer_date &lt;= cast(#endtransferDate# AS DATETime)
+			</isNotEmpty> 
+		    <isNotEmpty prepend=" and" property="driverStaffName">
+				   		t.driver_staffid in (select b.staff_info_id from tf_staff_info  b
+				   		                     where b.staff_name  like '%$driverStaffName$%')
+			</isNotEmpty>
+		    <isNotEmpty prepend=" and" property="driverMobile">
+				   		t.driver_mobile=#driverMobile#
+			</isNotEmpty> 	 
+	</select>
+	
+	
+	<!-- 查询司机行车登记 -->
+	<select id="findDriversms" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		    select t.car_mark,
+			t.driversms_id,t.first_locus,t.first_date,t.first_mileage,t.transfer_locur,t.transfer_mileage,t.run_mileage,
+			t.use_oil_num,t.use_oil_charge,t.road_charge,t.reside_charge,t.stopcar_charge,t.washcar_charge,t.sms_memo,t.driver_mobile,
+			t.driver_staffid,FB_GET_EMPLOYEE_NAME(@in_staff_info_id:=t.driver_staffid) driver_staffname,
+		    cast(t.transfer_date as char) transfer_date ,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.create_man)
+		    create_man_name, t.create_man,cast(t.create_date AS CHAR) create_date,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.editor_man)
+		    editor_man_name,t.editor_man, cast(t.editor_date AS CHAR) editor_date,
+		    FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.execute_man)
+		    execute_man_name,t.execute_man, cast(t.execute_date AS CHAR) execute_date,
+		    t.city_id, (select tt.city_name from td_city tt where
+		    tt.city_id = t.city_id) city_name, t.bill_state
+		    from td_driversms_info t where t.bill_state=1
+		    <isNotEmpty prepend=" and" property="staffId">
+				   		t.city_id in (select a.city_id 
+				   					  from tf_staff_city a 
+				   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend=" and" property="carMark">
+				        t.car_mark like '%$carMark$%'
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="driversmsId">
+				        t.driversms_id =#driversmsId#
+			</isNotEmpty>
+			<isNotEmpty prepend=" and" property="begintransferDate">
+					t.transfer_date &gt;= cast(#begintransferDate# AS DATETime)
+			</isNotEmpty> 
+			<isNotEmpty prepend=" and" property="endtransferDate">
+					t.transfer_date &lt;= cast(#endtransferDate# AS DATETime)
+			</isNotEmpty> 		
+		    <isNotEmpty prepend=" and" property="driverStaffName">
+				   		t.driver_staffid in (select b.staff_info_id from tf_staff_info  b
+				   		                     where b.staff_name  like '%$driverStaffName$%')
+			</isNotEmpty> 	
+		    <isNotEmpty prepend=" and" property="driverMobile">
+				   		t.driver_mobile=#driverMobile#
+			</isNotEmpty> 		
+			 order by t.driversms_id desc
+			<isNotEmpty prepend=" " property="START">
+			   			limit $START$ , $END$
+			</isNotEmpty>
+	</select>
+	<!-- 
+		增加司机行车登记
+	 -->	
+	<insert id="insertDriversms" parameterClass="java.util.HashMap">
+		    insert into td_driversms_info (driversms_id,
+		    <isNotEmpty prepend="" property="carMark">
+	          	   car_mark,
+			</isNotEmpty>
+		    <isNotEmpty prepend="" property="firstLocus">
+	          	   first_locus,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="firstDate">
+	          	   first_date,
+			</isNotEmpty>		
+            <isNotEmpty prepend="" property="firstMileage">
+	          	   first_mileage,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="transferLocur">
+	          	   transfer_locur,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="transferDate">
+	          	   transfer_date,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="transferMileage">
+	          	   transfer_mileage,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="runMileage">
+	          	   run_mileage,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useOilNum">
+	          	   use_oil_num,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useOilCharge">
+	          	   use_oil_charge,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="roadCharge">
+	          	   road_charge,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="resideCharge">
+	          	   reside_charge,
+			</isNotEmpty>		
+			<isNotEmpty prepend="" property="stopcarCharge">
+	          	   stopcar_charge,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="washcarCharge">
+	          	   washcar_charge,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="smsMemo">
+	          	   sms_memo,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="driverMobile">
+	          	   driver_mobile,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="driverStaffid">
+	          	   driver_staffid,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="createMan">
+	          	   create_man,
+			</isNotEmpty>
+				   create_date,
+			<isNotEmpty prepend="" property="editorMan">
+	          	   editor_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="editorDate">
+	          	   editor_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeMan">
+	          	   execute_man,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   execute_date,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   city_id,
+			</isNotEmpty>
+				   bill_state
+				)
+		values(
+		    #driversmsId#,
+			<isNotEmpty prepend="" property="carMark">
+	          	   #carMark#,
+			</isNotEmpty>
+		    <isNotEmpty prepend="" property="firstLocus">
+	          	   #firstLocus#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="firstDate">
+	          	   #firstDate#,
+			</isNotEmpty>		
+            <isNotEmpty prepend="" property="firstMileage">
+	          	   #firstMileage#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="transferLocur">
+	          	   #transferLocur#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="transferDate">
+	          	   cast(#transferDate# AS DATETime),
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="transferMileage">
+	          	   #transferMileage#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="runMileage">
+	          	   #runMileage#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useOilNum">
+	          	   #useOilNum#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="useOilCharge">
+	          	   #useOilCharge#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="roadCharge">
+	          	   #roadCharge#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="resideCharge">
+	          	   #resideCharge#,
+			</isNotEmpty>		
+			<isNotEmpty prepend="" property="stopcarCharge">
+	          	   #stopcarCharge#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="washcarCharge">
+	          	   #washcarCharge#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="smsMemo">
+	          	   #smsMemo#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="driverMobile">
+	          	   #driverMobile#,
+			</isNotEmpty>	
+			<isNotEmpty prepend="" property="driverStaffid">
+	          	   #driverStaffid#,
+			</isNotEmpty>
+            <isNotEmpty prepend="" property="createMan">
+	          	   #createMan#,
+			</isNotEmpty>
+				   NOW(),	
+			<isNotEmpty prepend="" property="editorMan">
+	          	   #editorMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="editorDate">
+	          	   cast(#editorDate# AS DATETime),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeMan">
+	          	   #executeMan#,
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="executeDate">
+	          	   cast(#executeDate# AS DATETime),
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="cityId">
+	          	   #cityId#,
+			</isNotEmpty>
+				1)
+	</insert>
+	<!-- 
+		更新司机行车登记
+	  -->	
+	<update id="updateDriversms" parameterClass="java.util.HashMap">
+			update td_driversms_info
+		    set editor_date = NOW()
+		    <isNotEmpty prepend="," property="carMark">
+	          	  car_mark=#carMark#
+			</isNotEmpty>
+		    <isNotEmpty prepend="," property="firstLocus">
+	          	   first_locus=#firstLocus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="firstDate">
+	          	   first_date=#firstDate#
+			</isNotEmpty>		
+            <isNotEmpty prepend="," property="firstMileage">
+	          	   first_mileage=#firstMileage#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="transferLocur">
+	          	   transfer_locur=#transferLocur#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="transferDate">
+	          	   transfer_date=cast(#transferDate# as Datetime)
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="transferMileage">
+	          	   transfer_mileage=#transferMileage#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="runMileage">
+	          	   run_mileage=#runMileage#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useOilNum">
+	          	   use_oil_num=#useOilNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="useOilCharge">
+	          	   use_oil_charge=#useOilCharge#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="roadCharge">
+	          	   road_charge=#roadCharge#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="resideCharge">
+	          	   reside_charge=#resideCharge#
+			</isNotEmpty>		
+			<isNotEmpty prepend="," property="stopcarCharge">
+	          	   stopcar_charge=#stopcarCharge#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="washcarCharge">
+	          	   washcar_charge=#washcarCharge#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="smsMemo">
+	          	   sms_memo=#smsMemo#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="driverMobile">
+	          	   driver_mobile=#driverMobile#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="driverStaffid">
+	          	   driver_staffid=#driverStaffid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="createMan">
+	          	   create_man=#createMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="editorMan">
+	          	   editor_man=#editorMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeMan">
+	          	   execute_man=#executeMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeDate">
+	          	   execute_date=cast(#executeDate# AS DATETime)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cityId">
+	          	   city_id=#cityId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="billState">
+	          	   bill_state=#billState#
+			</isNotEmpty>
+			where bill_state =1 and driversms_id=#driversmsId#
+	</update>
+	
+	<!-- 
+		删除司机行车登记
+	  -->
+	<delete id="deleteDriversms" parameterClass="java.util.HashMap">
+		 update td_driversms_info 
+		   set bill_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date= NOW()
+		 where bill_state = 1 
+		 <isNotEmpty prepend="and" property="driversmsId">
+	          	    driversms_id = #driversmsId#
+		 </isNotEmpty>
+	</delete>
+</sqlMap>

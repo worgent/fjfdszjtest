@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 养路费管理
+ -->
+<sqlMap namespace="MaintainRoadManage">
+  	<!-- 查询养路费总记录数 -->
+	<select id="findMaintainRoadCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) from tf_maintain_road
+		 where maintain_road_state = 1	 
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="chargeItemName">
+		   		charge_item_name like '%$chargeItemName$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="chargeStandard">
+				charge_standard  like '%$chargeStandard$%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="chargeBound">
+				charge_bound=#chargeBound# 
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="authorizeOrgan">
+				authorize_organ like '%$authorizeOrgan$%'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>    
+		<isNotEmpty prepend="and" property="begBookingDate">
+				booking_date &gt;= #begBookingDate#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="endBookingDate">
+				booking_date &lt;= #endBookingDate#
+		</isNotEmpty> 
+	</select>
+	
+	<!-- 
+		查询养路费信息
+	  -->
+	<select id="findMaintainRoad" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.create_date AS CHAR) create_date,
+               cast(t.editor_date AS CHAR) editor_date,           		
+               cast(t.execute_date AS CHAR) execute_date, 
+               cast(t.booking_date AS CHAR) booking_date,          		
+               (select tt.city_name 
+		          from td_city tt 
+		         where tt.city_id = t.city_id) cityId,
+               (select tt.car_no_code 
+		          from tf_car_info tt 
+			     where tt.car_no_id = t.car_no_id) carNoId,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,    
+               t.*          		 
+          from tf_maintain_road t
+         where maintain_road_state = 1
+        <isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   		           		from tf_staff_city a 
+		   		               where a.staff_id=#staffId#)
+		</isNotEmpty>	
+        <isNotEmpty prepend="and" property="maintainRoadId">
+		   		t.maintain_road_id like '%$maintainRoadId$%'
+		</isNotEmpty>	
+        <isNotEmpty prepend="and" property="chargeItemName">
+		   		t.charge_item_name like '%$chargeItemName$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="chargeStandard">
+				t.charge_standard  like '%$chargeStandard$%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="chargeBound">
+				t.charge_bound=#chargeBound# 
+		</isNotEmpty> 			
+		<isNotEmpty prepend="and" property="carNoCode">
+				t.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="authorizeOrgan">
+				t.authorize_organ like '%$authorizeOrgan$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="cityId">
+				t.city_id = #cityId#
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="begBookingDate">
+				booking_date &gt;= #begBookingDate#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="endBookingDate">
+				booking_date &lt;= #endBookingDate#
+		</isNotEmpty> 
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	  
+	</select>	
+    <insert id="insertMaintainRoad" parameterClass="java.util.HashMap">
+		insert into tf_maintain_road 
+              (maintain_road_id,
+               booking_date,
+               charge_item_name,
+               charge_standard,
+               charge_bound,
+               car_no_id,
+               authorize_organ,
+               create_man,
+               create_date,
+               city_id,
+               maintain_road_state)
+		values
+              (pb_get_sequences(@in_seq_name:='maintain_road_id'),
+               now(),
+               #chargeItemName#,
+               #chargeStandard#,
+               #chargeBound#,
+               #carNoId#,
+               #authorizeOrgan#,
+               #createMan#,
+               NOW(),
+               #cityId#,
+               1)                
+    </insert>  
+	
+	<update id="updateMaintainRoad" parameterClass="java.util.HashMap">
+		update tf_maintain_road
+		   set editor_date = NOW()
+      	<isNotEmpty prepend="," property="maintainRoadId">
+		   		maintain_road_id=#maintainRoadId#
+		</isNotEmpty>	
+        <isNotEmpty prepend="," property="chargeItemName">
+		   		charge_item_name=#chargeItemName#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="chargeStandard">
+				charge_standard=#chargeStandard# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chargeBound">
+				charge_bound=#chargeBound# 
+		</isNotEmpty> 
+		<isNotEmpty prepend="," property="carNoId">
+				car_no_id = #carNoId#
+		</isNotEmpty> 			
+		<isNotEmpty prepend="," property="carNoCode">
+				car_no_code = #carNoCode#
+		</isNotEmpty> 
+		<isNotEmpty prepend="," property="authorizeOrgan">
+				authorize_organ=#authorizeOrgan#
+		</isNotEmpty>			  
+      	<isNotEmpty prepend="," property="editorMan">
+          		editor_man=#editorMan#
+      	</isNotEmpty>
+       	<isNotEmpty prepend="," property="executeMan">
+          		execute_man=#executeMan#
+      	</isNotEmpty>
+       	<isNotEmpty prepend="," property="executeDate">
+          		execute_date=cast(#executeDate# AS DATE)
+      	</isNotEmpty>
+      	<isNotEmpty prepend="," property="cityId">
+          		city_id=#cityId#
+      	</isNotEmpty>	     
+		where maintain_road_id =#maintainRoadId#
+	</update>
+    
+    <!-- 
+		删除养路费信息
+	  -->
+	<delete id="deleteMaintainRoad" parameterClass="java.util.HashMap">
+		update tf_maintain_road 
+		   set maintain_road_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date = NOW()
+		 where maintain_road_id =#maintainRoadId#
+	</delete>
+    
+    
+    
+</sqlMap>

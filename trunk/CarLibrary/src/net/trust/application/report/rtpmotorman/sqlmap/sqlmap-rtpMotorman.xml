@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 保养管理
+ * @author zhengmh
+ -->
+<sqlMap namespace="RtpMotorman">
+  	<!-- 查询保养管理总记录数 -->
+	<select id="findRtpMotormanCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+select count(1)
+from
+(
+select a.DriverId,a.id,a.Name,sum(a.Login) SLogin,sum(a.LogOut) SLogOut from
+(
+select a.DriverId,a.id,a.Name,count(a.Login_Time) Login,0 LogOut
+from inter_motorman_log a,inter_car_info b,TF_CAR_INFO c
+where ifnull(a.Login_Time,'') &lt;&gt;'' and a.carid=b.carid and b.car_mark=c.CAR_NO_CODE and  c.State &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		c.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="staffName">
+				 a.Name like '%$staffName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driverID">
+				 a.DriverId  like '%$driverID$%'
+		</isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.Login_Time AS DATE) &gt;= cast('$begTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endTime">
+				cast(a.Login_Time AS DATE) &lt;= cast('$endTime$' AS DATE)
+		</isNotEmpty>
+group by  a.DriverId,a.id,a.Name
+union all
+select a.DriverId,a.id,a.Name,0 Login, count(a.LogOut_Time) LogOut
+from inter_motorman_log a,inter_car_info b,TF_CAR_INFO c
+where ifnull(a.LogOut_Time,'') &lt;&gt;'' and a.carid=b.carid and b.car_mark=c.CAR_NO_CODE and  c.State &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		c.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="staffName">
+				 a.Name like '%$staffName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driverID">
+				 a.DriverId  like '%$driverID$%'
+		</isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.LogOut_Time AS DATE) &gt;= cast('$begTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endTime">
+				cast(a.LogOut_Time AS DATE) &lt;= cast('$endTime$' AS DATE)
+		</isNotEmpty>
+group by  a.DriverId,a.Name,a.id
+) a
+group by  a.DriverId,a.Name,a.id  
+) b   	
+	</select>
+	
+	<!-- 
+		查询保养管理信息
+	  -->
+	<select id="findRtpMotorman" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+	select aa.driverId,aa.Name,aa.id Id,concat('$begTime$','~','$endTime$') groupdata,sum(aa.Login) SLogin,sum(aa.LogOut) SLogOut from
+	(
+			select a.DriverId,a.id,a.Name,count(a.Login_Time) Login,0 LogOut
+			from inter_motorman_log a,inter_car_info b,TF_CAR_INFO c
+			where ifnull(a.Login_Time,'') &lt;&gt;'' and a.carid=b.carid and b.car_mark=c.CAR_NO_CODE
+			and  c.State &lt;&gt; 0
+			<isNotEmpty prepend="and" property="staffId">
+		   		c.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="staffName">
+				 a.Name like '%$staffName$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="driverID">
+				 a.DriverId  like '%$driverID$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.Login_Time AS DATE) &gt;= cast('$begTime$' AS DATE)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="endTime">
+				cast(a.Login_Time AS DATE) &lt;= cast('$endTime$' AS DATE)
+			</isNotEmpty>
+			group by  a.DriverId,a.id,a.Name
+			union all
+			select a.DriverId,a.id,a.Name,0 Login, count(a.LogOut_Time) LogOut
+			from inter_motorman_log a,inter_car_info b,TF_CAR_INFO c
+			where ifnull(a.LogOut_Time,'') &lt;&gt;'' and a.carid=b.carid and b.car_mark=c.CAR_NO_CODE
+			and  c.State &lt;&gt; 0
+			<isNotEmpty prepend="and" property="staffId">
+		   		c.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="staffName">
+				 a.Name like '%$staffName$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="driverID">
+				 a.DriverId  like '%$driverID$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.LogOut_Time AS DATE) &gt;= cast('$begTime$' AS DATE)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="endTime">
+				cast(a.LogOut_Time AS DATE) &lt;= cast('$endTime$' AS DATE)
+			</isNotEmpty>
+			group by  a.DriverId,a.id,a.Name
+	) aa
+	group by  aa.driverId,aa.id,aa.Name,groupdata
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>	
+</sqlMap>
