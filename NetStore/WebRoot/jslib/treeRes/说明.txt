@@ -1,0 +1,47 @@
+1.XML文件形如以下
+
+<?xml version='1.0' encoding='gb2312'?>
+<Root>
+	<TreeNode Title='测试001' CheckData="001">
+		<TreeNode Title='目录测试001' CheckData="001" />
+		<TreeNode Title='测试001' CheckData="001" >
+			<TreeNode Title='目录测试001' CheckData="001" />
+		</TreeNode>
+		<TreeNode Title='测试001' CheckData="001">
+			<TreeNode Title='目录测试001' CheckData="001" />
+			<TreeNode Title='目录测试222' CheckData="001" />
+			<TreeNode Title='目录测试333' CheckData="001" />
+			<TreeNode Title='目录测试444' CheckData="001" />
+		</TreeNode>
+	</TreeNode>
+</Root>
+
+2.参数说明：
+
+Title		结点标题
+Caption 	鼠标移至结点上时出现的注释
+Onclick 	点击结点触发的事件
+Href		点击结点的链接
+Target 		打开结点链接时的目标域
+NodeXMLSrc 	异步加载数据的链接地址
+CheckData 	checkbox框的值
+Checked		checkbox框是否选中: true选中 false不选中
+
+3.XML转义字符对应码
+&lt; 	< 小于 
+&gt; 	> 大于 
+&amp; 	&  和 
+&apos; 	' 单引号 
+&quot; 	" 双引号 
+
+4.实例化函数参数说明：
+
+InitTree(p_sXMLFile, p_sXSLPath, p_oSrcDiv,
+	p_bCheckChangeChildByFather, p_bAutoGoFisrtLeaf, p_bChangeLeafImg  )
+m_sXMLFile 输出xml标签的文件
+p_sXSLPath 树型xsl/js文件路径 ，默认/treeRes/
+p_oSrcDiv  存放div的ID
+p_bCheckChangeChildByFather
+
+
+
