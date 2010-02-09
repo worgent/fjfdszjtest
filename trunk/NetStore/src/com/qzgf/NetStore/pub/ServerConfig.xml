@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Config>
-	<SessionTimeOut>300</SessionTimeOut>
-	<BeanFiles>
-		<File>
-			/com/qzgf/NetStore/pub/frameworkBean.xml
-		</File>
-	</BeanFiles>
-</Config>
