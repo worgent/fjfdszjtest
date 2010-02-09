@@ -1,0 +1,142 @@
+html, body, table, td {
+	font-family: "宋体"; font-size: 9pt;
+}
+
+
+/** 定义了一些工具栏按钮的 CSS 样式 */
+.add {
+    background-image:url(../images/add.gif) !important;
+}
+
+.remove {
+    background-image:url(../images/delete.gif) !important;
+}
+
+.details {
+    background-image:url(../images/details.gif) !important;
+}
+
+.user-delete {
+    background-image:url(../images/user_delete.gif) !important;
+}
+
+.nav {
+    background-image:url(../images/ext/folder_go.png) !important;
+}
+
+
+.settings {
+    background-image:url(../images/ext/folder_wrench.png) !important;
+}
+
+.tabs {
+    background-image:url(../images/ext/tabs.gif) !important;
+}
+
+.system {
+    background-image:url(../images/ext/logout.gif) !important;
+}
+
+.help {
+    background-image:url(../images/ext/help.png) !important;
+}
+
+.menu {
+    background-image:url(../images/ext/accordian.gif) !important;
+}
+
+.module {
+    background-image:url(../images/ext/rss.gif) !important;
+}
+
+.jcpz {
+    background-image:url(../images/ext/cog.png) !important;
+}
+
+.mxpz {
+    background-image:url(../images/ext/chart_organisation.png) !important;
+}
+
+.sjcj {
+    background-image:url(../images/ext/calendar.png) !important;
+}
+
+.cbyy {
+    background-image:url(../images/ext/chart_curve.png) !important;
+}
+
+.changepasswd {
+    background-image:url(../images/ext/icon_padlock.png) !important;
+}
+
+.about {
+    background-image:url(../images/ext/lightbulb_off.png) !important;
+}
+
+.refresh {
+    background-image:url(../images/ext/refresh_p.png) !important;
+}
+
+.autorefresh_s {
+    background-image:url(../images/ext/refresh.png) !important;
+}
+
+.autorefresh_b {
+    background-image:url(../images/ext/autorefresh.gif) !important;
+}
+
+.goback {
+    background-image:url(../images/ext/goback.png) !important;
+}
+
+.openmsg {
+    background-image:url(../images/ext/message.png) !important;
+}
+
+.closemsg {
+    background-image:url(../images/ext/nomessage.png) !important;
+}
+
+.rightnav {
+    background-image:url(../images/ext/icon-by-category.gif) !important;
+}
+
+.guide {
+    background-image:url(../images/ext/gears.png) !important;
+}
+
+.msgpanel {
+    background-image:url(../images/ext/comment.gif) !important;
+}
+
+.exit {
+    background-image:url(../images/ext/door_out.png) !important;
+}
+
+.treeselect {
+    background-image:url(../images/ext/chart_organisation.png) !important;
+}
+
+.example-info{
+	width:150px;
+	border:1px solid #c3daf9;
+	border-top:1px solid #DCEAFB;
+	border-left:1px solid #DCEAFB;
+	background:#ecf5fe url(info-bg.gif) repeat-x;
+	font-size:10px;
+	padding:8px;
+}
+
+.msg .x-box-mc {
+    font-size:14px;
+}
+#msg-div {
+    position:absolute;
+    left:35%;
+    top:10px;
+    width:250px;
+    z-index:20000;
+}
+.x-grid3-row-body p {
+    margin:5px 5px 10px 5px !important;
+}
