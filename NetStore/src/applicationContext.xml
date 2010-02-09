@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/netstore?useUnicode=true&amp;characterEncoding=gbk" />
+		<property name="username" value="root" />
+		<property name="password" value="123@123" />
+		<property name="maxActive" value="10" />
+		<property name="maxIdle" value="3" />
+		<property name="maxWait" value="1000" />
+		<property name="defaultAutoCommit" value="true" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="60" />
+	</bean>
+	<bean id="hibernateInterceptor"
+		class="org.springframework.orm.hibernate3.HibernateInterceptor">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>
+					com/qzgf/NetStore/persistence/User.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/Orders.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/Product.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/ProductCatalog.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/Unit.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/SendMode.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/PayType.hbm.xml
+				</value>
+				<!-- 系统管理 begin-->
+				<value>
+					com/qzgf/NetStore/persistence/Administrator.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/Menu.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/Role.hbm.xml
+				</value>
+				<value>
+					com/qzgf/NetStore/persistence/RoleValue.hbm.xml
+				</value>
+				<!-- 系统管理 end-->
+			</list>
+		</property>
+	</bean>
+	<bean id="baseDAO" class="com.qzgf.NetStore.dao.impl.BaseDao"
+		abstract="true">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 林圣如 BEGIN -->
+	<bean id="userDAO" class="com.qzgf.NetStore.dao.impl.UserDAO"
+		parent="baseDAO" />
+	<bean id="orderDAO" class="com.qzgf.NetStore.dao.impl.OrdersDAO"
+		parent="baseDAO" />
+	<bean id="sendModeDAO"
+		class="com.qzgf.NetStore.dao.impl.SendModeDAO" parent="baseDAO" />
+	<bean id="payTypeDAO" class="com.qzgf.NetStore.dao.impl.PayTypeDAO"
+		parent="baseDAO" />
+	<bean id="newsDAO" class="com.qzgf.NetStore.dao.impl.NewsDAO"
+		parent="baseDAO" />
+	<bean id="treatyDAO" class="com.qzgf.NetStore.dao.impl.TreatyDAO" />
+	<bean id="manufacturerDAO"
+		class="com.qzgf.NetStore.dao.impl.ManufacturerDAO" />
+	<bean id="managerDAO"
+		class="com.qzgf.NetStore.dao.impl.ManagerDAO">
+	</bean>
+
+	<bean id="bulletinDAO"
+		class="com.qzgf.NetStore.dao.impl.BulletinDAO" />
+	<bean id="productDisplayDAO"
+		class="com.qzgf.NetStore.dao.impl.ProductDisplayDAO" />
+	<bean id="shoppingCartDAO"
+		class="com.qzgf.NetStore.dao.impl.ShoppingCartDAO" />
+
+	<bean id="userService"
+		class="com.qzgf.NetStore.service.impl.UserService">
+		<property name="userDAO">
+			<ref bean="userDAO" />
+		</property>
+	</bean>
+	<bean id="orderService"
+		class="com.qzgf.NetStore.service.impl.OrderService">
+		<property name="orderDAO">
+			<ref bean="orderDAO" />
+		</property>
+	</bean>
+	<bean id="sendModeService"
+		class="com.qzgf.NetStore.service.impl.SendModeService">
+		<property name="sendModeDAO">
+			<ref bean="sendModeDAO" />
+		</property>
+	</bean>
+	<bean id="payTypeService"
+		class="com.qzgf.NetStore.service.impl.PayTypeService">
+		<property name="payTypeDAO">
+			<ref bean="payTypeDAO" />
+		</property>
+	</bean>
+	<bean id="newsService"
+		class="com.qzgf.NetStore.service.impl.NewsService">
+		<property name="newsDAO">
+			<ref bean="newsDAO" />
+		</property>
+	</bean>
+	<bean id="treatyService"
+		class="com.qzgf.NetStore.service.impl.TreatyService">
+		<property name="treatyDAO">
+			<ref bean="treatyDAO" />
+		</property>
+	</bean>
+	<bean id="manufacturerService"
+		class="com.qzgf.NetStore.service.impl.ManufacturerService">
+		<property name="manufacturerDAO">
+			<ref bean="manufacturerDAO" />
+		</property>
+	</bean>
+	<bean id="managerService"
+		class="com.qzgf.NetStore.service.impl.ManagerService">
+		<property name="managerDAO">
+			<ref bean="managerDAO" />
+		</property>
+	</bean>
+	<bean id="shoppingCartService"
+		class="com.qzgf.NetStore.service.impl.ShoppingCartService">
+		<property name="shoppingCartDAO">
+			<ref bean="shoppingCartDAO" />
+		</property>
+	</bean>
+
+
+	<bean id="bulletinService"
+		class="com.qzgf.NetStore.service.impl.BulletinService">
+		<property name="bulletinDAO">
+			<ref bean="bulletinDAO" />
+		</property>
+	</bean>
+	<bean id="productDisplayService"
+		class="com.qzgf.NetStore.service.impl.ProductDisplayService">
+		<property name="productDisplayDAO">
+			<ref bean="productDisplayDAO" />
+		</property>
+	</bean>
+
+	<bean name="/JspForm/FrontfuncModual/user"
+		class="com.qzgf.NetStore.struts.action.FrontAction.UserAction">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/order"
+		class="com.qzgf.NetStore.struts.action.BackAction.OrderAction">
+		<property name="orderService">
+			<ref bean="orderService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/FrontfuncModual/account"
+		class="com.qzgf.NetStore.struts.action.FrontAction.UserAccountAction">
+		<property name="orderService">
+			<ref bean="orderService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/sendMode"
+		class="com.qzgf.NetStore.struts.action.BackAction.SendModeAction">
+		<property name="sendModeService">
+			<ref bean="sendModeService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/payType"
+		class="com.qzgf.NetStore.struts.action.BackAction.PayTypeAction">
+		<property name="payTypeService">
+			<ref bean="payTypeService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/news"
+		class="com.qzgf.NetStore.struts.action.BackAction.NewsAction">
+		<property name="newsService">
+			<ref bean="newsService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/treaty"
+		class="com.qzgf.NetStore.struts.action.BackAction.TreatyAction">
+		<property name="treatyService">
+			<ref bean="treatyService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/manufacturer"
+		class="com.qzgf.NetStore.struts.action.BackAction.ManufacturerAction">
+		<property name="manufacturerService">
+			<ref bean="manufacturerService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/manager"
+		class="com.qzgf.NetStore.struts.action.BackAction.ManagerAction">
+		<property name="managerService">
+			<ref bean="managerService" />
+		</property>
+		<property name="roleService">
+			<ref bean="roleService" />
+		</property>
+	</bean>
+
+
+	<bean name="/JspForm/BackfuncModual/bulletin"
+		class="com.qzgf.NetStore.struts.action.BackAction.BulletinAction">
+		<property name="bulletinService">
+			<ref bean="bulletinService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/FrontfuncModual/productDisplay"
+		class="com.qzgf.NetStore.struts.action.FrontAction.ProductDisplayAction">
+		<property name="productDisplayService">
+			<ref bean="productDisplayService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/FrontfuncModual/newsDisplay"
+		class="com.qzgf.NetStore.struts.action.FrontAction.NewsDisplayAction">
+		<property name="newsService">
+			<ref bean="newsService" />
+		</property>
+	</bean>
+	<bean name="/JspForm/FrontfuncModual/cart"
+		class="com.qzgf.NetStore.struts.action.FrontAction.ShoppingCartAction">
+		<property name="shoppingCartService">
+			<ref bean="shoppingCartService" />
+		</property>
+		<property name="orderService">
+		    <ref bean="orderService"/>
+		</property>
+	</bean>
+ 
+    
+    <!-- 
+    <bean name="/pay" class="com.qzgf.NetStore.struts.action.FrontAction.NetpayAction" >
+    <property name="orderService">
+		    <ref bean="orderService"/>
+		</property>
+    </bean>
+     -->
+    
+	<!-- 林圣如 END -->
+
+	<!-- 沈伟庆 -->
+	<!-- 商品管理 -->
+	<bean id="productDAO" class="com.qzgf.NetStore.dao.impl.ProductDAO"
+		parent="baseDAO" />
+	<bean id="productService"
+		class="com.qzgf.NetStore.service.impl.ProductService">
+		<property name="productDAO">
+			<ref bean="productDAO" />
+		</property>
+	</bean>
+	<bean name="/product"
+		class="com.qzgf.NetStore.struts.action.BackAction.ProductAction">
+		<property name="productService">
+			<ref bean="productService" />
+		</property>
+	</bean>
+
+	<!-- 修改 -->
+	<bean id="productModifyDAO"
+		class="com.qzgf.NetStore.dao.impl.ProductModifyDAO" parent="baseDAO" />
+	<bean id="productModifyService"
+		class="com.qzgf.NetStore.service.impl.ProductModifyService">
+		<property name="productModifyDAO">
+			<ref bean="productModifyDAO" />
+		</property>
+	</bean>
+	<bean name="/productModify"
+		class="com.qzgf.NetStore.struts.action.BackAction.ProductModifyAction">
+		<property name="productModifyService">
+			<ref bean="productModifyService" />
+		</property>
+	</bean>
+	<!-- 修改 end-->
+
+	<!-- 单位设置 -->
+	<bean id="unitDAO" class="com.qzgf.NetStore.dao.impl.UnitDAO"
+		parent="baseDAO" />
+	<bean id="unitService"
+		class="com.qzgf.NetStore.service.impl.UnitService">
+		<property name="unitDAO">
+			<ref bean="unitDAO" />
+		</property>
+	</bean>
+	<bean name="/unit"
+		class="com.qzgf.NetStore.struts.action.BackAction.UnitAction">
+		<property name="unitService">
+			<ref bean="unitService" />
+		</property>
+	</bean>
+	<!-- 单位设置 end-->
+	<!--合作伙伴管理-->
+	<bean id="friendLinkDAO"
+		class="com.qzgf.NetStore.dao.impl.FriendLinkDAO" parent="baseDAO" />
+	<bean id="friendLinkService"
+		class="com.qzgf.NetStore.service.impl.FriendLinkService">
+		<property name="friendLinkDAO">
+			<ref bean="friendLinkDAO" />
+		</property>
+	</bean>
+	<bean name="/friendLink"
+		class="com.qzgf.NetStore.struts.action.BackAction.FriendLinkAction">
+		<property name="friendLinkService">
+			<ref bean="friendLinkService" />
+		</property>
+	</bean>
+	<!--合作伙伴管理  end-->
+	<!-- 品牌设置 -->
+	<bean id="specDAO" class="com.qzgf.NetStore.dao.impl.SpecDAO"
+		parent="baseDAO" />
+	<bean id="specService"
+		class="com.qzgf.NetStore.service.impl.SpecificationService">
+		<property name="specDAO">
+			<ref bean="specDAO" />
+		</property>
+	</bean>
+	<bean name="/specification"
+		class="com.qzgf.NetStore.struts.action.BackAction.SpecificationAction">
+		<property name="specService">
+			<ref bean="specService" />
+		</property>
+	</bean>
+	<!-- 品牌设置 end-->
+	<!-- 商品大类-->
+	<bean id="productManageDAO"
+		class="com.qzgf.NetStore.dao.impl.ProductManageDAO" parent="baseDAO" />
+	<bean id="productManageService"
+		class="com.qzgf.NetStore.service.impl.ProductManageService">
+		<property name="productManageDAO">
+			<ref bean="productManageDAO" />
+		</property>
+	</bean>
+	<bean name="/productManage"
+		class="com.qzgf.NetStore.struts.action.BackAction.ProductManageAction">
+		<property name="productManageService">
+			<ref bean="productManageService" />
+		</property>
+	</bean>
+	<!--  商品大类 end-->
+
+	<!-- 商品评论管理 -->
+	<bean id="reviewDAO" class="com.qzgf.NetStore.dao.impl.ReviewDAO"
+		parent="baseDAO" />
+	<bean id="reviewService"
+		class="com.qzgf.NetStore.service.impl.ReviewService">
+		<property name="reviewDAO">
+			<ref bean="reviewDAO" />
+		</property>
+	</bean>
+	<bean name="/review"
+		class="com.qzgf.NetStore.struts.action.BackAction.ReviewAction">
+		<property name="reviewService">
+			<ref bean="reviewService" />
+		</property>
+	</bean>
+	<!-- 商品评论管理 end-->
+
+	<!--后台用户管理-->
+	<bean name="/user"
+		class="com.qzgf.NetStore.struts.action.BackAction.UserAction">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+	<!--后台用户管理end-->
+
+	<!--后台登录-->
+	<bean id="loginDAO" class="com.qzgf.NetStore.dao.impl.LoginDAO"
+		parent="baseDAO" />
+	<bean id="loginService"
+		class="com.qzgf.NetStore.service.impl.LoginService">
+		<property name="loginDAO">
+			<ref bean="loginDAO" />
+		</property>
+	</bean>
+	<bean name="/login"
+		class="com.qzgf.NetStore.struts.action.BackAction.LoginAction">
+		<property name="loginService">
+			<ref bean="loginService" />
+		</property>
+	</bean>
+	<!--后台登录end-->
+
+	<!-- 商品管理 end-->
+	<!-- 前台 -->
+	<bean id="indexFirstDAO"
+		class="com.qzgf.NetStore.dao.impl.IndexFirstDAO" parent="baseDAO" />
+	<bean id="indexFirstService"
+		class="com.qzgf.NetStore.service.impl.IndexFirstService">
+		<property name="indexFirstDAO">
+			<ref bean="indexFirstDAO" />
+		</property>
+	</bean>
+	<bean name="/indexFirst"
+		class="com.qzgf.NetStore.struts.action.FrontAction.IndexFirstAction">
+		<property name="indexFirstService">
+			<ref bean="indexFirstService" />
+		</property>
+	</bean>
+	<!-- END 前台 -->
+	<!--search  -->
+	<bean id="searchDAO" class="com.qzgf.NetStore.dao.impl.SearchDAO"
+		parent="baseDAO" />
+	<bean id="searchService"
+		class="com.qzgf.NetStore.service.impl.SearchService">
+		<property name="searchDAO">
+			<ref bean="searchDAO" />
+		</property>
+	</bean>
+	<bean name="/search"
+		class="com.qzgf.NetStore.struts.action.FrontAction.SearchAction">
+		<property name="searchService">
+			<ref bean="searchService" />
+		</property>
+	</bean>
+	
+	<!--search  -->
+	<!--公司简介 -->
+	<bean id="companyIntroductDAO"
+		class="com.qzgf.NetStore.dao.impl.CompanyIntroductDAO"
+		parent="baseDAO" />
+	<bean id="companyIntroductService"
+		class="com.qzgf.NetStore.service.impl.CompanyIntroductService">
+		<property name="companyIntroductDAO">
+			<ref bean="companyIntroductDAO" />
+		</property>
+	</bean>
+
+	<bean name="/companyIntroduct"
+		class="com.qzgf.NetStore.struts.action.BackAction.CompanyIntroductAction">
+		<property name="companyIntroductService">
+			<ref bean="companyIntroductService" />
+		</property>
+	</bean>
+	<!--公司简介 end-->
+
+	<!-- 沈伟庆_END -->
+
+	<!-- 网上商城 系统管理(功能管理) -->
+	<bean id="menuDAO" class="com.qzgf.NetStore.dao.impl.MenuDAO"
+		parent="baseDAO">
+	</bean>
+
+	<bean id="menuService"
+		class="com.qzgf.NetStore.service.impl.MenuService">
+		<property name="menuDAO">
+			<ref bean="menuDAO" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/menu"
+		class="com.qzgf.NetStore.struts.action.BackAction.MenuAction">
+		<property name="menuService">
+			<ref bean="menuService" />
+		</property>
+	</bean>
+	<!-- 网上商城 系统管理(角色管理) -->
+	<bean id="roleDAO" class="com.qzgf.NetStore.dao.impl.RoleDAO"
+		parent="baseDAO">
+	</bean>
+
+	<bean id="roleService"
+		class="com.qzgf.NetStore.service.impl.RoleService">
+		<property name="roleDAO">
+			<ref bean="roleDAO" />
+		</property>
+		<property name="roleValueDAO">
+			<ref bean="roleValueDAO" />
+		</property>
+		<property name="menuDAO">
+			<ref bean="menuDAO" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/role"
+		class="com.qzgf.NetStore.struts.action.BackAction.RoleAction">
+		<property name="roleService">
+			<ref bean="roleService" />
+		</property>
+	</bean>
+	<!-- 网上商城 系统管理(权限管理) -->
+	<bean id="roleValueDAO"
+		class="com.qzgf.NetStore.dao.impl.RoleValueDAO" parent="baseDAO">
+	</bean>
+
+	<bean id="roleValueService"
+		class="com.qzgf.NetStore.service.impl.RoleValueService">
+		<property name="roleValueDAO">
+			<ref bean="roleValueDAO" />
+		</property>
+	</bean>
+	<bean name="/JspForm/BackfuncModual/roleValue"
+		class="com.qzgf.NetStore.struts.action.BackAction.RoleValueAction">
+		<property name="roleValueService">
+			<ref bean="roleValueService" />
+		</property>
+		<property name="menuService">
+			<ref bean="menuService" />
+		</property>
+		<property name="roleService">
+			<ref bean="roleService"/>
+		</property>
+	</bean>
+</beans>
