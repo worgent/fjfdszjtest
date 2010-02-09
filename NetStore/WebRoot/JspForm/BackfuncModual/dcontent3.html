@@ -1,0 +1,45 @@
+<HTML>
+
+<SCRIPT>
+
+
+ function   setFather()     
+  {     
+  var   k=window.dialogArguments;    
+    k.document.getElementById("ccc").value=document.getElementById("ip1").value;     
+    window.close();
+  }  
+</SCRIPT>
+
+ 
+
+<BODY style="background-color:lightblue;margin:10;">
+This is some content for my DHTML dialog box.
+<BR><BR>
+
+<DIV id=d1></DIV>
+
+
+<BR><BR>
+
+<input type='text' id=ip1 />
+<br/>
+<input type='text' id="ip2" name="ip2" />
+
+<BR><BR>
+
+<input type='button' onclick="dialogArguments.d1.innerHTML=ip1.value;" value=" Apply "
+> 
+
+<input type='button' onclick="setFather()" value=" OK "/>
+
+
+
+<input type='button' onclick="window.close();" value=" Cancel ">
+
+ 
+
+</BODY>
+
+</HTML>
+
