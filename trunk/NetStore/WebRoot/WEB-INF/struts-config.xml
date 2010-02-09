@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="userForm"
+			type="com.qzgf.NetStore.struts.form.FrontForm.UserForm" />
+		<form-bean name="orderForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.OrderForm" />
+		<form-bean name="userAccountForm"
+			type="com.qzgf.NetStore.struts.form.FrontForm.UserAccountForm" />
+		<form-bean name="sendModeForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.SendModeForm" />
+		<form-bean name="payTypeForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.PayTypeForm" />
+		<form-bean name="newsForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.NewsForm" />
+		<form-bean name="treatyForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.TreatyForm" />
+		<form-bean name="manufacturerForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.ManufacturerForm" />
+		<form-bean name="managerForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.ManagerForm" />
+
+		<form-bean name="productForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.ProductForm" />
+		<form-bean name="productModifyForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.ProductModifyForm" />
+		<form-bean name="uploadForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.UploadForm" />
+
+		<!-- new -->
+		<form-bean name="bulletinForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.BulletinForm" />
+		<form-bean name="cartForm"
+			type="com.qzgf.NetStore.struts.form.FrontForm.CartForm">
+		</form-bean>
+		<!-- end new -->
+		<!--网上商城 系统管理 begin-->
+		<form-bean name="menuForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.MenuForm" />
+		<form-bean name="roleForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.RoleForm" />
+		<form-bean name="roleValueForm"
+			type="com.qzgf.NetStore.struts.form.BackForm.RoleValueForm" />
+		<!--网上商城 系统管理 end-->
+	</form-beans>
+	<global-exceptions />
+	<global-forwards>
+		<forward name="back_login" path="/JspForm/login.jsp"></forward>
+		<forward name="login_Page"
+			path="/JspForm/FrontfuncModual/login.jsp">
+		</forward>
+		<forward name="index_Page" path="/indexFirst.do?status=exec"></forward>
+		<forward name="toCheck"
+			path="/JspForm/FrontfuncModual/cart.jsp">
+		</forward>
+	</global-forwards>
+	<action-mappings>
+
+
+		<action attribute="productForm" input="/JspForm/errors.jsp"
+			name="productForm" path="/product" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.ProductAction">
+			<forward name="product_Page"
+				path="/JspForm/BackfuncModual/Product.jsp">
+			</forward>
+
+		</action>
+
+		<action attribute="productModifyForm"
+			input="/JspForm/BackfuncModual/ProductModify.jsp"
+			name="productModifyForm" path="/productModify" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.ProductModifyAction">
+			<forward name="failure" path="/JspForm/errors.jsp" />
+			<forward name="success"
+				path="/JspForm/BackfuncModual/ProductModify.jsp" />
+			<forward name="updateSuccess"
+				path="/productModify.do?status=onlyShow" />
+			<forward name="add"
+				path="/JspForm/BackfuncModual/ProductAdd.jsp" />
+			<forward name="addSuccess"
+				path="/JspForm/BackfuncModual/ProductAdd.jsp" />
+
+			<forward name="updSmallPic"
+				path="/JspForm/BackfuncModual/uploadSmallPic.jsp" />
+			<forward name="showSmallPic"
+				path="/JspForm/BackfuncModual/showSmallPic.jsp" />
+			<forward name="modifyBack" path="/product.do" />
+
+			<forward name="updBigPic"
+				path="/JspForm/BackfuncModual/uploadBigPic.jsp" />
+			<forward name="showBigPic"
+				path="/JspForm/BackfuncModual/showBigPic.jsp" />
+
+			<forward name="delete"
+				path="/JspForm/BackfuncModual/Product.jsp" />
+
+		</action>
+		<action attribute="uploadForm"
+			input="/JspForm/BackfuncModual/uploadSmallPic.jsp" path="/upload"
+			name="uploadForm" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.UploadAction">
+			<forward name="success"
+				path="/JspForm/BackfuncModual/uploadSmallPic.jsp" />
+		</action>
+
+		<action path="/unit" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.UnitAction">
+			<forward name="failure" path="/JspForm/errors.jsp" />
+			<forward name="success"
+				path="/JspForm/BackfuncModual/Unit.jsp" />
+			<forward name="addSuccess" path="/unit.do?status=select" />
+			<forward name="delSuccess" path="/unit.do?status=select" />
+			<forward name="saveSuccess" path="/unit.do?status=select" />
+		</action>
+		<action path="/friendLink" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.FriendLinkAction">
+			<forward name="friendSuccess"
+				path="/JspForm/BackfuncModual/friendLink.jsp" />
+			<forward name="friendLocal"
+				path="/friendLink.do?status=exec" />
+
+		</action>
+		<action path="/specification" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.SpecificationAction">
+			<forward name="specSuccess"
+				path="/JspForm/BackfuncModual/Specification.jsp" />
+			<forward name="addSpec"
+				path="/specification.do?status=select" />
+			<forward name="saveSpec"
+				path="/specification.do?status=select" />
+			<forward name="delSpec"
+				path="/specification.do?status=select" />
+		</action>
+
+		<action path="/productManage" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.ProductManageAction">
+			<forward name="success"
+				path="/JspForm/BackfuncModual/ProductManage.jsp" />
+			<forward name="main" path="/productManage.do?status=select" />
+
+			<forward name="successChild"
+				path="/JspForm/BackfuncModual/ProductChild.jsp" />
+			<forward name="mainChild"
+				path="/productManage.do?status=selectChild" />
+
+		</action>
+
+		<action attribute="uploadForm"
+			input="/JspForm/BackfuncModual/save.jsp" name="uploadForm"
+			path="/uploadTest" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.UploadTestAction">
+			<forward name="upSuccess"
+				path="/JspForm/BackfuncModual/save.jsp" />
+
+		</action>
+
+		<action path="/review" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.ReviewAction">
+			<forward name="reviewSuccess"
+				path="/JspForm/BackfuncModual/Review.jsp" />
+			<forward name="all" path="/review.do?status=select" />
+			<forward name="reply"
+				path="/JspForm/BackfuncModual/Review.jsp" />
+			<forward name="audit"
+				path="/JspForm/BackfuncModual/Review.jsp" />
+
+			<forward name="audited"
+				path="/JspForm/BackfuncModual/Review.jsp" />
+			<forward name="Replying"
+				path="/JspForm/BackfuncModual/ReviewReply.jsp" />
+			<forward name="ReplySave"
+				path="/JspForm/BackfuncModual/Review.jsp" />
+		</action>
+
+		<action path="/user" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.UserAction">
+			<forward name="userSuccess"
+				path="/JspForm/BackfuncModual/User.jsp" />
+			<forward name="detailSuccess"
+				path="/JspForm/BackfuncModual/UserDetail.jsp" />
+			<forward name="isable" path="/user.do?status=select" />
+		</action>
+
+
+		<!-- 前台页面 -->
+		<action path="/indexFirst" parameter="status"
+			type="com.qzgf.NetStore.struts.action.FrontAction.IndexFirstAction">
+			<forward name="failure" path="/JspForm/errors.jsp" />
+			<forward name="indexSuccess"
+				path="/JspForm/FrontfuncModual/index.jsp" />
+			<forward name="onlyOneSuccess"
+				path="/JspForm/FrontfuncModual/indexBigPic.jsp" />
+			<forward name="onlyReviewSuccess"
+				path="/indexFirst.do?status=onlyGoodsShow" />
+			<forward name="allReviewSuccess"
+				path="/JspForm/FrontfuncModual/indexAllReview.jsp" />
+			<forward name="allReviewAddsuc"
+				path="/indexFirst.do?status=showAllReview" />
+			<forward name="specialPrice"
+				path="/JspForm/FrontfuncModual/specialPrice.jsp" />
+			<forward name="upSuccess"
+				path="/JspForm/BackfuncModual/save.jsp" />
+			<forward name="someProduct"
+				path="/JspForm/FrontfuncModual/someProduct.jsp" />
+			<forward name="moreNewProduct"
+				path="/JspForm/FrontfuncModual/moreNewProduct.jsp" />
+			<forward name="moreReleaseProduct"
+				path="/JspForm/FrontfuncModual/moreReleaseProduct.jsp" />
+			<forward name="productNewsShow"
+				path="/JspForm/FrontfuncModual/productNews.jsp" />
+			<forward name="newsDetailList"
+				path="/JspForm/FrontfuncModual/productNewsDetail.jsp" />
+
+		</action>
+		<!-- 前台页面 -->
+
+		<action path="/search"
+			type="com.qzgf.NetStore.struts.action.FrontAction.SearchAction">
+			<forward name="searchSuccess"
+				path="/JspForm/FrontfuncModual/search.jsp" />
+			<forward name="searchAll"
+				path="/JspForm/FrontfuncModual/searchAll.jsp" />
+
+		</action>
+		<action path="/pay" 
+			type="com.qzgf.NetStore.struts.action.FrontAction.NetpayAction">
+			<forward name="netPay" path="/JspForm/FrontfuncModual/netPay.jsp"></forward>
+			<forward name="getChinapayRet_Page" path="/JspForm/FrontfuncModual/getChinapayRet.jsp"></forward>
+		</action>
+		<!-- 公司简介-->
+		<action path="/companyIntroduct" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.CompanyIntroductAction">
+			<forward name="companyIntrSuccess"
+				path="/JspForm/BackfuncModual/companyIntroduct.jsp" />
+
+		</action>
+		<!-- 公司简介end-->
+		<action path="/login" parameter="status"
+			type="com.qzgf.NetStore.struts.action.BackAction.LoginAction">
+			<forward name="loginSuccess" path="/JspForm/main.jsp" />
+			<forward name="loginFail" path="/JspForm/login.jsp" />
+			<forward name="loginLeftTree" path="/JspForm/left.jsp" />
+			<!-- 配置路径-->
+			<!--沈-->
+			<forward name="product.do" path="/product.do" />
+			<forward name="review.do?status=select"
+				path="/review.do?status=select" />
+			<forward name="unit.do?status=select"
+				path="/unit.do?status=select" />
+			<forward name="specification.do?status=select"
+				path="/specification.do?status=select" />
+			<forward name="productManage.do?status=selectChild"
+				path="/productManage.do?status=selectChild" />
+			<forward name="user.do?status=select"
+				path="/user.do?status=select" />
+			<forward name="friendLink.do?status=exec"
+				path="/friendLink.do?status=exec" />
+
+			<forward name="companyIntroduct.do?status=query"
+				path="/companyIntroduct.do?status=query" />
+			<!--沈-->
+			<!-- 林 -->
+
+			<forward
+				name="JspForm/BackfuncModual/sendMode.do?status=querySendMode"
+				path="/JspForm/BackfuncModual/sendMode.do?status=querySendMode" />
+			<forward
+				name="JspForm/BackfuncModual/payType.do?status=queryPayType"
+				path="/JspForm/BackfuncModual/payType.do?status=queryPayType" />
+			<forward
+				name="JspForm/BackfuncModual/news.do?status=queryAllNews"
+				path="/JspForm/BackfuncModual/news.do?status=queryAllNews" />
+			<forward
+				name="JspForm/BackfuncModual/treaty.do?status=queryTreaty"
+				path="/JspForm/BackfuncModual/treaty.do?status=queryTreaty" />
+			<forward
+				name="JspForm/BackfuncModual/manufacturer.do?status=queryAllManufacturers"
+				path="/JspForm/BackfuncModual/manufacturer.do?status=queryAllManufacturers" />
+			<forward
+				name="JspForm/BackfuncModual/manager.do?status=queryManagers"
+				path="/JspForm/BackfuncModual/manager.do?status=queryManagers" />
+			<forward
+				name="JspForm/BackfuncModual/manager.do?status=queryManagerById"
+				path="/JspForm/BackfuncModual/manager.do?status=queryManagerById" />
+			<forward
+				name="JspForm/BackfuncModual/manager.do?status=updateManager"
+				path="JspForm/BackfuncModual/manager.do?status=updateManager">
+			</forward>
+			<forward
+				name="JspForm/BackfuncModual/order.do?status=listPayType"
+				path="/JspForm/BackfuncModual/order.do?status=listPayType" />
+			<forward
+				name="JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=2"
+				path="/JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=2" />
+			<forward
+				name="JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=3"
+				path="/JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=3" />
+			<forward
+				name="JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=4"
+				path="/JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=4" />
+			<forward
+				name="JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=5"
+				path="/JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=5" />
+			<forward
+				name="JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=6"
+				path="/JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=6" />
+			<forward
+				name="JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=7"
+				path="/JspForm/BackfuncModual/order.do?status=listOrderByStatus&amp;orderStatus=7" />
+			<forward
+				name="JspForm/BackfuncModual/bulletin.do?status=queryBulletin"
+				path="/JspForm/BackfuncModual/bulletin.do?status=queryBulletin" />
+			<!-- 林 -->
+			<!-- 配置路径 -->
+
+			<!-- 网上商城系统管理 begin -->
+			<forward
+				name="JspForm/BackfuncModual/menu.do?status=queryAllMenus"
+				path="/JspForm/BackfuncModual/menu.do?status=queryAllMenus">
+			</forward>
+			<forward
+				name="JspForm/BackfuncModual/role.do?status=queryAllRoles"
+				path="/JspForm/BackfuncModual/role.do?status=queryAllRoles">
+			</forward>
+			<forward
+				name="JspForm/BackfuncModual/roleValue.do?status=queryAllRoleValues"
+				path="/JspForm/BackfuncModual/roleValue.do?status=queryAllRoleValues">
+			</forward>
+			<!-- 网上商城系统管理 end -->
+
+
+		</action>
+
+		<action attribute="userForm"
+			input="/JspForm/FrontfuncModual/login.jsp" name="userForm"
+			parameter="status" path="/JspForm/FrontfuncModual/user"
+			scope="request" type="com.store.action.UserAction">
+			<forward name="register_success_page"
+				path="/JspForm/FrontfuncModual/register_success.jsp">
+			</forward>
+			<forward name="login_success"
+				path="/indexFirst.do?status=exec">
+			</forward>
+			<!-- new -->
+			<forward name="register_Page"
+				path="/JspForm/FrontfuncModual/register.jsp">
+			</forward>
+			<!-- end new -->
+
+		</action>
+
+
+		<action attribute="orderForm" input="/JspForm/errors.jsp"
+			name="orderForm" parameter="status"
+			path="/JspForm/BackfuncModual/order" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.OrderAction">
+			<forward name="order_Page"
+				path="/JspForm/BackfuncModual/orderPage.jsp">
+			</forward>
+			<forward name="orderDetail_Page"
+				path="/JspForm/BackfuncModual/orderDetail.jsp">
+			</forward>
+			<forward name="statusUpdateSuccess_Page"
+				path="/JspForm/BackfuncModual/statusUpdateSuccess.jsp">
+			</forward>
+			<forward name="queryOrder_page"
+				path="/JspForm/BackfuncModual/queryOrder.jsp">
+			</forward>
+			<forward name="queryOrder_result_page"
+				path="/JspForm/BackfuncModual/order.do?status=listPayType">
+			</forward>
+			<forward name="operateHistory_Page"
+				path="/JspForm/BackfuncModual/operateHistory.jsp">
+			</forward>
+		</action>
+
+
+		<action attribute="userAccountForm" input="/JspForm/errors.jsp"
+			name="userAccountForm" parameter="status"
+			path="/JspForm/FrontfuncModual/account" scope="request"
+			type="com.qzgf.NetStore.struts.action.FrontAction.UserAccountAction">
+			<forward name="userAccount_Page"
+				path="/JspForm/FrontfuncModual/userAccount.jsp">
+			</forward>
+			<forward name="orderDetail_Page"
+				path="/JspForm/FrontfuncModual/orderDetail.jsp">
+			</forward>
+			<forward name="sendModeModify_Page"
+				path="/JspForm/FrontfuncModual/sendModeModify.jsp">
+			</forward>
+			<forward name="payTypeModify_Page"
+				path="/JspForm/FrontfuncModual/payTypeModify.jsp">
+			</forward>
+			<forward name="buyInfoModify_Page"
+				path="/JspForm/FrontfuncModual/buyInfoModify.jsp">
+			</forward>
+			<forward name="myInfoModify_Page"
+				path="/JspForm/FrontfuncModual/myInfoModify.jsp">
+			</forward>
+			<forward name="myInfoModify_success_Page"
+				path="/JspForm/FrontfuncModual/myInfoModify_success.jsp">
+			</forward>
+			<forward name="emailModify_Page"
+				path="/JspForm/FrontfuncModual/emailModify.jsp">
+			</forward>
+			<forward name="emailModify_success_Page"
+				path="/JspForm/FrontfuncModual/emailModify_success.jsp">
+			</forward>
+			<forward name="passwordModify_Page"
+				path="/JspForm/FrontfuncModual/passwordModify.jsp">
+			</forward>
+			<forward name="passwordModify_success_Page"
+				path="/JspForm/FrontfuncModual/passwordModify_success.jsp">
+			</forward>
+		</action>
+
+		<action attribute="sendModeForm" input="/JspForm/errors.jsp"
+			name="sendModeForm" parameter="status"
+			path="/JspForm/BackfuncModual/sendMode" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.SendModeAction">
+			<forward name="sendModeManage_Page"
+				path="/JspForm/BackfuncModual/sendModeManage.jsp">
+			</forward>
+		</action>
+
+
+		<action attribute="payTypeForm" input="/JspForm/errors.jsp"
+			name="payTypeForm" parameter="status"
+			path="/JspForm/BackfuncModual/payType" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.PayTypeAction">
+			<forward name="payTypeManage_Page"
+				path="/JspForm/BackfuncModual/payTypeManage.jsp">
+			</forward>
+		</action>
+
+
+		<action attribute="newsForm" input="/JspForm/errors.jsp"
+			name="newsForm" parameter="status"
+			path="/JspForm/BackfuncModual/news" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.NewsAction">
+			<forward name="news_Page"
+				path="/JspForm/BackfuncModual/newsPage.jsp" />
+			<forward name="newsModify_Page"
+				path="/JspForm/BackfuncModual/newsModify.jsp">
+			</forward>
+			<forward name="newsGroup_Page"
+				path="/JspForm/BackfuncModual/newsGroup.jsp" />
+			<forward name="modifyGroup_Page"
+				path="/JspForm/BackfuncModual/modifyGroup.jsp" />
+			<forward name="addNews_Page"
+				path="/JspForm/BackfuncModual/addNews.jsp">
+			</forward>
+		</action>
+
+
+		<action attribute="treatyForm" input="/JspForm/errors.jsp"
+			name="treatyForm" parameter="status"
+			path="/JspForm/BackfuncModual/treaty" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.TreatyAction">
+			<forward name="treatyManage_Page"
+				path="/JspForm/BackfuncModual/treatyManage.jsp">
+			</forward>
+		</action>
+
+
+		<action attribute="manufacturerForm" input="/JspForm/errors.jsp"
+			name="manufacturerForm" parameter="status"
+			path="/JspForm/BackfuncModual/manufacturer" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.ManufacturerAction">
+			<forward name="manufacturerManage_Page"
+				path="/JspForm/BackfuncModual/manufacturerManage.jsp">
+			</forward>
+			<forward name="manufacturerModify_Page"
+				path="/JspForm/BackfuncModual/manufacturerModify.jsp">
+			</forward>
+			<forward name="manufacturerAdd_Page"
+				path="/JspForm/BackfuncModual/manufacturerAdd.jsp">
+			</forward>
+		</action>
+
+
+		<action attribute="managerForm" input="/JspForm/errors.jsp"
+			name="managerForm" parameter="status"
+			path="/JspForm/BackfuncModual/manager" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.ManagerAction">
+			<forward name="administratorManage_Page"
+				path="/JspForm/BackfuncModual/administratorManage.jsp">
+			</forward>
+			<forward name="administratorModify_Page"
+				path="/JspForm/BackfuncModual/administratorModify.jsp">
+			</forward>
+
+			<!-- new  -->
+			<forward name="administratorAdd_Page"
+				path="/JspForm/BackfuncModual/administratorAdd.jsp">
+			</forward>
+			<forward name="managerModify_Page"
+				path="/JspForm/BackfuncModual/managerModify.jsp">
+			</forward>
+			<!-- end new -->
+
+		</action>
+
+		<!-- new -->
+		<action attribute="bulletinForm" input="/JspForm/errors.jsp"
+			name="bulletinForm" parameter="status"
+			path="/JspForm/BackfuncModual/bulletin" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.BulletinAction">
+			<forward name="bulletinManage_Page"
+				path="/JspForm/BackfuncModual/bulletinManage.jsp">
+			</forward>
+		</action>
+		<action parameter="status"
+			path="/JspForm/FrontfuncModual/productDisplay"
+			type="com.qzgf.NetStore.struts.action.FrontAction.ProductDisplayAction">
+			<forward name="newProduct_Page"
+				path="/JspForm/FrontfuncModual/newProduct.jsp">
+			</forward>
+		</action>
+
+		<action parameter="status"
+			path="/JspForm/FrontfuncModual/newsDisplay"
+			type="com.qzgf.NetStore.struts.action.FrontAction.NewsDisplayAction">
+			<forward name="listNews_Page"
+				path="/JspForm/FrontfuncModual/newsDisplay.jsp">
+			</forward>
+			<forward name="newsDisplay_Page"
+				path="/JspForm/FrontfuncModual/oneNews.jsp">
+			</forward>
+		</action>
+		<action attribute="cartForm" name="cartForm" parameter="status"
+			path="/JspForm/FrontfuncModual/cart" scope="request"
+			type="com.qzgf.NetStore.struts.action.FrontAction.ShoppingCartAction">
+			<forward name="addressInfoModify_Page"
+				path="/JspForm/FrontfuncModual/addressInfoModify.jsp">
+			</forward>
+			<forward name="payAndSendMode_Page"
+				path="/JspForm/FrontfuncModual/payAndSendMode.jsp">
+			</forward>
+			<forward name="orderConfirm_Page"
+				path="/JspForm/FrontfuncModual/orderConfirm.jsp">
+			</forward>
+			<forward name="downOrder_Page"
+				path="/JspForm/FrontfuncModual/downOrder.jsp">
+			</forward>
+			<forward name="getChinapayRet_Page" path="/JspForm/FrontfuncModual/getChinapayRet.jsp"></forward>
+		</action>
+		<!-- end new -->
+
+		<!-- 网上商城 系统管理 菜单模块 -->
+		<action attribute="menuForm" input="/JspForm/errors.jsp"
+			name="menuForm" parameter="status"
+			path="/JspForm/BackfuncModual/menu" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.menuAction">
+			<forward name="menuManage_Page"
+				path="/JspForm/BackfuncModual/menuManage.jsp">
+			</forward>
+			<!--<forward name="menuManage_Page" path="/JspForm/BackfuncModual/menu.do?status=queryAllMenus"></forward> -->
+			<forward name="menuModify_Page"
+				path="/JspForm/BackfuncModual/menuModify.jsp">
+			</forward>
+			<forward name="menuAdd_Page"
+				path="/JspForm/BackfuncModual/menuAdd.jsp">
+			</forward>
+		</action>
+
+		<!-- 网上商城 系统管理 角色模块  -->
+		<action attribute="roleForm" input="/JspForm/errors.jsp"
+			name="roleForm" parameter="status"
+			path="/JspForm/BackfuncModual/role" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.roleAction">
+			<forward name="roleManage_Page"
+				path="/JspForm/BackfuncModual/roleManage.jsp">
+			</forward>
+			<forward name="roleModify_Page"
+				path="/JspForm/BackfuncModual/roleModify.jsp">
+			</forward>
+			<forward name="roleAdd_Page"
+				path="/JspForm/BackfuncModual/roleAdd.jsp">
+			</forward>
+		</action>
+
+		<!-- 网上商城 系统管理 角色权限模块  -->
+		<action attribute="roleValueForm" input="/JspForm/errors.jsp"
+			name="roleValueForm" parameter="status"
+			path="/JspForm/BackfuncModual/roleValue" scope="request"
+			type="com.qzgf.NetStore.struts.action.BackAction.roleValueAction">
+			<forward name="roleValueManage_Page"
+				path="/JspForm/BackfuncModual/roleValueManage.jsp">
+			</forward>
+			<forward name="roleValueModify_Page"
+				path="/JspForm/BackfuncModual/roleValueModify.jsp">
+			</forward>
+			<forward name="roleValueAdd_Page"
+				path="/JspForm/BackfuncModual/roleValueAdd.jsp">
+			</forward>
+			<forward name="roleManage_Page"
+				path="/JspForm/BackfuncModual/roleManage.jsp">
+			</forward>
+		</action>
+
+	</action-mappings>
+
+
+
+
+	<controller
+		processorClass="org.springframework.web.struts.DelegatingRequestProcessor">
+	</controller>
+	<message-resources
+		parameter="com.qzgf.NetStore.struts.ApplicationResources" />
+	<plug-in
+		className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation"
+			value="/WEB-INF/classes/applicationContext.xml" />
+	</plug-in>
+
+</struts-config>
+
