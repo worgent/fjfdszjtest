@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+	GPS接口数据采集规则配置 
+ -->
+<sqlMap namespace="InterFatchConfig">
+	<!-- ================================== 接口配置表 td_inter_fetch_config ======================================= -->
+	<!--
+		取数据采集配置 
+	 -->
+	<select id="findDataCollectionConifg" parameterClass="java.util.HashMap" resultClass="java.lang.String" remapResults="true" >
+		select a.inter_fetch_config_id
+		  from td_inter_fetch_config a
+		 where a.state &lt;&gt; 0
+		   and a.fetch_mode = $fetchMode$
+		   and a.coll_time = $collTime$
+	</select>
+	
+	<!--
+		接口数据采集规则记录数 
+	 -->
+	<select id="findInterFatchConfigCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(1)
+		  from td_inter_fetch_config t
+		 where t.state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="fetchMode">
+			   fetch_mode = $fetchMode$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="interFetchConfigName">
+			   inter_fetch_config_name = '%$interFetchConfigName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="interFetchConfigId">
+			   inter_fetch_config_id = '$interFetchConfigId$'
+		</isNotEmpty>
+	</select>
+	
+	<!--
+		接口数据采集规则记录
+	 -->
+	<select id="findInterFatchConfig" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select (Select para_value_desc
+				  from td_system_para 
+				 where para_type = 'INTER_FETCH_CONFIG' 
+				   and para_name = 'FETCH_MODE'
+				   and para_value = t.fetch_mode) fetch_mode_name,
+			   t.*
+		  from td_inter_fetch_config t
+		 where t.state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="fetchMode">
+			   fetch_mode = $fetchMode$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="interFetchConfigName">
+			   inter_fetch_config_name = '%$interFetchConfigName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="interFetchConfigId">
+			   inter_fetch_config_id = '$interFetchConfigId$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+	     limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+	
+	<!--
+		创建接口数据采集规则
+	 -->
+	<insert id="insertInterFatchConfig" parameterClass="java.util.HashMap">
+		insert into td_inter_fetch_config(
+			inter_fetch_config_id,
+			inter_fetch_config_name,
+			inter_select_sql,
+			local_insert_sql,
+			local_update_sql,
+			fetch_mode,
+			memo,
+			state)
+		values(
+			pb_get_sequences(@in_seq_name:='inter_fetch_config_id'),
+			'$interFetchConfigName$',
+			'$interSelectSql$',
+			'$localInsertSql$',
+			'$localUpdateSql$',
+			$fetchMode$,
+			'$memo$',
+			1)
+	</insert>
+	
+	<!--
+		修改接口数据采集规则
+	 -->
+	<update id="updateInterFatchConfig" parameterClass="java.util.HashMap">
+		update td_inter_fetch_config
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="interFetchConfigName">
+				inter_fetch_config_name = '$interFetchConfigName$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="interSelectSql">
+				inter_select_sql = '$interSelectSql$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="localInsertSql">
+				local_insert_sql = '$localInsertSql$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="localUpdateSql">
+				local_update_sql = '$localUpdateSql$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fetchMode">
+				fetch_mode = $fetchMode$
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="memo">
+				memo = '$memo$'
+			</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="interFetchConfigId">
+				inter_fetch_config_id = '$interFetchConfigId$'
+			</isNotEmpty>
+		</dynamic>
+	</update>
+	
+	<!--
+		删除接口数据采集规则
+	 -->
+	<delete id="deleteInterFatchConfig" parameterClass="java.util.HashMap">
+		update td_inter_fetch_config
+		   set state = 0
+		 where inter_fetch_config_id = '$interFetchConfigId$'
+	</delete>
+	
+</sqlMap>

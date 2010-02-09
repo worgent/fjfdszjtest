@@ -1,0 +1,30 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!--
+ * 养路费管理
+ -->
+<xwork>
+	<package name="MaintainRoad" extends="CarManagePackage" namespace="/carmanage/maintainroad">
+	
+		<action name="maintainRoad" class="maintainRoadAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/maintainRoad/maintainroadlist.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/maintainRoad/editmaintainroad.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/maintainRoad/editmaintainroad.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/carManage/maintainRoad/viewmaintainroad.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+	</package>
+</xwork>

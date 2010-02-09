@@ -1,0 +1,31 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+    <package name="LoadMenu" extends="SystemManagePackage" namespace="/system">
+    	<action name="menu" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success">/WEB-INF/pages/application/systemManage/menu/menu.jsp</result>
+        </action>
+        
+        <action name="treemenu" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success">/WEB-INF/pages/application/systemManage/menu/treemenu.jsp</result>
+        </action>
+		<!--
+			模块说明：
+
+			根据人员流水号和菜单的父亲节点取得子节点
+		 -->
+		<action name="loadMenu" class="loadMenuAction">
+			<result name="success" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/systemManage/menu/jafMenu.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="treemenu" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/systemManage/menu/menuxml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/json.ftl</param>
+			</result>
+			<interceptor-ref name="params" />
+		</action>
+	</package>
+</xwork>    

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表 -》 车辆费用统计
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="CarChargeStat">
+
+	<select id="findCarChargeStat" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select t.source_order_type,
+		       (select para_value_desc
+		          from td_system_para
+		         where para_type = 'FINANCE_PARA'
+		           and para_name = 'SOURCE_ORDER_TYPE'
+		           and para_value = t.source_order_type) source_order_type_name,
+		       sum(t.charge) charge,
+		       count(1) amount
+		  from tf_finance t
+		 where finance_state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="sourceOrderType">
+				t.source_order_type = '$sourceOrderType$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoCode">
+				t.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begBookingDate">
+				booking_date &gt;= cast('$begBookingDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endBookingDate">
+				booking_date &lt;= cast('$endBookingDate$' AS DATE)
+		</isNotEmpty>
+		group by source_order_type
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+</sqlMap>

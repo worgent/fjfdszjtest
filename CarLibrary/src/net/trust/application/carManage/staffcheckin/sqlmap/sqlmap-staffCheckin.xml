@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 人员考勤管理
+ *
+ -->
+<sqlMap namespace="StaffCheckinManage">
+	<!-- 人员考勤记录总数 -->
+	<select id="findStaffCheckinCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)
+		  from inter_motorman_log a, inter_car_info b, tf_car_info c
+		 where a.carid = b.carid
+   		   and b.car_mark = c.car_no_code and  c.State &lt;&gt; 0
+   		<isNotEmpty prepend="and" property="staffId">
+		   	   c.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="staffName">
+				a.NAME like '%$staffName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driverID">
+				a.DriverID like '%$driverID$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="id">
+				a.Id ='$id$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carMark">
+				a.carid in (select carid
+							  from inter_car_info e
+							 where e.car_mark like '%$carMark$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begLoginTime">
+				cast(a.LOGIN_TIME AS DATE) &gt;= cast('$begLoginTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endLoginTime">
+				cast(a.LOGIN_TIME AS DATE) &lt;= cast('$endLoginTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begLogoutTime">
+				cast(a.LOGOUT_TIME AS DATE) &gt;= cast('$begLogoutTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endLogoutTime">
+				cast(a.LOGOUT_TIME AS DATE) &lt;= cast('$endLogoutTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="method">
+				a.DriverID &lt;&gt;0
+		</isNotEmpty>
+		<isEmpty prepend="and" property="method">
+				a.DriverID = 0
+		</isEmpty>	
+	</select>
+	
+	<!-- 人员考勤记录 -->
+	<select id="findStaffCheckin" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select a.DriverID,
+			   a.NAME,
+			   b.car_mark,
+			   a.LOGIN_TIME,
+			   a.LOGOUT_TIME,
+			   a.DISTANCE,
+			   a.LOGOUT_LON,
+			   a.LOGOUT_LAT
+		  from inter_motorman_log a, inter_car_info b, tf_car_info c
+		 where a.carid = b.carid
+   		   and b.car_mark = c.car_no_code and  c.State &lt;&gt; 0
+   		<isNotEmpty prepend="and" property="staffId">
+		   	   c.city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="staffName">
+				a.NAME like '%$staffName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="driverID">
+				a.DriverID like '%$driverID$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="id">
+				a.Id ='$id$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carMark">
+				a.carid in (select carid
+							  from inter_car_info e
+							 where e.car_mark like '%$carMark$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begLoginTime">
+				cast(a.LOGIN_TIME AS DATE) &gt;= cast('$begLoginTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endLoginTime">
+				cast(a.LOGIN_TIME AS DATE) &lt;= cast('$endLoginTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begLogoutTime">
+				cast(a.LOGOUT_TIME AS DATE) &gt;= cast('$begLogoutTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endLogoutTime">
+				cast(a.LOGOUT_TIME AS DATE) &lt;= cast('$endLogoutTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="method">
+				a.DriverID &lt;&gt;0
+		</isNotEmpty>
+		<isEmpty prepend="and" property="method">
+				a.DriverID = 0
+		</isEmpty>		
+		 order by motorman_log_id desc
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+</sqlMap>

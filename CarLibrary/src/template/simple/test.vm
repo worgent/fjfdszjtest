@@ -1,0 +1,2 @@
+<input type="checkbox" name="$!webwork.htmlEncode($parameters.test)" value="$!webwork.htmlEncode($parameters.test)"
+/>

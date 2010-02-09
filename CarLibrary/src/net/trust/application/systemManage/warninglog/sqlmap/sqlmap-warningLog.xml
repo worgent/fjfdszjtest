@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!-- 预警管理  -->
+<sqlMap namespace="WarningLogManage">
+	<!-- 预警记录数总数 -->
+	<select id="findWarningLogCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(1)
+		  from tf_warning_log t
+		 where opt_flag = 1
+		<isNotEmpty prepend="and" property="staffName">
+				staff_id in (select STAFF_ID
+							   from TF_OPERATOR s
+							  where staff_name like '%$staffName$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   		           		from tf_staff_city a 
+		   		               where a.staff_id=#staffId#)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="warningType">
+				warning_type = $warningType$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begCreateDate">
+				create_date &gt;= cast('$begCreateDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endCreateDate">
+				create_date &lt;= cast('$endCreateDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begOptDate">
+				opt_date &gt;= cast('$begOptDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endOptDate">
+				opt_date &lt;= cast('$endOptDate$' as DATE)
+		</isNotEmpty>
+	</select>
+	
+	<!-- 预警记录 -->
+	<select id="findWarningLog" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select case
+		         when opt_flag = 1 then
+		          '未处理'
+		         when opt_flag = 2 then
+		          '已处理'
+		       end opt_flag_desc,
+		       cast(create_date as char) create_date,
+		       cast(opt_date as char) opt_date,
+		       fb_get_staff_name_by_id(@in_staff_id := staff_id) staff_name,
+		       (select para_value_desc
+		          from td_system_para
+		         where para_type = 'warning_para'
+		           and para_name = 'warning_type') warning_type_desc,
+		       (select tt.city_name 
+			   	  from td_city tt 
+			   	 where tt.city_id = t.city_id) city_name,
+		       t.*
+		  from tf_warning_log t
+		 where opt_flag = 1
+		<isNotEmpty prepend="and" property="staffName">
+				staff_id in (select STAFF_ID
+							   from TF_OPERATOR s
+							  where staff_name like '%$staffName$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   		           		from tf_staff_city a 
+		   		               where a.staff_id=#staffId#)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="warningType">
+				warning_type = $warningType$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begCreateDate">
+				create_date &gt;= cast('$begCreateDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endCreateDate">
+				create_date &lt;= cast('$endCreateDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begOptDate">
+				opt_date &gt;= cast('$begOptDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endOptDate">
+				opt_date &lt;= cast('$endOptDate$' as DATE)
+		</isNotEmpty>
+		order by t.warning_log_id desc
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 修改预警信息 -->
+	<update id="updateWarningLog" parameterClass="java.util.HashMap">
+		update tf_warning_log
+		   set opt_flag = 2,
+		   	   staff_id = '$staffId$',
+		   	   opt_date = now()
+		 where warning_log_id = '$warningLogId$'
+	</update>
+	
+	<!-- 执创建预警记录过程 -->
+	<procedure id="execCreateWarningLogProc" parameterClass="java.util.HashMap">
+		<![CDATA[{call p_create_warning_log()}]]>
+	</procedure>
+</sqlMap>

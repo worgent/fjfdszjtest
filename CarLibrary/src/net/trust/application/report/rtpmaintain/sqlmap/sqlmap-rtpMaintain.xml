@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 保养管理
+ * @author zhengmh
+ -->
+<sqlMap namespace="RtpMaintain">
+  	<!-- 查询保养管理总记录数 -->
+	<select id="findRtpMaintainCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select  count(1)
+		from
+		(
+		select ifnull(d.nurse_mileage,0) aa,g.param_value bb,e.city_id,f.fixing_id,h.fixing_name,e.car_no_id,e.car_no_code,ifnull(d.nurse_id,'') nurse_id,'里程' as parmare
+		 from tf_nurse_item c left outer join tf_nurse d on c.nurse_id = d.nurse_id  
+		left outer join tf_car_info e on  e.car_no_id = c.car_no_id
+		left outer join tf_car_fixing f on e.car_no_id = f.car_no_id
+		left outer join tf_fixing_param g on f.fixing_id = g.fixing_id
+		left outer join tf_fixing_info h on g.fixing_id = h.fixing_id	
+		where exists ( select * from tf_nurse_item a
+		left outer join tf_nurse b on a.nurse_id = b.nurse_id 
+		where  g.param_type = 1 and  b.nurse_mileage&lt;ifnull(d.nurse_mileage,0) and b.nurse_mileage &gt;ifnull(d.nurse_mileage,0)-g.param_value)
+		and  e.State &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		e.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="parmare">
+					g.param_type = #parmare#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="cityId">
+				e.city_id =#cityId#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="carNoCode">
+				e.car_no_code =#carNoCode#
+		</isNotEmpty>
+			union all
+			select ifnull(d.nurse_date,'1999-01-01'),g.param_value,e.city_id,f.fixing_id,h.fixing_name,e.car_no_id,e.car_no_code,ifnull(d.nurse_id,'') nurse_id,'时间' as parmare
+			from tf_nurse_item c left outer join tf_nurse d on c.nurse_id = d.nurse_id  
+			left outer join tf_car_info e on  e.car_no_id = c.car_no_id
+			left outer join tf_car_fixing f on e.car_no_id = f.car_no_id
+			left outer join tf_fixing_param g on f.fixing_id = g.fixing_id
+			left outer join tf_fixing_info h on g.fixing_id = h.fixing_id	
+			where exists ( select * from tf_nurse_item a
+			left outer join tf_nurse b on a.nurse_id = b.nurse_id 
+			where g.param_type = 2 and  b.nurse_date&lt;d.nurse_date and b.nurse_date &gt;date_sub(ifnull(d.nurse_date,'1999-01-01'),interval g.param_value month))
+			and  e.State &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		e.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="parmare">
+					g.param_type = #parmare#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="cityId">
+				e.city_id =#cityId#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="carNoCode">
+				e.car_no_code =#carNoCode#
+		</isNotEmpty>
+) a  
+	</select>
+	
+	<!-- 
+		查询保养管理信息
+	  -->
+	<select id="findRtpMaintain" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+			select a.*,(select tt.city_name from td_city tt  where tt.city_id=a.city_id) cityName
+			from
+			(
+			select ifnull(d.nurse_mileage,0) aa,g.param_value bb,e.city_id,f.fixing_id,h.fixing_name,e.car_no_id,e.car_no_code,ifnull(d.nurse_id,'') nurse_id,'里程' as parmare
+			 from tf_nurse_item c left outer join tf_nurse d on c.nurse_id = d.nurse_id  
+			left outer join tf_car_info e on  e.car_no_id = c.car_no_id
+			left outer join tf_car_fixing f on e.car_no_id = f.car_no_id
+			left outer join tf_fixing_param g on f.fixing_id = g.fixing_id
+			left outer join tf_fixing_info h on g.fixing_id = h.fixing_id	
+			where exists ( select * from tf_nurse_item a
+			left outer join tf_nurse b on a.nurse_id = b.nurse_id 
+			where  g.param_type = 1 and  b.nurse_mileage &lt; ifnull(d.nurse_mileage,0) and b.nurse_mileage &gt;ifnull(d.nurse_mileage,0)-g.param_value)
+			and  e.State &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		e.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="parmare">
+					g.param_type = #parmare#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="cityId">
+				e.city_id =#cityId#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="carNoCode">
+				e.car_no_code =#carNoCode#
+		</isNotEmpty>
+			union all
+			select ifnull(d.nurse_date,'1999-01-01'),g.param_value,e.city_id,f.fixing_id,h.fixing_name,e.car_no_id,e.car_no_code,ifnull(d.nurse_id,'') nurse_id,'时间' as parmare
+			from tf_nurse_item c left outer join tf_nurse d on c.nurse_id = d.nurse_id  
+			left outer join tf_car_info e on  e.car_no_id = c.car_no_id
+			left outer join tf_car_fixing f on e.car_no_id = f.car_no_id
+			left outer join tf_fixing_param g on f.fixing_id = g.fixing_id
+			left outer join tf_fixing_info h on g.fixing_id = h.fixing_id	
+			where exists ( select * from tf_nurse_item a
+			left outer join tf_nurse b on a.nurse_id = b.nurse_id 
+			where g.param_type = 2 and  b.nurse_date &lt; d.nurse_date and b.nurse_date &gt;date_sub(ifnull(d.nurse_date,'1999-01-01'),interval g.param_value month))
+			and  e.State &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		e.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="parmare">
+					g.param_type = #parmare#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="cityId">
+				e.city_id =#cityId#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="carNoCode">
+				e.car_no_code =#carNoCode#
+		</isNotEmpty>
+		) a  order by a.nurse_id desc 	
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	  
+	</select>	
+</sqlMap>

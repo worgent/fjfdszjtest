@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+	 员工信息管理
+ -->
+<sqlMap namespace="EmployeeInfoManage">
+  	<!-- 查询员工总记录数 -->
+	<select id="findEmployeeInfoCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) 
+		  from tf_staff_info
+		 where state = 1	
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="staffCode">
+		   		staff_code like '%$staffCode$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="staffName">
+				staff_name  like '%$staffName$%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sex">
+				sex=#sex#
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="staffType">
+				staff_type=#staffType# 
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNo">
+				car_no  in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNo$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="belongCompany">
+				belong_to_company=#belongCompany#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="belongDept">
+				belong_to_dept=#belongDept# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="accessionDate">
+				accession_date=cast(#accessionDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dimissionDate">
+				dimission_date=cast(#dimissionDate# AS DATE) 
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+          		city_id=#cityId#
+	    </isNotEmpty>   
+	    <isNotEmpty prepend="and" property="staffIds">
+				staff_id not in($staffIds$) 
+		</isNotEmpty>    	
+	</select>
+	
+	<!-- 
+		查询员工信息
+	  -->
+	<select id="findEmployeeInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		    select cast(t.accession_date AS CHAR) accession_date,
+            	   cast(t.dimission_date AS CHAR) dimission_date,
+            	   cast(t.create_date AS CHAR) create_date,
+            	   cast(t.editor_date AS CHAR) editor_date,           		
+           		   cast(t.execute_date AS CHAR) execute_date,
+           		   (select tt.para_value_desc 
+           		      from td_system_para tt 
+           		     where tt.para_value=t.staff_type 
+           		       and tt.para_name = 'STAFF_TYPE') staffType,
+			       (select distinct tt.car_no_code 
+			          from tf_car_info tt 
+			         where tt.car_no_id=t.car_no) carNo,
+			       (select tt.para_value_desc 
+			          from td_system_para tt 
+			         where tt.para_value=t.sex 
+			           and tt.para_name = 'sex') sex2,
+			       (select tt.para_value_desc 
+			          from td_system_para tt 
+			         where tt.para_value=t.certificate_type 
+			           and tt.para_name = 'CERTIFICATE_TYPE') certificateType,
+			       (select company_name 
+					  from tf_manage_organ_archives a 
+					where a.company_id=t.belong_to_company ) belongCompany, 	
+           		   (select tt.city_name 
+           		      from td_city tt 
+           		     where tt.city_id=t.city_id) cityId,
+           		   (select distinct tt.dept_name 
+           		      from tf_dept_info tt 
+           		     where tt.dept_id=t.belong_to_dept) belongDept,
+           		   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			       FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			       FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,
+			       FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=operator_id) operator_name,
+           		   t.*          		 
+              from tf_staff_info t
+             where state = 1
+           	<isNotEmpty prepend="and" property="staffId">
+			   		city_id in (select a.city_id 
+			   					  from tf_staff_city a 
+			   					 where a.staff_id = #staffId#)
+			</isNotEmpty> 
+           	<isNotEmpty prepend="and" property="staffInfoId">
+			   		t.staff_info_id =#staffInfoId#
+			</isNotEmpty>
+           	<isNotEmpty prepend="and" property="staffCode">
+			   		t.staff_code like '%$staffCode$%'
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="staffName">
+					t.staff_name  like '%$staffName$%' 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sex">
+					t.sex=#sex#
+			</isNotEmpty>  
+			<isNotEmpty prepend="and" property="staffType">
+					t.staff_type=#staffType# 
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="carNo">
+					t.car_no in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNo$%')
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="belongCompany">
+					t.belong_to_company=#belongCompany#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="belongDept">
+					t.belong_to_dept=#belongDept# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="accessionDate">
+					t.accession_date=cast(#accessionDate# AS DATE)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dimissionDate">
+					t.dimission_date=cast(#dimissionDate# AS DATE) 
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="cityId">
+	          		city_id=#cityId#
+	        </isNotEmpty>
+			<isNotEmpty prepend="and" property="Ic_Code">
+	          		Ic_Code=#Ic_Code#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="and" property="staffIds">
+				staff_id not in($staffIds$) 
+		    </isNotEmpty> 
+		    order by staff_info_id desc
+			<isNotEmpty prepend=" " property="START">
+		      limit $START$ , $END$
+		    </isNotEmpty>	       	
+	</select>	
+    <insert id="insertEmployeeInfo" parameterClass="java.util.HashMap">
+       insert into tf_staff_info 
+               (staff_info_id,
+                <isNotEmpty prepend="" property="staffCode">
+                staff_code,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="operatorId">
+			    operator_id,
+		        </isNotEmpty>
+                <isNotEmpty prepend="" property="staffName">
+                staff_name,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="sex">
+                sex ,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="address">
+                address,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="staffType">
+                staff_type,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="certificateType">
+                certificate_type,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="certificateNo">
+                certificate_no,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="linkPhone">
+                link_phone,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="linkOther">
+                link_other,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="carNo">
+                car_no,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="belongCompany">
+                belong_to_company,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="belongDept">
+                belong_to_dept,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="accessionDate">
+                accession_date,
+                </isNotEmpty>
+			    <isNotEmpty prepend="" property="dimissionDate">
+                dimission_date,
+                </isNotEmpty>
+            	<isNotEmpty prepend="" property="smsPhone">
+                sms_phone,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="memo">
+                memo,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="createMan">
+                create_man,
+                </isNotEmpty>
+                create_date,
+                <isNotEmpty prepend="" property="cityId">
+                city_id,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="Ic_Code">
+			    Ic_Code,
+			    </isNotEmpty>
+                state)
+		values
+               (pb_get_sequences(@in_seq_name:='employee_id'),
+                <isNotEmpty prepend="" property="staffCode">
+                #staffCode#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="operatorId">
+			    #operatorId#,
+		        </isNotEmpty>
+                <isNotEmpty prepend="" property="staffName">
+                #staffName#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="sex">
+                #sex#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="address">
+                #address#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="staffType">
+                #staffType#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="certificateType">
+                #certificateType#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="certificateNo">
+                #certificateNo#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="linkPhone">
+                #linkPhone#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="linkOther">
+                #linkOther#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="carNo">
+                #carNo#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="belongCompany">
+                #belongCompany#, 
+                </isNotEmpty>
+       		    <isNotEmpty prepend="" property="belongDept">
+                #belongDept#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="accessionDate">
+                cast(#accessionDate# AS CHAR),
+                </isNotEmpty>
+			    <isNotEmpty prepend="" property="dimissionDate">
+                cast(#dimissionDate# AS CHAR),
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="smsPhone">
+                #smsPhone#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="memo">
+                #memo#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="createMan">
+                #createMan#,
+                </isNotEmpty>
+                NOW(),
+                <isNotEmpty prepend="" property="cityId">
+                #cityId#,
+                </isNotEmpty>
+                <isNotEmpty prepend="" property="Ic_Code">
+			    #Ic_Code#,
+			    </isNotEmpty>
+                1)                
+    </insert>  
+    
+	
+	<update id="updateEmployeeInfo" parameterClass="java.util.HashMap">
+		update tf_staff_info
+		   set editor_date = NOW()
+      	<isNotEmpty prepend="," property="staffCode">
+			   staff_code=#staffCode#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="operatorId">
+			   operator_id=#operatorId#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="staffName">
+			   staff_name=#staffName#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sex">
+			   sex=#sex#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="address">
+			   address=#address#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="staffType">
+			   staff_type=#staffType#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="certificateType">
+			   certificate_type=#certificateType#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="certificateNo">
+			   certificate_no=#certificateNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="linkPhone">
+			   link_phone=#linkPhone#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="linkOther">
+			   link_other=#linkOther#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNo">
+			   car_no=#carNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="belongCompany">
+			   belong_to_company=#belongCompany#
+		</isNotEmpty>  
+		<isNotEmpty prepend="," property="belongDept">
+			   belong_to_dept=#belongDept#
+		</isNotEmpty> 
+		<isNotEmpty prepend="," property="accessionDate">
+			   accession_date=#accessionDate#
+		</isNotEmpty>       
+		<isNotEmpty prepend="," property="dimissionDate">
+			   dimission_date=#dimissionDate#
+		</isNotEmpty>  
+		<isNotEmpty prepend="," property="smsPhone">
+          	   sms_phone = #smsPhone#
+      	</isNotEmpty>	           
+      	<isNotEmpty prepend="," property="memo">
+          	   memo=#memo#
+      	</isNotEmpty>	  	        
+      	<isNotEmpty prepend="," property="editorMan">
+          	   editor_man=#editorMan#
+      	</isNotEmpty>
+       	<isNotEmpty prepend="," property="executeMan">
+          	   execute_man=#executeMan#
+      	</isNotEmpty>
+       	<isNotEmpty prepend="," property="executeDate">
+          	   execute_date=cast(#executeDate# AS DATE)
+      	</isNotEmpty>	 
+      	<isNotEmpty prepend="," property="cityId">
+          	   city_id=#cityId#
+      	</isNotEmpty>    
+		<isNotEmpty prepend="," property="Ic_Code">
+          	   Ic_Code=#Ic_Code#
+      	</isNotEmpty>
+	     where staff_info_id=#staffInfoId#
+	</update>
+    
+    <!-- 
+		删除员工信息
+	  -->
+	<delete id="deleteEmployeeInfo" parameterClass="java.util.HashMap">
+		update tf_staff_info
+		   set state = 0,
+		   	   editor_date = NOW(),
+		   	   editor_man = #editorMan#
+		 where staff_info_id = #staffInfoId#
+	</delete>
+	
+	
+	<!-- 
+		查询员工信息(驾驶员信息)
+	 -->
+	<select id="ajaxJsonEmp" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select distinct staff_info_id id, staff_name text 
+		from tf_staff_info  
+		 where state = 1 
+		and staff_type = 3
+		and belong_to_dept=#belongDept#
+		and city_id in (select city_id from tf_staff_city  where staff_id=#staffId#)     	
+	</select>
+	
+</sqlMap>

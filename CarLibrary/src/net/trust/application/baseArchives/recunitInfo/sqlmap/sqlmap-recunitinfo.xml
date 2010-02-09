@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 来往单位信息管理
+ * @author zhengmh 
+ -->
+<sqlMap namespace="RecUnitInfoManage">
+  	<!-- 查询部门总记录数 -->
+	<select id="findRecUnitInfoCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) from tf_rec_unit_info
+		 where state = 1	
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="coopUnitCode">
+		   		coop_unit_code like '%$RecUnitCode$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="coopUnitName">
+				coop_unit_name  like '%$RecUnitName$%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="unitEasyName">
+				unit_easy_name  like '%$unitEasyName$%' 
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="coopUnitType">
+				coop_unit_type=#coopUnitType# 
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="phone">
+				phone=#phone# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fax">
+				fax=#fax# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="linkMan">
+				link_man like '%$linkMan$%' 
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="linkManPhone">
+				link_man_phone=#linkManPhone# 
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>          	
+	</select>
+	
+	<!-- 
+		查询往来单位信息
+	  -->
+	  
+	<select id="findRecUnitInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		 select cast(t.create_date AS CHAR) create_date,
+           	  	cast(t.editor_date AS CHAR) editor_date,           		
+				cast(t.execute_date AS CHAR) execute_date,
+           		(select tt.para_value_desc 
+           		   from td_system_para tt 
+           		  where tt.para_value=t.coop_unit_type 
+           		    and tt.para_name = 'coop_unit_type') coopUnitType,
+			    (select tt.city_name 
+			       from td_city tt 
+			      where tt.city_id=t.city_id) cityId,  
+			    FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			    FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			    FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,
+			    t.*          		 
+           from tf_rec_unit_info t
+          where state = 1
+        <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+        <isNotEmpty prepend="and" property="coopUnitId">
+		   		t.coop_unit_id =#coopUnitId#
+		</isNotEmpty>
+        <isNotEmpty prepend="and" property="coopUnitCode">
+		   		coop_unit_code like '%$coopUnitCode$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="coopUnitName">
+				coop_unit_name  like '%$coopUnitName$%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="unitEasyName">
+				unit_easy_name  like '%$unitEasyName$%' 
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="coopUnitType">
+				coop_unit_type=#coopUnitType# 
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="phone">
+				phone=#phone# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fax">
+				fax=#fax# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="linkMan">
+				link_man  like '%$linkMan$%' 
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="linkManPhone">
+				link_man_phone=#linkManPhone# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	    </isNotEmpty>	            	
+	</select>	
+    <insert id="insertRecUnitInfo" parameterClass="java.util.HashMap">
+       insert into tf_rec_unit_info
+              (coop_unit_id,
+               coop_unit_code,
+               coop_unit_name,
+               unit_easy_name,
+               coop_unit_type,
+               phone,
+               fax,
+               link_man,
+               link_man_phone,
+               create_man,
+               create_date,
+               memo,
+               city_id,
+               state)
+		values
+               (pb_get_sequences(@in_seq_name:='recunit_id'),
+               #coopUnitCode#,
+               #coopUnitName#,
+               #unitEasyName#,
+               #coopUnitType#,
+               #phone#,
+               #fax#,
+               #linkMan#,
+               #linkManPhone#,
+               #createMan#,
+               NOW(),
+               #memo#,
+               #cityId#,
+               1)                
+    </insert>  
+    
+	
+	<update id="updateRecUnitInfo" parameterClass="java.util.HashMap">
+		update tf_rec_unit_info
+		   set editor_date = NOW()
+        <isNotEmpty prepend="," property="coopUnitCode">
+		   		coop_unit_code=#coopUnitCode#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="coopUnitName">
+				coop_unit_name=#coopUnitName#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="unitEasyName">
+				unit_easy_name=#unitEasyName#
+		</isNotEmpty> 
+		<isNotEmpty prepend="," property="coopUnitType">
+				coop_unit_type=#coopUnitType# 
+		</isNotEmpty> 
+		<isNotEmpty prepend="," property="phone">
+				phone=#phone# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fax">
+				fax=#fax# 
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="linkMan">
+				link_man=#linkMan# 
+		</isNotEmpty>  
+		<isNotEmpty prepend="," property="linkManPhone">
+				link_man_phone=#linkManPhone# 
+		</isNotEmpty>            	
+      	<isNotEmpty prepend="," property="memo">
+          		memo=#memo#
+      	</isNotEmpty>	  	        
+      	<isNotEmpty prepend="," property="editorMan">
+          		editor_man=#editorMan#
+      	</isNotEmpty>
+       	<isNotEmpty prepend="," property="executeMan">
+         		execute_man=#executeMan#
+      	</isNotEmpty>
+       	<isNotEmpty prepend="," property="executeDate">
+          		execute_date=cast(#executeDate# AS DATE)
+      	</isNotEmpty>	 
+      	<isNotEmpty prepend="," property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>    
+		where coop_unit_id=#coopUnitId#
+	</update>
+    
+    <!-- 
+		删除部门信息
+	  -->
+	<delete id="deleteRecUnitInfo" parameterClass="java.util.HashMap">
+		update tf_rec_unit_info
+		   set state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date=NOW()
+		 where coop_unit_id = #coopUnitId#
+	</delete>
+    
+    
+    
+</sqlMap>

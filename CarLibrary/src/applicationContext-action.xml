@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<!-- ====================================公共或配置性的Action类请配置在此下=========================================== -->
+	<bean id="selectAction" class="net.trust.application.common.action.SelectAction" singleton="false">
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	
+<!-- ====================================系统相关Action类请配置在此下=========================================== -->
+	<!-- 管理员登录  -->
+	<bean id="loginAction" class="net.trust.application.systemManage.login.action.LoginAction" singleton="false">
+		<property name="loginFacade" ref="loginFacade" />
+	</bean>
+	
+	<!-- 载入菜单-->
+	<bean id="loadMenuAction" class="net.trust.application.systemManage.login.action.LoadMenuAction" singleton="false">
+		<property name="loginFacade" ref="loginFacade" />
+	</bean>
+	
+	<!-- 系统管理员类  -->
+	<bean id="managerAction" class="net.trust.application.systemManage.manager.action.ManagerAction" singleton="false">
+		<property name="managerFacade" ref="managerFacade" />
+	</bean>
+	<!-- 系统菜单 -->
+	<bean id="menuAction" class="net.trust.application.systemManage.menu.action.MenuAction" singleton="false">
+		<property name="menuFacade" ref="menuFacade" />
+	</bean>
+	<!-- 系统角色  -->
+	<bean id="roleInfoAction" class="net.trust.application.systemManage.role.action.RoleInfoAction" singleton="false">
+		<property name="roleFacade" ref="roleFacade" />
+	</bean>
+	<!-- 系统日记  -->
+	<bean id="logAction" class="net.trust.application.systemManage.log.action.LogAcition" singleton="false">
+		<property name="logFacade" ref="logFacade" />
+	</bean>
+	<!-- 系统参数配置  -->
+	<bean id="systemParamAction" class="net.trust.application.systemManage.systemparam.action.SystemParamAction" singleton="false">
+		<property name="systemParamFacade" ref="systemParamFacade" />
+	</bean>
+	<!-- 短信管理  -->
+	<bean id="smsManageAction" class="net.trust.application.systemManage.sms.action.SmsManageAction" singleton="false">
+		<property name="smsManageFacade" ref="smsManageFacade" />
+	</bean>
+	<!-- 预警管理  -->
+	<bean id="warningLogManageAction" class="net.trust.application.systemManage.warninglog.action.WarningLogManageAction" singleton="false">
+		<property name="warningLogManageFacade" ref="warningLogManageFacade" />
+	</bean>
+	<!-- 流程定义  -->
+	<bean id="flowerAction" class="net.trust.application.systemManage.flower.action.FlowerAction" singleton="false">
+		<property name="flowerFacade" ref="flowerFacade" />
+	</bean>	
+	
+	
+<!-- ====================================基础档案相关Action类请配置在此下=========================================== -->
+	<!-- 机构管理  -->
+	<bean id="institutionAction" class="net.trust.application.baseArchives.institutionManage.action.InstitutionManageAction" singleton="false">
+		<property name="institutionFacade" ref="institutionFacade" />
+	</bean>
+	<!-- 部门信息管理  -->
+	<bean id="deptInfoAction" class="net.trust.application.baseArchives.deptInfo.action.DeptInfoAction" singleton="false">
+		<property name="deptInfoFacade" ref="deptInfoFacade" />
+	</bean>
+	<!-- 员工信息管理  -->
+	<bean id="employeeInfoAction" class="net.trust.application.baseArchives.employeeInfo.action.EmployeeInfoAction" singleton="false">
+		<property name="employeeFacade" ref="employeeFacade" />
+	</bean>
+	<!-- 往来单位信息管理  -->
+	<bean id="recUnitInfoAction" class="net.trust.application.baseArchives.recunitInfo.action.RecUnitInfoAction" singleton="false">
+		<property name="recUnitFacade" ref="recUnitFacade" />
+	</bean>
+	<!-- 车辆信息管理 -->
+	<bean id="carInfoAction" class="net.trust.application.baseArchives.carInfo.action.CarInfoAction" singleton="false">
+		<property name="carFacade" ref="carFacade"/>
+	</bean> 
+	<!-- 设备信息管理  -->
+	<bean id="equipmentAction" class="net.trust.application.baseArchives.equipment.action.EquipmentAction" singleton="false">
+		<property name="equipmentFacade" ref="equipmentFacade"/>
+	</bean>
+	
+	
+<!-- ====================================车辆管理相关Action类请配置在此下=========================================== -->
+    <!-- 养路费管理  -->
+	<bean id="maintainRoadAction" class="net.trust.application.carManage.maintainRoad.action.MaintainRoadAction" singleton="false">
+		<property name="maintainRoadFacade" ref="maintainRoadFacade"/>
+	</bean>
+	 <!-- 保险管理  -->
+	<bean id="insuranceAction" class="net.trust.application.carManage.insurance.action.InsuranceAction" singleton="false">
+		<property name="insuranceFacade" ref="insuranceFacade"/>
+	</bean>
+	 <!-- 保养管理  -->
+	<bean id="maintainManageAction" class="net.trust.application.carManage.maintainmanage.action.MaintainManageAction" singleton="false">
+		<property name="maintainManageFacade" ref="maintainManageFacade"/>
+	</bean>
+	 <!-- 加油管理  -->
+	<bean id="putonsteamAction" class="net.trust.application.carManage.putonsteam.action.PutonsteamAction" singleton="false">
+		<property name="putonsteamFacade" ref="putonsteamFacade"/>
+	</bean>
+	 <!-- 违章管理  -->
+	<bean id="peccancyManageAction" class="net.trust.application.carManage.peccancymanage.action.PeccancyManageAction" singleton="false">
+		<property name="peccancyManageFacade" ref="peccancyManageFacade"/>
+	</bean>
+	 <!-- 派车管理  -->
+	<bean id="expediteAction" class="net.trust.application.carManage.expedite.action.ExpediteAction" singleton="false">
+		<property name="expediteFacade" ref="expediteFacade"/>
+		<property name="carFacade" ref="carFacade"/>
+	</bean>
+	<!-- 
+		车辆维修管理 
+	  -->
+	<bean id="servicingManagerAction" class="net.trust.application.carManage.servicingmanage.action.ServicingManagerAction" singleton="false">
+		<property name="servicingManageFacade" ref="servicingManageFacade"/>
+	</bean>
+	<!-- 
+		财务管理 
+	  -->
+	<bean id="financeManageAction" class="net.trust.application.carManage.financemanage.action.FinanceManageAction" singleton="false">
+		<property name="financeManageFacade" ref="financeManageFacade"/>
+	</bean>
+	<!-- 
+		调度管理 
+	  -->
+	<bean id="attemperManageAction" class="net.trust.application.carManage.attempermanage.action.AttemperManageAction" singleton="false">
+		<property name="attemperManageFacade" ref="attemperManageFacade"/>
+	</bean>
+	<!-- 
+		过路过桥费用管理 
+	  -->
+	<bean id="roadBridgeChargeAction" class="net.trust.application.carManage.roadBridgeCharge.action.RoadBridgeChargeAction" singleton="false">
+		<property name="roadBridgeChargeFacade" ref="roadBridgeChargeFacade"/>
+	</bean>
+	
+	<!-- 
+		人员考勤 
+	  -->
+	<bean id="staffCheckinManageAction" class="net.trust.application.carManage.staffcheckin.action.StaffCheckinManageAction" singleton="false">
+		<property name="staffCheckinManageFacade" ref="staffCheckinManageFacade"/>
+	</bean>
+	
+<!-- ====================================综合报表相关Action类请配置在此下=========================================== -->
+	<!-- 
+		综合报表 -》 位置管理 
+	  -->
+	<bean id="localityManageAction" class="net.trust.application.report.localitymanage.action.LocalityManageAction" singleton="false">
+		<property name="localityManageFacade" ref="localityManageFacade"/>
+	</bean>
+	<!-- 
+		综合报表 -》 车辆费用统计
+	  -->
+	<bean id="carChargeStatAction" class="net.trust.application.report.carChargeStat.action.CarChargeStatAction" singleton="false">
+		<property name="carChargeStatFacade" ref="carChargeStatFacade"/>
+	</bean>
+	<!-- 
+		综合报表 -》 报警查询
+	  -->
+	<bean id="peccancyQueryAction" class="net.trust.application.report.peccancyquery.action.PeccancyQueryAction" singleton="false">
+		<property name="peccancyQueryFacade" ref="peccancyQueryFacade"/>
+	</bean>
+	<!-- 
+		综合报表 -》 行车记录
+	  -->
+	<bean id="runRecordAction" class="net.trust.application.report.runrecord.action.RunRecordAction" singleton="false">
+		<property name="runRecordFacade" ref="runRecordFacade"/>
+	</bean>
+	<!-- 
+		综合报表 -》 车辆状态查询
+	  -->
+	<bean id="carStateQueryAction" class="net.trust.application.report.carstatequery.action.CarStateQueryAction" singleton="false">
+		<property name="carStateQueryFacade" ref="carStateQueryFacade"/>
+	</bean>
+	
+	<!-- begin -->
+	<!-- 
+		综合报表 -》 行驶统计
+	  -->
+	<bean id="rtpDistanceAction" class="net.trust.application.report.rtpdistance.action.RtpDistanceAction" singleton="false">
+		<property name="rtpDistanceFacade" ref="rtpDistanceFacade"/>
+	</bean>
+	<!-- 
+		综合报表 -》 里程异常
+	  -->	
+	<bean id="rtpDistanceErrorAction" class="net.trust.application.report.rtpdistanceerror.action.RtpDistanceErrorAction" singleton="false">
+		<property name="rtpDistanceErrorFacade" ref="rtpDistanceErrorFacade"/>
+	</bean>
+	<!-- 
+		综合报表 -》 保养单据异常
+	  -->
+	<bean id="rtpMaintainAction" class="net.trust.application.report.rtpmaintain.action.RtpMaintainAction" singleton="false">
+		<property name="rtpMaintainFacade" ref="rtpMaintainFacade"/>
+	</bean>
+	<!-- 
+		综合报表 -》 签退签到统计
+	  -->
+	<bean id="rtpMotormanAction" class="net.trust.application.report.rtpmotorman.action.RtpMotormanAction" singleton="false">
+		<property name="rtpMotormanFacade" ref="rtpMotormanFacade"/>
+	</bean>	
+	  
+	<!-- 
+		综合报表 -》加油量异常
+	-->	 
+	<bean id="rtpPutonsteamAction" class="net.trust.application.report.rtpputonsteam.action.RtpPutonsteamAction" singleton="false">
+		<property name="rtpPutonsteamFacade" ref="rtpPutonsteamFacade"/>
+	</bean>	
+	
+	<!--end -->	
+<!-- ====================================数据采集相关Action类请配置在此下=========================================== -->
+	<!-- 
+		GPS接口数据采集规则配置
+	  -->
+	<bean id="interFatchConfigAction" class="net.trust.application.datacollection.interfetchconfig.action.InterFatchConfigAction" singleton="false">
+		<property name="interFatchConfigFacade" ref="interFatchConfigFacade"/>
+	</bean>
+</beans>

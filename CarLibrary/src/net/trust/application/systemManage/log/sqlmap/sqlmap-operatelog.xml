@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="OperateLog">
+	<insert id="insertOpersteLog" parameterClass="net.trust.application.systemManage.log.dto.OperateLog">
+		<![CDATA[ insert into tf_operator_log]]>
+					   (opt_seq					   
+				<isNotEmpty prepend="," property="staffId">
+					    staff_id
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="serviceName">
+					    service_name
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optResult">
+					    opt_result
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optMemo">
+					    opt_memo
+				</isNotEmpty>
+					    ,opt_time
+				<isNotEmpty prepend="," property="termType">
+					    term_type
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optTerm">
+					    opt_term
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="cityId">
+					    city_id
+				</isNotEmpty>
+				<![CDATA[)
+					 values
+					   (pb_get_sequences(@in_seq_name:='opt_seq')]]>
+				<isNotEmpty prepend="," property="staffId">
+					    #staffId#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="serviceName">
+					    #serviceName#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optResult">
+					    #optResult#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optMemo">
+					    #optMemo#
+				</isNotEmpty>
+					    ,NOW()
+				<isNotEmpty prepend="," property="termType">
+					    #termType#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optTerm">
+					    #optTerm#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="cityId">
+					    #cityId#
+				</isNotEmpty>
+				<![CDATA[)]]>
+	</insert>
+	
+	<select id="findLogCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+	    select count(1) from tf_operator_log t 
+	    where 1=1 
+	     <isNotEmpty prepend="and" property="operateLog.staffId">
+	          t.STAFF_ID in (select distinct a.staff_id 
+	                           from tf_operator a 
+	                             where a.staff_no like '$operateLog.staffId$')
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.serviceName">
+	        	         t.SERVICE_NAME in (select distinct d.method 
+	                                from td_menu_info d 
+	                                  where d.menu_name like '$operateLog.serviceName$')
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.optTime">
+	           cast(t.OPT_TIME  AS DATE)=cast(#operateLog.optTime# AS DATE)
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.termType">
+	            t.TERM_TYPE like '$operateLog.termType$'
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.optTerm">
+	             t.OPT_TERM  like '$operateLog.optTerm$'
+	     </isNotEmpty>
+	     <isNotEmpty prepend="and" property="operateLog.cityId">
+						t.city_id = #operateLog.cityId#
+			</isNotEmpty>	
+	     <isNotEmpty prepend=" " property="START">
+		   limit $START$ , $END$
+		</isNotEmpty>
+	</select>
+	
+	<select id="findLogInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+	  select  
+	      cast(t.OPT_TIME AS CHAR) OPT_TIME,
+	      (select distinct d.menu_name 
+	         from td_menu_info d 
+	            where d.method = t.service_name ) SERVICE_NAME,	 
+	      (select distinct a.staff_no 
+	         from tf_operator a 
+	           where a.staff_id=t.staff_id ) STAFF_ID,
+	      (select tt.city_name 
+	          from td_city tt 
+	           where tt.city_id=t.city_id) cityId,
+	       t.*
+	       from tf_operator_log t
+	         where 1=1 
+	    <isNotEmpty prepend="and" property="operateLog.staffId">
+	          t.STAFF_ID in (select distinct a.staff_id 
+	                           from tf_operator a 
+	                             where a.staff_no like '$operateLog.staffId$')
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.serviceName">
+	         t.SERVICE_NAME in (select distinct d.method 
+	                                from td_menu_info d 
+	                                  where d.menu_name like '$operateLog.serviceName$')
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.optTime">
+	         cast(t.OPT_TIME  AS DATE)=cast(#operateLog.optTime# AS DATE)
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.termType">
+	            t.TERM_TYPE like '$operateLog.termType$'
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.optTerm">
+	             t.OPT_TERM  like '$operateLog.optTerm$'
+	     </isNotEmpty>
+	      <isNotEmpty prepend="and" property="cityId">
+						city_id = #cityId#
+			</isNotEmpty>
+		order by opt_seq desc
+	     <isNotEmpty prepend=" " property="START">
+		   limit $START$ , $END$
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

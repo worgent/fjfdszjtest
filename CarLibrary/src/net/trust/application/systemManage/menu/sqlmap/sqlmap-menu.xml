@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="MenuInfo">
+	<resultMap id="menuInfoResult" class="net.trust.application.systemManage.menu.dto.MenuInfo">
+		<result property="menuId" column="menu_id" />
+		<result property="menuName" column="menu_name" />
+		<result property="menuOrder" column="menu_order" />
+		<result property="isRoot" column="is_root" />
+		<result property="superId" column="super_id" />
+		<result property="imgSrc" column="img_src" />
+		<result property="title" column="title" />
+		<result property="haveSub" column="have_sub" />
+		<result property="activeEvent" column="ACTIVE_CLICK" />
+		<result property="isSeperator" column="is_Seperator" />
+		<result property="url" column="url"/>
+		<result property="state" column="state" />
+		<result property="isMenu" column="is_menu" />
+		<result property="method" column="method" />
+	</resultMap>
+	<!-- 
+		查询菜单节点，分菜单节点和功能节点。如果isMenu不为空只查询菜单节点
+		条件：superId
+		返回：net.trust.application.systemManage.menu.dto.MenuInfo
+	-->
+	<select id="findMenuNodes" resultMap="menuInfoResult" parameterClass="net.trust.application.systemManage.menu.dto.MenuInfo">
+		<![CDATA[
+			select *
+			  from td_menu_info a
+			 where a.state = 1
+			 ]]>
+		<dynamic>
+			<isEqual property="isMenu" compareValue="1" prepend="AND">
+				is_menu = 1
+			</isEqual>
+		</dynamic>
+		<![CDATA[
+			   and super_id = #superId#
+			   order by MENU_ORDER
+   		]]>
+	</select>
+	
+	<!--
+		根据id根据一条菜单的详细信息
+	 -->
+	 <select id="findMenuInfoById" resultMap="menuInfoResult" parameterClass="string" >
+	 	select * from td_menu_info where menu_id=#menuId#
+	 </select>
+	 
+	 <!--
+		添加一条新菜单
+		参数:net.trust.application.systemManage.menu.dto.MenuInfo值对象
+		返回:
+	-->
+	<insert id="insertMenuInfo"  parameterClass="net.trust.application.systemManage.menu.dto.MenuInfo">
+			insert into td_menu_info
+			  (menu_id
+			  ,menu_name
+			  ,menu_order
+			  ,is_root
+			  ,super_id
+			  ,img_src
+			  ,title
+			   ,have_sub
+			   ,active_click
+			   ,url
+		<isNotEmpty prepend="" property="isSeperator">
+			   ,is_seperator
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="isMenu">
+			   ,is_menu
+	    </isNotEmpty>
+			   ,state
+			   ,method)
+			values
+			  (#menuId#
+			  ,#menuName#
+			  ,#menuOrder#
+			  ,#isRoot#
+			  ,#superId#
+			  ,#imgSrc#
+			  ,#title#
+			   ,#haveSub#
+			   ,#activeEvent#
+			   ,#url#
+			<isNotEmpty prepend="" property="isSeperator">
+			   ,#isSeperator#
+			</isNotEmpty>
+			<isNotEmpty prepend="" property="isMenu">
+			   ,#isMenu#
+		    </isNotEmpty>
+			   ,#state#
+			   ,#method#)
+	</insert>
+	
+	<!-- 
+		根据ID修改一条菜单详细信息
+		参数:com.doone.xtwh.dto.MenuInfo值对象
+		返回:
+	 -->
+	 <update id="updateMenuInfo" parameterClass="net.trust.application.systemManage.menu.dto.MenuInfo">
+	 	<![CDATA[update td_menu_info ]]>
+	 		<dynamic prepend="set">
+	 			<isPropertyAvailable prepend="" property="menuName" >
+					<isNotNull prepend="," property="menuName"> <![CDATA[menu_name=#menuName#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="menuOrder" >
+					<isNotNull prepend="," property="menuOrder"> <![CDATA[menu_order=#menuOrder#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="isRoot" >
+					<isNotNull prepend="," property="isRoot"> <![CDATA[is_root=#isRoot#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="superId" >
+					<isNotNull prepend="," property="superId"> <![CDATA[super_id=#superId#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="imgSrc" >
+					<isNotNull prepend="," property="imgSrc"> <![CDATA[img_src=#imgSrc#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="title" >
+					<isNotNull prepend="," property="title"> <![CDATA[title=#title#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="haveSub" >
+					<isNotNull prepend="," property="haveSub"> <![CDATA[have_sub=#haveSub#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="activeEvent" >
+					<isNotNull prepend="," property="activeEvent"> <![CDATA[active_click=#activeEvent#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="url" >
+					<isNotNull prepend="," property="url"> <![CDATA[url=#url#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="isSeperator" >
+					<isNotNull prepend="," property="isSeperator"> <![CDATA[is_seperator=#isSeperator#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="isMenu" >
+					<isNotNull prepend="," property="isMenu"> <![CDATA[is_menu=#isMenu#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="method" >
+					<isNotNull prepend="," property="method"> <![CDATA[method=#method#]]></isNotNull>
+				</isPropertyAvailable>
+				<isPropertyAvailable prepend="" property="state" >
+					<isNotNull prepend="," property="state"> <![CDATA[state=#state#]]></isNotNull>
+				</isPropertyAvailable>
+	 		</dynamic>
+	 	<![CDATA[where menu_id=#menuId#]]>
+	 </update>
+</sqlMap>

@@ -1,0 +1,16 @@
+#if ($stack.getContext().get("statusAttr").index==0)
+    <td nowrap visible="$parameters.visible" #if($parameters.width) width="$parameters.width" #end #if($parameters.height) width="$parameters.height" #end #if($parameters.align) align="$parameters.align" #end >$parameters.name
+#else 
+    <td  #if($parameters.width) width="$parameters.width" #end #if($parameters.height) width="$parameters.height" #end #if($parameters.align) align="$parameters.align" #end>
+    #if($parameters.link)
+    	<a href=$parameters.link 
+    	#if($parameters.target)
+    		target=$parameters.target
+    	#end
+    	>
+    #end 
+    $parameters.property
+    #if($parameters.link)
+    	</a>
+    #end
+#end

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!-- 系统参数  -->
+<sqlMap namespace="SystemParam">
+	<!-- 
+		系统参数大类记录数
+	 -->
+	<select id="findSystemParamTypeCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+        select count(*) from
+        (  
+		SELECT DISTINCT P.PARA_TYPE, P.PARA_NAME, P.PARA_DESC, P.PARA_TYPE_DESC
+		  FROM TD_SYSTEM_PARA P
+		 WHERE p.para_state &lt;&gt; 0
+		   AND p.edit_flag = 1
+		order by P.PARA_TYPE
+		)mm
+	</select>
+	<!-- 
+		系统参数大类
+	 -->
+	<select id="findSystemParamType" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		SELECT DISTINCT P.PARA_TYPE, P.PARA_NAME, P.PARA_DESC, P.PARA_TYPE_DESC
+		  FROM TD_SYSTEM_PARA P
+		 WHERE p.para_state &lt;&gt; 0
+		   AND p.edit_flag = 1
+		order by P.PARA_TYPE
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	<!--
+		系统参数详细信息 
+	 -->
+	<select id="findSystemParam" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		SELECT *
+		  FROM TD_SYSTEM_PARA P
+		 WHERE P.PARA_STATE &lt;&gt; 0
+		   AND p.edit_flag = 1
+		<isNotEmpty prepend="and" property="paraType">
+		   	   P.PARA_TYPE = '$paraType$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="paraName">
+		   	   P.PARA_NAME = '$paraName$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="paraValue">
+		   	   P.PARA_VALUE = '$paraValue$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="paraValueDesc">
+		   	   P.PARA_VALUE_DESC = '$paraValueDesc$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="paraValueMemo">
+		   	   P.PARA_VALUE_MEMO = '$paraValueMemo$'
+		</isNotEmpty>
+	</select>
+	
+	<!-- 添加系统参数 -->
+	<insert id="insertSystemParam" parameterClass="java.util.HashMap">
+		INSERT INTO TD_SYSTEM_PARA
+		  (PARA_TYPE,
+		   PARA_NAME,
+		   PARA_VALUE,
+		   PARA_DESC,
+		   PARA_VALUE_DESC,
+		   PARA_STATE,
+		   PARA_TYPE_DESC,
+		   PARA_VALUE_MEMO,
+		   EDIT_FLAG)
+		VALUES
+		  ('$paraType$',
+		   '$paraName$',
+		   '$paraValue$',
+		   '$paraDesc$',
+		   '$paraValueDesc$',
+		   1,
+		   '$paraTypeDesc$',
+		   '$paraValueMemo$',
+		   1)
+	</insert>
+	
+	<!-- 修改系统参数 -->
+	<update id="updateSystemParam" parameterClass="java.util.HashMap">
+		update TD_SYSTEM_PARA
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="paraValue">
+				PARA_VALUE = '$paraValue$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="paraValueDesc">
+				PARA_VALUE_DESC = '$paraValueDesc$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="paraState">
+		   		PARA_STATE = $paraState$
+		   	</isNotEmpty>
+		   	<isNotEmpty prepend="," property="paraValueMemo">
+		   		PARA_VALUE_MEMO = '$paraValueMemo$'
+		   	</isNotEmpty>
+		</dynamic>
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="paraType">
+			   	   PARA_TYPE = '$paraType$'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="paraName">
+			   	   PARA_NAME = '$paraName$'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="oldParaValue">
+			   	   PARA_VALUE = '$oldParaValue$'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="oldParaValueMemo">
+			   	  PARA_VALUE_MEMO = '$oldParaValueMemo$'
+			</isNotEmpty>
+		</dynamic>
+	</update>
+</sqlMap>

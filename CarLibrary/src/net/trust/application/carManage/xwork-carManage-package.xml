@@ -1,0 +1,19 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	车辆管理所有xwork均配置在此文件中统一管理
+  -->
+<xwork>
+	<package name="CarManagePackage" extends="default" namespace="/carmanage">
+	</package>
+	<include file="/net/trust/application/carManage/maintainRoad/action/xwork-maintainroad.xml"/><!-- 养路费管理 -->
+	<include file="/net/trust/application/carManage/insurance/action/xwork-insurance.xml"/><!-- 保险管理 -->
+	<include file="/net/trust/application/carManage/maintainmanage/action/xwork-maintainmanage.xml"/><!-- 保养管理 -->
+	<include file="/net/trust/application/carManage/putonsteam/action/xwork-putonsteam.xml"/><!-- 加油管理 -->
+	<include file="/net/trust/application/carManage/peccancymanage/action/xwork-peccancymanage.xml"/><!-- 违章管理 -->
+	<include file="/net/trust/application/carManage/servicingmanage/action/xwork-servicingManage.xml"/><!-- 车辆维修管理 -->
+	<include file="/net/trust/application/carManage/financemanage/action/xwork-financeManage.xml"/><!-- 财务管理 -->
+	<include file="/net/trust/application/carManage/expedite/action/xwork-expedite.xml"/>
+	<include file="/net/trust/application/carManage/attempermanage/action/xwork-attemperManage.xml"/><!-- 调度管理 -->
+	<include file="/net/trust/application/carManage/roadBridgeCharge/action/xwork-roadBridgeCharge.xml"/><!-- 过路过桥费用管理 -->
+	<include file="/net/trust/application/carManage/staffcheckin/action/xwork-staffCheckin.xml"/><!-- 人员考勤管理 -->
+</xwork>

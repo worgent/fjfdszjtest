@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表 -》 行车记录
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="RtpDistance">
+	<!-- 查询行车记录总数 -->
+	<select id="findRtpDistanceCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+	  select count(1) from
+	  (
+		select a.car_mark,a.carid,ifnull(max(a.Total_Distance),0)-ifnull(min(a.Total_Distance),0) distance,concat('$begTime$','~','$endTime$') intime
+		from inter_car_info_distance a,TF_CAR_INFO b
+		where b.State &lt;&gt; 0 AND a.CAR_Mark =b.CAR_NO_CODE
+		<isNotEmpty prepend="and" property="staffId">
+		   		b.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="car_Mark">
+				 a.car_mark like  '%$car_Mark$%'
+		</isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.record_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endTime">
+				cast(a.record_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		</isNotEmpty>
+		group by a.car_mark,intime
+		)a
+	</select>
+	
+	<!-- 查询行车记录 -->
+	<select id="findRtpDistance" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select a.car_mark,a.carid,ifnull(max(a.Total_Distance),0)-ifnull(min(a.Total_Distance),0) distance,concat('$begTime$','~','$endTime$') intime
+		from inter_car_info_distance a,TF_CAR_INFO b
+		where b.State &lt;&gt; 0  AND a.CAR_Mark =b.CAR_NO_CODE
+		<isNotEmpty prepend="and" property="staffId">
+		   		b.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="car_Mark">
+				 a.car_mark like  '%$car_Mark$%'
+		</isNotEmpty>
+			<isNotEmpty prepend="and" property="begTime">
+				cast(a.record_date AS DATE) &gt;= cast('$begTime$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endTime">
+				cast(a.record_date AS DATE) &lt;= cast('$endTime$' AS DATE)
+		</isNotEmpty>
+		group by a.car_mark,intime
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+</sqlMap>

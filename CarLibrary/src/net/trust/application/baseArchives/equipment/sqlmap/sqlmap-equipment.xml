@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 设备管理
+ * @author chenqf
+ -->
+<sqlMap namespace="EquipmentManage">
+  	<!-- 查询设备总记录数 -->
+	<select id="findEquipmentCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) 
+		  from tf_fixing_info
+		 where state = 1	
+		<isNotEmpty prepend="and" property="fixingId">
+			   t.fixing_id = #fixingId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fixingCode">
+			   fixing_code like '%$fixingCode$%'
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="fixingName">
+			   fixing_name like '%$fixingName$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="guaranteeParam">
+			   guarantee_param  like '%$guaranteeParam$%' 
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="fixingIds">
+			   fixing_id not in ($fixingIds$)
+		</isNotEmpty>			          	
+	</select>
+	
+	<!-- 
+		查询设备信息
+	  -->
+	<select id="findEquipmentInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.create_date AS CHAR) create_date,
+               cast(t.editor_date AS CHAR) editor_date,           		
+           	   cast(t.execute_date AS CHAR) execute_date,   
+           	   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,
+			   t.*
+          from tf_fixing_info t
+         where state = 1
+        <isNotEmpty prepend="and" property="fixingId">
+			   t.fixing_id = #fixingId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fixingCode">
+			   fixing_code like '%$fixingCode$%'
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="fixingName">
+			   fixing_name like '%$fixingName$%'
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="guaranteeParam">
+			   t.guarantee_param=#guaranteeParam# 
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="fixingIds">
+			   fixing_id not in ($fixingIds$)
+		</isNotEmpty>
+		 order by fixing_id desc
+		<isNotEmpty prepend=" " property="START">
+	     limit $START$ , $END$
+	    </isNotEmpty>		  
+	</select>	
+    <insert id="insertEquipment" parameterClass="java.util.HashMap">
+		insert into tf_fixing_info 
+              (fixing_id,
+               fixing_code,
+               fixing_name,
+               guarantee_param,
+               memo,
+               create_man,
+               create_date,
+               state)
+		values
+               (#fixingId#,
+                #fixingCode#,
+                #fixingName#,
+                #guaranteeParam#,
+                #memo#,
+                #createMan#,
+                NOW(),
+                1)                
+    </insert>  
+	
+	<update id="updateEquipment" parameterClass="java.util.HashMap">
+		update tf_fixing_info
+		   set editor_date = NOW()
+      	<isNotEmpty prepend="," property="fixingCode">
+			   fixing_code=#fixingCode#
+	  	</isNotEmpty>		
+	  	<isNotEmpty prepend="," property="fixingName">
+			   fixing_name=#fixingName#
+	  	</isNotEmpty>	
+	  	<isNotEmpty prepend="," property="guaranteeParam">
+			   guarantee_param=#guaranteeParam# 
+	  	</isNotEmpty>	
+      	<isNotEmpty prepend="," property="memo">
+          	   memo=#memo#
+      	</isNotEmpty>	  	        
+      	<isNotEmpty prepend="," property="editorMan">
+          	   editor_man=#editorMan#
+      	</isNotEmpty>
+      	<isNotEmpty prepend="," property="executeMan">
+          	   execute_man=#executeMan#
+      	</isNotEmpty>
+       	<isNotEmpty prepend="," property="executeDate">
+          	   execute_date=cast(#executeDate# AS DATE)
+		</isNotEmpty>
+	     where fixing_id=#fixingId#
+	</update>
+    
+    <!-- 
+		删除设备信息
+	  -->
+	<delete id="deleteEquipment" parameterClass="java.util.HashMap">
+		update tf_fixing_info
+		   set state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date=NOW()
+		 where fixing_id = #fixingId#
+	</delete>
+	
+	<!-- 设备保养参数 -->
+	<select id="findEquipmentParam" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select t.*,
+			   (select para_value_desc 
+			   	  from td_system_para 
+			   	 where para_type = 'FIXING_PARA' 
+			   	   and para_name = 'MAINTAIN_PARAM'
+			   	   and para_value = t.param_type) param_type_desc
+		  from tf_fixing_param t
+		 where 1 = 1
+		<isNotEmpty prepend="and" property="fixingParamId">
+				fixing_param_id = '$fixingParamId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fixingId">
+				fixing_id = '$fixingId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="paramType">
+				param_type = $paramType$
+		</isNotEmpty>
+	</select>
+	
+	<!-- 添加设备保养参数 -->
+	<insert id="insertEquipmentParam" parameterClass="java.util.HashMap">
+		insert into tf_fixing_param(
+			fixing_param_id,
+			fixing_id,
+			param_type,
+			param_value)
+		values(
+			pb_get_sequences(@in_seq_name:='fixing_param_id'),
+			'$fixingId$',
+			$paramType$,
+			'$paramValue$')
+	</insert>
+	
+	<!-- 删除设备保养参数 -->
+	<delete id="deleteEquipmentParam" parameterClass="java.util.HashMap">
+		delete from tf_fixing_param
+			<dynamic prepend="where">
+				<isNotEmpty prepend="and" property="fixingParamId">
+						fixing_param_id = '$fixingParamId$'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="fixingId">
+						fixing_id = '$fixingId$'
+				</isNotEmpty>
+			</dynamic>
+	</delete>
+</sqlMap>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表 -》 车辆状态查询
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="CarStateQuery">
+	<!-- 查询车辆状态记录总数 -->
+	<select id="findCarStateQueryCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)
+		  from tf_car_info a
+		 where a.state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		a.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				a.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询车辆状态记录 -->
+	<select id="findCarStateQuery" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select a.car_no_id,
+		       a.car_no_code,
+		       (select city_name 
+		          from td_city e 
+		         where e.city_id = a.city_id) city_name,
+		       (select count(1)
+		          from tf_expedite_car_record b
+		         where a.car_no_id = b.car_no_id
+		           and b.expedite_state &lt;&gt; 0
+				<isNotEmpty prepend="and" property="begDate">
+						b.expedite_date &gt;= cast('$begDate$' as DATE)
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="endDate">
+						b.expedite_date &lt;= cast('$endDate$' as DATE)
+				</isNotEmpty>
+		       ) expedite_num,
+		       (select count(1)
+		          FROM TF_EXPEDITE_CAR_RECORD B, TF_GOBACK_CAR_RECORD C
+		         where A.CAR_NO_ID = B.CAR_NO_ID
+		           and b.expedite_car_id = c.expedite_car_id
+		           and c.record_state &lt;&gt; 0
+		           AND C.RECORD_STATE &lt;&gt; 0
+				<isNotEmpty prepend="and" property="begDate">
+						c.goback_date &gt;= cast('$begDate$' as DATE)
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="endDate">
+						c.goback_date &lt;= cast('$endDate$' as DATE)
+				</isNotEmpty>
+		       ) goback_num,
+		       (select count(1)
+		          from tf_maintain_record d
+		         where a.car_no_id = d.car_no_id
+		           and maintain_state &lt;&gt; 0
+				<isNotEmpty prepend="and" property="begDate">
+						d.maintain_date &gt;= cast('$begDate$' as DATE)
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="endDate">
+						d.maintain_date &lt;= cast('$endDate$' as DATE)
+				</isNotEmpty>
+		       ) maintain_num
+		  from tf_car_info a
+		 where a.state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="staffId">
+		   		a.CITY_ID IN
+		       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="carNoCode">
+				a.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+</sqlMap>

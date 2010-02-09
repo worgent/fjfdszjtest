@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表加油管理
+ * @author zhemgmh
+ *
+ -->
+<sqlMap namespace="RtpPutonsteam">
+  	<!-- 查询综合报表加油管理总记录数 -->
+	<select id="findRtpPutonsteamCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) 
+		  from tf_put_on_steam
+		 where put_on_state &lt;&gt; 0	 
+		<isNotEmpty prepend="and" property="putonsteamId">
+		   		put_on_steam_id = '$putonsteamId$'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="putOnDate">
+		   		put_on_date = cast(#putOnDate# AS DATE)
+		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="begPutOnDate">
+		   		put_on_date &gt;=cast(#begPutOnDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="endPutOnDate">
+		   		put_on_date &lt;=cast(#endPutOnDate# AS DATE)
+		</isNotEmpty>			
+		<isNotEmpty prepend="and" property="putOnType">
+				put_on_type=#putOnType# 
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 			
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = '$carNoId$'
+		</isNotEmpty>
+		and (1=1
+		<!-- 增加加油百公里异常-->    
+		<isNotEmpty prepend=" and " property="begconsume_100">
+		   		consume_100 &lt;#begconsume_100#
+		</isNotEmpty>	
+		<isEmpty prepend=" and " property="begconsume_100">
+		   		1 &lt;&gt;1
+		</isEmpty>	
+		<isNotEmpty prepend=" or " property="endconsume_100">
+		   		consume_100 &gt;#endconsume_100#
+		</isNotEmpty>	     
+		)	
+	</select>
+	
+	<!-- 
+		查询综合报表加油管理信息
+	  -->
+	  
+	<select id="findRtpPutonsteam" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.create_date AS CHAR) create_date,
+           	   cast(t.editor_date AS CHAR) editor_date,           		
+          	   cast(t.execute_date AS CHAR) execute_date, 
+          	   cast(t.put_on_date AS CHAR) put_on_date,            		       		
+          	   (select tt.city_name 
+		          from td_city tt 
+			     where tt.city_id=t.city_id) cityName,
+          	   (select tt.car_no_code 
+			      from tf_car_info tt 
+			     where tt.car_no_id = t.car_no_id) carNoId,
+          	   (select tt.PARA_VALUE_DESC 
+			      from td_system_para tt 
+			     where tt.para_value=t.put_on_type
+			       and tt.para_name = 'PUT_ON_STEAM_TYPE')  putOnType,
+          	   (select tt.coop_unit_name 
+			      from tf_rec_unit_info tt 
+			     where tt.coop_unit_id=t.gas_station) gasStation,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,  
+           	   t.*          		 
+          from tf_put_on_steam t
+         where put_on_state &lt;&gt; 0
+        <isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   		           		from tf_staff_city a 
+		   		               where a.staff_id=#staffId#)
+		</isNotEmpty>	
+        <isNotEmpty prepend="and" property="putonsteamId">
+		   		t.put_on_steam_id = '$putonsteamId$'
+		</isNotEmpty>	
+        <isNotEmpty prepend="and" property="putOnDate">
+		   		t.put_on_date=cast(#putOnDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="begPutOnDate">
+		   		put_on_date &gt;=cast(#begPutOnDate# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="endPutOnDate">
+		   		put_on_date &lt;=cast(#endPutOnDate# AS DATE)
+		</isNotEmpty>			
+		<isNotEmpty prepend="and" property="putOnType">
+				t.put_on_type=#putOnType# 
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = '$carNoId$'
+		</isNotEmpty>
+		and (1=1
+		<!-- 增加加油百公里异常-->    
+		<isNotEmpty prepend=" and " property="begconsume_100">
+		   		t.consume_100 &lt;#begconsume_100#
+		</isNotEmpty>	
+		<isEmpty prepend=" and " property="begconsume_100">
+		   		1 &lt;&gt;1
+		</isEmpty>	
+		<isNotEmpty prepend=" or " property="endconsume_100">
+		   		t.consume_100 &gt;#endconsume_100#
+		</isNotEmpty>	     
+		)  order by t.put_on_steam_id desc
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	  
+	</select>	
+    
+</sqlMap>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 违章管理
+ -->
+<sqlMap namespace="PeccancyManage">
+  	<!-- 查询违章总记录数 -->
+	<select id="findPeccancyCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(1) 
+		  from tf_peccancy_manage
+		 where peccancy_state = 1	 
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="peccancyType">
+				peccancy_type = #peccancyType#
+		</isNotEmpty>   
+		
+		<isNotEmpty prepend="and" property="peccancyContext">
+				peccancy_context like '%$peccancyContext$%'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="peccancyAddress">
+				peccancy_address like '%$peccancyAddress$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="peccancyDate">
+				peccancy_date = cast(#peccancyDate# AS DATE)
+		</isNotEmpty>    
+		<isNotEmpty prepend="and" property="begPeccancyDate">
+				peccancy_date &gt;= cast(#begPeccancyDate# AS DATE)
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="endPeccancyDate">
+				peccancy_date &lt;= cast(#endPeccancyDate# AS DATE)
+		</isNotEmpty>    
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="peccancyId">
+				peccancy_id = #peccancyId#
+		</isNotEmpty>   	
+	</select>
+	
+	<!-- 
+		查询违章信息
+	  -->
+	<select id="findPeccancy" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		SELECT t.peccancy_id,
+			 cast(t.peccancy_booking_date AS CHAR) peccancy_booking_date,
+			 cast(t.peccancy_date AS CHAR) peccancy_date,
+			 cast(t.create_date AS CHAR) create_date,
+			 cast(t.editor_date AS CHAR) editor_date,
+			 cast(t.execute_date AS CHAR) execute_date,
+			 t.city_id,
+			 (select tt.city_name from td_city tt where tt.city_id = t.city_id) city_name,
+			 t.car_no_id,
+			 (select tt.car_no_code
+					from tf_car_info tt
+				 where tt.car_no_id = t.car_no_id) car_no_code,
+		     t.peccancy_type,
+			 (select tt.para_value_desc
+					from TD_SYSTEM_PARA tt
+				 where tt.para_value = t.peccancy_type
+					 and tt.para_name = 'PECCANCY_TYPE') peccancy_type_desc,			 
+			 peccancy_address,
+			 peccancy_context,
+			 FB_GET_STAFF_NAME_BY_ID(@in_staff_id := create_man) create_man_name,
+			 FB_GET_STAFF_NAME_BY_ID(@in_staff_id := editor_man) editor_man_name,
+			 FB_GET_STAFF_NAME_BY_ID(@in_staff_id := execute_man) execute_man_name
+		FROM tf_peccancy_manage as t
+ 	   where t.peccancy_state = 1
+        <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>   
+		<isNotEmpty prepend="and" property="peccancyType">
+				peccancy_type = #peccancyType#
+		</isNotEmpty>   
+		
+		<isNotEmpty prepend="and" property="peccancyContext">
+				peccancy_context like '%$peccancyContext$%'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="peccancyAddress">
+				peccancy_address like '%$peccancyAddress$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="peccancyDate">
+				peccancy_date = cast(#peccancyDate# AS DATE)
+		</isNotEmpty>    
+		<isNotEmpty prepend="and" property="begPeccancyDate">
+				peccancy_date &gt;= cast(#begPeccancyDate# AS DATE)
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="endPeccancyDate">
+				peccancy_date &lt;= cast(#endPeccancyDate# AS DATE)
+		</isNotEmpty>  
+		<isNotEmpty prepend="and" property="carNoCode">
+				t.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="peccancyId">
+				peccancy_id = #peccancyId#
+		</isNotEmpty>   	       	
+		<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	     </isNotEmpty>	  
+	</select>	
+    <insert id="insertPeccancy" parameterClass="java.util.HashMap">
+		insert into tf_peccancy_manage 
+              ( peccancy_id,
+				peccancy_booking_date,
+				peccancy_date,
+				peccancy_address,
+				peccancy_type,
+				car_no_id,
+				peccancy_context,
+				city_id,
+				create_man,
+				create_date,
+				editor_man,
+				editor_date,
+				execute_man,
+				execute_date,
+				peccancy_state)
+		values
+              (pb_get_sequences(@in_seq_name:='peccancy_id'),
+               now(),
+               #peccancyDate#,
+               #peccancyAddress#,
+               #peccancyType#,
+               #carNoId#,
+               #peccancyContext#,
+               #cityId#,
+               #createMan#,
+               NOW(),
+               #editorMan#,
+               cast(#editorDate# AS DATE),              
+               #executeMan#,
+               cast(#executeDate# AS DATE),
+               1
+               )                
+                   
+    </insert>  
+    
+	
+	<update id="updatePeccancy" parameterClass="java.util.HashMap">
+		update tf_peccancy_manage
+		   set editor_date = NOW()
+           <isNotEmpty prepend="," property="peccancyAddress">
+			   		peccancy_address = #peccancyAddress#
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="peccancyType">
+					peccancy_type =  #peccancyType# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="peccancyDate">
+					peccancy_date =  cast(#peccancyDate# AS DATE)
+			</isNotEmpty>						
+			<isNotEmpty prepend="," property="carNoId">
+					car_no_id = #carNoId#
+			</isNotEmpty> 		 
+			<isNotEmpty prepend="," property="peccancyContext">
+					peccancy_context = #peccancyContext#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="cityId">
+					city_id = #cityId#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="createMan">
+					create_man = #createMan#
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="editorMan">
+	          	   editor_man=#editorMan#
+	      	</isNotEmpty>
+	      	<isNotEmpty prepend="," property="executeMan">
+	          	   execute_man=#executeMan#
+	      	</isNotEmpty>
+	       	<isNotEmpty prepend="," property="executeDate">
+	          	   execute_date=cast(#executeDate# AS DATE)
+			</isNotEmpty>
+		where peccancy_id = #peccancyId#
+	</update>
+    
+    <!-- 
+		删除违章信息
+	  -->
+	<delete id="deletePeccancy" parameterClass="java.util.HashMap">
+		update tf_peccancy_manage 
+		   set peccancy_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date=NOW()
+		 where peccancy_id =#peccancyId#
+	</delete>
+    
+    
+    
+</sqlMap>

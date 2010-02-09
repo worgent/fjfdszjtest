@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 综合报表 -》 报警查询
+ * @author chenqf
+ *
+ -->
+<sqlMap namespace="PeccancyQuery">
+
+	<select id="findPeccancyQuery" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		 select 
+		 		<!--
+		        sum(peccancy_type_1) peccancy_type_1,
+		        sum(peccancy_type_2) peccancy_type_2,
+		        sum(peccancy_type_3) peccancy_type_3,
+		        sum(peccancy_type_4) peccancy_type_4,
+		        sum(peccancy_type_5) peccancy_type_5
+		         -->
+		        $sum_field$
+		        d.city_id,
+		        (select city_name
+		           from td_city
+		          where city_id = d.city_id) city_name
+		  FROM (select <!-- 
+		  			   case when (case when c.peccancy_type = 1 then num end) is null then 0 
+		                    else (case when c.peccancy_type = 1 then num end)  
+		                END peccancy_type_1,
+		               case when (case when c.peccancy_type = 2 then num end) is null then 0 
+		                    else (case when c.peccancy_type = 2 then num end)  
+		                END peccancy_type_2,
+		               case when (case when c.peccancy_type = 3 then num end) is null then 0 
+		                    else (case when c.peccancy_type = 3 then num end)  
+		                END peccancy_type_3,
+		               case when (case when c.peccancy_type = 4 then num end) is null then 0 
+		                    else (case when c.peccancy_type = 4 then num end)  
+		                END peccancy_type_4,
+		               case when (case when c.peccancy_type = 5 then num end) is null then 0 
+		                    else (case when c.peccancy_type = 5 then num end)  
+		                END peccancy_type_5,
+		                -->
+		               $case_field$
+		               c.city_id
+		          from (select b.city_id, a.peccancy_type, count(1) num
+		                  from tf_peccancy_manage a
+		                 RIGHT JOIN td_city b on a.city_id = b.city_id
+		                 where a.peccancy_state &lt;&gt; 0
+		                <isNotEmpty prepend="and" property="staffId">
+						   		a.CITY_ID IN
+						       		(SELECT A.CITY_ID FROM TF_STAFF_CITY A WHERE A.STAFF_ID = #staffId#)
+						</isNotEmpty> 
+						<isNotEmpty prepend="and" property="begPeccancyDate">
+								a.peccancy_date &gt;= cast('$begPeccancyDate$' as DATE)
+						</isNotEmpty>
+						<isNotEmpty prepend="and" property="endPeccancyDate">
+								a.peccancy_date &lt;= cast('$endPeccancyDate$' as DATE)
+						</isNotEmpty>
+						<isNotEmpty prepend="and" property="peccancyAddress">
+								a.peccancy_address like '%$peccancyAddress$%'
+						</isNotEmpty>
+		                 group by b.city_id, a.peccancy_type) c)  d
+		 GROUP BY d.city_id
+	</select>
+</sqlMap>

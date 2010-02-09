@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 车辆维修管理
+ *
+ -->
+<sqlMap namespace="ServicingManage">
+	<!--
+		查询车辆维修记录总数 
+	 -->
+	<select id="findServiceingCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)
+		  from tf_maintain_record t
+		 where 1 = 1
+		<isEmpty prepend="and" property="maintainState">
+				maintain_state &lt;&gt; 0
+		</isEmpty>
+		<isNotEmpty prepend="and" property="maintainState">
+				maintain_state = $maintainState$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="maintainId">
+				maintain_id = '$maintainId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begMaintainDate">
+				maintain_date &gt;= cast(#begMaintainDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endMaintainDate">
+				maintain_date &lt;= cast(#endMaintainDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoId">
+				car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="proposer">
+				proposer in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$proposer$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="coopUnitId">
+				coop_unit_id = '$coopUnitId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begMaintainEndDate">
+				maintain_end_date &gt;= cast(#begMaintainEndDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endMaintainEndDate">
+				maintain_end_date &lt;= cast(#endMaintainEndDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		  order by maintain_id desc
+	</select>
+	
+	<!--
+		查询车辆维修记录
+	 -->
+	<select id="findServiceing" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select cast(t.create_date AS CHAR) create_date,
+           	   cast(t.editor_date AS CHAR) editor_date,           		
+          	   cast(t.execute_date AS CHAR) execute_date, 
+          	   cast(t.maintain_date AS CHAR) maintain_date,
+          	   cast(t.maintain_end_date AS CHAR) maintain_end_date,
+          	   (select s.staff_name
+          	      from tf_staff_info s
+          	     where s.staff_info_id = t.proposer) proposer_name,
+          	   (select r.coop_unit_name
+          	      from tf_rec_unit_info r
+          	     where r.coop_unit_id = t.coop_unit_id) coop_unit_name,
+			   (select tt.city_name 
+		          from td_city tt 
+			     where tt.city_id=t.city_id) city_name,
+          	   (select tt.car_no_code 
+			      from tf_car_info tt 
+			     where tt.car_no_id = t.car_no_id) car_no_code,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,  
+			   t.*
+		  from tf_maintain_record t
+		 where 1 = 1
+		<isEmpty prepend="and" property="maintainState">
+				maintain_state &lt;&gt; 0
+		</isEmpty>
+		<isNotEmpty prepend="and" property="maintainState">
+				maintain_state = $maintainState$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="maintainId">
+				maintain_id = '$maintainId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begMaintainDate">
+				maintain_date &gt;= cast(#begMaintainDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endMaintainDate">
+				maintain_date &lt;= cast(#endMaintainDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoId">
+				t.car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoCode">
+				t.car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="proposer">
+				proposer in (select staff_info_id
+							   from tf_staff_info s
+							  where staff_name like '%$proposer$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="coopUnitId">
+				coop_unit_id = '$coopUnitId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begMaintainEndDate">
+				maintain_end_date &gt;= cast(#begMaintainEndDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endMaintainEndDate">
+				maintain_end_date &lt;= cast(#endMaintainEndDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		 order by maintain_id desc
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>	
+	</select>
+	
+	<!--
+		车辆维修登记 
+	 -->
+	<insert id="insertServiceingApply" parameterClass="java.util.HashMap">
+		insert into tf_maintain_record(
+			maintain_id,
+			maintain_date,
+			maintain_excuse,
+			car_no_id,
+			proposer,
+			maintain_mileage,
+			coop_unit_id,
+			create_man,
+			create_date,
+			city_id,
+			maintain_state)
+		values(
+			pb_get_sequences(@in_seq_name:='maintain_id'),
+			cast(#maintainDate# AS DATE),
+			'$maintainExcuse$',
+			'$carNoId$',
+			'$proposer$',
+			$maintainMileage$,
+			'$coopUnitId$',
+			'$createMan$',
+			NOW(),
+			$cityId$,
+			1)
+	</insert>
+	
+	<!--
+		修改车辆维修信息 
+	 -->
+	<update id="updateServiceing" parameterClass="java.util.HashMap">
+		update tf_maintain_record
+		   set editor_date = NOW()
+		<isNotEmpty prepend="," property="maintainDate">
+				maintain_date = cast(#maintainDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="maintainExcuse">
+				maintain_excuse = '$maintainExcuse$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNoId">
+				car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="proposer">
+				proposer = '$proposer$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="maintainMileage">
+				maintain_mileage = $maintainMileage$
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="coopUnitId">
+				coop_unit_id = '$coopUnitId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="maintainEndDate">
+				maintain_end_date = cast(#maintainEndDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="maintainResult">
+				maintain_result = '$maintainResult$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="charge">
+				charge = $charge$
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="editorMan">
+				editor_man = '$editorMan$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="executeMan">
+				execute_man = '$executeMan$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="executeDate">
+				execute_date = cast(#executeDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cityId">
+				city_id = $cityId$
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="maintainState">
+				maintain_state = $maintainState$
+		</isNotEmpty>
+		  where maintain_id = '$maintainId$'
+	</update>
+	
+	<!--
+		删除车辆维修记录 
+	 -->
+	<delete id="deleteServiceing" parameterClass="java.util.HashMap">
+		update tf_maintain_record
+		   set editor_date = NOW(),
+		   	   editor_man = '$editorMan$',
+		   	   maintain_state = 0
+		 where maintain_id = '$maintainId$'
+	</delete>
+	
+	<!--
+		车辆维修明细记录 
+	 -->
+	<select id="findServiceingDetail" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select t.*
+		  from tf_maintain_detail t
+		 where t.maintain_detail_state = 1
+		<isNotEmpty prepend="and" property="maintainDetailId">
+				maintain_detail_id = '$maintainDetailId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="maintainId">
+				maintain_id = '$maintainId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="maintainItem">
+				maintain_item = '$maintainItem$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="unit">
+				unit = '$unit$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="num">
+				num = $num$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="price">
+				price = $price$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="charge">
+				charge = $charge$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="memo">
+				memo = '$memo$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = $cityId$
+		</isNotEmpty>
+	</select>
+	<!--
+		添加车辆维修明细 
+	 -->
+	<insert id="insertServiceingDetail" parameterClass="java.util.HashMap">
+		insert into tf_maintain_detail(
+			maintain_detail_id,
+			maintain_id,
+			maintain_item,
+			unit,
+			num,
+			price,
+			charge,
+			memo,
+			city_id,
+			maintain_detail_state)
+		values(
+			pb_get_sequences(@in_seq_name:='maintain_detail_id'),
+			'$maintainId$',
+			'$maintainItem$',
+			'$unit$',
+			$num$,
+			$price$,
+			$charge$,
+			'$memo$',
+			$cityId$,
+			1)
+	</insert>
+	
+	<!--
+		修改维修明细记录 
+	 -->
+	<update id="updateServiceingDetail" parameterClass="java.util.HashMap">
+		update tf_maintain_detail
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="maintainItem">
+				maintain_item = '$maintainItem$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unit">
+				unit = '$unit$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="num">
+				num = $num$
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="price">
+				price = $price$
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="charge">
+				charge = $charge$
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="memo">
+				memo = '$memo$'
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cityId">
+				city_id = $cityId$
+			</isNotEmpty>
+		</dynamic>
+		 where maintain_detail_id = '$maintainDetailId$'
+	</update>
+	
+	<!--
+		删除车辆维修明细 
+	 -->
+	<delete id="deleteServiceingDetail" parameterClass="java.util.HashMap">
+		update tf_maintain_detail
+		   set maintain_detail_state = 0
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="maintainDetailId">
+				maintain_detail_id = '$maintainDetailId$'
+		 	</isNotEmpty>
+		 	<isNotEmpty prepend="and" property="maintainId">
+				maintain_id = '$maintainId$'
+		 	</isNotEmpty>
+		</dynamic>
+	</delete>
+</sqlMap>

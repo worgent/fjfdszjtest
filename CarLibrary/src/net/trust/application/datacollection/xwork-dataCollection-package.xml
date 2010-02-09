@@ -1,0 +1,9 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	数据采集所有xwork均配置在此文件中统一管理
+  -->
+<xwork>
+	<package name="DataCollection" extends="default" namespace="/datacollection">
+	</package>
+	<include file="/net/trust/application/datacollection/interfetchconfig/action/xowrk-interFatchConfig.xml"/><!-- GPS接口数据采集规则配置 -->
+</xwork>

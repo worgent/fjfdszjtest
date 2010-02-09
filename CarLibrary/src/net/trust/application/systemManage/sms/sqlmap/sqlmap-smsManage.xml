@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 短信管理
+ *
+ -->
+<sqlMap namespace="SmsManage">
+	<!--
+		获取接收到的记录数
+	 -->
+	<select id="findInceptSmsCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)
+		  from tf_incept_sms t
+		 where sms_state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="smsState">
+				sms_state = $smsState$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="inceptSmsId">
+				incept_sms_id = '$inceptSmsId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffName">
+				staff_id in (select staff_id
+							   from tf_operator
+							  where staff_name like '%$staffName$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begCollDate">
+				coll_date &gt;= cast('$begCollDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="phoneCode">
+				t.phone_code = '$phoneCode$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endCollDate">
+				coll_date &lt;= cast('$endCollDate$' AS DATE)
+		</isNotEmpty>
+	</select>
+	
+	<!--
+		 获取接收到的记录
+	 -->
+	<select id="findInceptSms" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select cast(t.coll_date AS CHAR) coll_date,
+			   cast(t.tran_date AS CHAR) tran_date,
+			   t.*,
+		       case
+		         when t.sms_state = 0 then
+		          '失效'
+		         when t.sms_state = 1 then
+		          '未处理'
+		         when t.sms_state = 2 then
+		          '已处理'
+		       end sms_state_name,
+		       FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=t.staff_id) staff_name,
+		       (select staff_name
+		          from tf_staff_info s
+		         where s.state &lt;&gt; 0
+		           and s.sms_phone = phone_code limit 1) sms_staff_name,
+		       (select staff_info_id
+		          from tf_staff_info s
+		         where s.state &lt;&gt; 0
+		           and s.sms_phone = phone_code limit 1) sms_staff_info_id
+		  from tf_incept_sms t
+		 where sms_state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="smsState">
+				sms_state = $smsState$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="inceptSmsId">
+				incept_sms_id = '$inceptSmsId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="phoneCode">
+				t.phone_code = '$phoneCode$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffName">
+				staff_id in (select staff_id
+							   from tf_operator
+							  where staff_name like '%$staffName$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begCollDate">
+				coll_date &gt;= cast('$begCollDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endCollDate">
+				coll_date &lt;= cast('$endCollDate$' AS DATE)
+		</isNotEmpty>
+		 order by incept_sms_id desc
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 添加接收到的短信内容 -->
+	<insert id="insertInceptSms" parameterClass="java.util.HashMap">
+		insert into tf_incept_sms
+		  (incept_sms_id,
+		   phone_code,
+		   incept_date,
+		   sms_content,
+		   sms_state,
+		   coll_date)
+		values
+		  (pb_get_sequences(@in_seq_name := 'incept_sms_id'),
+		   '$phoneCode$',
+		   now(),
+		   '$smsContent$',
+		   1,
+		   now())
+	</insert>
+	
+	<!-- 修改接收到的短信 处理状态 -->
+	<update id="updateInceptSms" parameterClass="java.util.HashMap">
+		UPDATE tf_incept_sms
+		   SET sms_state = $smsState$,
+		       staff_id = '$staffId$',
+		       tran_date = NOW()
+		 WHERE incept_sms_id = '$inceptSmsId$'
+	</update> 
+	
+	
+	
+	
+	<!-- 查询发送的短信记录总数 -->
+	<select id="findSendSmsRecordCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1)
+		  from tf_send_sms t
+		 where  t.send_state &lt;&gt;3
+		<isNotEmpty prepend="and" property="sendSmsId">
+				send_sms_id = '$sendSmsId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sourceOrderType">
+				source_order_type = $sourceOrderType$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sourceOrderCode">
+				source_order_code = '$sourceOrderCode$'
+		</isNotEmpty>
+		<!--  
+		<isNotEmpty prepend="and" property="staffId">
+				staff_id = '$staffId$'
+		</isNotEmpty>
+		-->
+		<isNotEmpty prepend="and" property="callStaffId">
+				call_staff_id = '$callStaffId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sendState">
+				send_state = $sendState$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begSendDate">
+				send_date &gt;= cast('$begSendDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endSendDate">
+				send_date &lt;= cast('$endSendDate$' as DATE)
+		</isNotEmpty>
+				<isNotEmpty prepend="and" property="staffName">
+				staff_id in (select staff_id
+							   from tf_operator
+							  where staff_name like '%$staffName$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+	</select>
+	
+	<!-- 查询发送的短信记录-->
+	<select id="findSendSmsRecord" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select DATE_FORMAT(t.create_date, '%Y-%m-%d %T')  create_date,
+			   DATE_FORMAT(t.send_date, '%Y-%m-%d %T') send_date,
+			   case source_order_type
+			   		when  0 then ''
+			   		when  1 then '派车单短信'
+			   		when  2 then '调度单短信'
+					when  3 then '接收转发'
+					when  4 then 'IC卡异常'
+					when  5 then '手动发送'
+					when  6 then '非工作时间报警'
+					when  7 then '越界报警'
+					when  8 then '审批提醒'
+					when  9 then '客户反馈'
+					when  10 then '司机行车记录'
+					when  11 then '停车超时'
+					when  12 then '到站报警'
+					when  13 then '短信临时派车'
+			   end source_order_type_desc,
+			   case
+			   		when send_state = 0 then '未发送'
+			   		when send_state = 1 then '已发送'
+			   		when send_state = 2 then '取消发送'
+			   end send_state_desc,
+			   case 
+			   		when call_staff_id is null then t.call_man_name
+			   		when call_staff_id='' then t.call_man_name
+			   		when call_staff_id is not null 
+			   		then (select staff_name
+					   	    from tf_staff_info
+					   	   where staff_info_id = t.call_staff_id)
+			   end call_staff_name,
+			   ifnull(FB_GET_STAFF_NAME_BY_ID(@in_staff_id := t.staff_id),'系统管理员') staff_id_name,
+			   t.*
+		  from tf_send_sms t
+		 where t.send_state &lt;&gt;3
+		<isNotEmpty prepend="and" property="sendSmsId">
+				send_sms_id = '$sendSmsId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sourceOrderType">
+				source_order_type = $sourceOrderType$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sourceOrderCode">
+				source_order_code = '$sourceOrderCode$'
+		</isNotEmpty>
+		<!--  
+		<isNotEmpty prepend="and" property="staffId">
+				staff_id = '$staffId$'
+		</isNotEmpty>
+		-->
+		<isNotEmpty prepend="and" property="callStaffId">
+				call_staff_id = '$callStaffId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sendState">
+				send_state = $sendState$
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begSendDate">
+				send_date &gt;= cast('$begSendDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endSendDate">
+				send_date &lt;= cast('$endSendDate$' as DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffName">
+				staff_id in (select staff_id
+							   from tf_operator
+							  where staff_name like '%$staffName$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		order by send_sms_id desc 
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 记录要发送的短信内容 ，增加发送信息-->
+	<insert id="insertSendSmsRecord" parameterClass="java.util.HashMap">
+		insert into tf_send_sms(
+			send_sms_id,
+			call_phone,
+		<isNotEmpty prepend="" property="callStaffId">
+			call_staff_id,
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="callManName">
+			call_man_name,
+		</isNotEmpty>
+			create_date,
+			send_content,
+		<isNotEmpty prepend="" property="sourceOrderType">
+			source_order_type,
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="sourceOrderCode">
+			source_order_code,
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="msisdnId">
+			msisdn_id,
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="staffId">
+			staff_id,
+		</isNotEmpty>
+			city_id,
+			send_state)
+		values(
+			'$sendSmsId$',
+			'$callPhone$',
+		<isNotEmpty prepend="" property="callStaffId">
+			'$callStaffId$',
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="callManName">
+			'$callManName$',
+		</isNotEmpty>
+			now(),
+			'$sendContent$',
+		<isNotEmpty prepend="" property="sourceOrderType">
+			$sourceOrderType$,
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="sourceOrderCode">
+			'$sourceOrderCode$',
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="msisdnId">
+			'$msisdnId$',
+		</isNotEmpty>
+		<isNotEmpty prepend="" property="staffId">
+			'$staffId$',
+		</isNotEmpty>
+			$cityId$,
+			0)
+	</insert>
+	
+	<!-- 修改已发送短信记录的状态 ，状态处理-->
+	<update id="updateSendSmsState" parameterClass="java.util.HashMap">
+		update tf_send_sms
+		   set send_date = now(),
+		   	   send_state = 1
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="sourceOrderType">
+				source_order_type = $sourceOrderType$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sourceOrderCode">
+				source_order_code = '$sourceOrderCode$'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sendSmsId">
+				send_sms_id = '$sendSmsId$'
+			</isNotEmpty>
+		</dynamic>
+	</update>
+	
+	<!-- 修改已发送短信记录的状态 ,取消发送 -->
+	<update id="updateSendSmsCancel" parameterClass="java.util.HashMap">
+		update tf_send_sms
+		   set send_state = 2
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="sourceOrderType">
+				source_order_type = $sourceOrderType$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sourceOrderCode">
+				source_order_code = '$sourceOrderCode$'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sendSmsId">
+				send_sms_id = '$sendSmsId$'
+			</isNotEmpty>
+		</dynamic>
+	</update>
+	
+	<!-- 30分钟IC卡异常信息处理与越界报警共用 -->
+	<select id="findICcardException" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select a.CARDID,a.CAR_MARK,isnull(b.LOGIN_DRIVERID,'') LOGIN_DRIVERID,'驾驶证号:'+isnull(b.LOGIN_DRIVERID,'空')+'司机使用驾驶证号:'+a.CARDID+'的车辆'+a.CAR_MARK content,'4' type
+		from Motorman_info a left outer join CAR_INFO b on a.CAR_MARK=b.CAR_MARK
+		where a.CARDID &lt;&gt;b.LOGIN_DRIVERID
+		union all
+		select a.LOGIN_DRIVERID,a.CAR_MARK,'','驾驶证号:'+a.LOGIN_DRIVERID+'的车辆:'+a.CAR_MARK+'没有插卡' content,'4' type
+		from CAR_INFO a
+		where LOGIN_FLAG='0' and LAST_SPEED &lt;&gt;0
+		union all
+		select a.LOGIN_DRIVERID,a.CAR_MARK,'','驾驶证号:'+a.LOGIN_DRIVERID+'的车辆:'+a.CAR_MARK+'没有检测出IC卡' content,'4' type
+		from CAR_INFO a
+		where LAST_FLAG=30
+	</select>
+	<!-- 10分钟 到站报警异常信息处理 -->
+	<select id="findBackSiteException" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select a.LOGIN_DRIVERID,a.CAR_MARK,'驾驶证号:'+a.LOGIN_DRIVERID+'的车辆:'+a.CAR_MARK++'在'+convert(varchar(20),getdate(),120)+'到站报警' content,'12' type
+		from CAR_INFO a
+		where a.rule_alert=66
+	</select>
+	<!-- 越界报警30分钟与IC卡异常公用-->
+	<select id="findOutException" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select a.LOGIN_DRIVERID,a.CAR_MARK,'驾驶证号:'+a.LOGIN_DRIVERID+'的车辆:'+a.CAR_MARK+'非工作时间报警' content,'6' type
+		from CAR_INFO a
+		where rule_alert=65
+		union all
+		select a.LOGIN_DRIVERID,a.CAR_MARK,'驾驶证号:'+a.LOGIN_DRIVERID+'的车辆:'+a.CAR_MARK+'停车超时报警' content,'11' type
+		from CAR_INFO a
+		where a.rule_alert=70
+	</select>
+	
+	<!--查找相关区域 管理人员 -->
+	<select id="findAdminUser" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select ifnull(a.staff_name,'')staff_name,ifnull(a.sms_phone,'')sms_phone,ifnull(b.staff_name,'')astaff_name,
+		ifnull(b.sms_phone,'')asms_phone,ifnull(a.staff_info_id,'') staff_info_id,ifnull(b.staff_info_id,'') astaff_info_id,a.city_id,a.car_no
+		from tf_staff_info a left outer join tf_car_info c on c.car_no_id=a.car_no
+		left outer join tf_staff_info b on a.city_id=b.city_id
+		where a.state&lt;&gt;0 and b.state&lt;&gt;0 and b.staff_type=2 and c.state &lt;&gt; 0	
+		<isNotEmpty prepend="and" property="carNo">
+				a.car_no='$carNo$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffInfoid">
+				a.staff_info_id='$staffInfoid$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="smsPhone">
+				a.sms_phone='$smsPhone$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carMark">
+				c.car_no_code='$carMark$'
+		</isNotEmpty>
+	</select>
+	
+	<!--最高管理人员 -->
+	<select id="findSuperAdminUser" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select staff_info_id astaff_info_id,staff_name astaff_name,sms_phone asms_phone,city_id From tf_staff_info 
+		where state&lt;&gt;0 and staff_type=2 and city_id='59' order by sms_phone
+	</select>
+	
+	<!--2009-01-17 系统短信配置信息 flowerswitch, -->
+	<select id="systemConfig" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select id,iccardswitch,outbandswitch,afterhours,beforehours,backswitch,expforehours from ts_systemconfig
+	</select>
+	<!--2009-01-17 修改系统短信配置信息	
+			<isNotEmpty prepend="," property="flowerswitch">
+					flowerswitch =1
+			</isNotEmpty>
+			<isEmpty prepend="," property="flowerswitch">
+					flowerswitch =0
+			</isEmpty> 
+	-->
+	<update id="updatesystemConfig" parameterClass="java.util.HashMap">
+		update ts_systemconfig
+		 set EditeTime = NOW()	 				
+            <isNotEmpty prepend="," property="editer">
+			   		Editer = '$editer$'
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="iccardswitch">
+					iccardswitch =1
+			</isNotEmpty>
+			<isEmpty prepend="," property="iccardswitch">
+					iccardswitch =0
+			</isEmpty>
+			<isNotEmpty prepend="," property="outbandswitch">
+					outbandswitch =1
+			</isNotEmpty>
+			<isEmpty prepend="," property="outbandswitch">
+					outbandswitch =0
+			</isEmpty>
+			<isNotEmpty prepend="," property="backswitch">
+					backswitch =1
+			</isNotEmpty>
+			<isEmpty prepend="," property="backswitch">
+					backswitch =0
+			</isEmpty>
+			<isNotEmpty prepend="," property="afterhours">
+					afterhours =#afterhours# 
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="beforehours">
+					beforehours = #beforehours#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="expforehours">
+					expforehours =#expforehours# 
+			</isNotEmpty>
+			where id =1 
+	</update>
+	<!-- 处理手机的审核操作 -->
+	<procedure id="prosmsAuditing" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call sms_Auditing(@mobile:='$phoneCode$',@content:='$smsContent$')}]]>
+    </procedure>
+
+	<!-- 处理服务端接收长短信的处理(审核操作,客户反馈) -->
+	<procedure id="prosmsLongRec" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call prosmsLongRec(@prefix:='$prefix$',@mobile:='$phoneCode$',@content:='$smsContent$')}]]>
+    </procedure>
+    
+        
+    <!--根据MSISDN号码,取得对应时间的数据 -->
+	<select id="findAuditMsgbyMsisdn" parameterClass="java.lang.String" resultClass="java.util.HashMap" remapResults="true">
+		select ifnull(a.source_order_code,'') expediteapply_id,ifnull(b.use_state,'') use_state  
+		from tf_send_sms a left outer join td_expedite_apply b on a.source_order_code=b.expediteapply_id 
+			where a.msisdn_id='$msisdnId$' order by send_sms_id desc limit 1
+	</select>
+	
+	<!-- 处理手机转发机制 -->
+	<procedure id="protransmit" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pro_transmit(@mobile:='$phoneCode$',@content:='$smsContent$')}]]>
+    </procedure>
+    
+    <!-- 2009-04-15对原来的(处理手机转发机制)升级 -->
+	<procedure id="prosmsShortRec" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call prosmsShortRec(@mobile:='$phoneCode$',@content:='$smsContent$')}]]>
+    </procedure>
+    
+</sqlMap>

@@ -1,0 +1,73 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+ * 维修管理
+ -->
+<xwork>
+	<package name="SmsManager" extends="SystemManagePackage" namespace="/system/sms">
+		<!-- 
+			获取接收到的记录数 
+		 -->
+		<action name="inceptSms" class="smsManageAction" method="inceptSms">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/sms/inceptSmsList.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		
+		<!-- 
+			短信发送
+		 -->
+		<action name="sendSms" class="smsManageAction" method="sendSms">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/sms/sendSmsList.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		
+		<!-- 
+		    2008-12-22
+			网关方式短信发送
+		 -->
+		<action name="smproxysend" class="smsManageAction" method="smproxysend">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/sms/smproxySend.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+		<!-- 
+		    2009-01-17
+			短信参数设置
+		 -->
+		<action name="smsconfig" class="smsManageAction" method="smsconfig">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/sms/smsconfig.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+	</package>
+</xwork>

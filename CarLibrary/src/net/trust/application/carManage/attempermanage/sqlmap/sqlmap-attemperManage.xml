@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 调度管理
+ *
+ -->
+<sqlMap namespace="AttemperManage">
+	<!-- 调度管理记录数 -->
+	<select id="findAttemperCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(1)
+		  from tf_attemper_manage t
+		 where t.state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="attemperManageId">
+		   	   attemper_manage_id = '$attemperManageId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begAttemperDate">
+		   	   attemper_date &gt; '$begAttemperDate$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endAttemperDate">
+		   	   attemper_date &lt; '$endAttemperDate$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   		           		from tf_staff_city a 
+		   		               where a.staff_id=#staffId#)
+		</isNotEmpty>	
+	</select>
+	
+	<!-- 调度管理记录 -->
+	<select id="findAttemper" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.create_date AS CHAR) create_date,
+           	   cast(t.editor_date AS CHAR) editor_date,           		
+          	   cast(t.execute_date AS CHAR) execute_date, 
+          	   cast(t.booking_date AS CHAR) booking_date,
+          	   cast(t.attemper_date AS CHAR) attemper_date, 
+          	   (select tt.city_name 
+		          from td_city tt 
+			     where tt.city_id=t.city_id) city_name,
+			   (select dept_name
+			      from tf_dept_info d
+			     where state &lt;&gt; 0
+			       and d.dept_id = t.dept_id) dept_id_name,
+			   (select s.staff_name
+			      from tf_staff_info s
+			     where s.staff_info_id = t.use_car_man)use_car_man_name,
+			   (select s.staff_name
+			      from tf_staff_info s
+			     where s.staff_info_id = t.motor_id)motor_id_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,  
+			   (select tt.car_no_code 
+			      from tf_car_info tt 
+			     where tt.car_no_id = t.car_no_id) car_no_code,
+			   t.*
+		  from tf_attemper_manage t
+		 where t.state &lt;&gt; 0
+		<isNotEmpty prepend="and" property="attemperManageId">
+		   	   attemper_manage_id = '$attemperManageId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="begAttemperDate">
+		   	   attemper_date &gt; '$begAttemperDate$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endAttemperDate">
+		   	   attemper_date &lt; '$endAttemperDate$'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="staffId">
+		   		t.city_id in (select a.city_id 
+		   		           		from tf_staff_city a 
+		   		               where a.staff_id=#staffId#)
+		</isNotEmpty>	
+		<isNotEmpty prepend=" " property="START">
+         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 创建调度记录 -->
+	<insert id="insertAttemper" parameterClass="java.util.HashMap">
+		insert into tf_attemper_manage(
+			attemper_manage_id,
+			booking_date,
+			attemper_date,
+			attemper_cause,
+			car_no_id,
+			attemper_locus,
+			dept_id,
+			use_car_man,
+			motor_id,
+			memo,
+			create_man,
+			create_date,
+			city_id,
+			state)
+		values(
+			'$attemperManageId$',
+			NOW(),
+			NOW(),
+			'$attemperCause$',
+			'$carNoId$',
+			'$attemperLocus$',
+			'$deptId$',
+			'$useCarMan$',
+			'$motorId$',
+			'$memo$',
+			'$createMan$',
+			NOW(),
+			$cityId$,
+			1)
+	</insert>
+	
+	<!-- 修改调度记录 -->
+	<update id="updateAttemper" parameterClass="java.util.HashMap">
+		update tf_attemper_manage
+		   set editor_date = NOW(),
+		<isNotEmpty prepend="," property="executeMan">
+			   execute_man = '$executeMan$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="attemperDate">
+			   attemper_date = cast('$attemperDate$' AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="attemperCause">
+			   attemper_cause = '$attemperCause$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="carNoId">
+			   car_no_id = '$carNoId$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="attemperLocus">
+			   attemper_locus = '$attemperLocus$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="memo">
+			   memo = '$memo$'
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cityId">
+			   city_id = $cityId$
+		</isNotEmpty>
+		 where attemper_manage_id = '$attemperManageId$'
+	</update>
+	
+	<!-- 删除调度记录 -->
+	<delete id="deleteAttemper" parameterClass="java.util.HashMap">
+		update tf_attemper_manage
+		   set editor_date = NOW(),
+		       execute_man = '$executeMan$',
+		       state = 0
+		 where attemper_manage_id = '$attemperManageId$'
+	</delete>
+	
+	<!-- 查询GPS系统中与传入位置匹配的车辆数据 -->
+	<select id="findGPSCarLocus" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		SELECT CAR_MARK,	/*车牌号*/
+		       MOTORID,		/*司机号*/
+		       LAST_LON,	/*最后定位经度*/
+		       LAST_LAT,	/*最后定位纬度*/
+		       LAST_SPEED,	/*最后定位速度*/
+		       LAST_ANGLE,	/*最后定位方向*/
+		       LAST_TIME,	/*最后定位时间*/
+		       LAST_FLAG,	/*最后定位标志*/
+		       LAST_LOCATION/*车辆最后位置*/
+		  FROM CAR_INFO
+		 WHERE LAST_LOCATION LIKE '%$lastLocation$%'
+	</select>
+</sqlMap>

@@ -1,0 +1,22 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!--
+ * 综合报表加油管理(里程数与加油量异常
+ * @author fjfdszj
+ *
+ -->
+<xwork>
+	<package name="RtpPutonsteam" extends="ReportPackage" namespace="/report">
+		<action name="rtpPutonsteam" class="rtpPutonsteamAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/report/rtpPutonsteam/rtpPutonsteamList.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+	</package>
+</xwork>

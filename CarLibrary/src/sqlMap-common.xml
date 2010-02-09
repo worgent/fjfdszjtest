@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<!-- 
+	 公共SQLMAP配置
+-->
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap>
+	<select id="getSequencesValue" parameterClass="java.lang.String" resultClass="java.lang.String" remapResults="true">
+		select pb_get_sequences(@in_seq_name:='$seqName$') sequence;
+	</select>
+	
+	<select id="getMsisdnValue" parameterClass="java.lang.String" resultClass="java.lang.String" remapResults="true">
+		select pb_get_msisdn(@in_seq_name:='$seqName$') sequence;
+	</select>	
+	
+	<select id="dynamicSql" parameterClass="java.lang.String" resultClass="java.util.HashMap" remapResults="true" >
+		$dynamicSql$
+	</select>
+	
+	<!-- 动态传入insert sql -->
+	<update id="dynamicInsertAndUpdateSql" parameterClass="java.lang.String">
+		$dynamicSql$
+	</update>
+	
+	<!-- 用于查询返回一个整数值 -->
+	<select id="dynamicSqlCount" parameterClass="java.lang.String" resultClass="java.lang.Integer" remapResults="true" >
+		$dynamicSql$
+	</select>
+</sqlMap>

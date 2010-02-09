@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+ * 保险管理
+ -->
+<sqlMap namespace="InsuranceManage">
+  	<!-- 查询保险总记录数 -->
+	<select id="findInsuranceCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true" >
+		select count(*) 
+		  from tf_insurance
+		 where insurance_state = 1	 
+		<isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="insurant">
+		   		insurant like '%$insurant$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="beginDate">
+				begin_date>=cast(#beginDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endDate">
+		<![CDATA[end_date<=cast(#endDate# AS DATE) ]]>
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="insuranceAgent">
+				insurance_agent like '%$insuranceAgent$%'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				city_id = #cityId#
+		</isNotEmpty>         	
+	</select>
+	
+	<!-- 
+		查询保险信息
+	  -->
+	<select id="findInsurance" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true" >
+		select cast(t.booking_date AS CHAR) booking_date,
+			   cast(t.create_date AS CHAR) create_date,
+          	   cast(t.editor_date AS CHAR) editor_date,           		
+       		   cast(t.execute_date AS CHAR) execute_date, 
+       		   cast(t.begin_date AS CHAR) begin_date, 
+       		   cast(t.end_date AS CHAR) end_date,          		
+	       	   (select tt.city_name 
+	          	  from td_city tt 
+	             where tt.city_id=t.city_id) cityName,
+	       	   (select tt.car_no_code 
+				  from tf_car_info tt 
+	             where tt.car_no_id = t.car_no_id) carNoId,
+	       	   (select tt.para_value_desc 
+	          	  from TD_SYSTEM_PARA tt 
+	             where tt.para_value=t.insurance_agent 
+	               and tt.para_name='INSURANCE_AGENT') insuranceAgent,  
+	           FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=create_man) create_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=editor_man) editor_man_name,
+			   FB_GET_STAFF_NAME_BY_ID(@in_staff_id:=execute_man) execute_man_name,    
+         	   t.*          		 
+          from tf_insurance t
+         where insurance_state = 1
+        <isNotEmpty prepend="and" property="staffId">
+		   		city_id in (select a.city_id 
+		   					  from tf_staff_city a 
+		   					 where a.staff_id = #staffId#)
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="insurant">
+		   		t.insurant like '%$insurant$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="insuranceId">
+		   		t.insurance_id like '%$insuranceId$%'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="beginDate">
+				t.begin_date>=cast(#beginDate# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endDate">
+		 <![CDATA[t.end_date<=cast(#endDate# AS DATE) ]]>
+		</isNotEmpty> 			 
+		<isNotEmpty prepend="and" property="carNoCode">
+				car_no_id in (select car_no_id
+								from tf_car_info c
+							   where c.car_no_code like '%$carNoCode$%')
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="insuranceAgent">
+				t.insurance_agent like '%$insuranceAgent$%'
+		</isNotEmpty> 
+		<isNotEmpty prepend="and" property="cityId">
+				t.city_id = #cityId#
+		</isNotEmpty>         	
+		<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	     </isNotEmpty>	  
+	</select>	
+    <insert id="insertInsurance" parameterClass="java.util.HashMap">
+		insert into tf_insurance 
+              (insurance_id,
+			   booking_date,
+			   insurant,
+			   begin_date,
+			   end_date,
+			   car_no_id,
+			   car_no_code,
+			   purpose,
+			   insurance_charge,
+			   insurance_fee,
+			   insurance_agent,
+			   create_man,
+			   create_date,
+			   insurance_state,
+			   city_id)
+		values
+              (pb_get_sequences(@in_seq_name:='insurance_id'),
+               now(),
+               #insurant#,
+               cast(#begDate# AS DATE),
+               cast(#endDate# AS DATE),
+               #carNoId#,
+               #carNoCode#,
+               #purpose#,
+               #insuranceCharge#,
+               #insuranceFee#,
+               #insuranceAgent#,
+               #createMan#,
+               NOW(),
+               1,
+               #cityId#)                
+                   
+    </insert>  
+    
+	
+	<update id="updateInsurance" parameterClass="java.util.HashMap">
+		update tf_insurance
+		   set editor_date = NOW()
+           <isNotEmpty prepend="," property="insurant">
+			   		insurant = #insurant#
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="begDate">
+					begin_date = cast(#begDate# AS DATE)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="endDate">
+					end_date = cast(#endDate# AS DATE)
+			</isNotEmpty> 	
+			<isNotEmpty prepend="," property="carNoId">
+					car_no_id = #carNoId#
+			</isNotEmpty> 		 
+			<isNotEmpty prepend="," property="carNoCode">
+					car_no_code = #carNoCode#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="insuranceAgent">
+					insurance_agent = #insuranceAgent#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="purpose">
+					purpose = #purpose#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="insuranceCharge">
+					insurance_charge = #insuranceCharge#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="insuranceFee">
+					insurance_fee = #insuranceFee#
+			</isNotEmpty> 
+			<isNotEmpty prepend="," property="cityId">
+					city_id = #cityId#
+			</isNotEmpty>         	
+			<isNotEmpty prepend="," property="editorMan">
+	          	   editor_man=#editorMan#
+	      	</isNotEmpty>
+	      	<isNotEmpty prepend="," property="executeMan">
+	          	   execute_man=#executeMan#
+	      	</isNotEmpty>
+	       	<isNotEmpty prepend="," property="executeDate">
+	          	   execute_date=cast(#executeDate# AS DATE)
+			</isNotEmpty>
+		where insurance_id = #insuranceId#
+	</update>
+    
+    <!-- 
+		删除保险信息
+	  -->
+	<delete id="deleteInsurance" parameterClass="java.util.HashMap">
+		update tf_insurance 
+		   set insurance_state = 0,
+		   	   editor_man = #editorMan#,
+		   	   editor_date=NOW()
+		 where insurance_id =#insuranceId#
+	</delete>
+    
+    
+    
+</sqlMap>

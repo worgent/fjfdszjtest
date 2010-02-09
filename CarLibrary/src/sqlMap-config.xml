@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+  <properties resource="jdbc.properties"/>
+  <!-- debug环境下，将其设为false. 正式运行时应设为true,启用缓存 -->
+	<settings cacheModelsEnabled="false" enhancementEnabled="true"
+		useStatementNamespaces="true" maxSessions="64" maxTransactions="15"
+		maxRequests="128" />
+  <!-- LRU型cache样例 -->
+  <!--当Cache达到预定设定的最大容量时，按照最少使用的原则将使用频率最少的对象从缓存中清除
+	<cacheModel id="userCache" type="LRU">
+	   <flushInterval hours="24"/>
+	   <flushOnExecute statement="updateUser"/>
+	   <property name="size" value="1000"/>
+	</cacheModel>
+	-->
+  <!-- FIFO型cache样例 -->
+  <!--先进先出型缓存，最先放入Cache中的数据将最先废除
+	<cacheModel id="userCache" type="FIFO">
+	   <flushInterval hours="24"/>
+	   <flushOnExecute statement="updateUser"/>
+	   <property name="size" value="1000"/>
+	</cacheModel>
+	-->
+  <!-- OSCache样例 -->
+  <!--OSCache来自第三方组织Opensymphony,拥有自己的配置文件oscache.properites,支持多机负载均衡
+	<cacheModel id="userCache" type="OSCACHE">
+	   <flushInterval hours="24"/>
+	   <flushOnExecute statement="updateUser"/>
+	   <property name="size" value="1000"/>
+	</cacheModel>
+	--><!--
+  <transactionManager type="JDBC">
+    <dataSource type="SIMPLE">
+      <property name="JDBC.Driver" value="${jdbc.driverClassName}"/>
+      <property name="JDBC.ConnectionURL" value="${jdbc.url}"/>
+      <property name="JDBC.Username" value="${jdbc.username}"/>
+      <property name="JDBC.Password" value="${jdbc.password}"/>
+      <property name="Pool.MaximumActiveConnections" value="10"/>
+      <property name="Pool.MaximumIdleConnections" value="5"/>
+      <property name="Pool.MaximumCheckoutTime" value="120000"/>
+      <property name="Pool.TimeToWait" value="500"/>
+      <property name="Pool.PingQuery" value="select 1 from dual"/>
+      <property name="Pool.PingEnabled" value="false"/>
+      <property name="Pool.PingConnectionsOlderThan" value="1"/>
+      <property name="Pool.PingConnectionsNotUsedFor" value="1"/>
+    </dataSource>
+  </transactionManager>
+  -->
+  
+  <!-- 非常简洁，将用到的sqlMap文件列到这儿就行了 -->
+<!-- ====================================系统相关SqlMap请配置在此下=========================================== -->
+	<sqlMap resource="sqlMap-common.xml"/><!-- 公共 -->
+	<!-- 系统管理员 -->
+  	<sqlMap resource="net/trust/application/systemManage/manager/sqlmap/sqlmap-manager.xml"/>
+  	<!-- 系统日志 -->
+  	<sqlMap resource="net/trust/application/systemManage/log/sqlmap/sqlmap-operatelog.xml"/>
+  	<!-- 系统菜单 -->
+  	<sqlMap resource="net/trust/application/systemManage/menu/sqlmap/sqlmap-menu.xml"/>
+  	<!-- 角色信息管理 -->
+ 	<sqlMap resource="net/trust/application/systemManage/role/sqlmap/sqlmap-roleinfo.xml"/>
+ 	<!-- 系统参数管理 -->
+ 	<sqlMap resource="net/trust/application/systemManage/systemparam/sqlmap/sqlmap-systemParam.xml"/>
+ 	<!-- 短信管理 -->
+ 	<sqlMap resource="net/trust/application/systemManage/sms/sqlmap/sqlmap-smsManage.xml"/>
+ 	<!-- 预警管理 -->
+ 	<sqlMap resource="net/trust/application/systemManage/warninglog/sqlmap/sqlmap-warningLog.xml"/>
+ 	<!-- 工作流定义090224 -->
+ 	<sqlMap resource="net/trust/application/systemManage/flower/sqlmap/sqlmap-flower.xml"/>
+ 	 	
+ 	
+<!-- ====================================基础档案相关SqlMap请配置在此下=========================================== -->
+	<!-- 机构管理 -->
+ 	<sqlMap resource="net/trust/application/baseArchives/institutionManage/sqlmap/sqlmap-institutionManage.xml"/>
+ 	<!-- 部门信息管理 -->
+  	<sqlMap resource="net/trust/application/baseArchives/deptInfo/sqlmap/sqlmap-deptinfo.xml"/>
+  	<!-- 员工信息管理 -->
+  	<sqlMap resource="net/trust/application/baseArchives/employeeInfo/sqlmap/sqlmap-employeeinfo.xml"/>
+  	<!-- 往来单位信息管理 -->
+ 	<sqlMap resource="net/trust/application/baseArchives/recunitInfo/sqlmap/sqlmap-recunitinfo.xml"/>
+ 	<!-- 车辆信息管理 -->
+ 	<sqlMap resource="net/trust/application/baseArchives/carInfo/sqlmap/sqlmap-carinfo.xml"/>
+ 	<!-- 设备信息管理 -->
+ 	<sqlMap resource="net/trust/application/baseArchives/equipment/sqlmap/sqlmap-equipment.xml"/>
+ 	
+ 	
+<!-- ====================================车辆管理相关SqlMap请配置在此下=========================================== -->
+	<!-- 养路费管理 -->
+	<sqlMap resource="net/trust/application/carManage/maintainRoad/sqlmap/sqlmap-maintainroad.xml"/>
+	<!-- 保险管理 -->
+	<sqlMap resource="net/trust/application/carManage/insurance/sqlmap/sqlmap-insurance.xml"/>
+	<!-- 保养管理 -->
+ 	<sqlMap resource="net/trust/application/carManage/maintainmanage/sqlmap/sqlmap-maintainmanage.xml"/>
+ 	<!-- 加油管理 -->
+ 	<sqlMap resource="net/trust/application/carManage/putonsteam/sqlmap/sqlmap-putonsteam.xml"/>
+ 	<!-- 财务管理 -->
+  	<sqlMap resource="net/trust/application/carManage/financemanage/sqlmap/sqlmap-financeManage.xml"/>
+  	<!-- 违章管理 -->
+    <sqlMap resource="net/trust/application/carManage/peccancymanage/sqlmap/sqlmap-peccancymanage.xml"/>
+    <!-- 车辆维修管理 -->
+    <sqlMap resource="net/trust/application/carManage/servicingmanage/sqlmap/sqlmap-servicingManage.xml"/>
+    <!-- 派车登记 -->
+    <sqlMap resource="net/trust/application/carManage/expedite/sqlmap/sqlmap-expedite.xml"/>
+    <!-- 调度管理 -->
+    <sqlMap resource="net/trust/application/carManage/attempermanage/sqlmap/sqlmap-attemperManage.xml"/>
+    <!-- 过路过桥费用管理 -->
+    <sqlMap resource="net/trust/application/carManage/roadBridgeCharge/sqlmap/sqlmap-roadBridgeCharge.xml"/>
+    <!-- 人员考勤 -->
+    <sqlMap resource="net/trust/application/carManage/staffcheckin/sqlmap/sqlmap-staffCheckin.xml"/>
+
+
+<!-- ====================================报表管理相关SqlMap请配置在此下=========================================== -->
+	<!-- 综合报表 -》 位置管理 chenqf -->
+    <sqlMap resource="net/trust/application/report/localitymanage/sqlmap/sqlmap-localityManage.xml"/>
+    <!-- 综合报表 -》 车辆费用统计 chenqf -->
+    <sqlMap resource="net/trust/application/report/carChargeStat/sqlmap/sqlmap-carChargeStat.xml"/>
+    <!-- 综合报表 -》 报警查询 chenqf -->
+    <sqlMap resource="net/trust/application/report/peccancyquery/sqlmap/sqlma-peccancyQuery.xml"/>
+	<!-- 综合报表 -》 行车记录 chenqf -->
+    <sqlMap resource="net/trust/application/report/runrecord/sqlmap/sqlmap-runRecord.xml"/>
+    <!-- 综合报表 -》 车辆状态查询 chenqf -->
+    <sqlMap resource="net/trust/application/report/carstatequery/sqlmap/sqlmap-carStateQuery.xml"/>
+	<!-- szj 2008-9-20 begin -->
+	<!-- 综合报表 -》行驶统计 szj -->
+    <sqlMap resource="net/trust/application/report/rtpdistance/sqlmap/sqlmap-rtpDistance.xml"/>
+	<!-- 综合报表 -》里程异常 szj -->
+    <sqlMap resource="net/trust/application/report/rtpdistanceerror/sqlmap/sqlmap-rtpDistanceError.xml"/>	
+	<!-- 综合报表 -》 保养单据异常 szj -->
+    <sqlMap resource="net/trust/application/report/rtpmaintain/sqlmap/sqlmap-rtpMaintain.xml"/>
+	<!-- 综合报表 -》 签退签到统计 szj -->
+    <sqlMap resource="net/trust/application/report/rtpmotorman/sqlmap/sqlmap-rtpMotorman.xml"/>
+	<!-- 综合报表 -》加油量异常 szj -->
+    <sqlMap resource="net/trust/application/report/rtpputonsteam/sqlmap/sqlmap-rtpPutonsteam.xml"/>
+	<!-- szj 2008-9-20 end -->
+
+
+<!-- ====================================数据采集相关SqlMap请配置在此下=========================================== -->
+	<!-- GPS接口数据采集规则配置 -->
+    <sqlMap resource="net/trust/application/datacollection/interfetchconfig/sqlmap/sqlmap-interFetchConfig.xml"/>
+</sqlMapConfig>
