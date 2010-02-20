@@ -1,0 +1,68 @@
+<!--
+	 /********************************************
+	 * 文件名称：demo.htm
+	 * 功能描述：高级组合查询控件用例
+	 * 创建日期：2008-07-18
+	 * @author：codeslave
+	 * @version 0.4
+	 *********************************************/
+-->
+<html>
+<head>
+<title>高级组合查询控件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link type="text/css" rel="stylesheet" href="highquery/style.css" />
+<script type="text/javascript" src="highquery/highquery.js"></script>
+<script type="text/javascript">
+<!--
+
+// 测试用
+function show()
+{
+	txtAlias.value = "";
+	txtField.value = "";
+	var arrReturn = interpreter();
+	txtAlias.value = arrReturn[0];
+	txtField.value = arrReturn[1];
+}
+
+// 选择类别
+function choiceCategory()
+{
+	var config = "scrollbars=no;status=no;dialogLeft="+300+"px;dialogTop="+200+"px;dialogWidth="+170+"px;dialogHeight="+130+"px";
+	return window.showModalDialog("choicelist.htm", null, config); // 必须返回值(由编号和描述组成的数组)
+}
+
+//-->
+</script>
+</head>
+<body>
+<div id="highQueryPanel">
+</div>
+<script type="text/javascript">
+<!--
+
+// 字段信息
+FieldList.add(new Field('No', '编号', 'number', '10', ''));
+FieldList.add(new Field('Name', '名称', 'varchar', '100', ''));
+FieldList.add(new Field('Date_Type', '日期', 'date', '19', ''));
+FieldList.add(new Field('DateTime_Type', '日期时间', 'datetime', '19', ''));
+FieldList.add(new Field('Remark', '备注', 'varchar', '500', ''));
+FieldList.add(new Field('Category', '类别', 'varchar', '1', 'choiceCategory')); // 必须实现choiceCategory这个方法
+FieldList.add(new Field('', '请选择一个字段', '', '0', '')); // 空白，必须是最后加入
+
+// 初始化
+initHighQuery();
+
+//-->
+</script>
+<br>
+<input type="button" class="HQ_BUTTON" onClick="show();" value="查看条件文本">
+<br>
+别名形式：<br>
+<textarea class="HQ_TEXTAREA" id="txtAlias" rows="6" cols="100"></textarea>
+<br>
+字段名形式：<br>
+<textarea class="HQ_TEXTAREA" id="txtField" rows="6" cols="100"></textarea>
+</body>
+</html>
