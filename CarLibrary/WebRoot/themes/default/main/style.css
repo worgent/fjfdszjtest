@@ -1,0 +1,99 @@
+#main {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px
+}
+#content {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+.entry {
+	BORDER-RIGHT: #dadada 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #dadada 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(images/box.gif) #fff repeat-x left top; FLOAT: left; PADDING-BOTTOM: 10px; MARGIN: 0px 0px 10px; BORDER-LEFT: #dadada 1px solid; WIDTH: 510px; PADDING-TOP: 10px; BORDER-BOTTOM: #dadada 1px solid
+}
+#sidebar {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: right; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 280px; PADDING-TOP: 0px
+}
+.rsidebar {
+	BORDER-RIGHT: #dadada 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #dadada 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(images/box.gif) #fff repeat-x left top; FLOAT: right; PADDING-BOTTOM: 10px; MARGIN: 0px 0px 10px; BORDER-LEFT: #dadada 1px solid; WIDTH: 270px; PADDING-TOP: 10px; BORDER-BOTTOM: #dadada 1px solid
+}
+.rsidebar H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 5px; PADDING-TOP: 0px; BORDER-BOTTOM: #eee 1px solid
+}
+.rsidebar UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+.rsidebar UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 10px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+.rsidebar UL LI UL {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: square
+}
+.rsidebar UL LI UL LI {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 20px; BACKGROUND: url(images/li.gif) no-repeat; PADDING-BOTTOM: 5px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; LIST-STYLE-TYPE: none
+}
+.navigation {
+	FLOAT: left; WIDTH: 510px; COLOR: #666
+}
+.alignright {
+	MARGIN-TOP: 10px; FLOAT: right
+}
+.alignleft {
+	MARGIN-TOP: 10px; FLOAT: left
+}
+SPAN.cmt {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 20px; BACKGROUND: url(images/comment.gif) no-repeat; PADDING-BOTTOM: 5px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px
+}
+SPAN.cty {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 20px; BACKGROUND: url(images/category.gif) no-repeat; PADDING-BOTTOM: 5px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px
+}
+SPAN.next {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 20px; BACKGROUND: url(images/next.gif) no-repeat; PADDING-BOTTOM: 5px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px
+}
+SPAN.prev {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 20px; BACKGROUND: url(images/prev.gif) no-repeat; PADDING-BOTTOM: 5px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px
+}
+.postmetadata {
+	PADDING-RIGHT: 5px; BORDER-TOP: #eee 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 10px; PADDING-BOTTOM: 5px; MARGIN: 0px; PADDING-TOP: 5px
+}
+.boxcomments {
+	BORDER-TOP: #ddd 5px solid; MARGIN-BOTTOM: 20px; WIDTH: 600px; BORDER-BOTTOM: #ddd 5px solid
+}
+#commentform {
+	PADDING-RIGHT: 15px; BORDER-TOP: #eee 1px solid; PADDING-LEFT: 15px; PADDING-BOTTOM: 1px; MARGIN: 0px; PADDING-TOP: 15px
+}
+#commentform LABEL {
+	DISPLAY: block; MARGIN: 0px
+}
+#commentform INPUT {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; MARGIN: 0px 5px 10px 0px; WIDTH: 170px; PADDING-TOP: 1px
+}
+#commentform TEXTAREA {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 10px; WIDTH: 400px; PADDING-TOP: 0px
+}
+#commentform #submit {
+	MARGIN: 0px 0px 20px
+}
+#commentform P {
+	MARGIN: 5px 0px
+}
+OL.commentlist {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 1px; PADDING-TOP: 0px
+}
+OL.commentlist :hover {
+	BACKGROUND: #eee
+}
+OL.commentlist LI {
+	PADDING-RIGHT: 15px; BORDER-TOP: #eee 1px solid; DISPLAY: block; PADDING-LEFT: 15px; PADDING-BOTTOM: 1px; MARGIN: 0px; PADDING-TOP: 15px; LIST-STYLE-TYPE: none
+}
+OL.commentlist LI :hover {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+OL.commentlist LI.commenthead {
+	PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 15px; PADDING-BOTTOM: 5px; MARGIN: 0px; PADDING-TOP: 5px; LIST-STYLE-TYPE: none
+}
+OL.commentlist LI.commenthead H2 {
+	MARGIN: 0px
+}
+OL.tblist {
+	PADDING-RIGHT: 15px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 15px; PADDING-BOTTOM: 15px; MARGIN: 0px 0px 1px; PADDING-TOP: 15px; LIST-STYLE-TYPE: none
+}
+OL.tblist LI {
+	DISPLAY: block; PADDING-LEFT: 15px; BACKGROUND: url(images/c.gif) no-repeat 0px 2px; MARGIN: 0px 0px 5px; LIST-STYLE-TYPE: none
+}
