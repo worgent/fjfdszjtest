@@ -1,0 +1,234 @@
+/*****************************************
+ *         jafMenu菜单样式               *
+ *         chenf  20050921               *
+ *         山东   济南                   *
+ *****************************************/
+
+
+<PUBLIC:attach event="ondocumentready" onevent="initElement()" />
+
+<PUBLIC:method   name="loadMenu" />
+<PUBLIC:property name="url"/>
+<PUBLIC:property name="root"/>
+<PUBLIC:property name="menutStyle"/>
+
+<script language="jscript">
+	var src = "";
+	var root ="";
+	var errorMenuInfo = "无法加载菜单!";
+	var XX=new ActiveXObject("Microsoft.XMLDOM");
+	XX.async=false;
+	//XX.load("themes/default/menu/menu.xsl");
+
+	function initElement(){
+		url=element.url;
+		root=element.root;
+		initLoad();
+		createLoadingMenu();
+	}
+
+	function initLoad(){
+		if(!havElement(element,root)){
+			loadMenu(null,null,root,true,true);
+		}
+	}
+	function havElement(el,elId){
+		var Children=el.children;
+		for(var i=0;i<Children.length;i++){
+			if(Children[i].id !=null && Children[i].id!="" && Children[i].id.toUpperCase()==elId.toUpperCase()){
+				return true;
+			}
+		}
+		return false;
+	}
+	function send(elId){
+		
+		var xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		if(url==null || url == "")
+			url=element.parentElement.url;
+		//alert(url);
+		if(url.indexOf("?")!=-1){
+			url=url+"&";
+		}else{
+			url=url+"?";
+		}
+		try{
+			with(xmlhttp)
+			{
+				//alert(url+"menuInfo.menuId="+elId);
+				open("get",url+"menuInfo.menuId="+elId,false);
+				setRequestHeader("Content-Type","text/xml");
+				send();
+				return responseXML.documentElement.selectSingleNode("/MenuNodes");
+			}
+		}catch(ex){
+		return null;}
+
+	}
+/*----------*/
+
+//---------------------------------------------------------------------
+/***
+ * chenf 20050922 修改，避免菜单被下拉框等破坏
+ **/
+function showFrame(el){
+	if(el==null)
+		return;
+	//从页面上获取垫层
+	var shim = getShim(el);
+	//如果所获取的垫层不存在，则创建
+	if(shim==null)
+		shim=createMenuShim(el);
+	if(shim==null)
+		return;
+	with(shim.style){
+		visibility = "visible";
+		left = el.offsetLeft;
+		top = el.offsetTop;
+		width = el.offsetWidth;
+		height = el.offsetHeight;
+		position="absolute";
+		display = "block";
+	}
+}
+
+function hideFrame(el){
+
+	if(el==null)
+		return;
+	var shim = getShim(el);
+	if(shim==null)
+		return;
+	shim.style.display = "none";
+}
+//为菜单创建一个垫层
+function createMenuShim(el)
+{
+	if (el==null) 
+		return null;
+	var shim = document.createElement("<iframe scrolling='no' frameborder='0'"+
+				      "style='position:absolute; top:0px;"+
+				      "left:0px; display:none'></iframe>"); 
+	shim.name = getShimId(el);
+	shim.id =  getShimId(el);
+	if (el.offsetParent==null || el.offsetParent.id=="") {
+		window.document.body.appendChild(shim);
+	}else {
+		el.offsetParent.appendChild(shim); 
+	}
+
+	return shim;
+}
+//生成一个垫层id
+function getShimId(el){
+	return "Shim_"+el.id;
+}
+//通过菜单ID来获取垫层
+function getShim(el)
+{
+    return window.document.getElementById(getShimId(el));
+}
+
+	//-----------------------------------------------------------------------
+	function showMenu(el,srcEl,subMenu,b) {
+		var x;
+		var y;
+		var w=0;
+		if(!b){
+			with (srcEl) {
+				x = offsetLeft + offsetWidth - 1 ;
+				y = offsetTop + el.offsetTop ;
+			}
+		}else{
+			with (srcEl) {
+				x = offsetLeft + parentElement.parentElement.parentElement.offsetLeft ;
+				y = offsetTop + offsetHeight + parentElement.parentElement.parentElement.offsetTop - 3 ;
+				w = offsetWidth - 2 ;
+			}
+		}
+		
+		var currentSubMenu = window.document.getElementById(subMenu) ;
+		
+		//alert(currentSubMenu+":"+subMenu);
+		with (currentSubMenu.style) {
+			left = x ;
+			top = y ;
+			try {
+				if (w != 0) {
+					with (srcEl.children(0).children(0).children(0).children(0).style) {
+						display = "" ;
+						width = w ;
+						top = srcEl.offsetTop - y - 1 ;
+						left = srcEl.offsetLeft - x ;
+					}
+				}
+				else {
+					with (srcEl.children(0).children(0).children(0).children(0).style) {
+						width = 0 ;
+					}
+				}
+			}
+			catch(e) {
+			
+			}
+			visibility = "visible" ;
+		}
+		
+		//srcEl.menuState = false ;
+		if(!b){
+			srcEl.menuState = true ;
+		}
+		showFrame(currentSubMenu);
+	}
+
+	function loadMenu(el,srcEl,elId,isRoot,b){
+
+		var menu = send(elId);
+		//alert(menu);
+		if(elId=="Root"){
+			if(menutStyle==null || menutStyle=="h")
+				XX.load("/themes/default/menu/menubar.xsl");
+			else
+				XX.load("/themes/default/menu/menumain.xsl");
+		}else{
+			XX.load("/themes/default/menu/menu.xsl");
+		}
+		//alert(menu.transformNode(XX));
+		if (menu != null){
+			//window.document.all.MenuDiv.innerHTML+=menu.transformNode(XX);
+			if(isRoot)
+				window.document.all.MenuDiv.innerHTML+=menu.transformNode(XX);
+			else{
+				addMenu(elId,menu);
+				showMenu(el,srcEl,elId,b);
+
+			}
+		}
+		
+		else{
+			//window.document.all.MenuDiv.innerHTML+=errorMenu(elId,isRoot);
+		}
+
+	}
+	function addMenu(elId,menu){
+		with(window.document){
+			var SubMenuDiv = createElement("DIV");
+			SubMenuDiv.innerHTML=menu.transformNode(XX);
+			body.appendChild(SubMenuDiv);
+		}
+	}
+	function errorMenu(elId,isRoot){
+		//return "<table class=\"xpMenu\" id=\""+elId+"\" cellspacing=\"0\" cellpadding=\"0\"><thead><tr><td colspan=\"5\"><div class=\"2k3MenuRootConnector\"></div></td></tr></thead>	<tbody>	<tr class=\"2k3MenuItem\"><td class=\"2k3MenuVerticalSpacerLeft\"></td>	<td class=\"2k3MenuImage\"><img src=\"images/loading.gif\" width=\"16\" height=\"16\"></td><td class=\"2k3MenuCaption\">Load Error</td><td class=\"2k3MenuNoMore\">4</td><td class=\"2k3MenuVerticalSpacerRight\"></td></tr><tfoot><tr><td colspan=\"5\"></td></tr></tfoot></table>";
+	}
+	function createLoadingMenu(){
+		/*
+		var LoadingDiv = window.document.createElement("DIV");
+		
+		var loadingTable= "<table class=\"xpMenu\" id=\"\" cellspacing=\"0\" cellpadding=\"0\"><thead><tr><td colspan=\"5\"><div class=\"2k3MenuRootConnector\"></div></td></tr></thead>	<tbody>	<tr class=\"2k3MenuItem\"><td class=\"2k3MenuVerticalSpacerLeft\"></td>	<td class=\"2k3MenuImage\"><img src=\"images/loading.gif\" width=\"16\" height=\"16\"></td><td class=\"2k3MenuCaption\">Loading Menu</td><td class=\"2k3MenuNoMore\">4</td><td class=\"2k3MenuVerticalSpacerRight\"></td></tr><tfoot><tr><td colspan=\"5\"></td></tr></tfoot></table>";
+		LoadingDiv.id="LoadingDiv"
+		LoadingDiv.innerHTML=loadingTable;
+		window.document.body.appendChild(LoadingDiv);
+		*/
+	}
+
+</script>

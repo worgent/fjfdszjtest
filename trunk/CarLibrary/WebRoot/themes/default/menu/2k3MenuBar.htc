@@ -1,0 +1,103 @@
+<PUBLIC:COMPONENT
+    lightWeight = true
+>
+
+<PUBLIC:DEFAULTS
+    contentEditable = false
+    tabStop = true
+/>
+
+<PUBLIC:attach event="ondocumentready" onevent="initElement()" />
+<PUBLIC:attach event="onmouseover" onevent="elementOnMouseOver()" />
+<PUBLIC:attach event="onmouseout" onevent="elementOnMouseOut()" />
+<PUBLIC:attach event="onmousedown" onevent="elementOnMouseDown()" />
+<PUBLIC:attach event="onmouseup" onevent="elementOnMouseUp()" />
+<PUBLIC:attach event="onselectstart" onevent="elementOnSelect()" />
+<PUBLIC:attach event="oncontextmenu" onevent="elementOnContextMenu()" />
+<PUBLIC:attach event="ondetach" onevent="cleanupElement()" />
+
+<PUBLIC:property name="activeChild" value=null put="setActiveChild" get="returnActiveChild" />
+
+<script language="jscript">
+
+// ----------------------------------------------------
+// 2k3Widgets: 2k3MenuBar
+// 
+// Copyright ©2002-2004 Stedy Software and Systems     
+// Please see http://www.stedy.com for terms of use.   
+// ----------------------------------------------------
+
+var objTableBody = null ;
+var objTableRow = null ;
+var objTableSpacerCell = null ;
+
+function initElement() {
+	objTableBody = element.tBodies[0] ;
+	objTableRow = objTableBody.children[0] ;
+	objTableSpacerCell = objTableRow.insertCell() ;
+	objTableSpacerCell.style.width = "100%" ;
+}
+
+function cleanupElement() {
+	if (objTableSpacerCell != null) {
+		objTableSpacerCell.removeNode(true) ;
+	}
+}
+
+function elementOnMouseOver() {
+}
+
+function elementOnMouseOut() {
+}
+
+function elementOnMouseDown() {
+}
+
+function elementOnMouseUp() {
+}
+
+function elementOnSelect() {
+	with (window.event) {
+		cancelBubble = true ;
+		returnValue = false ;
+	}
+	return false ;
+}
+
+function elementOnContextMenu() {
+	with (window.event) {
+		cancelBubble = true ;
+		returnValue = false ;
+	}
+	return false ;
+}
+
+function setActiveChild(el)	{
+	element.parentElement.activeChild = el ;
+}
+
+function returnActiveChild()	{
+	return element.parentElement.activeChild ;
+}
+
+function makeBooleanOfAttribute(attName) {
+	a = element.getAttribute(attName) ;
+	if (typeof(a) == "boolean") {
+		return a ;
+	}
+	else if (a == null) {
+		a = false ;
+	}
+	else if (typeof(a) == "string") {
+		a = a.toLowerCase() ;
+		a = (a == "true" || a == "1" || a == "yes") ;
+	}
+	else {
+		a = new Boolean(a) ;
+	}
+	return a ;
+}
+
+</script>
+
+</PUBLIC:COMPONENT>

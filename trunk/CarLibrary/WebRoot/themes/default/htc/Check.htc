@@ -1,0 +1,535 @@
+
+<HTML XMLNS:CHECK> 
+<HEAD> 
+<PUBLIC:COMPONENT   id="Check"   urn="maf:Check">     
+  <PUBLIC:attach	 event="oncontentready" onevent="init()" />
+  <PUBLIC:PROPERTY   name="verify" value="string"  />              
+  <PUBLIC:PROPERTY   name="min"/>
+  <PUBLIC:PROPERTY   name="max"/>
+  <PUBLIC:PROPERTY   name="msg" value=""/>
+  <PUBLIC:PROPERTY   name="bool"/>
+  <PUBLIC:PROPERTY   name="confirmAction"/>
+  <PUBLIC:PROPERTY   name="confirm"/>
+
+  <PUBLIC:PROPERTY   name="required" value="false"/>
+  <PUBLIC:PROPERTY   name="requiredColor" value="#FFB6C1"/>
+  <PUBLIC:PROPERTY   name="invalidColor" value="#FFE4C4"/>
+  
+  <PUBLIC:PROPERTY   name="expr"/>
+  <PUBLIC:PROPERTY   name="shade" value="false"/>
+  <PUBLIC:PROPERTY   name="position" value="right"/>
+  <PUBLIC:PROPERTY   name="havErrMsgs"/>
+  <PUBLIC:PROPERTY   name="reg"/>
+  
+  <PUBLIC:METHOD   NAME="doCheck"/>
+  <PUBLIC:METHOD   NAME="setExtMsg"/>
+
+  <PUBLIC:ATTACH   event="onblur"   onevent="doCheck()"/>
+  <PUBLIC:ATTACH   event="onmouseover"   onevent="doonmouseover()"/>
+  <PUBLIC:ATTACH   event="onmouseout"   onevent="doonmouseout()"/>
+  <PUBLIC:ATTACH   event="onmouseup"   onevent="doonmouseup()"/>
+
+</PUBLIC:COMPONENT>
+</HEAD> 
+
+
+<BODY> 
+<SCRIPT LANGUAGE="JavaScript"> 
+<!-- 
+var verify ;
+var value ;
+var oldBackgroundColor ;
+var oldmsg ;
+var havMsg = false ;
+var x = 0;
+var y = 0;
+var havtd = false;
+var extMsg = null;
+function init() 
+{ 
+	element.msg=new String(element.msg).replace("\n","<br>");
+	if(element.required == "true" && element.requiredColor!=""){
+		element.style.backgroundColor = element.requiredColor;
+	}
+	if(element.msg==null || element.msg==""){
+		havMsg = true;
+	}
+	element.havErrMsgs = window.document.getElementById("errMsgs")!=null;
+} 
+function initRealPosition(obj){
+	with(obj){
+		if(tagName!="BODY"){
+			if(!havtd && tagName == "TD"){
+				havtd = true;
+			}
+			if(obj == element || tagName=="TD"  || tagName=="TABLE"){
+				x=x+obj.offsetLeft;
+				y=y+obj.offsetTop;
+			}
+			initRealPosition(parentElement);
+		}
+	}
+}
+function doonmouseover(){
+	if(element.havErrMsgs){
+		var objDiv = GetElementById();
+		if(objDiv!=null){
+			objDiv.className="selErrMsg";
+		}
+	}
+}
+function doonmouseout(){
+	if(element.havErrMsgs){
+		var objDiv = GetElementById();
+		if(objDiv!=null){
+			objDiv.className="errMsg";
+		}
+	}
+}
+function doonmouseup(){
+	if(element.confirm!=null){
+		element.confirmAction=true;
+	}
+}
+function   doCheck()
+{
+	if(!window.euid__curr)
+	{
+		window.euid__curr=element.uniqueID;
+	}
+
+	bool=true;//标志当前element校验是否成功
+	
+	verify =element.verify;
+	value=new String(trim(element.value));
+	var tmpmsg ;
+	//1、校验当前输入长度，必须在要求范围，只要有设置开始个数与结束个数就进行校验
+	if(!checkLength())
+	{
+		bool=false;
+		tmpmsg="";
+	}else if (verify=="samefield"){
+		//比较两个元素的值是否是一样的
+		var obj = window.document.getElementById(element.field) ;
+		if(obj!=null){
+			if(obj.value!=element.value){
+				if(element.msg==null || element.msg==""){
+					setMsg("两次输入的值不一致,请核实!");
+				}
+				bool = false;
+			}
+		}
+	}else {
+		if(value.length==0 && element.required=="false"){
+			bool = true;
+		}else if(checkRequired(element) && element.required=="true"){
+			setMsg("该项不能为空!");
+			bool=false;
+		}else{
+			var tempstr ;
+		
+			switch (verify){ 
+			   case "string":
+			      	break;
+			   case "numchar":
+				//数字＋字母
+				tempstr=/^[A-Za-z0-9]+$/;
+				tmpmsg = "您只能输入数字和英文字母,请重新检查!";
+				break;
+			   case "int" : 
+			 	tempstr=/^[-\+]?\d+$/;
+				tmpmsg="输入必须是整数,请重新检查!";
+				break;
+			   case "int+":
+				tempstr=new RegExp("^[0-9]*[1-9][0-9]*$");
+				tmpmsg="输入必须是正整数,请重新检查!";
+				break;
+			   case "int+0":
+				tempstr=new RegExp("^\\d+$");
+				tmpmsg="输入必须是非负整数,请重新检查!";
+				break;
+			   case "int-":
+				tempstr=new RegExp("^-[0-9]*[1-9][0-9]*$");
+				tmpmsg="输入必须是负整数,请重新检查!";
+				break;
+			   case "int-0":
+				tempstr=new RegExp("^((-\\d+)|(0+))$");
+				tmpmsg="输入必须是非正整数,请重新检查!";
+				break;
+			   case "double" : 
+			 	tempstr=new RegExp("^(-?\\d+)(\\.\\d+)?$");
+				tmpmsg="输入必须是浮点数,请重新检查!";
+				break;
+			   case "double+":
+				tempstr=new RegExp("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$");
+				tmpmsg="输入必须是正浮点,请重新检查!";
+				break;
+			   case "double+0":
+				tempstr=new RegExp("^\\d+(\\.\\d+)?$");
+				tmpmsg="输入必须是非负浮点数,请重新检查!";
+				break;
+			   case "double-":
+				tempstr=new RegExp("^(-(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*)))$");
+				tmpmsg="输入必须是负浮点数,请重新检查!";
+				break;
+			   case "double-0":
+				tempstr=new RegExp("^((-\\d+(\\.\\d+)?)|(0+(\\.0+)?))$");
+				tmpmsg="输入必须是非正浮点数,请重新检查";
+				break;
+			   case "email" :  
+			 	tempstr=/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+				tmpmsg="email格式不正确,请重新检查!";
+			      	break; 
+			   case "date" :
+				var r = value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/); 
+				
+				if(r==null)
+					bool = false; 
+				else {
+					var d = new Date(r[1], r[3]-1, r[4]); 
+					bool= (d.getFullYear()==r[1]&&(d.getMonth()+1)==r[3]&&d.getDate()==r[4]);
+				}
+				if(!bool){
+					setMsg("日期格式不正确,请重新检查!");
+				}
+			      	break; 
+			   case "datetime" :
+				var r = value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/); 
+				if(r==null){
+					bool = false; 
+				}else{
+					var d = new Date(r[1], r[3]-1,r[4],r[5],r[6],r[7]); 
+					bool = (d.getFullYear()==r[1]&&(d.getMonth()+1)==r[3]&&d.getDate()==r[4]&&d.getHours()==r[5]&&d.getMinutes()==r[6]&&d.getSeconds()==r[7]);
+				}
+				if(!bool){
+					setMsg("时间格式不正确,请重新检查!");
+				}
+				break;
+			   case "card" :
+				//验证15位是否正确
+				tempstr = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+				if(!tempstr.test(value)){
+					//判断18位是否正确
+					tempstr = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
+					if(!tempstr.test(value)){
+						setMsg("身份证格式不正确,请重新检查!");
+						bool=false;
+					}
+				}
+				tempstr=null;
+			   	break;
+			   case "ip" :
+			 	tempstr=/(\d+)\.(\d+)\.(\d+)\.(\d+)/g;
+				tmpmsg="IP地址格式不正确,请重新检查!";
+				break;
+			   case "empty" :
+				tmpmsg="该字段非空!请操作!";
+			 	if(value=="")
+			 	{
+			 		bool=false;
+			 	}
+				break;
+			   case "qq" :
+				tempstr=/^[1-9]\d{4,8}$/;
+				tmpmsg="QQ号不正确!";
+				break;
+			   case "post" :
+				tempstr=/^\d{6}$/;
+				tmpmsg="邮政编码不正确,请重新检查!";
+				break;
+			   case "url" :
+				tmpmsg="url地址格式不正确,请重新检查!";
+				tempstr=new RegExp("^[a-zA-z]+://(\\w+(-\\w+)*)(\\.(\\w+(-\\w+)*))*(\\?\\S*)?$");
+				break;
+			   case "other":
+				if(element.reg!=null && element.reg!=""){
+					tempstr=new RegExp(element.reg);
+				}
+				break;
+			   default : 
+			} 
+		 	if(tempstr!=null && !tempstr.test(value))
+		 	{
+				setMsg(tmpmsg);
+		 		bool=false;
+		 	}else{
+				tmpmsg=null;
+			}
+		}
+	}
+	if(bool){
+		//如果表达式不为空时，执行表达式
+		if(element.expr!=null && element.expr!=""){
+			bool = eval("window."+element.expr);
+			if(!bool && extMsg!=null){
+				tmpmsg=extMsg;
+				setMsg(tmpmsg);
+				extMsg = null;
+			}
+		}
+	}
+	if(bool){
+		element.style.backgroundColor=oldBackgroundColor;
+		removeDiv();
+	}else{
+		if(tmpmsg==null && oldmsg!=null){
+			setMsg(oldmsg);
+		}
+		if(oldBackgroundColor==undefined ){
+			oldBackgroundColor = element.style.backgroundColor;
+		}
+		element.style.backgroundColor=element.invalidColor;
+		showErrMsg(this);
+	}
+
+	window.euid__curr = null;     
+	return true;
+}
+function setExtMsg(msg){
+	extMsg = msg;
+}
+function setMsg(msg){
+	//元素本身有提示内容,但是现在传入提示内容与目前传入的消息不一样时
+	//先将原先的内容保存
+	if(!havMsg && msg!=element.msg && oldmsg==null){
+		oldmsg = element.msg ;
+	}
+	
+	if(GetElementById()!=null)
+		inserHtmlByDiv(msg);
+	else{
+		element.msg=msg;
+	}
+}
+function checkRequired(obj){
+	var tagName = obj.tagName;
+	switch(tagName){
+		case "INPUT" :
+			if(obj.type=="text" || obj.type=="password"){
+				return obj.value.length==0;
+			}else if(obj.type=="checkbox"){
+				if(window.document.all(obj.name).length=="undefind"){
+					return obj.checked==true;
+				}else{
+					var ilen = window.document.all(obj.name).length;
+					for(var i=0;i<ilen;i++){
+						if(window.document.all(obj.name)[i].checked){
+							return false;
+						}
+					}
+				}
+				return true;
+			}
+			break;
+		case "SELECT" :
+			//value = obj.options[obj.selectedIndex].value;
+			return !(obj.selectedIndex>=0);
+			break;
+		case "TEXTAREA":
+			return obj.value.length==0;
+			break;
+		default:
+			return obj.value.length==0;
+	}
+}
+//判断长度是否满足
+function checkLength(){
+	
+	var iminlen = parseInt(element.min);
+	var imaxlen = parseInt(element.max);
+	var isize = 0;
+	with(element){
+		switch(tagName){
+			case "INPUT" :
+				if(type == "text" || type == "password"){
+					//判断值长度是否满足最小范围
+					isize = value.length
+				}else if(type=="checkbox"){
+					var isize = 0;
+					if(window.document.all(name).length=="undefind"){
+						isize = 1;
+					}else{
+						var ilen = window.document.all(name).length;
+						for(var i=0;i<ilen;i++){
+							if(window.document.all(name)[i].checked){
+								isize++;
+							}
+						}
+					}
+				}
+				break;
+			case "SELECT" :
+				if(multiple){
+					var ilen = options.length;
+					var isize = 0;
+					for(var i=0;i<ilen;i++){
+						if(options[i].selected){
+							isize++;
+						}
+					}
+				}
+				break;
+			default:
+				isize = value.length;
+		}
+	}
+	var msg = "";
+	if((iminlen!=NaN) && iminlen>0 && imaxlen!=NaN && imaxlen>0){
+		if(iminlen>isize || imaxlen<isize){
+			setMsg("该项必须在"+iminlen+"-"+imaxlen+"个之间!");
+			return false;
+		}
+	}else if(imaxlen!=NaN && imaxlen>0){
+		if(imaxlen<isize){
+			setMsg("该项必须小于等于"+imaxlen+"个!");
+			return false;
+		}
+	}else if((iminlen!=NaN) && iminlen>0){
+		if(iminlen>isize){
+			setMsg("该项必须大于等于"+iminlen+"个!");
+			return false;
+		}
+	}
+	if(!element.havErrMsgs && msg!=""){
+		element.msg = msg;
+	}
+	return true;
+}
+
+//显示错误提示
+var obj;
+function showErrMsg(o)
+{
+	obj = o;
+
+	if(obj.show != "true" ||!checkMsg())
+	{
+		createDiv();
+	}
+	else
+	{
+		lightDiv();
+		if(element.shade=="true")
+			removeDiv();
+	}
+}
+
+//清除提示框
+function hiddenErrMsg()
+{
+	if(checkMsg())
+	{
+		document.body.removeChild(message);
+	}
+}
+
+//渐渐隐藏错误信息提示
+function removeDiv()
+{
+	if(checkMsg())
+	{
+		if(GetElementById().filters.Alpha.opacity>1 && element.shade=="true")
+		{
+			GetElementById().filters.Alpha.opacity -= 1;
+			window.setTimeout(removeDiv,25);
+		}else{
+			GetElementById().style.display = "none";
+		}
+		
+	}
+
+}
+function GetElementById()
+{
+	return window.document.getElementById(element.uniqueID+"message");
+}
+//新建一个div 显示非法输入提示信息
+function createDiv()
+{
+	if(GetElementById()==null)
+	{
+		var objDiv = window.document.createElement("div");
+		objDiv.setAttribute("id",element.uniqueID+"message");
+	}
+	
+	objDiv.className = "msg";
+	objDiv.style.filter = "Alpha(Opacity=100);";
+	objDiv.style.zIndex="10000";
+	objDiv.innerHTML = "<img src='/themes/default/images/errorInfo.gif' width=13 height=12/> " + element.msg;
+	//inserHtmlByDiv(element.msg);
+	if(element.havErrMsgs){
+		var errMsgs = window.document.getElementById("errMsgs");
+		objDiv.className="errMsg";
+		errMsgs.insertAdjacentElement("afterEnd",objDiv);
+	}else{
+		objDiv.style.position="absolute";
+		window.document.body.appendChild(objDiv);
+		initRealPosition(element);
+		if(!havtd){
+			x=element.offsetLeft;
+			y=element.offsetTop;
+		}
+		initPosition(objDiv);
+		objDiv.attachEvent("onclick",removeDiv);
+	}
+	element.setAttribute("show","true");
+	
+	if(element.shade=="true")
+	    removeDiv();
+}
+function inserHtmlByDiv(msg){
+	GetElementById().innerHTML = "<img src='/themes/default/images/errorInfo.gif' width=13 height=12/> " + msg;
+	
+}
+//初化信息的位置
+function initPosition(objDiv){
+	
+	if(position=="bottom"){
+		objDiv.style.left = x+30;
+		objDiv.style.top = y+element.offsetHeight-3;
+	}else if(position=="left"){
+		objDiv.style.left = x-objDiv.offsetWidth;
+		objDiv.style.top = y;
+	}else if(position=="right"){
+		objDiv.style.left = x+element.offsetWidth;
+		objDiv.style.top = y;
+	}else if(position=="top"){
+		objDiv.style.left = x+30;
+		objDiv.style.top = y-element.offsetHeight+3;//obj.offsetTop + obj.clientHeight +20;
+	}
+}
+//当确认已经建立了 div 只要加深,不透明既可
+function lightDiv()
+{
+	GetElementById().style.display = "";
+	GetElementById().filters.Alpha.opacity = 100;
+}
+
+//判断div是否备清除 
+function checkMsg()
+{
+	var ele =  GetElementById() ;
+	return (typeof(ele)=="object" && ele!=null);
+}
+
+
+  function   trim(str)
+  {   
+	  if(str.length>0)   
+	  {   
+		  while((str.substring(0,1)==" ")&&(str.length>0))   
+		  {   
+		      str=str.substring(1,str.length);
+		  }   
+  		  while(str.substring(str.length-1,str.length)==" ")
+		  {   
+		  	  str=str.substring(0,str.length-1);
+		  }   
+	  }
+	  return   str;
+  }   
+ // --> 
+
+</SCRIPT> 
+</BODY> 
+</HTML>

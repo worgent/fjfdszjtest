@@ -1,0 +1,116 @@
+@charset "utf-8";
+/*如果提示消息集中显示时,选择所对应的元素时改变信息样式*/
+.selErrMsg{
+	font-size: 12px;
+	padding: 2 5 2 5;
+	color:crimson;
+}
+/*如果提示消息集中显示时样式*/
+.errMsg{
+	font-size: 12px;
+	padding: 2 5 2 5;
+}
+/*正常信息样式*/
+.msg{
+	background-color:"#FFFFDD";
+	border:1px solid #000000;
+	font-size: 12px;
+	padding: 2 5 2 5;
+}
+
+.check{
+	behavior: url(/themes/default/htc/Check.htc);
+}
+form{
+	behavior: url(/themes/default/htc/formcheck.htc);
+}
+TD {
+	FONT-SIZE: 10pt; COLOR: #353535; LINE-HEIGHT: 120%
+}
+BODY {
+	FONT-SIZE: 12pt; LINE-HEIGHT: 120%
+}
+TD {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+TH {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #003399; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: #003399; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #003399; TEXT-DECORATION: underline
+}
+A:hover {
+	RIGHT: 0px; COLOR: #ff0000; POSITION: relative; TOP: 0px; TEXT-DECORATION: underline
+}
+.wenbenkuang {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #999999 1px solid; COLOR: #333333; BORDER-BOTTOM: #999999 1px solid; FONT-FAMILY: Arial, Helvetica, sans-serif;
+}
+.go-wenbenkuang {
+	BORDER-RIGHT: #666666 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #ffffff 1px solid; PADDING-LEFT: 1px; FONT-SIZE: 9pt; PADDING-BOTTOM: 1px; BORDER-LEFT: #ffffff 1px solid; CURSOR: hand; COLOR: #333333; PADDING-TOP: 1px; BORDER-BOTTOM: #666666 1px solid; FONT-FAMILY: Arial, Helvetica, sans-serif;; HEIGHT: 19px; BACKGROUND-COLOR: #eeeeee
+}
+.STYLE1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px
+}
+.STYLE2 {
+	FONT-WEIGHT: bold
+}
+.STYLE4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px
+}
+.STYLE5 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt
+}
+.STYLE6 {
+	FONT-SIZE: 10pt
+}
+.text_a:link {
+	COLOR: #002065; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.text_a:hover {
+	COLOR: #ff0000; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
+.text_a:visited {
+	TEXT-DECORATION: none
+}
+.hover {
+	RIGHT: 0px; POSITION: relative; TOP: 0px; text_decoration: none
+}
+.text_b:link {
+	COLOR: #002065; TEXT-DECORATION: none
+}
+.text_b:hover {
+	COLOR: #002065; TEXT-DECORATION: underline
+}
+.STYLE7 {
+	COLOR: #ece9d8
+}
+.STYLE8 {
+	FONT-SIZE: 8pt
+}
+.STYLE9 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt
+}
+.STYLE11 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt
+}
+.border {
+	BORDER-RIGHT: #b0bec7 1px solid; BORDER-TOP: #b0bec7 1px solid; BORDER-LEFT: #b0bec7 1px solid; BORDER-BOTTOM: #b0bec7 1px solid
+}
+.border1 {
+	BORDER-RIGHT: #e6e6e6 1px solid; BORDER-TOP: #e6e6e6 1px solid; BORDER-LEFT: #e6e6e6 1px solid; BORDER-BOTTOM: #e6e6e6 1px solid
+}
+.STYLE12 {
+	COLOR: #003399
+}
+.topbg {
+	BACKGROUND-IMAGE: url(../pic/gucci/right.jpg)
+}
+.topbg1 {
+	BACKGROUND-IMAGE: url(../pic/gucci/left.jpg)
+}

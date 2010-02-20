@@ -1,0 +1,337 @@
+/* ---------------------------------------------------- */
+/* 2k3Widgets (2k3MenuBar/2k3Menu) Stylesheet           */
+/*                                                      */
+/* Copyright ?002-2004 Stedy Software and Systems      */
+/* Please see http://www.stedy.com for terms of use.    */
+/* ---------------------------------------------------- */
+
+
+.downMenu{
+	behavior:url(/themes/default/menu/downMenu.htc);
+}
+
+/* ---------------------------------------------------- */
+/* MDI application styles                               */
+/* ---------------------------------------------------- */
+
+
+
+/* ---------------------------------------------------- */
+/* 2k3ShadowElement                                     */
+/* ---------------------------------------------------- */
+.2k3ShadowElement
+{
+	background-color: #000080;
+	position: absolute;
+	filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=6);
+	visibility: hidden;
+}
+/* ---------------------------------------------------- */
+/* 2k3MenuBar                                           */
+/* ---------------------------------------------------- */
+.2k3MenuBar
+{
+    /*
+	behavior: url(/themes/default/menu/2k3MenuBar.htc);
+	background-color: transparent;
+	position: absolute;
+	*/
+	/*top:0;*/
+	/*
+	left: 0px;
+	*/
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#9EBEF5', EndColorStr='#C3DAF9');
+	behavior: url(/themes/default/menu/2k3MenuBar.htc);
+	background-color: buttonface;
+	border-width: 0px 0px 1px 0px;
+	border-style: solid;
+	border-color: buttonshadow;
+	font: menu;
+	color: menutext;
+	/*position: absolute;
+	top: 0px;*/
+	left: 0px;
+}
+.2k3MenuBar .2k3MenuBarHandle
+{
+	background-image: url("2k3MenuBarHandle.gif");
+	padding: 0px 2px 0px 2px;
+	cursor: move;
+}
+.2k3MenuBar .2k3MenuBarHandle DIV
+{
+	background-color: buttonshadow;
+	border-top: 1px solid buttonface;
+	width: 3px;
+	height: 2px;
+	overflow: hidden;
+}
+
+/* ---------------------------------------------------- */
+/* 2k3MenuRoot                                          */
+/* ---------------------------------------------------- */
+.2k3MenuRoot
+{
+	behavior: url(/themes/default/menu/2k3MenuRoot.htc);
+	border-width: 0px 0px 0px 0px;
+	border-style: solid;
+	border-color: buttonface;
+	padding: 3px 9px 3px 9px;
+	cursor: default;
+}
+.2k3MenuRoot .2k3MenuRootCaption
+{
+	white-space: nowrap;
+}
+.2k3MenuRootOver
+{
+	behavior: url(/themes/default/menu/2k3MenuRoot.htc);
+	background-color: #C1D2EE;
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+	border-color: #316AC5;
+	padding: 2px 8px 2px 8px;
+	cursor: default;
+	white-space: nowrap;
+}
+.2k3MenuRootOver .2k3MenuRootCaption
+{
+/*
+	background-image: url(/themes/default/menu/2k3MenuRootOver.gif);
+	background-position: center center;
+	border: 1px solid #000080;
+	margin: 0px 0px 0px 0px;
+	padding: 2px 7px 2px 7px;
+	white-space: nowrap;
+	*/
+	white-space: nowrap;
+}
+.2k3MenuRootActive
+{
+	behavior: url(/themes/default/menu/2k3MenuRoot.htc);
+	background-color: buttonface;
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+	border-color: buttonshadow;
+	padding: 2px 8px 2px 8px;
+	cursor: default;
+	white-space: nowrap;
+}
+.2k3MenuRootActive .2k3MenuRootCaption
+{
+/*
+	background-image: url(/themes/default/menu/2k3MenuRootActive.gif);
+	background-position: center center;
+	border: 1px solid #002D96;
+	margin: 0px 0px 0px 0px;
+	padding: 2px 7px 2px 7px;
+	white-space: nowrap;
+*/
+	white-space: nowrap;
+}
+.2k3MenuRootDisabled
+{
+	behavior: url(/themes/default/menu/2k3MenuRoot.htc);
+	border-width: 0px 0px 0px 0px;
+	border-style: solid;
+	border-color: buttonface;
+	color: graytext;
+	padding: 3px 9px 3px 9px;
+	cursor: default;
+	white-space: nowrap;
+}
+.2k3MenuRootDisabled .2k3MenuRootCaption
+{
+	white-space: nowrap;
+}
+
+
+/* ---------------------------------------------------- */
+/* 2k3Menu                                              */
+/* ---------------------------------------------------- */
+.2k3Menu
+{
+	behavior: url(/themes/default/menu/2k3Menu.htc);
+	background-color: buttonface;
+	border: 1px solid buttonshadow;
+	position: absolute;  
+	visibility: hidden;  
+	font: menu;
+	color: menutext;
+	cursor: default;
+	white-space: nowrap;
+}
+.2k3Menu THEAD,
+.2k3Menu TFOOT
+{
+	background-color: white;
+	height: 1px;
+}
+.2k3Menu THEAD .2k3MenuRootConnector
+{
+	background-color: buttonface;
+	height: 1px;
+	width: 10px;
+	position: absolute;
+	overflow: hidden;
+}
+
+
+/* ---------------------------------------------------- */
+/* 2k3MenuSeperator                                     */
+/* ---------------------------------------------------- */
+.2k3Menu TBODY .2k3MenuSeperator TD
+{
+	border-width: 1px 0px 1px 0px;
+	border-style: solid;
+	border-color: white;
+}
+.2k3Menu TBODY .2k3MenuSeperator IMG
+{
+	background-color: white;
+	height: 1px;
+	width: 8px;
+}
+
+/* ---------------------------------------------------- */
+/* 2k3MenuItem                                          */
+/* ---------------------------------------------------- */
+.2k3Menu TBODY .2k3MenuItem
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.2k3Menu TBODY .2k3MenuItem .2k3MenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.2k3Menu TBODY .2k3MenuItem .2k3MenuImage
+{
+	background-position: center center;
+	background-repeat: repeat-y;
+	border: 0 none;
+}
+.2k3Menu TBODY .2k3MenuItem .2k3MenuImage IMG
+{
+	margin: 3px 4px 3px 3px;
+}
+.2k3Menu TBODY .2k3MenuItem .2k3MenuCaption
+{
+	background-color: white;
+	padding: 0px 18px 0px 8px;
+}
+.2k3Menu TBODY .2k3MenuItem .2k3MenuMore,
+.2k3Menu TBODY .2k3MenuItem .2k3MenuNoMore
+{
+	background-color: white;
+	font-family: webdings;
+	padding-right: 6px;
+}
+.2k3Menu TBODY .2k3MenuItem .2k3MenuNoMore
+{
+	color: white;
+}
+.2k3Menu TBODY .2k3MenuItem .2k3MenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}
+
+
+/* ---------------------------------------------------- */
+/* 2k3MenuItemOver                                      */
+/* ---------------------------------------------------- */
+.2k3Menu TBODY .2k3MenuItemOver
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.2k3Menu TBODY .2k3MenuItemOver .2k3MenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.2k3Menu TBODY .2k3MenuItemOver .2k3MenuImage
+{
+	background-color: #C1D2EE;
+	border-width: 1px 0px 1px 1px;
+	border-style: solid;
+	border-color: #316AC5;
+}
+.2k3Menu TBODY .2k3MenuItemOver .2k3MenuImage IMG
+{
+	margin: 2px 4px 2px 2px;
+}
+.2k3Menu TBODY .2k3MenuItemOver .2k3MenuCaption
+{
+	background-color: #C1D2EE;
+	padding: 0px 18px 0px 8px;
+	border-width: 1px 0px 1px 0px;
+	border-style: solid;
+	border-color: #316AC5;
+}
+.2k3Menu TBODY .2k3MenuItemOver .2k3MenuMore,
+.2k3Menu TBODY .2k3MenuItemOver .2k3MenuNoMore
+{
+	background-color: #C1D2EE;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid;
+	border-color: #316AC5;
+	font-family: webdings;
+	padding-right: 5px;
+}
+.2k3Menu TBODY .2k3MenuItemOver .2k3MenuNoMore
+{
+	color: #C1D2EE;
+}
+.2k3Menu TBODY .2k3MenuItemOver .2k3MenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}
+
+
+/* ---------------------------------------------------- */
+/* 2k3MenuItemDisabled                                  */
+/* ---------------------------------------------------- */
+.2k3Menu TBODY .2k3MenuItemDisabled
+{
+	white-space: nowrap;
+	text-align: left;
+}
+.2k3Menu TBODY .2k3MenuItemDisabled .2k3MenuVerticalSpacerLeft
+{
+	width: 0px;
+}
+.2k3Menu TBODY .2k3MenuItemDisabled .2k3MenuImage
+{
+	background-color: transparent;
+	border: 0 none;
+}
+.2k3Menu TBODY .2k3MenuItemDisabled .2k3MenuImage IMG
+{
+	margin: 3px 4px 3px 3px;
+	filter:	Gray() Alpha(Opacity=40);
+}
+.2k3Menu TBODY .2k3MenuItemDisabled .2k3MenuCaption
+{
+	background-color: white;
+	color: graytext;
+	padding: 0px 18px 0px 8px;
+}
+.2k3Menu TBODY .2k3MenuItemDisabled .2k3MenuMore,
+.2k3Menu TBODY .2k3MenuItemDisabled .2k3MenuNoMore
+{
+	background-color: white;
+	color: graytext;
+	font-family: webdings;
+	padding-right: 6px;
+}
+.2k3Menu TBODY .2k3MenuItemDisabled .2k3MenuNoMore
+{
+	color: white;
+}
+.2k3Menu TBODY .2k3MenuItemDisabled .2k3MenuVerticalSpacerRight
+{
+	background-color: white;
+	width: 0px;
+}
