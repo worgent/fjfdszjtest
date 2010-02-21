@@ -3,9 +3,9 @@
 	if(contextlist==null){ 
 		auto_field.contextArray= 
 			[ 
-				['1','ä¸€'], 
-				['2','äºŒ'], 
-				['3','ä¸‰'] 
+				['1','Ò»'], 
+				['2','¶ş'], 
+				['3','Èı'] 
 			] 
 	}else{ 
 		auto_field.contextArray=contextlist; 
@@ -20,7 +20,7 @@ Ext.form.MultiSelectField = Ext.extend(Ext.form.TriggerField,  {
     readOnly : true ,      
     defaultAutoCreate : {tag: "input", type: "text", size: "24", autocomplete: "off"},      
     displayField : 'text',     
-    contextArray: undefined, //å¿…é¡»æ»¡è¶³æ¯è¡Œè‡³å°‘ä¸¤åˆ—,ç¬¬ä¸€ã€äºŒåˆ—åˆ†åˆ«ä¸º[value,text]   
+    contextArray: undefined, //±ØĞëÂú×ãÃ¿ĞĞÖÁÉÙÁ½ÁĞ,µÚÒ»¡¢¶şÁĞ·Ö±ğÎª[value,text]   
     valueField : undefined,      
     hiddenName : undefined,      
     listWidth : undefined,      
