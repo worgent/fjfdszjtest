@@ -2,52 +2,52 @@
  * @class Ext.tree.TreeCheckNodeUI  
  * @extends Ext.tree.TreeNodeUI  
  *   
- * å¯¹ Ext.tree.TreeNodeUI è¿›è¡ŒcheckboxåŠŸèƒ½çš„æ‰©å±•,åå°è¿”å›çš„ç»“ç‚¹ä¿¡æ¯ä¸ç”¨éè¦åŒ…å«checkedå±æ€§  
+ * ¶Ô Ext.tree.TreeNodeUI ½øĞĞcheckbox¹¦ÄÜµÄÀ©Õ¹,ºóÌ¨·µ»ØµÄ½áµãĞÅÏ¢²»ÓÃ·ÇÒª°üº¬checkedÊôĞÔ  
  *   
- * æ‰©å±•çš„åŠŸèƒ½ç‚¹æœ‰ï¼š  
- * ä¸€ã€æ”¯æŒåªå¯¹æ ‘çš„å¶å­è¿›è¡Œé€‰æ‹©  
- *    åªæœ‰å½“è¿”å›çš„æ ‘ç»“ç‚¹å±æ€§leaf = true æ—¶ï¼Œç»“ç‚¹æ‰æœ‰checkboxå¯é€‰  
- *    ä½¿ç”¨æ—¶ï¼Œåªéœ€åœ¨å£°æ˜æ ‘æ—¶ï¼ŒåŠ ä¸Šå±æ€§ onlyLeafCheckable: true æ—¢å¯ï¼Œé»˜è®¤æ˜¯false  
+ * À©Õ¹µÄ¹¦ÄÜµãÓĞ£º  
+ * Ò»¡¢Ö§³ÖÖ»¶ÔÊ÷µÄÒ¶×Ó½øĞĞÑ¡Ôñ  
+ *    Ö»ÓĞµ±·µ»ØµÄÊ÷½áµãÊôĞÔleaf = true Ê±£¬½áµã²ÅÓĞcheckbox¿ÉÑ¡  
+ *    Ê¹ÓÃÊ±£¬Ö»ĞèÔÚÉùÃ÷Ê÷Ê±£¬¼ÓÉÏÊôĞÔ onlyLeafCheckable: true ¼È¿É£¬Ä¬ÈÏÊÇfalse  
  *   
- * äºŒã€æ”¯æŒå¯¹æ ‘çš„å•é€‰  
- *    åªå…è®¸é€‰æ‹©ä¸€ä¸ªç»“ç‚¹  
- *    ä½¿ç”¨æ—¶ï¼Œåªéœ€åœ¨å£°æ˜æ ‘æ—¶ï¼ŒåŠ ä¸Šå±æ€§ checkModel: "single" æ—¢å¯  
+ * ¶ş¡¢Ö§³Ö¶ÔÊ÷µÄµ¥Ñ¡  
+ *    Ö»ÔÊĞíÑ¡ÔñÒ»¸ö½áµã  
+ *    Ê¹ÓÃÊ±£¬Ö»ĞèÔÚÉùÃ÷Ê÷Ê±£¬¼ÓÉÏÊôĞÔ checkModel: "single" ¼È¿É  
  *   
- * äºŒã€æ”¯æŒå¯¹æ ‘çš„çº§è”å¤šé€‰   
- *    å½“é€‰æ‹©ç»“ç‚¹æ—¶ï¼Œè‡ªåŠ¨é€‰æ‹©è¯¥ç»“ç‚¹ä¸‹çš„æ‰€æœ‰å­ç»“ç‚¹ï¼Œä»¥åŠè¯¥ç»“ç‚¹çš„æ‰€æœ‰çˆ¶ç»“ç‚¹ï¼ˆæ ¹ç»“ç‚¹é™¤å¤–ï¼‰ï¼Œç‰¹åˆ«æ˜¯æ”¯æŒå¼‚æ­¥ï¼Œå½“å­ç»“ç‚¹è¿˜æ²¡æ˜¾ç¤ºæ—¶ï¼Œä¼šä»åå°å–å¾—å­ç»“ç‚¹ï¼Œç„¶åå°†å…¶é€‰ä¸­/å–æ¶ˆé€‰ä¸­  
- *    ä½¿ç”¨æ—¶ï¼Œåªéœ€åœ¨å£°æ˜æ ‘æ—¶ï¼ŒåŠ ä¸Šå±æ€§ checkModel: "cascade" æ—¢å¯  
+ * ¶ş¡¢Ö§³Ö¶ÔÊ÷µÄ¼¶Áª¶àÑ¡   
+ *    µ±Ñ¡Ôñ½áµãÊ±£¬×Ô¶¯Ñ¡Ôñ¸Ã½áµãÏÂµÄËùÓĞ×Ó½áµã£¬ÒÔ¼°¸Ã½áµãµÄËùÓĞ¸¸½áµã£¨¸ù½áµã³ıÍâ£©£¬ÌØ±ğÊÇÖ§³ÖÒì²½£¬µ±×Ó½áµã»¹Ã»ÏÔÊ¾Ê±£¬»á´ÓºóÌ¨È¡µÃ×Ó½áµã£¬È»ºó½«ÆäÑ¡ÖĞ/È¡ÏûÑ¡ÖĞ  
+ *    Ê¹ÓÃÊ±£¬Ö»ĞèÔÚÉùÃ÷Ê÷Ê±£¬¼ÓÉÏÊôĞÔ checkModel: "cascade" ¼È¿É  
  *   
- * ä¸‰ã€æ·»åŠ "check"äº‹ä»¶  
- *    è¯¥äº‹ä»¶ä¼šåœ¨æ ‘ç»“ç‚¹çš„checkboxå‘ç”Ÿæ”¹å˜æ—¶è§¦å‘  
- *    ä½¿ç”¨æ—¶ï¼Œåªéœ€ç»™æ ‘æ³¨å†Œäº‹ä»¶,å¦‚ï¼š  
+ * Èı¡¢Ìí¼Ó"check"ÊÂ¼ş  
+ *    ¸ÃÊÂ¼ş»áÔÚÊ÷½áµãµÄcheckbox·¢Éú¸Ä±äÊ±´¥·¢  
+ *    Ê¹ÓÃÊ±£¬Ö»Ğè¸øÊ÷×¢²áÊÂ¼ş,Èç£º  
  *    tree.on("check",function(node,checked){...});  
  *   
- * é»˜è®¤æƒ…å†µä¸‹ï¼ŒcheckModelä¸º'multiple'ï¼Œä¹Ÿå°±æ˜¯å¤šé€‰ï¼ŒonlyLeafCheckableä¸ºfalseï¼Œæ‰€æœ‰ç»“ç‚¹éƒ½å¯é€‰  
+ * Ä¬ÈÏÇé¿öÏÂ£¬checkModelÎª'multiple'£¬Ò²¾ÍÊÇ¶àÑ¡£¬onlyLeafCheckableÎªfalse£¬ËùÓĞ½áµã¶¼¿ÉÑ¡  
  *   
- * ä½¿ç”¨æ–¹æ³•ï¼šåœ¨loaderé‡ŒåŠ ä¸Š baseAttrs:{uiProvider:Ext.tree.TreeCheckNodeUI} æ—¢å¯.  
- * ä¾‹å¦‚ï¼š  
+ * Ê¹ÓÃ·½·¨£ºÔÚloaderÀï¼ÓÉÏ baseAttrs:{uiProvider:Ext.tree.TreeCheckNodeUI} ¼È¿É.  
+ * ÀıÈç£º  
  *   var tree = new Ext.tree.TreePanel({  
  *      el:'tree-ct',  
  *      width:568,  
  *      height:300,  
- *      checkModel: 'cascade',   //å¯¹æ ‘çš„çº§è”å¤šé€‰  
- *      onlyLeafCheckable: false,//å¯¹æ ‘æ‰€æœ‰ç»“ç‚¹éƒ½å¯é€‰  
+ *      checkModel: 'cascade',   //¶ÔÊ÷µÄ¼¶Áª¶àÑ¡  
+ *      onlyLeafCheckable: false,//¶ÔÊ÷ËùÓĞ½áµã¶¼¿ÉÑ¡  
  *      animate: false,  
  *      rootVisible: false,  
  *      autoScroll:true,  
  *      loader: new Ext.tree.DWRTreeLoader({  
  *          dwrCall:Tmplt.getTmpltTree,  
- *          baseAttrs: { uiProvider: Ext.tree.TreeCheckNodeUI } //æ·»åŠ  uiProvider å±æ€§  
+ *          baseAttrs: { uiProvider: Ext.tree.TreeCheckNodeUI } //Ìí¼Ó uiProvider ÊôĞÔ  
  *      }),  
  *      root: new Ext.tree.AsyncTreeNode({ id:'0' })  
  *  });  
- *  tree.on("check",function(node,checked){alert(node.text+" = "+checked)}); //æ³¨å†Œ"check"äº‹ä»¶  
+ *  tree.on("check",function(node,checked){alert(node.text+" = "+checked)}); //×¢²á"check"ÊÂ¼ş  
  *  tree.render();  
  *   
  */  
 
 Ext.tree.TreeCheckNodeUI = function() {   
-    //'multiple':å¤šé€‰; 'single':å•é€‰; 'cascade':çº§è”å¤šé€‰   
+    //'multiple':¶àÑ¡; 'single':µ¥Ñ¡; 'cascade':¼¶Áª¶àÑ¡   
     this.checkModel = 'multiple';   
        
     //only leaf can checked   
@@ -193,11 +193,11 @@ Ext.extend(Ext.tree.TreeCheckNodeUI, Ext.tree.TreeNodeUI, {
 });  
 
 /**************************
-	Ext.tree.TreePanelå·²ç»è‡ªå¸¦æ–¹æ³•getChecked,æ„æ€æ˜¯å¾—åˆ°æ ‘ä¸­æ‰€æœ‰é€‰ä¸­çš„ç»“ç‚¹é›†åˆ
-	å¦‚æœä½¿ç”¨Ext.tree.TreePanel.prototype.getChecked = function(node){.... 
-	é‡å†™getCheckedæ–¹æ³•,è¿™æ–¹æ³•å¾—åˆ°çš„æ˜¯æ ‘ä¸­æ‰€æœ‰é€‰ä¸­çš„ç»“ç‚¹çš„IDé›†åˆ,æ˜¯ä¸ä¸€æ ·çš„å“¦.... 
+	Ext.tree.TreePanelÒÑ¾­×Ô´ø·½·¨getChecked,ÒâË¼ÊÇµÃµ½Ê÷ÖĞËùÓĞÑ¡ÖĞµÄ½áµã¼¯ºÏ
+	Èç¹ûÊ¹ÓÃExt.tree.TreePanel.prototype.getChecked = function(node){.... 
+	ÖØĞ´getChecked·½·¨,Õâ·½·¨µÃµ½µÄÊÇÊ÷ÖĞËùÓĞÑ¡ÖĞµÄ½áµãµÄID¼¯ºÏ,ÊÇ²»Ò»ÑùµÄÅ¶.... 
 
-	å¦‚æœæ˜¯ä½¿ç”¨è‡ªå¸¦çš„,å¯ä»¥è¿™æ ·å–åˆ°æ ‘çš„æ‰€æœ‰é€‰ä¸­çš„ç»“ç‚¹ID 
+	Èç¹ûÊÇÊ¹ÓÃ×Ô´øµÄ,¿ÉÒÔÕâÑùÈ¡µ½Ê÷µÄËùÓĞÑ¡ÖĞµÄ½áµãID 
 ***************************/
 Ext.tree.TreePanel.prototype.getChecked = function(node){ 
 	var checked = [], i; 
