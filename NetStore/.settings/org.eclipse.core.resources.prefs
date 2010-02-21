@@ -1,0 +1,7 @@
+#Thu Nov 26 15:23:58 CST 2009
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/struts-config.xml=gbk
+encoding//src/com/qzgf/NetStore/pub/DateUtils.java=gbk
+encoding//src/com/qzgf/NetStore/pub/ServerConfig.xml=gbk
+encoding//src/com/qzgf/NetStore/struts/action/BackAction/PayTypeAction.java=UTF-8
+encoding//src/com/qzgf/NetStore/struts/action/FrontAction/ShoppingCartAction.java=gbk
