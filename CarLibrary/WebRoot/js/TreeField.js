@@ -1,13 +1,13 @@
 /**  
  * Ext JS Library 2.0 extend  
  * Version : 1.1  
- * Author : ·ÉÌìÉ«Êó  
+ * Author : é£å¤©è‰²é¼   
  * Date : 2008-1-29  
  * E-mail : gx80@qq.com  
  * HomePage : http://www.gx80.cn  
  * 
  * 
- * Ê¾Àı´úÂë£º
+ * ç¤ºä¾‹ä»£ç ï¼š
 <div id="myDiv002"></div>
 	<input type="hidden" name="myHidden001" value=""/>
     <input type="button" value="aaaaa" onclick="alert(document.all.myHidden001.value)">
@@ -24,21 +24,21 @@
 	            baseParams : {menuId : 'Root'},
 	            treeRootConfig : {
 	            	id:'Root',   
-			        text : 'ÇëÑ¡Ôñ',   
+			        text : 'è¯·é€‰æ‹©',   
 			        draggable:false  
 	            },
 	            displayValue:'',
 	            value:''
 		});
-		treeField01.render('myDiv002');	//Êä³öµ½Ö¸¶¨µÄ¶ÔÏóÖĞ
-		var loader = new Ext.tree.TreeLoader({	//ÖØĞ´Êı¾İ¼ÓÔØÀà
+		treeField01.render('myDiv002');	//è¾“å‡ºåˆ°æŒ‡å®šçš„å¯¹è±¡ä¸­
+		var loader = new Ext.tree.TreeLoader({	//é‡å†™æ•°æ®åŠ è½½ç±»
 			dataUrl:url,
 			baseParams: {menuId:'Root'},
 			clearOnLoad : false ,
 			preloadChildren : false,
 			requestMethod : "GET" 
 		});
-		loader.on("beforeload", function(treeLoader,node){	//Ìí¼ÓÊÂ¼ş£¬µ±ÖØÔØÊ±Ö¸¶¨ĞÂµÄ½áµã
+		loader.on("beforeload", function(treeLoader,node){	//æ·»åŠ äº‹ä»¶ï¼Œå½“é‡è½½æ—¶æŒ‡å®šæ–°çš„ç»“ç‚¹
 			this.baseParams.menuId = node.attributes.id;
 		}, loader);
 		treeField01.tree.loader = loader;
@@ -49,74 +49,74 @@
 Ext.form.TreeField = Ext.extend(Ext.form.TriggerField,  {   
     /**  
      * @cfg {Boolean} readOnly  
-     * ÉèÖÃÎªÖ»¶Á×´Ì¬  
+     * è®¾ç½®ä¸ºåªè¯»çŠ¶æ€  
      *   
      */  
     readOnly : true ,   
     /**  
      * @cfg {String} displayField  
-     * ÓÃÓÚÏÔÊ¾Êı¾İµÄ×Ö¶ÎÃû  
+     * ç”¨äºæ˜¾ç¤ºæ•°æ®çš„å­—æ®µå  
      *   
      */  
     displayField : 'text',   
     /**  
      * @cfg {String} valueField  
-     * ÓÃÓÚ±£´æÕæÊµÊı¾İµÄ×Ö¶ÎÃû  
+     * ç”¨äºä¿å­˜çœŸå®æ•°æ®çš„å­—æ®µå  
      */  
     valueField : null,   
     /**  
      * @cfg {String} hiddenName  
-     * ±£´æÕæÊµÊı¾İµÄÒş²ØÓòÃû  
+     * ä¿å­˜çœŸå®æ•°æ®çš„éšè—åŸŸå  
      */  
     hiddenName : null,   
     /**  
      * @cfg {Integer} listWidth  
-     * ÏÂÀ­¿òµÄ¿í¶È  
+     * ä¸‹æ‹‰æ¡†çš„å®½åº¦  
      */  
     listWidth : null,   
     /**  
      * @cfg {Integer} minListWidth  
-     * ÏÂÀ­¿ò×îĞ¡¿í¶È  
+     * ä¸‹æ‹‰æ¡†æœ€å°å®½åº¦  
      */  
     minListWidth : 50,   
     /**  
      * @cfg {Integer} listHeight  
-     * ÏÂÀ­¿ò¸ß¶È  
+     * ä¸‹æ‹‰æ¡†é«˜åº¦  
      */  
     listHeight : null,   
     /**  
      * @cfg {Integer} minListHeight  
-     * ÏÂÀ­¿ò×îĞ¡¸ß¶È  
+     * ä¸‹æ‹‰æ¡†æœ€å°é«˜åº¦  
      */  
     minListHeight : 50,   
     /**  
      * @cfg {String} dataUrl  
-     * Êı¾İµØÖ·  
+     * æ•°æ®åœ°å€  
      */  
     dataUrl : null,   
     /**  
      * @cfg {Ext.tree.TreePanel} tree  
-     * ÏÂÀ­¿òÖĞµÄÊ÷  
+     * ä¸‹æ‹‰æ¡†ä¸­çš„æ ‘  
      */  
     tree : null,   
     /**  
      * @cfg {String} value  
-     * Ä¬ÈÏÖµ  
+     * é»˜è®¤å€¼  
      */  
     value : null,   
     /**  
      * @cfg {String} displayValue  
-     * ÓÃÓÚÏÔÊ¾µÄÄ¬ÈÏÖµ  
+     * ç”¨äºæ˜¾ç¤ºçš„é»˜è®¤å€¼  
      */  
     displayValue : null,   
     /**  
      * @cfg {Object} baseParams  
-     * ÏòºóÌ¨´«µİµÄ²ÎÊı¼¯ºÏ  
+     * å‘åå°ä¼ é€’çš„å‚æ•°é›†åˆ  
      */  
     baseParams : {},   
     /**  
      * @cfg {Object} treeRootConfig  
-     * Ê÷¸ù½ÚµãµÄÅäÖÃ²ÎÊı  
+     * æ ‘æ ¹èŠ‚ç‚¹çš„é…ç½®å‚æ•°  
      */  
     treeRootConfig : {   
         id : ' ',   
@@ -194,7 +194,7 @@ Ext.form.TreeField = Ext.extend(Ext.form.TriggerField,  {
         this.setValue(node);   
         this.collapse();   
     },   
-    //´´½¨Ê÷
+    //åˆ›å»ºæ ‘
     createTree:function(el){   
         var Tree = Ext.tree;   
        
