@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
+	 <charset-params>
+			<input-charset> 
+			<resource-path>/*</resource-path> 
+			<java-charset-name>gbk</java-charset-name> 
+			</input-charset> 
+	</charset-params>
+  <jsp-descriptor>
+    <encoding>gbk</encoding>
+  </jsp-descriptor>
+  <context-root>/</context-root>
+</weblogic-web-app>
