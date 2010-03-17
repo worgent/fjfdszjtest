@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gb2312"?>
+
+<!-- 
+	 公共SQLMAP配置
+-->
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "./sql-map-2.dtd">
+ 
+<sqlMap > 
+	<!-- 主键sql -->
+	<select id="getSequencesValue" parameterClass="java.lang.String" resultClass="java.lang.String" remapResults="true">
+		select to_char(seqformat('$seqName$')) from dual
+	</select>
+	<!-- 动态sql -->
+	<select id="dynamicSql" parameterClass="java.lang.String" resultClass="java.util.HashMap" remapResults="true" >
+		$dynamicSql$
+	</select>
+	<!-- 参数集sql -->
+	<select id="parameterValue" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true"  >
+		select id,name from T_Arichive_Subject where sort=#psort#
+	</select>
+</sqlMap>
