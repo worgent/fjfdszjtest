@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	网上下单(与派揽系统之间的通信)
+	2009-12-30
+-->
+<sqlMap namespace="Communicate">	
+    <!--********************发送信息***************************** -->
+ 	<!-- 新增单据 -->
+	<select id="clientadd" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		 select t.id ORDERID,u.id CLIENTID,u.clientcode,u.ordernum,u.SUCCESSNUM,
+		 t.name CUSTNAME,t.tel,t.mobile,GetParValue('PROVINCEID_NAME',t.province) PROVINCE,
+		 GetParValue('CITYID_NAME',t.city) city,GetParValue('COUNTYID_NAME',t.county) county,
+		 t.addressid, t.address,case when t.mailtype=0 then '物品型' else '文件型' end MAILTYPE,
+		 to_char(t.bookingtime,'yyyy-mm-dd hh24:mi:ss') bookingtime,t.orderingnum,t.orderingweight,
+		 t.clientremark	from  t_net_order t left outer join T_Archives_User u on t.create_code=u.id
+		 where T.bill_state &lt;&gt;0  and u.bill_state &lt;&gt;0
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>			order by  T.ID desc
+	</select>   
+  	<!-- 客户修改 -->
+	<select id="clientmodify" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		 select t.id ORDERID,t.clientremark	from  t_net_order t 
+		 where T.bill_state &lt;&gt;0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>			order by  T.ID desc
+	</select>     
+	<!-- 客户撤单 -->
+	<select id="clientcancel" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		 select t.id ORDERID,t.clientremark	from  t_net_order t 
+		 where T.bill_state &lt;&gt;0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>			order by  T.ID desc
+	</select>  
+	<!-- 客户催揽 -->
+	<select id="clienthurry" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		 select t.id ORDERID,t.clientremark	from  t_net_order t
+		 where T.bill_state &lt;&gt;0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>			order by  T.ID desc
+	</select>
+	
+    <!--************************接收信息************************* -->
+   		<!-- 修改单据状态 -->
+    	<!--删除记录 -->
+		<update id="modifyBillState" parameterClass="java.util.HashMap">
+	    	update t_net_order set orderingstate=#orderingstate#,plorderid=#pplorderid# 
+	    	<isNotEmpty prepend="," property="pclientremark">clientremark=#pclientremark#</isNotEmpty>
+	    	where id=#ORDERID#
+	    </update>
+</sqlMap>
