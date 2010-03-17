@@ -1,0 +1,13 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 测试模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="test" extends="default" namespace="/">
+		<action name="test" class="testAction">
+			<!-- <interceptor-ref name="permissionInterceptor"></interceptor-ref> -->
+			<result name="input">/WEB-INF/FrontModual/testModual/test.jsp</result>
+		</action>
+	</package>
+</xwork>

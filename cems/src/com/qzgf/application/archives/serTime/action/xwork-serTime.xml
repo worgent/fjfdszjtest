@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 基础档案|服务时间
+-->
+<struts>
+	<package name="serTime" extends="archives" namespace="/archives">
+	    <!-- 服务时间 -->
+		<action name="serTime" class="serTimeAction">
+		    <!-- ==================基础档案|服务时间========================= -->
+		    <!-- 列表信息 -->
+			<result name="list">/WEB-INF/BackModual/Archives/SerTime/serTimeList.jsp</result>
+			<!-- 具体列表信息 -->
+			<result name="listdetail">/WEB-INF/BackModual/Archives/SerTime/serTimeListDetail.jsp</result>
+			<!-- 查看 -->
+			<result name="view">/WEB-INF/BackModual/Archives/SerTime/serTimeView.jsp</result>
+			<!-- 编辑 -->
+			<result name="edit">/WEB-INF/BackModual/Archives/SerTime/serTimeEdit.jsp</result>
+			<!-- 新增 -->
+			<result name="new">/WEB-INF/BackModual/Archives/SerTime/serTimeEdit.jsp</result>
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/login.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>			
+	</package>
+</struts>
