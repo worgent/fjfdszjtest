@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!--  
+	管理所有xwork均配置在此文件中统一管理
+-->
+<struts>
+    <!-- 扩展默认包 -->
+	<package name="archives" extends="default" namespace="/">
+	</package>
+	<!-- 档案管理｜取件地址 -->
+	<include file="/com/qzgf/application/archives/address/action/xwork-address.xml" /> 
+	<!-- 档案管理｜取件联系人 -->
+	<include file="/com/qzgf/application/archives/clientMsg/action/xwork-clientMsg.xml" /> 
+	<!-- 档案管理｜服务时间 -->
+	<include file="/com/qzgf/application/archives/serTime/action/xwork-serTime.xml" /> 
+	<!-- 档案管理｜注册人员信息 -->
+	<include file="/com/qzgf/application/archives/user/action/xwork-user.xml" /> 
+	<!-- 档案管理｜收件人信息 -->
+	<include file="/com/qzgf/application/archives/recMsg/action/xwork-recMsg.xml" /> 
+</struts>

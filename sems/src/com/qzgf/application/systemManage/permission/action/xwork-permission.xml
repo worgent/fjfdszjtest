@@ -1,0 +1,22 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!--  
+	* 测试模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="permission" extends="default" namespace="/">
+		<action name="permission" class="permissionAction">
+			<interceptor-ref name="userSessionInterceptorStack"></interceptor-ref>
+			<result name="list">/WEB-INF/BackModual/permission/permissionList.jsp</result>
+			<result name="input">/WEB-INF/BackModual/permission/permissionSet.jsp</result>
+			<result name="treemenu" type="freemarker">
+				<param name="location">/WEB-INF/BackModual/permission/menuxml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="menu">/WEB-INF/BackModual/permission/menu.jsp</result>
+			
+			<result name="success" type="redirect-action">permission?action=list</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>

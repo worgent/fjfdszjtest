@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	档案管理|用户管理 
+	附加:用户登录,用户注册
+-->
+<sqlMap namespace="User">	
+	<!-- 记录总数 -->
+	<select id="findUserCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) FROM  T_ARCHIVES_USER T
+		 where t.BILL_STATE &lt;&gt;0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcode">t.code='$pcode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ppasswd">t.passwd='$ppasswd$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pemail">t.email='$pemail$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ppost">t.post='$ppost$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclienttype">t.clienttype='$pclienttype$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclientcode">t.clientcode='$pclientcode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclientbalance">t.clientbalance='$pclientbalance$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbill_type">t.bill_type='$pbill_type$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>
+	</select>
+
+
+	<!-- 查询记录，存储Session用户信息 -->
+	<select id="findSessionUserById" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		SELECT T.ID,T.CODE,t.left_margin,t.top_margin,T.NAME,T.PASSWD,nvl(T.UNIT,'') UNIT,T.PROVINCE,T.CITY,T.COUNTY,
+		T.ADDRESS,T.AREACODE,T.TEL,T.MOBILE,T.EMAIL,T.POST,T.CLIENTTYPE,GetParValue('SUBJECTID_NAME',T.CLIENTTYPE) CLIENTTYPENAME,
+		T.CLIENTCODE,T.CLIENTBALANCE,GetParValue('SUBJECTID_NAME',T.CLIENTBALANCE) CLIENTBALANCENAME
+		FROM  T_ARCHIVES_USER T where T.BILL_STATE &lt;&gt;0 
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcode">t.code='$pcode$'</isNotEmpty>
+	</select>
+		
+	<!-- 查询记录，非分页 -->
+	<select id="findUser" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		SELECT T.ID,T.CODE,T.NAME,T.PASSWD,T.UNIT,T.PROVINCE,T.CITY,T.COUNTY,
+		T.ADDRESS,T.AREACODE,T.TEL,T.MOBILE,T.EMAIL,T.POST,T.CLIENTTYPE,
+		T.CLIENTCODE,T.CLIENTBALANCE,T.BILL_TYPE,T.BILL_STATE,
+		to_char(T.CREATE_DATE,'yyyy-mm-dd hh24:mi:ss') CREATE_DATE,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NAME,T.EDITOR_CODE,to_char(T.EDITOR_DATE,'yyyy-mm-dd hh24:mi:ss') EDITOR_DATE
+		 FROM  T_ARCHIVES_USER T where T.BILL_STATE &lt;&gt;0 
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcode">t.code='$pcode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ppasswd">t.passwd='$ppasswd$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pemail">t.email='$pemail$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ppost">t.post='$ppost$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclienttype">t.clienttype='$pclienttype$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclientcode">t.clientcode='$pclientcode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclientbalance">t.clientbalance='$pclientbalance$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbill_type">t.bill_type='$pbill_type$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>
+		order by  T.ID desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findUserPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		SELECT T.ID,T.CODE,T.NAME,T.PASSWD,T.UNIT,T.PROVINCE,T.CITY,T.COUNTY,
+		T.ADDRESS,T.AREACODE,T.TEL,T.MOBILE,T.EMAIL,T.POST,T.CLIENTTYPE, GetParValue('SUBJECTID_NAME',T.CLIENTTYPE) CLIENTTYPENAME,
+		T.CLIENTCODE,T.CLIENTBALANCE, GetParValue('SUBJECTID_NAME',T.CLIENTBALANCE) CLIENTBALANCENAME,T.BILL_TYPE,T.BILL_STATE,
+		to_char(T.CREATE_DATE,'yyyy-mm-dd hh24:mi:ss') CREATE_DATE,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,T.EDITOR_CODE,to_char(T.EDITOR_DATE,'yyyy-mm-dd hh24:mi:ss') EDITOR_DATE
+		 FROM  T_ARCHIVES_USER T where T.BILL_STATE &lt;&gt;0 
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcode">t.code='$pcode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ppasswd">t.passwd='$ppasswd$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pemail">t.email='$pemail$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ppost">t.post='$ppost$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclienttype">t.clienttype='$pclienttype$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclientcode">t.clientcode='$pclientcode$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pclientbalance">t.clientbalance='$pclientbalance$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbill_type">t.bill_type='$pbill_type$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>
+		order by  T.ID desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertUser"	parameterClass="java.util.HashMap" >
+		insert into T_Archives_User
+				(id
+				<isNotEmpty prepend="," property="pcode">code</isNotEmpty>
+				<isNotEmpty prepend="," property="pname">name</isNotEmpty>
+				<isNotEmpty prepend="," property="ppasswd">passwd</isNotEmpty>
+				<isNotEmpty prepend="," property="punit">unit</isNotEmpty>
+				<isNotEmpty prepend="," property="pprovince">province</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">city</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">county</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">address</isNotEmpty>
+				<isNotEmpty prepend="," property="pareacode">areacode</isNotEmpty>
+				<isNotEmpty prepend="," property="ptel">tel</isNotEmpty>
+				<isNotEmpty prepend="," property="pmobile">mobile</isNotEmpty>
+				<isNotEmpty prepend="," property="pemail">email</isNotEmpty>
+				<isNotEmpty prepend="," property="ppost">post</isNotEmpty>
+				<isNotEmpty prepend="," property="pclienttype">clienttype</isNotEmpty>
+				<isNotEmpty prepend="," property="pclientcode">clientcode</isNotEmpty>
+				<isNotEmpty prepend="," property="pclientbalance">clientbalance</isNotEmpty>
+		   		,create_date,editor_date,bill_state,bill_type)
+				 values 
+				(
+				<isNotEmpty prepend="" property="pidex">#pidex#</isNotEmpty>
+				<isEmpty prepend="" property="pidex">seqformat('T_Archives_User')</isEmpty>
+				<isNotEmpty prepend="," property="pcode">#pcode#</isNotEmpty>
+				<isNotEmpty prepend="," property="pname">#pname#</isNotEmpty>
+				<isNotEmpty prepend="," property="ppasswd">#ppasswd#</isNotEmpty>
+				<isNotEmpty prepend="," property="punit">#punit#</isNotEmpty>
+				<isNotEmpty prepend="," property="pprovince">#pprovince#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">#pcity#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">#pcounty#</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">#paddress#</isNotEmpty>
+				<isNotEmpty prepend="," property="pareacode">#pareacode#</isNotEmpty>
+				<isNotEmpty prepend="," property="ptel">#ptel#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmobile">#pmobile#</isNotEmpty>
+				<isNotEmpty prepend="," property="pemail">#pemail#</isNotEmpty>
+				<isNotEmpty prepend="," property="ppost">#ppost#</isNotEmpty>
+				<isNotEmpty prepend="," property="pclienttype">#pclienttype#</isNotEmpty>
+				<isNotEmpty prepend="," property="pclientcode">#pclientcode#</isNotEmpty>
+				<isNotEmpty prepend="," property="pclientbalance">#pclientbalance#</isNotEmpty>
+		   		,sysdate,sysdate,1,0)
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteUserById" parameterClass="java.util.HashMap">
+    	update T_Archives_User set bill_state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 地图名片｜修改记录 -->
+	<update id="updateUserById" parameterClass="java.util.HashMap">
+		update T_Archives_User t set t.id=t.id
+			<isNotEmpty prepend="," property="pcode">t.code=#pcode#</isNotEmpty>
+			<isNotEmpty prepend="," property="pname">t.name=#pname#</isNotEmpty>
+			<isNotEmpty prepend="," property="ppasswd">t.passwd=#ppasswd#</isNotEmpty>
+			<isNotEmpty prepend="," property="punit">t.unit=#punit#</isNotEmpty>
+			<isNotEmpty prepend="," property="pprovince">t.province=#pprovince#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcity">t.city=#pcity#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcounty">t.county=#pcounty#</isNotEmpty>
+			<isNotEmpty prepend="," property="paddress">t.address=#paddress#</isNotEmpty>
+			<isNotEmpty prepend="," property="pareacode">t.areacode=#pareacode#</isNotEmpty>
+			<isNotEmpty prepend="," property="ptel">t.tel=#ptel#</isNotEmpty>
+			<isNotEmpty prepend="," property="pmobile">t.mobile=#pmobile#</isNotEmpty>
+			<isNotEmpty prepend="," property="pemail">t.email=#pemail#</isNotEmpty>
+			<isNotEmpty prepend="," property="ppost">t.post=#ppost#</isNotEmpty>
+			<isNotEmpty prepend="," property="pclienttype">t.clienttype=#pclienttype#</isNotEmpty>
+			<isNotEmpty prepend="," property="pclientcode">t.clientcode=#pclientcode#</isNotEmpty>
+			<isNotEmpty prepend="," property="pclientbalance">t.clientbalance=#pclientbalance#</isNotEmpty>
+			<isNotEmpty prepend="," property="pbill_type">t.bill_type=#pbill_type#</isNotEmpty>
+			<isNotEmpty prepend="," property="peditor_code">t.editor_code=#peditor_code#</isNotEmpty>
+			<isNotEmpty prepend="," property="peditor_date">t.editor_date=sysdate</isNotEmpty>
+		where id=#pid# and t.bill_state &lt;&gt;0
+	</update>
+	
+	
+	<!-- ==========================================区域信息======================================= -->
+	<!-- 省份信息 -->
+	<select id="findProvince" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select the_code,the_name from t_archives_province
+	</select>
+	<!-- 地市信息 -->
+	<select id="findCity" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select the_code,the_name from t_archives_city
+		<isNotEmpty prepend=" " property="pid"> where province_code = '$pid$'</isNotEmpty>
+	</select>
+	<!-- 县区信息 -->
+	<select id="findCounty" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select the_code,the_name from t_archives_county
+		<isNotEmpty prepend=" " property="pid"> where city_code = '$pid$'</isNotEmpty>
+	</select>	
+	
+	
+	<!-- ==========================================前台菜单信息======================================= -->
+	<!-- 菜单信息 -->
+	<select id="menu" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select name,url,img,layerid from t_archives_menu order by orderid
+	</select>
+</sqlMap>

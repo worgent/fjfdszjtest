@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+    <!-- lsr begin -->
+    <bean id="queryAction" class="com.qzgf.application.biz.query.action.QueryAction" scope="prototype" autowire="byName" /><!-- 查询模块 -->
+	<bean id="testAction" class="com.qzgf.application.biz.testModel.action.TestAction"	scope="prototype" autowire="byName" /><!-- 测试模块 -->
+	<bean id="loginAction" class="com.qzgf.application.systemManage.login.action.LoginAction"	scope="prototype" autowire="byName" /><!-- 登录模块 -->
+	<bean id="mainAction" class="com.qzgf.application.systemManage.login.action.MainAction"	scope="prototype" autowire="byName" /><!-- 主框架模块 -->
+	<bean id="adminLeftAction" class="com.qzgf.application.systemManage.login.action.AdminLeftAction"	scope="prototype" autowire="byName" /><!-- 左测菜单 -->
+	<bean id="permissionAction" class="com.qzgf.application.systemManage.permission.action.PermissionAction"	scope="prototype" autowire="byName" /><!-- 权限模块 -->
+	<bean id="roleAction" class="com.qzgf.application.systemManage.role.action.RoleAction"	scope="prototype" autowire="byName" /><!-- 角色模块 -->
+	<bean id="groupAction" class="com.qzgf.application.systemManage.group.action.GroupAction"	scope="prototype" autowire="byName" /><!-- 角色模块 -->
+	<bean id="menuAction" class="com.qzgf.application.systemManage.login.action.MenuAction"	scope="prototype" autowire="byName" /><!-- 角色模块 -->
+	<bean id="adminLogoutAction" class="com.qzgf.application.systemManage.login.action.AdminLogout" scope="prototype" autowire="byName" /> <!-- 后台退出模块 -->
+	<!-- lsr end -->
+	
+	
+	
+	<!-- szj begin -->
+	<!-- =============================系统管理========================================= -->
+	<!--系统管理｜ 登录信息,注册信息 -->
+	<bean id="frontloginAction" class="com.qzgf.application.systemManage.frontlogin.action.FrontLoginAction"	scope="prototype" autowire="byName" />
+	<!-- =============================档案管理========================================= -->
+	<!--档案管理｜取件地址 -->
+	<bean id="addressAction" class="com.qzgf.application.archives.address.action.AddressAction"	 scope="prototype" autowire="byName" />
+	<!--档案管理｜取件联系人 -->
+	<bean id="clientMsgAction" class="com.qzgf.application.archives.clientMsg.action.ClientMsgAction" scope="prototype" autowire="byName" />
+	<!--档案管理｜服务时间 -->
+	<bean id="serTimeAction" class="com.qzgf.application.archives.serTime.action.SerTimeAction"	 scope="prototype" autowire="byName" />
+	<!--档案管理｜ 注册信息 -->
+	<bean id="userAction" class="com.qzgf.application.archives.user.action.UserAction"	scope="prototype" autowire="byName" />
+	<!--档案管理｜ 收件人信息 -->
+	<bean id="recMsgAction" class="com.qzgf.application.archives.recMsg.action.RecMsgAction"	scope="prototype" autowire="byName" />
+	<!-- =============================自助平台========================================= -->
+	<!--自助平台｜ 网上下单 -->
+	<bean id="orderAction" class="com.qzgf.application.net.order.action.OrderAction" scope="prototype" autowire="byName" />
+	<!--自助平台｜ 处理过程记录 -->
+	<bean id="proLogAction" class="com.qzgf.application.net.proLog.action.ProLogAction"	 scope="prototype" autowire="byName" />
+	<!--自助平台｜ 与派揽系统通信 -->
+	<bean id="communicateAction" class="com.qzgf.application.net.communicate.action.CommunicateAction"	scope="prototype" autowire="byName" />
+	<!--自助平台｜ 网上打单 -->
+	<bean id="printAction" class="com.qzgf.application.net.print.action.PrintAction" scope="prototype" autowire="byName" />
+	<!-- szj end -->
+	
+	
+	
+	<!-- shen begin -->
+	
+	<!--文章 -->
+	<bean id="newsAction" class="com.qzgf.application.biz.news.action.NewsAction"	scope="prototype" autowire="byName"/>
+	
+	<!-- 
+	<bean id="pictureAction" class="com.qzgf.application.biz.picture.action.PictureAction"	scope="prototype" autowire="byName"/>
+	shen end -->
+	
+</beans>
