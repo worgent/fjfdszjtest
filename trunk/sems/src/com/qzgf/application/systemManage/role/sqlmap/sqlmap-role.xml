@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+     
+<sqlMap namespace="role">
+  	<select id="findRoles" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		select e.* from T_system_role e  join( 
+    		select roleid from t_system_role where createid=#userId#
+    	) f on e.roleid=f.roleid and e.roleid!='1'  order by e.roleid
+	</select>
+	
+	<!-- 插入角色 -->
+	<insert id="insertRole" parameterClass="java.util.HashMap" >
+		insert into t_system_role(roleId,roleName,createId)values(
+			#roleId#,#roleName#,#userId#
+		)
+    </insert>
+    
+    <!-- 插入角色-权限 -->
+    <insert id="insertRolePermission" parameterClass="java.util.HashMap" >
+		insert into t_system_rp(rolePermissionId,roleId,permissionId)values(
+			seqformat('t_system_rp'),#roleId#,#permissionId#
+		)
+    </insert>
+    
+    <!-- 创建新ID -->
+    <select id="createNewId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		 select seq_t_system_role.nextval from dual
+	</select>
+	
+	<!-- 根据Id查询角色 -->
+	<select id="findRoleByRoleId"
+		parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		select a.*,b.rolename from  t_system_rp a , (select * from t_system_role where roleId=#roleId#) b 
+		where a.roleid(+)=b.roleid
+	</select>
+	
+	<!-- 修改角色 -->
+	<update id="updateRole" parameterClass="java.util.HashMap">
+		update t_system_role set roleName=#roleName# 
+		where roleId=#roleId#
+	</update>
+	
+	<!-- 根据角色删除权限 -->
+	<delete id="deleteRPByRoleId" parameterClass="java.util.HashMap">
+    	delete t_system_rp where roleid=#roleId# 
+    </delete>
+    
+    <!-- 删除角色 -->
+	<delete id="deleteRoleByRoleId" parameterClass="java.util.HashMap">
+    	delete t_system_role where roleid=#roleId#
+    </delete>
+    
+    <!-- 某个角色的权限用于修改 -->
+    <select id="findMenuByUserID" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap">
+		select
+    d.permissionId,d.permissionName,d.parentPermissionId,d.permissionResource,d.action,(
+    SELECT COUNT(*) FROM ( 
+        select permissionId from ( select * from
+        t_system_permission t  connect by prior
+        parentpermissionid=permissionid start with permissionid
+        in(
+                  select permissionid from t_system_rp  where roleid=#roleId#
+        ) order
+        by permissionorder ) c1
+    ) e WHERE e.permissionId = d.permissionId) as Checked from ( 
+              (
+                  select distinct permissionId,permissionName,parentPermissionId,permissionResource,action,permissionorder  from
+            t_system_permission t  connect by prior
+            parentpermissionid=permissionid start with permissionid
+            in(
+                           select f.permissionid from t_system_rp f join
+                          (select a.roleid from t_system_grouprole a join (select groupid from t_system_user where userid=#userId#) b 
+                           on a.groupid=b.groupid) e on f.roleid=e.roleid 
+              ) 
+          ) d
+    
+    ) order by permissionOrder
+	</select>
+	
+	 <!-- 系统的所有的权限用于添加 -->
+    <select id="findAllPermission" parameterClass="java.lang.String"
+		resultClass="java.util.HashMap">
+		select
+    d.permissionId,d.permissionName,d.parentPermissionId,d.permissionResource,d.action,'0' as Checked from ( 
+              (
+                  select distinct permissionId,permissionName,parentPermissionId,permissionResource,action,permissionorder  from
+            t_system_permission t  connect by prior
+            parentpermissionid=permissionid start with permissionid
+            in(
+                           select f.permissionid from t_system_rp f join
+                          (select a.roleid from t_system_grouprole a join (select groupid from t_system_user where userid=#userId#) b 
+                           on a.groupid=b.groupid) e on f.roleid=e.roleid 
+              ) 
+          ) d
+    ) order by permissionOrder
+	</select>
+</sqlMap>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 
+	自助平台|客户下订单
+	2009-12-17
+-->
+<sqlMap namespace="Address">	
+	<!-- 记录总数 -->
+	<select id="findAddressCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			select count(1)
+			 from  t_arichive_address t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pischeck">t.ischeck='$pischeck$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_type">t.bill_type='$pbill_type$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  t.ischeck desc,T.ID desc
+	</select>
+
+		
+	<!-- 查询记录，非分页 -->
+	<select id="findAddress" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id,t.province,GetParValue('PROVINCEID_NAME',t.province) provincename,
+			t.city,GetParValue('CITYID_NAME',t.city) cityname,
+			t.county,GetParValue('COUNTYID_NAME',t.county) countyname,
+			t.address,t.ischeck,case when t.ischeck=1 then '是' else '否' end ischeckname,
+			t.bill_type,case when t.bill_type=1 then '是' else '否' end bill_typename,t.bill_state,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+			from  t_arichive_address t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pischeck">t.ischeck='$pischeck$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_type">t.bill_type='$pbill_type$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  t.ischeck desc, T.ID desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findAddressPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+			select t.id,t.province,GetParValue('PROVINCEID_NAME',t.province) provincename,
+			t.city,GetParValue('CITYID_NAME',t.city) cityname,
+			t.county,GetParValue('COUNTYID_NAME',t.county) countyname,
+			t.address,t.ischeck,case when t.ischeck=1 then '是' else '否' end ischeckname,
+			t.bill_type,case when t.bill_type=1 then '是' else '否' end bill_typename,t.bill_state,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+			from  t_arichive_address t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pischeck">t.ischeck='$pischeck$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_type">t.bill_type='$pbill_type$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  t.ischeck desc,T.ID desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertAddress"	parameterClass="java.util.HashMap" >
+		insert into t_arichive_address
+				(id
+				<isNotEmpty prepend="," property="pprovince">province</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">city</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">county</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">address</isNotEmpty>
+				<isNotEmpty prepend="," property="pischeck">ischeck</isNotEmpty>
+				<isNotEmpty prepend="," property="pbill_type">bill_type</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">create_code</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">editor_code</isNotEmpty>
+				,bill_state,create_date,editor_date)
+				 values 
+				(seqformat('t_arichive_address')	
+				<isNotEmpty prepend="," property="pprovince">#pprovince#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">#pcity#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">#pcounty#</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">#paddress#</isNotEmpty>
+				<isNotEmpty prepend="," property="pischeck">#pischeck#</isNotEmpty>
+				<isNotEmpty prepend="," property="pbill_type">#pbill_type#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">#pcreate_code#</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">#peditor_code#</isNotEmpty>
+		   		,1,sysdate,sysdate)
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteAddressById" parameterClass="java.util.HashMap">
+    	update t_arichive_address set bill_state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateAddressById" parameterClass="java.util.HashMap">
+		update t_arichive_address t set t.id=t.id
+			<isNotEmpty prepend="," property="pprovince">province=#pprovince#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcity">city=#pcity#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcounty">county=#pcounty#</isNotEmpty>
+			<isNotEmpty prepend="," property="paddress">address=#paddress#</isNotEmpty>
+			<isNotEmpty prepend="," property="pischeck">ischeck=#pischeck#</isNotEmpty>
+			<isNotEmpty prepend="," property="pbill_type">bill_type=#pbill_type#</isNotEmpty>
+			<isNotEmpty prepend="," property="pbill_state">bill_state=#pbill_state#</isNotEmpty>
+			<isNotEmpty prepend="," property="peditor_code">editor_code=#peditor_code#</isNotEmpty>
+			<isNotEmpty prepend="," property="peditor_date">editor_date=sysdate</isNotEmpty>
+		where id=#pid# and t.bill_state &lt;&gt;0
+	</update>
+	
+	<!-- 默认地址的唯一性2010.2.21 -->
+	<update id="addressCheck" parameterClass="java.util.HashMap">
+		update t_arichive_address t set t.ischeck=0
+		where  t.bill_state &lt;&gt;0 and t.create_code=#pcreate_code#
+	</update>
+	
+	
+	<!-- 修改默认信息 -->
+	<update id="updateaddressCheck" parameterClass="java.util.HashMap">
+		update t_arichive_address t set editor_date=sysdate
+			<isNotEmpty prepend="," property="pprovince">province=#pprovince#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcity">city=#pcity#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcounty">county=#pcounty#</isNotEmpty>
+			<isNotEmpty prepend="," property="paddress">address=#paddress#</isNotEmpty>
+			<isNotEmpty prepend="," property="peditor_code">editor_code=#peditor_code#</isNotEmpty>
+		where create_code=#puserid# and  ischeck=1 and t.bill_state &lt;&gt;0
+	</update>
+</sqlMap>

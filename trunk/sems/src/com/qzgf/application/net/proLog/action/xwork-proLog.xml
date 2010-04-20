@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 自助平台|处理过程 
+-->
+<struts>
+	<package name="proLog" extends="net" namespace="/net">
+	    <!-- 处理过程 -->
+		<action name="proLog" class="proLogAction">
+		    <!-- ==================自助平台|处理过程========================= -->
+		    <!-- 列表信息 -->
+			<result name="list">/WEB-INF/BackModual/Net/ProLog/proLogList.jsp</result>
+			<!-- 具体列表信息 -->
+			<result name="listdetail">/WEB-INF/BackModual/Net/ProLog/proLogListDetail.jsp</result>
+			<!-- 查看 -->
+			<result name="view">/WEB-INF/BackModual/Net/ProLog/proLogView.jsp</result>
+			<!-- 编辑 -->
+			<result name="edit">/WEB-INF/BackModual/Net/ProLog/proLogEdit.jsp</result>
+			<!-- 新增 -->
+			<result name="new">/WEB-INF/BackModual/Net/ProLog/proLogEdit.jsp</result>
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>			
+	</package>
+</struts>

@@ -1,0 +1,16 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 用户组模块 
+	* @author lsr 
+-->
+<xwork>
+	<package name="group" extends="default" namespace="/">
+		<action name="group" class="groupAction">
+			<interceptor-ref name="authInterceptorStack"></interceptor-ref>	
+			<result name="index">/WEB-INF/BackModual/group/groupIndex.jsp</result>
+			<result name="list">/WEB-INF/BackModual/group/groupList.jsp</result>
+			<result name="groupSet">/WEB-INF/BackModual/group/groupSet.jsp</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>

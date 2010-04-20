@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 
+	* 系统管理|站内信息
+	* 2009-08-06
+	* @author 
+-->
+<sqlMap namespace="News">	
+    <resultMap class="com.qzgf.application.biz.news.domain.model" id="Model_htmlMap">    
+      <result property="NEWSID" column="NEWSID" javaType="String"/>
+      <result property="ARTICLESTYPE" column="ARTICLESTYPE" javaType="String"/>
+      <result property="TITLE" column="TITLE" javaType="String"/>
+      <result property="RELEASETIME" column="RELEASETIME" javaType="String"/>
+      <result property="ISAUDIT" column="ISAUDIT" javaType="String"/>
+      <result property="SOURCE" column="SOURCE" javaType="String"/>
+      <result property="AUTHOR" column="AUTHOR" javaType="String"/>          
+      <result property="CONTENT" column="CONTENT" nullValue="" javaType="java.lang.String" jdbcType="CLOB"/>
+    </resultMap>  
+	<!-- 查询记录总数(除去删除了的) -->
+	<select id="findNewsCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(*) from T_ARTICLES_NEWS 
+		where 1=1
+		<isNotEmpty prepend=" " property="artype"> 
+	    <isNotEqual property="artype" compareValue="3">
+					and    articlestype=#artype#
+		</isNotEqual>
+		
+		<isEqual property="artype" compareValue="3">
+				and	    ((articlestype=4) OR (articlestype=5))
+		</isEqual>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findNewsPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+	  select NEWSID,ARTICLESTYPE,TITLE,to_char(RELEASETIME,'yyyy-mm-dd')  RELEASETIME,ISAUDIT,SOURCE,AUTHOR
+		               from T_ARTICLES_NEWS
+		               where 1=1 
+		     <isNotEmpty prepend=" " property="artype">         
+		     <isNotEqual property="artype" compareValue="3">
+					and    articlestype=#artype#
+		     </isNotEqual>
+		     <isEqual property="artype" compareValue="3">
+				and	    ((articlestype=4) OR (articlestype=5))
+		      </isEqual>
+			  </isNotEmpty>	     
+		            
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	
+	<select id="findTopEightNewsList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	  SELECT * 
+FROM (SELECT  a.NEWSID,a.ARTICLESTYPE,a.TITLE,to_char(RELEASETIME,'yyyy-mm-dd')  RELEASETIME,a.ISAUDIT,a.SOURCE,a.AUTHOR
+            FROM t_articles_news a where  ARTICLESTYPE=4 and ISAUDIT=1
+        ORDER BY NEWSID DESC) 
+WHERE ISAUDIT=1 and ROWNUM &lt;= 8
+    </select>
+    
+    
+    <select id="findHangEightNewsList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	  SELECT * 
+FROM (SELECT  a.NEWSID,a.ARTICLESTYPE,a.TITLE,to_char(RELEASETIME,'yyyy-mm-dd')  RELEASETIME,a.ISAUDIT,a.SOURCE,a.AUTHOR
+            FROM t_articles_news a  where ARTICLESTYPE=5 and ISAUDIT=1
+        ORDER BY NEWSID DESC) 
+WHERE ISAUDIT=1 and ROWNUM &lt;= 8
+    </select>
+	
+	
+	
+<select id="findTopSixNewsList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	  SELECT * 
+FROM (SELECT  a.NEWSID,a.ARTICLESTYPE,a.TITLE,to_char(RELEASETIME,'yy.mm.dd')  RELEASETIME,a.ISAUDIT,a.SOURCE,a.AUTHOR
+            FROM t_articles_news a 
+        ORDER BY NEWSID DESC) 
+WHERE ISAUDIT=1 and ARTICLESTYPE=6 and  ROWNUM &lt;= 6 
+    </select>
+	
+	
+	
+	<select id="findOneNewsList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	   
+	   select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+	    select  NEWSID,ARTICLESTYPE,TITLE,to_char(RELEASETIME,'yyyy-mm-dd')  RELEASETIME,ISAUDIT,SOURCE,AUTHOR
+        from T_ARTICLES_NEWS where   ARTICLESTYPE=1 and ISAUDIT=1
+        order by newsid desc
+         )row_limit where rownum &lt;=1
+				) where rownum_&gt;= 1
+	</select>
+	
+	<select id="findOnlyfNews"  parameterClass="java.util.HashMap" resultMap="Model_htmlMap">
+		select
+		NEWSID,ARTICLESTYPE,TITLE,CONTENT,to_char(RELEASETIME,'yyyy-mm-dd')
+		RELEASETIME,ISAUDIT,SOURCE,AUTHOR from T_ARTICLES_NEWS where
+		newsid=#newsID#
+	</select>
+
+	<!-- 增加记录 -->
+	<insert id="insertTArticlesNews"	parameterClass="java.util.HashMap">
+		insert into T_ARTICLES_NEWS
+				(NEWSID
+				<isNotEmpty prepend="," property="articlestype">
+					    articlestype
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="title">
+					    title
+				</isNotEmpty>
+
+				<isNotEmpty prepend="," property="releasetime">
+					    releasetime
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pisaudit">
+					    isaudit
+				</isNotEmpty>
+				
+				<isNotEmpty prepend="," property="source">
+					    source
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="author">
+					    author
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="content">
+					    content
+				</isNotEmpty>				
+				) 
+				 values 
+				(seqformat('T_ARTICLES_NEWS')   
+				<isNotEmpty prepend="," property="articlestype">
+					    #articlestype#
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="title">
+					    #title#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="releasetime">
+					  to_date(#releasetime#,'yyyy-mm-dd')  
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pisaudit">
+					    #pisaudit#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="source">
+					    #source#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="author">
+					    #author#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="content">
+					    #content,javaType=java.lang.String,jdbcType=CLOB#
+				</isNotEmpty>				
+				)
+    </insert>
+     
+     <select id="findOnlyfNewsList" parameterClass="java.util.HashMap" resultMap="Model_htmlMap">
+       select  NEWSID,ARTICLESTYPE,TITLE,CONTENT,to_char(RELEASETIME,'yyyy-mm-dd')  RELEASETIME,ISAUDIT,SOURCE,AUTHOR
+        from T_ARTICLES_NEWS where newsid=#newsID#
+     </select>
+ 	<!-- 修改新闻 -->
+	<insert id="updateT_ARTICLES_NEWS"	parameterClass="java.util.HashMap">
+		insert into T_ARTICLES_NEWS
+				(NEWSID
+				<isNotEmpty prepend="," property="articlestype">
+					    articlestype
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="title">
+					    title
+				</isNotEmpty>
+
+				<isNotEmpty prepend="," property="releasetime">
+					    releasetime
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pisaudit">
+					    isaudit
+				</isNotEmpty>
+				
+				<isNotEmpty prepend="," property="source">
+					    source
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="author">
+					    author
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="content">
+					    content
+				</isNotEmpty>				
+				) 
+				 values 
+				(#newsid#   
+				<isNotEmpty prepend="," property="articlestype">
+					    #articlestype#
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="title">
+					    #title#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="releasetime">
+					  to_date(#releasetime#,'yyyy-mm-dd')  
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pisaudit">
+					    #pisaudit#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="source">
+					    #source#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="author">
+					    #author#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="content">
+					    #content,javaType=java.lang.String,jdbcType=CLOB#
+				</isNotEmpty>				
+				)
+    </insert>
+    <!--  
+     <update id="updateT_ARTICLES_NEWS"
+		parameterClass="java.util.HashMap">
+		update T_ARTICLES_NEWS set content=#content,javaType=java.lang.String,jdbcType=CLOB#,
+		ARTICLESTYPE=#articlestype#,TITLE=#title#,
+		ISAUDIT=#isaudit#
+		<isNotEmpty prepend="," property="source">
+			source=#source#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="author">
+			author=#author#
+		</isNotEmpty>
+		where newsid=#newsid#
+	</update>
+	-->
+<!-- 删除记录 -->
+	<delete id="deleteNews" parameterClass="java.util.HashMap">
+      delete from  T_ARTICLES_NEWS  where newsid=#newsid#
+    </delete>
+    </sqlMap>

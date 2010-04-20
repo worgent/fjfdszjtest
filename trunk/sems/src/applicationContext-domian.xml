@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="baseSqlMapDAO"
+		class="com.qzgf.IbatisDaoTools.BaseSqlMapDAOImpl" scope="prototype">
+		<description>数据库基础操作工具包</description>
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	
+	<!-- 启用AspectJ注解支持 -->
+    <aop:aspectj-autoproxy/>
+    
+    <!-- 注册日志切面
+    <bean class="com.qzgf.utils.interceptor.LoggingAspect">
+    	<property name="baseSqlMapDAO">
+			<ref bean="baseSqlMapDAO" />
+		</property>
+    </bean>
+	 -->
+	 
+	 
+	<!-- lsr begin -->
+	<bean id="testFacade" class="com.qzgf.application.biz.testModel.domain.TestFacadeImpl">
+		<description>测试模式Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<bean id="loginFacade" class="com.qzgf.application.systemManage.login.domain.LoginFacadeImpl">
+		<description>登录模式Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<bean id="permissionFacade" class="com.qzgf.application.systemManage.permission.domain.PermissionFacadeImpl">
+		<description>权限Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<bean id="roleFacade" class="com.qzgf.application.systemManage.role.domain.RoleFacadeImpl">
+		<description>角色Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<bean id="groupFacade" class="com.qzgf.application.systemManage.group.domain.GroupFacadeImpl">
+		<description>用户组Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	
+	<bean id="queryFacade" class="com.qzgf.application.biz.query.domain.QueryFacadeImpl">
+		<description>查询Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	
+	<!-- lsr end -->
+	
+	
+	
+	
+	
+	<!-- szj begin -->
+	<!-- ====================================系统管理=========================================== -->
+	<bean id="frontloginFacade" class="com.qzgf.application.systemManage.frontlogin.domain.FrontLoginFacadeImpl">
+		<description>系统管理|用户登录</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+
+	<!-- ====================================档案管理=========================================== -->
+	<bean id="addressFacade" class="com.qzgf.application.archives.address.domain.AddressFacadeImpl">
+		<description>档案管理|取件地址</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<bean id="clientMsgFacade" class="com.qzgf.application.archives.clientMsg.domain.ClientMsgFacadeImpl">
+		<description>档案管理|取件联系人</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<bean id="serTimeFacade" class="com.qzgf.application.archives.serTime.domain.SerTimeFacadeImpl">
+		<description>档案管理|服务时间</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<bean id="userFacade" class="com.qzgf.application.archives.user.domain.UserFacadeImpl">
+		<description>档案管理|用户管理</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<bean id="recMsgFacade" class="com.qzgf.application.archives.recMsg.domain.RecMsgFacadeImpl">
+		<description>档案管理|收件人信息</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<!-- ====================================自助平台=========================================== -->
+	<bean id="orderFacade" class="com.qzgf.application.net.order.domain.OrderFacadeImpl">
+		<description>自助平台|网上下单</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>	
+	<bean id="proLogFacade" class="com.qzgf.application.net.proLog.domain.ProLogFacadeImpl">
+		<description>自助平台|处理过程</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>	
+	<bean id="communicateFacade" class="com.qzgf.application.net.communicate.domain.CommunicateFacadeImpl">
+		<description>自助平台|与派揽系统通信</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>	
+	<bean id="printFacade" class="com.qzgf.application.net.print.domain.PrintFacadeImpl">
+		<description>自助平台|网上打单</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<!-- szj end -->
+	
+	
+	
+	<!-- shen begin -->
+	<bean id="newsFacade" class="com.qzgf.application.biz.news.domain.NewsFacadeImpl">
+		<description>文章Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	
+	<!-- 
+	<bean id="pictureFacade" class="com.qzgf.application.biz.picture.domain.PictureFacadeImpl">
+		<description>文章Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	shen end -->
+
+</beans>

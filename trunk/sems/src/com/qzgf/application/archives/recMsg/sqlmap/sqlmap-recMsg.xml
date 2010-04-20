@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 
+	自助平台|客户下订单
+	2009-12-17
+-->
+<sqlMap namespace="RecMsg">	
+	<!-- 记录总数 -->
+	<select id="findRecMsgCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			 select count(1) 
+			 from  t_arichive_rec t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_name">t.rec_name='$prec_name$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_unit">t.rec_unit='$prec_unit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_province">t.rec_province='$prec_province$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_city">t.rec_city='$prec_city$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_county">t.rec_county='$prec_county$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_address">t.rec_address='$prec_address$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_tel">t.rec_tel='$prec_tel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_mobile">t.rec_mobile='$prec_mobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_post">t.rec_post='$prec_post$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_sort">t.bill_sort='$pbill_sort$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+	</select>
+
+		
+	<!-- 查询记录，非分页 -->
+	<select id="findRecMsg" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id,t.rec_name,t.rec_unit,t.rec_address,t.rec_tel,
+			t.rec_mobile,t.rec_post,t.bill_sort,t.bill_state,
+			t.rec_province,GetParValue('PROVINCEID_NAME',t.rec_province) rec_provincename,
+			t.rec_city,GetParValue('CITYID_NAME',t.rec_city) rec_cityname,
+			t.rec_county,GetParValue('COUNTYID_NAME',t.rec_county) rec_countyname,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+ 			from  t_arichive_rec t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_name">t.rec_name='$prec_name$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_unit">t.rec_unit='$prec_unit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_province">t.rec_province='$prec_province$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_city">t.rec_city='$prec_city$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_county">t.rec_county='$prec_county$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_address">t.rec_address='$prec_address$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_tel">t.rec_tel='$prec_tel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_mobile">t.rec_mobile='$prec_mobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_post">t.rec_post='$prec_post$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_sort">t.bill_sort='$pbill_sort$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findRecMsgPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+			select t.id,t.rec_name,t.rec_unit,t.rec_address,t.rec_tel,
+			t.rec_mobile,t.rec_post,t.bill_sort,t.bill_state,
+			t.rec_province,GetParValue('PROVINCEID_NAME',t.rec_province) rec_provincename,
+			t.rec_city,GetParValue('CITYID_NAME',t.rec_city) rec_cityname,
+			t.rec_county,GetParValue('COUNTYID_NAME',t.rec_county) rec_countyname,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+ 			from  t_arichive_rec t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_name">t.rec_name='$prec_name$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_unit">t.rec_unit='$prec_unit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_province">t.rec_province='$prec_province$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_city">t.rec_city='$prec_city$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_county">t.rec_county='$prec_county$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_address">t.rec_address='$prec_address$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_tel">t.rec_tel='$prec_tel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_mobile">t.rec_mobile='$prec_mobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="prec_post">t.rec_post='$prec_post$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_sort">t.bill_sort='$pbill_sort$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertRecMsg"	parameterClass="java.util.HashMap" >
+		insert into t_arichive_rec
+				(id
+				<isNotEmpty prepend="," property="prec_name">rec_name</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_unit">rec_unit</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_province">rec_province</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_city">rec_city</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_county">rec_county</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_address">rec_address</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_tel">rec_tel</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_mobile">rec_mobile</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_post">rec_post</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">create_code</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">editor_code</isNotEmpty>
+				,bill_state,bill_sort,create_date,editor_date)
+				 values 
+				(seqformat('t_arichive_rec')
+				<isNotEmpty prepend="," property="prec_name">#prec_name#</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_unit">#prec_unit#</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_province">#prec_province#</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_city">#prec_city#</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_county">#prec_county#</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_address">#prec_address#</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_tel">#prec_tel#</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_mobile">#prec_mobile#</isNotEmpty>
+				<isNotEmpty prepend="," property="prec_post">#prec_post#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">#pcreate_code#</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">#peditor_code#</isNotEmpty>
+		   		,1,1,sysdate,sysdate)
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteRecMsgById" parameterClass="java.util.HashMap">
+    	update t_arichive_rec set bill_state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateRecMsgById" parameterClass="java.util.HashMap">
+		update t_arichive_rec t set t.id=t.id
+		<isNotEmpty prepend="," property="prec_name">rec_name=#prec_name#</isNotEmpty>
+		<isNotEmpty prepend="," property="prec_unit">rec_unit=#prec_unit#</isNotEmpty>
+		<isNotEmpty prepend="," property="prec_province">rec_province=#prec_province#</isNotEmpty>
+		<isNotEmpty prepend="," property="prec_city">rec_city=#prec_city#</isNotEmpty>
+		<isNotEmpty prepend="," property="prec_county">rec_county=#prec_county#</isNotEmpty>
+		<isNotEmpty prepend="," property="prec_address">rec_address=#prec_address#</isNotEmpty>
+		<isNotEmpty prepend="," property="prec_tel">rec_tel=#prec_tel#</isNotEmpty>
+		<isNotEmpty prepend="," property="prec_mobile">rec_mobile=#prec_mobile#</isNotEmpty>
+		<isNotEmpty prepend="," property="prec_post">rec_post=#prec_post#</isNotEmpty>
+		<isNotEmpty prepend="," property="peditor_code">editor_code=#peditor_code#</isNotEmpty>
+		<isNotEmpty prepend="," property="peditor_date">editor_date=sysdate</isNotEmpty>
+		where id=#pid# and t.bill_state &lt;&gt;0
+	</update>
+</sqlMap>

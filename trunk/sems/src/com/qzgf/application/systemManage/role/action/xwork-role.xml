@@ -1,0 +1,17 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 角色模块
+	* @author lsr  
+-->
+<xwork>
+	<package name="role" extends="default" namespace="/">
+		<action name="role" class="roleAction">
+			<interceptor-ref name="userSessionInterceptorStack"></interceptor-ref>	
+			<result name="index">/WEB-INF/BackModual/role/roleIndex.jsp</result>
+			<result name="list">/WEB-INF/BackModual/role/roleList.jsp</result>
+			<result name="roleSet">/WEB-INF/BackModual/role/roleSet.jsp</result>
+			<result name="roleAdd">/WEB-INF/BackModual/role/roleAdd.jsp</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>
