@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	自助平台|客户下订单
+	2009-12-17 
+-->
+<sqlMap namespace="SerTime">	
+	<!-- 记录总数 -->
+	<select id="findSerTimeCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			 select count(1) 
+			from  t_arichive_sertime t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pserverstime">t.serverstime=cast(#pserverstime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pserveretime">t.serveretime=cast(#pserveretime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+	</select>
+
+		
+	<!-- 查询记录，非分页 -->
+	<select id="findSerTime" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id,t.province,GetParValue('PROVINCEID_NAME',t.province) provincename,
+			t.city,GetParValue('CITYID_NAME',t.city) cityname,
+			t.county,GetParValue('COUNTYID_NAME',t.county) countyname,
+			to_char(t.serverstime,'hh24:mi:ss') serverstime,to_char(t.serveretime,'hh24:mi:ss') serveretime,
+			t.bill_state,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+			 from  t_arichive_sertime t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pserverstime">t.serverstime=cast(#pserverstime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pserveretime">t.serveretime=cast(#pserveretime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findSerTimePage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+			select t.id,t.province,GetParValue('PROVINCEID_NAME',t.province) provincename,
+			t.city,GetParValue('CITYID_NAME',t.city) cityname,
+			t.county,GetParValue('COUNTYID_NAME',t.county) countyname,
+			to_char(t.serverstime,'hh24:mi:ss') serverstime,to_char(t.serveretime,'hh24:mi:ss') serveretime,
+			t.bill_state,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+			 from  t_arichive_sertime t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pserverstime">t.serverstime=cast(#pserverstime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pserveretime">t.serveretime=cast(#pserveretime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertSerTime"	parameterClass="java.util.HashMap" >
+		insert into t_arichive_sertime
+				(id
+				<isNotEmpty prepend="," property="pprovince">province</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">city</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">county</isNotEmpty>
+				<isNotEmpty prepend="," property="pserverstime">serverstime</isNotEmpty>
+				<isNotEmpty prepend="," property="pserveretime">serveretime</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">create_code</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">editor_code</isNotEmpty>		
+				,bill_state,create_date,editor_date)
+				 values 
+				(seqformat('t_arichive_sertime')	
+				<isNotEmpty prepend="," property="pprovince">#pprovince#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">#pcity#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">#pcounty#</isNotEmpty>
+				<isNotEmpty prepend="," property="pserverstime">TO_DATE(#pserverstime#,'hh24:mi:ss')</isNotEmpty>
+				<isNotEmpty prepend="," property="pserveretime">TO_DATE(#pserveretime#,'hh24:mi:ss')</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">#pcreate_code#</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">#peditor_code#</isNotEmpty>		
+		   		,1,sysdate,sysdate)
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteSerTimeById" parameterClass="java.util.HashMap">
+    	update t_arichive_sertime set bill_state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateSerTimeById" parameterClass="java.util.HashMap">
+		update t_arichive_sertime t set t.id=t.id
+		<isNotEmpty prepend="," property="pprovince">province=#pprovince#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcity">city=#pcity#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcounty">county=#pcounty#</isNotEmpty>
+		<isNotEmpty prepend="," property="pserverstime">serverstime=TO_DATE(#pserverstime#,'hh24:mi:ss')</isNotEmpty>
+		<isNotEmpty prepend="," property="pserveretime">serveretime=TO_DATE(#pserveretime#,'hh24:mi:ss')</isNotEmpty>
+		<isNotEmpty prepend="," property="pbill_state">bill_state=#pbill_state#</isNotEmpty>
+		<isNotEmpty prepend="," property="peditor_code">editor_code=#peditor_code#</isNotEmpty>
+		<isNotEmpty prepend="," property="peditor_date">editor_date=sysdate</isNotEmpty>
+		where id=#pid# and t.bill_state &lt;&gt;0
+	</update>
+	
+	
+	<!-- 验证服务时间 and rownum=1 -->
+	<select id="serTimeVerify" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+       select count(*) count 
+	   from  t_arichive_sertime t where T.bill_state &lt;&gt;0 
+       and '$pservertime$' &gt;= to_char(sysdate+40/(24*60),'yyyy-mm-dd hh24:mi:ss')  
+       and to_char(t.serverstime,'hh24:mi:ss') &lt;= substr('$pservertime$',12,8) 
+       and to_char(t.serveretime,'hh24:mi:ss') &gt;= substr('$pservertime$',12,8) 
+  	    <isNotEmpty prepend=" and " property="pprovince">province='$pprovince$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcity">city='$pcity$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcounty">county='$pcounty$'</isNotEmpty>     
+	</select>
+	
+	<!-- 取得服务时间 and rownum=1 -->
+	<select id="serTimeGetVerify" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+       select to_char(t.serverstime,'hh24:mi:ss') serverstime,to_char(t.serveretime,'hh24:mi:ss') serveretime 
+	   from  t_arichive_sertime t where T.bill_state &lt;&gt;0 
+  	    <isNotEmpty prepend=" and " property="pprovince">province='$pprovince$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcity">city='$pcity$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcounty">county='$pcounty$'</isNotEmpty>     
+	</select>
+</sqlMap>
