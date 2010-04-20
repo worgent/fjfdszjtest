@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.6//EN"
+        "http://tuckey.org/res/dtds/urlrewrite2.6.dtd">
+<!--
+	 
+	Configuration file for UrlRewriteFilter
+	http://tuckey.org/urlrewrite/
+-->
+
+<urlrewrite>
+	<!-- 测试,在URL地址里面访问:http://localhost/1.html -->
+	<rule>  
+    	<from>/aaaaaaaaa/aaa/(.*).html</from>  
+    	<to>test.jsp?id=$1</to>  
+    </rule> 
+</urlrewrite>
