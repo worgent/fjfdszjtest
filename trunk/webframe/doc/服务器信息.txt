@@ -1,0 +1,61 @@
+服务器信息:IP(218.207.131.134)
+VNC:密码:123@123,登录:218.207.131.134:1
+SSH:密码:qzgf2008
+oracle数据库:用户名密码:hunt,hunt
+修改用户密码为如下:
+alter user 用户名 identified by 密码.
+ sys  qzgf2008
+ system qzgf2008
+                        
+
+tnsnames.ora中增加如下配置
+HUNT =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 218.207.131.134)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = orcl)
+    )
+  )
+配置完以上,可用sqlplus登录 sqlplus /nolog         conn hunt/hunt@hunt
+
+1./u01/app/oracle/oracle:oracle数据库的根目录
+需要root用户:执行如下命令
+service oracle start//oracle服务启动
+service oracle stop//oracle服务停止
+2./var/soft/  tomcat服务器路径
+到bin下
+启动:./startup.sh
+停止:./shutdown.sh
+
+猎图网部署在root下,
+前台入口:http://218.207.131.134/frontindex.jsp
+后台入口:http://218.207.131.134/login.do
+
+异常:
+图片存放路径:/var/soft/photo为根的目录下
+当页面访问时会直接读取如下地址:
+http://218.207.131.134/var/soft/photo/photo/49/1/11258378286313.jpg_Small
+
+
+解决方法：
+
+在OS上把带关键字"oc4j"和"dbconsole"的进程都杀掉，
+然后重新依次执行emctl stop agent，emctl stop dbconsole就可以了。
+oracle@oracleserver ~]$ kill 19637
+[oracle@oracleserver ~]$ ps -ef|grep oc4j
+[oracle@oracleserver ~]$ emctl stop dbconsole
+
+1158/em
+5560 isql
+
+finger查询登录用户.
+
+root
+qzgf2010
+
+qzgforcl
+
+
+

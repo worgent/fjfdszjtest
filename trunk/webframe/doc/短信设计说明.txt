@@ -1,0 +1,247 @@
+例:客户会给如下信息:
+     短信网关IP地址：127.0.0.1
+     短信网关端口：8855或7890
+     短信接入号：106573041123(通常12位,在长号处理中会用到20位)
+     用户名：123456
+     密  码：654321
+==================================================================
+使用工具cmpp2.0模拟器
+
+基类smsbean封装了手机号数组,短信内容,序列号(长号处理中使用)
+
+
+数据库设计
+短信存储表
+1.短信接收表
+Table          Create Table                                                                       
+-------------  -----------------------------------------------------------------------------------
+tf_incept_sms  CREATE TABLE `tf_incept_sms` (                                                     
+                 `incept_sms_id` varchar(30) NOT NULL COMMENT '流水号',                           
+                 `phone_code` varchar(30) default NULL COMMENT '发送者号码',                      
+                 `incept_date` varchar(30) default NULL COMMENT '接收时间',                       
+                 `sms_content` varchar(500) default NULL COMMENT '短信内容',                      
+                 `sms_state` int(1) default NULL COMMENT '短信状态 0：失效 1：未处理 2：已处理',  
+                 `staff_id` varchar(30) default NULL COMMENT '处理短信者ID',                      
+                 `coll_date` datetime default NULL COMMENT '采集时间',                            
+                 `tran_date` datetime default NULL COMMENT '处理时间',                            
+                 PRIMARY KEY  (`incept_sms_id`),                                                  
+                 UNIQUE KEY `idx_tf_incept_sms01` (`incept_sms_id`)                               
+               ) ENGINE=InnoDB DEFAULT CHARSET=gbk COMMENT='短信接收表'                           
+2.短信发送表
+
+tf_send_sms  CREATE TABLE `tf_send_sms` (                                                                                  
+               `send_sms_id` varchar(30) NOT NULL COMMENT '流水号',                                                         
+               `call_phone` varchar(30) default NULL COMMENT '接送者号码',                                                    
+               `call_man_name` varchar(30) default NULL COMMENT '接送者姓名',                                              
+               `call_staff_id` varchar(30) default NULL COMMENT '接送者工号',                                                                                 
+               `send_date` datetime default NULL COMMENT '发送时间',                                                        
+               `send_content` varchar(500) default NULL COMMENT '发送内容',                                                
+               `source_order_type` int(1) default NULL COMMENT '源单类型 0:其它没有源单号 1;派车时发送的 2:调度时发送的',  
+               `source_order_code` varchar(30) default NULL COMMENT '原单号',                                               
+               `staff_id` varchar(30) default NULL COMMENT '工号',                                                    
+               `send_state` int(1) default NULL COMMENT '短信状态 0：失效 1：未处理 2：已处理',
+               `msisdn_id` varchar(6) default '-1' COMMENT '源终端MSISDN号码',                                             
+               PRIMARY KEY  (`send_sms_id`)                                                                                
+             ) ENGINE=InnoDB DEFAULT CHARSET=gbk COMMENT='短信发送表'   
+
+3.短信配置表
+字段说明
+命令字(00-99),唯一
+内部编码
+,类名(clazz),
+方法名(method),
+备注(remark)
+
+//=================================================短信接收方式说明======================
+//短信相关包封装在com.qzgf.utils.sms下.
+//基类说明
+SmproxyRec.java是短信接收类.
+SmproxySendFacade.java是发送接口类.
+SmproxySendFacadeImpl.java是发送接口的实现类.
+smsBean.java是短信消息类.
+Smproxy.xml是短信的配置文件,放到tomcat的bin下.
+//扩展类
+短信接收转发的接口类NotifyHandler.java
+短信接收转发的接口实现基类AbstractNotifyHandlerImpl.所有的接收短信都要继承该类.
+这个类封了以下参数,可直接调用,且接收的短信实现必须在此包(com.qzgf.utils.sms.notify)下.
+	/**
+	 * 数据操作接口
+	 */
+	protected BaseSqlMapDAO baseSqlMapDAO;	
+	//发送短信
+	/**
+	 * 短信发送接口
+	 */
+	protected SMProxySendFacade sendmsm;
+	//对象参数
+	/**
+	 * 接收短信信息的参数
+	 */
+	protected SmsBean smsbean=new SmsBean();
+
+//数据库的配置
+
+Servicecode指令编号,CLAZZ类名,METHOD方法,Remark备注信息.
+例如:
+场景描述:
+商家有一项优惠活动通过系统发送一条短信让向导确定是否接受商家的邀请,向导回复1同意,0不同意.
+指令代码11
+当商家通过系统发送短信时,sms号为10657304112311123456,内容为是否接收优惠活动邀请
+  向导上行1代表同意,现在系统就会接收到表中查到该指令对应的接收方法.执行相关业务逻辑.
+  短号的使用要有度.
+  smsbean:存有用户上行的号码,msisdn,内容,
+  baseSqlMapDAO:操作数据库查询相关业务逻辑.对msisdn要进行查询最近的一条记录的方法,来保证信息的最新性.
+  sendmsm:当处理完相关业务后,提示用户操作成功等信息.用这个参数可以发送短信.
+  
+
+106573041123+11+123456
+短信接入号+指令+自增序列(自动生成)
+
+=======================短信发送方式说明========================================
+在appliationContext-domian.xml中配置如下信息
+	<!-- 派车登记 -->
+	<bean id="expediteTransferTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="net.trust.application.carManage.expedite.domain.ExpediteFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO"/>
+				<property name="smproxyFacade" ref="smproxyFacade"/>
+			</bean>
+		</property>
+	</bean>
+
+=======================短信接收参考========================================
+示例:com.qzgf.utils.sms.notify.Example.
+所有没有命令字的指令在com.qzgf.utils.sms.notify.MessageNotifyHandlerImpl中实现.
+注意新建的类必须继承AbstractNotifyHandlerImpl.
+短信配置表
+字段说明
+命令字(00-99),唯一内部编码,类名(clazz),方法名(method),备注(remark)
+
+
+/*==============================================================*/
+/* Table: t_sms_incept                                          */
+/*==============================================================*/
+create table t_sms_incept  (
+   id                   CHAR(20)                        not null,
+   mobile               CHAR(20)                       default ' ',
+   incepttime           TIMESTAMP WITH TIME ZONE       default SYSDATE,
+   content              VARCHAR(500)                   default ' ',
+   msisdn               CHAR(8)                        default ' ',
+   servicecode          CHAR(2)                        default ' ',
+   state                CHAR(2)                        default '1',
+   proid                CHAR(20)                       default ' ',
+   protime              TIMESTAMP WITH TIME ZONE       default SYSDATE
+);
+
+comment on column t_sms_incept.id is
+'主键';
+
+comment on column t_sms_incept.mobile is
+'信息机接收到的用户手机号码';
+
+comment on column t_sms_incept.incepttime is
+'信息机接收短信的时间';
+
+comment on column t_sms_incept.content is
+'信息机接收的短信内容';
+
+comment on column t_sms_incept.msisdn is
+'20位=12位短信接入号+2位服务编码+6位短号';
+
+comment on column t_sms_incept.servicecode is
+'服务编码在短信配置中使用的2位数(00~99)';
+
+comment on column t_sms_incept.state is
+'0：失效 1：未处理 2：已处理';
+
+comment on column t_sms_incept.proid is
+'用户对接收的短信进行确认操作';
+
+comment on column t_sms_incept.protime is
+'用户对接收的短信进行确认操作的时间';
+
+
+
+
+
+/*==============================================================*/
+/* Table: t_sms_send                                            */
+/*==============================================================*/
+create table t_sms_send  (
+   id                   CHAR(20)                        not null,
+   mobile               CHAR(20)                       default ' ',
+   name                 VARCHAR(30)                    default ' ',
+   userid               CHAR(20)                       default ' ',
+   sendid               CHAR(20)                       default ' ',
+   sendtime             TIMESTAMP WITH TIME ZONE       default SYSDATE,
+   content              VARCHAR(500)                   default ' ',
+   srcbillid            CHAR(20)                       default ' ',
+   msisdn               CHAR(8)                        default ' ',
+   servicecode          CHAR(2)                        default ' ',
+   state                CHAR(2)                        default '1'
+);
+
+comment on column t_sms_send.id is
+'主键';
+
+comment on column t_sms_send.mobile is
+'信息机发送给接收者的手机号';
+
+comment on column t_sms_send.name is
+'信息机发送给接收者的姓名';
+
+comment on column t_sms_send.userid is
+'信息机发送给接收者编号,系统内部编号';
+
+comment on column t_sms_send.sendid is
+'发送人启动发送短信的用户';
+
+comment on column t_sms_send.sendtime is
+'启动信息机发送短信的时间';
+
+comment on column t_sms_send.content is
+'短信内容';
+
+comment on column t_sms_send.srcbillid is
+'业务相关单据主键的主键,为短信接收时可进行关连处理';
+
+comment on column t_sms_send.msisdn is
+'20位=12位短信接入号+2位服务编码+6位短号,只需6位当前暂时8位';
+
+comment on column t_sms_send.servicecode is
+'服务编码在短信配置中使用的2位数(00~99)';
+
+comment on column t_sms_send.state is
+'0：失效 1：未处理 2：已处理';
+
+
+
+/*==============================================================*/
+/* Table: t_sms_config                                          */
+/*==============================================================*/
+create table t_sms_config  (
+   servicecode          CHAR(2)                        default ' ' not null,
+   clazz                CHAR(30)                       default ' ',
+   method               CHAR(30)                       default ' ',
+   remark               VARCHAR(500)                   default ' ',
+   constraint pk_t_sms_config primary key (servicecode)
+);
+
+comment on column t_sms_config.servicecode is
+'服务编码:主键唯一性
+20位=12位短信接入号+2位服务编码+6位短号
+从(00-99),且必须两位';
+
+comment on column t_sms_config.clazz is
+'服务编码相关的业务类';
+
+comment on column t_sms_config.method is
+'服务编码相关的业务类的具体方法';
+
+comment on column t_sms_config.remark is
+'对于服务编码的说明';
+
+
+
+
+
