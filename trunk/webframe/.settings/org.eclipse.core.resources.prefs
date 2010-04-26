@@ -1,0 +1,27 @@
+#Tue Mar 30 16:05:35 CST 2010
+eclipse.preferences.version=1
+encoding//WebRoot/formValidatorTest.jsp=gb2312
+encoding//WebRoot/js/formValidator.js=UTF-8
+encoding//WebRoot/js/formValidatorRegex.js=UTF-8
+encoding//WebRoot/js/jmessage.js=utf-8
+encoding//WebRoot/js/jmessageback.js=utf-8
+encoding//WebRoot/js/jutil.js=utf-8
+encoding//WebRoot/js/mapFortune.js=UTF-8
+encoding//WebRoot/test1.jsp=gb2312
+encoding//WebRoot/topframe.jsp=gbk
+encoding//src/com/qzgf/application/BaseAction.java=utf-8
+encoding//src/com/qzgf/application/archives/space/domain/SpaceFacade.java=gbk
+encoding//src/com/qzgf/application/biz/regModel/domain/RegFacadeImpl.java=gbk
+encoding//src/com/qzgf/application/selfConfig/album/domain/AlbumFacadeImpl.java=UTF-8
+encoding//src/com/qzgf/application/selfConfig/reward/action/RewardAction.java=gbk
+encoding//src/com/qzgf/application/systemManage/taglib/config/SysConfig.java=utf-8
+encoding//src/com/qzgf/application/systemManage/taglib/dto/Config.java=utf-8
+encoding//src/com/qzgf/context/Pages.java=utf-8
+encoding//src/com/qzgf/utils/comm/AutoFilter.java=UTF-8
+encoding//src/com/qzgf/utils/comm/Constant.java=utf-8
+encoding//src/com/qzgf/utils/comm/ImgUtil.java=gbk
+encoding//src/com/qzgf/utils/taglib/Page.java=utf-8
+encoding//src/com/qzgf/utils/taglib/PageTag.java=utf-8
+encoding//src/com/qzgf/utils/taglib/WebInfo.java=utf-8
+encoding//src/com/qzgf/utils/taglib/WebInfoTag.java=utf-8
+encoding//src/com/qzgf/webutils/servlet/AuthImg.java=utf-8
