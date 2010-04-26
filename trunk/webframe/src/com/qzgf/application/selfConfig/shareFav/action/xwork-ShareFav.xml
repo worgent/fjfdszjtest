@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 优惠分享
+-->
+<struts>
+	<package name="shareFav" extends="selfconfig" namespace="/selfconfig">
+	     <!-- 优惠分享 -->
+		<action name="shareFav" class="shareFavAction">
+		    <!-- 前台 -->
+			<!--优惠分享列表-->
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/Mapcard/mapcardList.jsp</result>
+			<!--优惠分享商家信息-->
+			<result name="detail">/WEB-INF/FrontModual/SelfConfig/Mapcard/mapcardDetail.jsp</result>
+			<!--优惠分享商品信息-->	
+			<result name="detailitem">/WEB-INF/FrontModual/SelfConfig/Mapcard/mapcardDetailItem.jsp</result>		
+
+			<!-- 后台 -->
+			<!--优惠分享列表-->
+			<result name="list">/WEB-INF/BackModual/SelfConfig/Mapcard/mapcardList.jsp</result>
+			<!--优惠分享商家信息-->
+			<result name="edit">/WEB-INF/BackModual/SelfConfig/Mapcard/mapcardEdit.jsp</result>
+			<!--优惠分享商品信息-->	
+			<result name="view">/WEB-INF/BackModual/SelfConfig/Mapcard/mapcardView.jsp</result>				
+	
+	    
+	        <!-- 2010-04-26处理流程 -->
+			<!--优惠分享|查询向导-->
+			<result name="searchUser">/WEB-INF/BackModual/SelfConfig/ShareFav/SearchUser.jsp</result>
+			<!--优惠分享|分享他人-->
+			<result name="shareUser">/WEB-INF/BackModual/SelfConfig/ShareFav/ShareUser.jsp</result>
+			<!--优惠分享|短消息处理-->	
+			<result name="smsPro">/WEB-INF/BackModual/SelfConfig/ShareFav/SmsPro.jsp</result>		
+
+
+
+
+			
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>	
+				
+	</package>
+</struts>

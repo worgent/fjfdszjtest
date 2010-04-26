@@ -1,0 +1,23 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	
+-->
+<xwork>
+	<package name="adverRec" extends="archives" namespace="/"><!-- 里面的extends="archives"是继承于xwork-space-package.xml的<package name="archives" -->
+		<action name="adverRec" class="adverRecommendAction">
+			<result name="index">/WEB-INF/BackModual/Archives/User/UserMain.jsp</result>
+			<result name="adverRec">/WEB-INF/BackModual/Archives/adverRecommend/adverRecommend.jsp</result>
+			<result name="userList">/WEB-INF/BackModual/Archives/adverRecommend/adverList.jsp</result>
+			<result name="guideSpace">/WEB-INF/BackModual/Archives/adverRecommend/guideSpace.jsp</result>
+            <result name="business">/WEB-INF/BackModual/Archives/adverRecommend/businessList.jsp</result>
+            <result name="businessSpace">/WEB-INF/BackModual/Archives/adverRecommend/businessSpace.jsp</result>
+           
+
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>

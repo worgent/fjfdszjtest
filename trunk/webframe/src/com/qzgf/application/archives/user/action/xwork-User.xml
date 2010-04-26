@@ -1,0 +1,103 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	
+-->
+<xwork>
+	<package name="user" extends="archives" namespace="/"><!-- 里面的extends="archives"是继承于xwork-space-package.xml的<package name="archives" -->
+		<action name="user" class="userAction">
+			<result name="index">/WEB-INF/BackModual/Archives/User/UserMain.jsp</result>
+
+
+            <result name="pwdSet">/WEB-INF/BackModual/Archives/User/Password.jsp</result>
+
+			<result name="enterLogin">/WEB-INF/BackModual/Archives/User/UserLogin.jsp</result>
+			
+			<result name="enterSuc">/WEB-INF/BackModual/Archives/User/UserMain.jsp</result>
+			<result name="enterFail">/WEB-INF/BackModual/Archives/User/UserLogin.jsp</result>
+			
+			<result name="enterListSuc">/WEB-INF/BackModual/Archives/User/enterListSuc.jsp</result>
+		
+			
+			
+			
+			<result name="regedit">/WEB-INF/BackModual/Archives/User/regedit.jsp</result>
+			<result name="regeditSuccess">/WEB-INF/BackModual/Archives/User/regeditSuccess.jsp</result>
+			<result name="regeditFail">/WEB-INF/BackModual/Archives/User/regeditFail.jsp</result>
+			<result name="regeditExist">/WEB-INF/BackModual/Archives/User/regeditExist.jsp</result>
+			
+			
+			<result name="regeditList">/WEB-INF/BackModual/Archives/User/UserList.jsp</result>
+			<result name="insertUser">/WEB-INF/BackModual/Archives/User/regeditNext.jsp</result>
+			
+			
+			<result name="article">/WEB-INF/BackModual/Archives/User/article.jsp</result>
+			
+			
+			<!-- 商家会员 -->
+			<result name="merchantEnter">/WEB-INF/BackModual/Archives/User/MerchantMember.jsp</result>
+			<result name="applMerchantSave">/WEB-INF/BackModual/Archives/User/MerchantMember.jsp</result>
+			<result name="MemberPageList">/WEB-INF/BackModual/Archives/User/MemberList.jsp</result>
+			
+			<result name="editOnlyRecord">/WEB-INF/BackModual/Archives/User/editOnlyMember.jsp</result>
+		    <!-- 商家会员 -->
+		    
+		    <!-- 创建部落 -->  
+		       <result name="createTribal">/WEB-INF/BackModual/Archives/User/createTribal.jsp</result>
+		       <result name="newCreateTribal">/WEB-INF/BackModual/Archives/User/Tribal.jsp</result>
+		        <result name="loginTribal">/WEB-INF/BackModual/Archives/User/Tribal.jsp</result>
+		        <result name="searchUser">/arrivedSearchUser.jsp</result>
+		      
+		        <result name="addFriend">/WEB-INF/BackModual/Archives/User/addFriendSuccess.jsp</result>
+		        <result name="tribalGroup">/WEB-INF/BackModual/Archives/User/tribalGroup.jsp</result>
+		        
+		     <!-- 创建部落 -->  
+             <!-- 商品信息 -->  
+		      <result name="productMessage">/WEB-INF/BackModual/Archives/product/productList.jsp</result>
+		      <result name="productAdd">/WEB-INF/BackModual/Archives/product/productAdd.jsp</result>
+		      <result name="productModify">/WEB-INF/BackModual/Archives/product/productModify.jsp</result>
+			  <!-- 商品信息 end -->  
+			  
+			  
+			  <!-- 优惠券 -->
+			   <result name="favourableList">/WEB-INF/BackModual/Archives/favorable/favorableList.jsp</result>
+			   <result name="favourableAdd">/WEB-INF/BackModual/Archives/favorable/favorableAdd.jsp</result>
+			   <result name="favourableModify">/WEB-INF/BackModual/Archives/favorable/favorableModify.jsp</result>
+
+			  <!-- 优惠券 -->
+			  
+			   <!--会员申诉 -->
+			  <result name="insertAppeal">/WEB-INF/BackModual/Archives/User/memberAppeal.jsp</result>
+			  <result name="insertAppealSave">/WEB-INF/BackModual/Archives/User/memberAppeal.jsp</result>
+			  <result name="appealList">/WEB-INF/BackModual/Archives/User/appealList.jsp</result>
+			  <result name="editOnlyAppeal">/WEB-INF/BackModual/Archives/User/AppealModify.jsp</result>
+			   <result name="selectAllAppeal">/WEB-INF/BackModual/Archives/User/selectAllAppeal.jsp</result>
+			   <!--会员申诉 -->
+			   <!-- 好友设置 -->
+			      <result name="friendSet">/WEB-INF/BackModual/Archives/friendSet/friendSet.jsp</result>
+			      <result name="updateAccept">/WEB-INF/BackModual/Archives/friendSet/friendEdit.jsp</result>
+			      <result name="friendBlack">/WEB-INF/BackModual/Archives/friendSet/friendBlack.jsp</result>
+			   <!-- 好友设置 -->
+			   
+			   <!-- 手机注册 -->
+			    <result name="mobileRegedit">/WEB-INF/BackModual/Archives/User/mobileRegedit.jsp</result>
+			    <result name="mobileReg">/WEB-INF/BackModual/Archives/User/mobileRegSuc.jsp</result>
+			    <result name="position">/WEB-INF/BackModual/Archives/User/mobileMap.jsp</result>
+			   
+			    <!-- 手机注册 -->
+			   
+			   
+			     <!-- 分类 -->
+			       <result name="categories">/categories.jsp</result>
+			     <!-- 分类 -->
+			   
+			
+				<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>

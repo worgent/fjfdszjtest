@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 人员信息
+	* 2009-08-14
+	* @author lsr
+-->
+<sqlMap namespace="UserInfoTag">	
+	
+	<!-- 根据UserId查询该用户的一些基本信息 -->
+	<select id="findUserInfoById"
+		parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		select * from t_archives_user where state=1 and userId=#UserId#
+	</select>
+	
+	<!-- 根据Id查询日志记录 -->
+	<select id="findUserLevelById"
+		parameterClass="java.util.HashMap" resultClass="java.lang.String"
+		remapResults="true">
+		select levelname from(select  * from t_system_userlevel where experiencevalue&lt;=#experience#
+		 and contributevalue&lt;=#contribute# and famevalue&lt;=#fame# order by id desc 
+		)where rownum=1
+	</select>
+	
+</sqlMap>

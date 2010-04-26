@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 悬赏，揭榜（求助社）
+	* @author lsr 
+-->
+<struts>
+	<package name="reward" extends="selfconfig" namespace="/selfconfig">
+		<action name="reward" class="rewardAction">
+		    <!-- 前台显示 -->
+		    <!-- 悬赏列表-->
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/Reward/rewardList.jsp</result>
+			<!-- 揭榜提示-->
+			<result name="solvehide">/WEB-INF/FrontModual/SelfConfig/Reward/solvehide.jsp</result>
+			<!-- 悬赏的明细,已经的答复-->
+			<result name="rewarddetail">/WEB-INF/FrontModual/SelfConfig/Reward/rewarddetail.jsp</result>
+			<!-- 揭榜回答-->			
+			<result name="solvequestion">/WEB-INF/FrontModual/SelfConfig/Reward/solvequestion.jsp</result>
+
+
+			<!-- 后台处理 -->
+		    <!-- 悬赏列表-->
+			<result name="list">/WEB-INF/BackModual/SelfConfig/Reward/rewardList.jsp</result>
+			<!-- 悬赏是否结帖处理 -->
+			<result name="edit">/WEB-INF/BackModual/SelfConfig/Reward/rewardEdit.jsp</result>
+
+			<!-- 公用配置 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- json数据处理
+			<result name="json" type="json" >
+				<param name="root">json</param>
+			</result>
+			 -->
+			<!-- json与vm结构 -->
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<!-- 参数设置 -->
+			<interceptor-ref name="mapParam" />
+		</action>
+	</package>
+</struts>

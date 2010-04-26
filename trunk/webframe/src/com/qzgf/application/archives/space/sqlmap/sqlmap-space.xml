@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 系统管理|站内信息
+	* 2009-08-06
+	* @author 
+-->
+<sqlMap namespace="Space">	
+	<!-- 查询记录总数(除去删除了的) -->
+	<select id="findSpaceCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from T_Archives_Space
+		 where state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pspaceid">
+	   			spaceid='$pspaceid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="pspacename">
+	   			spacename='$pspacename$'
+		</isNotEmpty> 		
+	  	<isNotEmpty prepend=" and" property="pspacebulletin">
+	   			spacebulletin='$pspacebulletin$'
+		</isNotEmpty> 
+	  	<isNotEmpty prepend=" and" property="pshowarlticlenum">
+	   			showarlticlenum='$pshowarlticlenum$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pspacestyle">
+		   		spacestyle=#pspacestyle#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="panonreversion">
+		   		anonreversion=#panonreversion#
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="pshowcaller">
+		   		showcaller=#pshowcaller#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pshowfriend">
+		   		showfriend=#pshowfriend#
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pshowbulletin">
+		   		showbulletin=#pshowbulletin#
+		</isNotEmpty>	
+	</select>
+	
+	<!-- 查询记录，非分页 -->
+	<select id="findSpace" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select count(1) from T_Archives_Space  where state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pspaceid">
+	   			spaceid='$pspaceid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="pspacename">
+	   			spacename='$pspacename$'
+		</isNotEmpty> 		
+	  	<isNotEmpty prepend=" and" property="pspacebulletin">
+	   			spacebulletin='$pspacebulletin$'
+		</isNotEmpty> 
+	  	<isNotEmpty prepend=" and" property="pshowarlticlenum">
+	   			showarlticlenum='$pshowarlticlenum$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pspacestyle">
+		   		spacestyle=#pspacestyle#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="panonreversion">
+		   		anonreversion=#panonreversion#
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="pshowcaller">
+		   		showcaller=#pshowcaller#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pshowfriend">
+		   		showfriend=#pshowfriend#
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pshowbulletin">
+		   		showbulletin=#pshowbulletin#
+		</isNotEmpty>	
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findSpacePage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		     select SPACEID,SPACENAME,SPACEBULLETIN,SHOWARLTICLENUM,SPACESTYLE,
+case when (ANONREVERSION='1') then '是' else '否' end ANONREVERSION, 
+case when (SHOWCALLER='1') then '是' else '否' end SHOWCALLER, 
+case when (SHOWFRIEND='1') then '是' else '否' end SHOWFRIEND,
+case when (SHOWBULLETIN='1') then '是' else '否' end SHOWBULLETIN,
+STATE
+from T_Archives_Space where state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pspaceid">
+	   			spaceid='$pspaceid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="pspacename">
+	   			spacename='$pspacename$'
+		</isNotEmpty> 		
+	  	<isNotEmpty prepend=" and" property="pspacebulletin">
+	   			spacebulletin='$pspacebulletin$'
+		</isNotEmpty> 
+	  	<isNotEmpty prepend=" and" property="pshowarlticlenum">
+	   			showarlticlenum='$pshowarlticlenum$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pspacestyle">
+		   		spacestyle=#pspacestyle#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="panonreversion">
+		   		anonreversion=#panonreversion#
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="pshowcaller">
+		   		showcaller=#pshowcaller#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pshowfriend">
+		   		showfriend=#pshowfriend#
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pshowbulletin">
+		   		showbulletin=#pshowbulletin#
+		</isNotEmpty>	
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+
+	<!-- 增加记录 -->
+	
+	
+	
+	<select id="isExistSpaceList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select  *  from T_Archives_Space  where  USERNAME=#pusername#
+    </select>
+	
+	<insert id="insertSpace"	parameterClass="java.util.HashMap">
+		insert into T_Archives_Space
+				(spaceid,USERNAME
+				<isNotEmpty prepend="," property="pspaceName">
+					    spaceName
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="pspaceBulletin">
+					    spacebulletin
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowArlticleNum">
+					    showarlticlenum
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pspaceStyle">
+					    spacestyle
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="panonReversion">
+					    anonreversion
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowCaller">
+					    showcaller
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowFriend">
+					    showfriend
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowBulletin">
+					    showbulletin
+				</isNotEmpty>
+				,state) 
+				 values 
+				(hunt.seqformat('T_Archives_Space'),#pusername#   
+				<isNotEmpty prepend="," property="pspaceName">
+					    #pspaceName#
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="pspaceBulletin">
+					    #pspaceBulletin#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowArlticleNum">
+					    #pshowArlticleNum#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pspaceStyle">
+					    #pspaceStyle#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="panonReversion">
+					    #panonReversion#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowCaller">
+					    #pshowCaller#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowFriend">
+					    #pshowFriend#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowBulletin">
+					    #pshowBulletin#
+				</isNotEmpty>
+				,1)
+    </insert>
+    
+      	<delete id="deleteSpace" parameterClass="java.util.HashMap">
+    	  delete  from  T_Archives_Space  where  USERNAME=#pusername#
+        </delete>
+    
+    
+    
+    
+    
+	<!-- 删除记录 -->
+	<delete id="deleteSpaceById" parameterClass="java.util.HashMap">
+    	update T_Archives_Space set state=0  where SpaceId=#SPACEID#
+    </delete>
+    
+    <select id="pageOnlyOneList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select * from t_archives_space where SPACEID=#SPACEID#
+    </select>
+
+	<!-- 修改记录 -->
+	<update id="updateSpaceById" parameterClass="java.util.HashMap">
+		update T_Archives_Space
+		   set  spaceName=#pspaceName#			   
+				<isNotEmpty prepend="," property="pspaceBulletin">
+					    spacebulletin=#pspaceBulletin#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowArlticleNum">
+					    showarlticlenum=#pshowArlticleNum#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pspaceStyle">
+					    spacestyle=#pspaceStyle#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="panonReversion">
+					    anonreversion=#panonReversion#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowCaller">
+					    showcaller=#pshowCaller#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowFriend">
+					    showfriend=#pshowFriend#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pshowBulletin">
+					    showbulletin=#pshowBulletin#
+				</isNotEmpty>
+		where spaceid=#SPACEID# 
+	</update>
+	
+</sqlMap>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 系统管理|站内信息
+	* 2009-08-06
+	* @author lsr
+-->
+<sqlMap namespace="Message">	
+	<!-- 查询记录总数 -->
+	<select id="findMessageCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from t_system_message
+		 where billstate = 1 
+		<isNotEmpty prepend=" and" property="pid">
+	   			id='$pid$'
+		</isNotEmpty> 
+		<isNotEmpty prepend=" and" property="ptitle">
+	   			title='$ptitle$'
+		</isNotEmpty>      
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			content='$pcontent$'
+		</isNotEmpty> 
+		<isNotEmpty prepend=" and" property="ptype">
+					type = #ptype#
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="psendtime">
+		   		sendtime=cast(#psendtime# AS DATE)
+		</isNotEmpty>		
+		<isNotEmpty prepend=" and" property="prectime">
+		   		rectime=cast(#prectime# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pstate">
+		   		state='$pstate$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="psendcode">
+		   		sendcode=#psendcode#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="preccode">
+		   		reccode=#preccode#
+		</isNotEmpty>		
+	</select>
+	
+	<!-- 查询记录，非分页 -->
+	<select id="findMessage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select t.id,t.title,t.content,to_char(t.sendtime,'yyyy-mm-dd hh24:mi:ss') sendtime,to_char(t.rectime,'yyyy-mm-dd') rectime,t.state,t.type,t.sendcode,t.reccode
+		  ,GetParValue('USERID_USERNAME',t.sendcode) sendname,GetParValue('USERID_USERNAME',t.reccode) recname 
+         from  t_system_message t where t.billstate=1
+		<isNotEmpty prepend=" and" property="pid">
+	   			id='$pid$'
+		</isNotEmpty>   
+		<isNotEmpty prepend=" and" property="ptitle">
+	   			title='$ptitle$'
+		</isNotEmpty>  
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			content='$pcontent$'
+		</isNotEmpty> 
+		<isNotEmpty prepend=" and" property="psendtime">
+		   		sendtime=cast(#psendtime# AS DATE)
+		</isNotEmpty>		
+		<isNotEmpty prepend=" and" property="prectime">
+		   		rectime=cast(#prectime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ptype">
+					type = #ptype#
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pstate">
+		   		state='$pstate$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="psendcode">
+		   		sendcode=#psendcode#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="preccode">
+		   		reccode=#preccode#
+		</isNotEmpty>
+		        order by id desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findMessagePage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		 select t.id,t.content,to_char(t.sendtime,'yyyy-mm-dd hh24:mi:ss') sendtime,to_char(t.rectime,'yyyy-mm-dd') rectime,t.state,t.type,t.sendcode,t.reccode 
+        ,GetParValue('USERID_USERNAME',t.sendcode) sendname,GetParValue('USERID_USERNAME',t.reccode) recname
+         from  t_system_message t where t.billstate=1
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>  
+		<isNotEmpty prepend=" and" property="ptitle">
+	   			t.title='$ptitle$'
+		</isNotEmpty>   
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			t.content='$pcontent$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ptype">
+				t.type = #ptype#
+		</isNotEmpty>		 
+		<isNotEmpty prepend=" and" property="psendtime">
+		   		t.sendtime=cast(#psendtime# AS DATE)
+		</isNotEmpty>		
+		<isNotEmpty prepend=" and" property="prectime">
+		   		t.rectime=cast(#prectime# AS DATE)
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state='$pstate$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="psendcode">
+		   		t.sendcode=#psendcode#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="preccode">
+		   		t.reccode=#preccode#
+		</isNotEmpty>
+		        order by t.id desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertMessage"	parameterClass="java.util.HashMap" >
+		insert into t_system_message
+				(id		
+				<isNotEmpty prepend="," property="ptitle">
+	   			     title
+		        </isNotEmpty> 			   
+				<isNotEmpty prepend="," property="pcontent">
+					    content
+				</isNotEmpty>
+
+				<isNotEmpty prepend="," property="prectime">
+					    rectime
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pstate">
+					    state
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ptype">
+					    type
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="psendcode">
+					    sendcode
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="preccode">
+					    reccode
+				</isNotEmpty>
+				,billstate,sendtime)
+				 values 
+				(hunt.seqformat('T_SYSTEM_MESSAGE')
+				<isNotEmpty prepend="," property="ptitle">
+	   			     #ptitle#
+		        </isNotEmpty> 	
+				<isNotEmpty prepend="," property="pcontent">
+					    #pcontent#
+				</isNotEmpty>
+				
+				<isNotEmpty prepend="," property="prectime">
+					    #prectime#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pstate">
+					    #pstate#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ptype">
+					    #ptype#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="psendcode">
+					    #psendcode#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="preccode">
+					    #preccode#
+				</isNotEmpty>
+				,1,sysdate)
+    </insert>
+    
+	<!-- 删除记录 -->
+	<delete id="deleteMessageById" parameterClass="java.util.HashMap">
+    	update t_system_message set billstate=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateMessageById" parameterClass="java.util.HashMap">
+		update t_system_message
+		set id = id
+		    <isNotEmpty prepend="," property="ptitle">
+	   			title=#ptitle#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="pcontent">
+			   	content=#pcontent#
+			</isNotEmpty>
+            <isNotEmpty prepend="," property="psendtime">
+			   	sendtime = cast(#psendtime# AS DATETIME)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="prectime">
+			   		rectime = cast(#prectime# AS DATETIME)
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="pstate">
+					state =  #pstate# 
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ptype">
+					type =  #ptype#
+			</isNotEmpty>						
+			<isNotEmpty prepend="," property="psendcode">
+					sendcode = #psendcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="preccode">
+					reccode=#preccode# 
+			</isNotEmpty>
+		where id=#pid# and billstate=1
+	</update>
+</sqlMap>

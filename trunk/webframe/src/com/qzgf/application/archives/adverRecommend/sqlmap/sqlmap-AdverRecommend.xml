@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AdverRec">
+        <select id="findUserCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+        select count(*) from t_archives_user t
+        where MEMBERTYPE=2 and state!=0
+		</select>
+		
+<select id="findUserList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+ select * from t_archives_user t
+ where MEMBERTYPE=2 and state!=0
+                    
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	 <!-- 向导空间 -->
+	 <select id="findGuideCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+        select count(*) from t_archives_user t
+        where MEMBERTYPE=2 and state!=0
+		</select>
+		
+      <select id="findGuideList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	 from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		    
+ select * from t_archives_user t
+ where MEMBERTYPE=2 and state!=0
+                    
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	  </select>	
+	 <!-- 向导空间 -->
+	 
+	 
+	   <!-- 查找此向导下的商家空间 -->
+	   <select id="findBusinessCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+      select count(*) from t_selfconfig_mapcard 
+     where merchantid in (select userid from T_ARCHIVES_USER
+       where username in (select BUSINESSUSER from t_archives_businessguide t 
+     where guideuser=#guideUser#))
+		</select>
+		
+      <select id="findBusinessList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	 from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		    
+        		         select id,merchantid,merchantname from t_selfconfig_mapcard 
+     where merchantid in (select userid from T_ARCHIVES_USER
+       where username in (select BUSINESSUSER from t_archives_businessguide t 
+     where guideuser=#guideUser#))
+     
+    
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	  </select>	
+	 <!-- 查找此向导下的商家空间  -->
+	 
+	  <insert id="insertT_USER_IDENTITYSPOT"	parameterClass="java.util.HashMap">
+	     insert into  T_USER_IDENTITYSPOT(SPOTID,USERNAME,IDENTITY,IP)  
+	     values(seqformat('T_USER_IDENTITYSPOT'),#pusername#,'',#ip#)
+	  </insert>
+
+
+</sqlMap>

@@ -1,0 +1,14 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 消费认证|累积卡
+	* @author lsr 
+-->
+<xwork>
+	<package name="consumeAuthPackage" extends="struts-default" namespace="/">
+		<action name="consumeAuth" class="consumeAuthAction">
+			<result name="web">/WEB-INF/FrontModual/SelfConfig/Twitter/listTwitter.jsp</result>
+			<result name="wap">/WEB-INF/FrontModual/SelfConfig/Twitter/addTwitter.jsp</result>
+			<result name="note">/WEB-INF/FrontModual/SelfConfig/Twitter/viewTwitter.jsp</result>
+		</action>
+	</package>
+</xwork>

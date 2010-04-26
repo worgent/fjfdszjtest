@@ -1,0 +1,28 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 相册模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="album" extends="selfconfig" namespace="/">
+		<action name="album" class="albumAction">
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/Album/listAlbum.jsp</result>
+			<result name="photos">/WEB-INF/FrontModual/SelfConfig/Album/listPhoto.jsp</result>
+			<result name="newPhoto">/WEB-INF/FrontModual/SelfConfig/Album/editPhoto.jsp</result>
+			<result name="uppage">/WEB-INF/FrontModual/SelfConfig/Album/upPhoto.jsp</result>
+			<result name="userFaceUpComponent">/WEB-INF/FrontModual/SelfConfig/Album/userFaceUpComponent.jsp</result>
+			<result name="editNewWord">/WEB-INF/FrontModual/SelfConfig/Album/editNewWord.jsp</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="newAlbum">/WEB-INF/FrontModual/SelfConfig/Album/newAlbum.jsp</result>
+			<result name="listPhotoWords">/WEB-INF/FrontModual/SelfConfig/Album/listPhotoWords.jsp</result>
+			
+		</action>
+	</package>
+</xwork>

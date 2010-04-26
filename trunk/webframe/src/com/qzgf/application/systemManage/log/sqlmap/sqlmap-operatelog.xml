@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="OperateLog">
+	<insert id="insertOpersteLog" parameterClass="com.qzgf.application.systemManage.log.dto.OperateLog">
+		<![CDATA[ insert into tf_operator_log]]>
+					   (opt_seq					   
+				<isNotEmpty prepend="," property="staffId">
+					    staff_id
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="serviceName">
+					    service_name
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optResult">
+					    opt_result
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optMemo">
+					    opt_memo
+				</isNotEmpty>
+					    ,opt_time
+				<isNotEmpty prepend="," property="termType">
+					    term_type
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optTerm">
+					    opt_term
+				</isNotEmpty>
+				<![CDATA[)
+					 values
+					   (pb_get_sequences(@in_seq_name:='opt_seq')]]>
+				<isNotEmpty prepend="," property="staffId">
+					    #staffId#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="serviceName">
+					    #serviceName#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optResult">
+					    #optResult#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optMemo">
+					    #optMemo#
+				</isNotEmpty>
+					    ,NOW()
+				<isNotEmpty prepend="," property="termType">
+					    #termType#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="optTerm">
+					    #optTerm#
+				</isNotEmpty>
+				<![CDATA[)]]>
+	</insert>
+	
+	<select id="findLogCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+	    select count(1) from tf_operator_log t 
+	    where 1=1 
+	  	<isNotEmpty prepend="and" property="staffId2">
+	   			FB_GET_DEPT_ID_BY_ID(t.staff_id)  in ($staffId2$)
+		</isNotEmpty> 
+	    <isNotEmpty prepend="and" property="operateLog.serviceName">
+	    	 t.SERVICE_NAME in (select distinct d.method  from td_menu_info d where d.menu_name like  '%$operateLog.serviceName$%')
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.optTime">
+	          cast( t.OPT_TIME AS DATE)=cast(#operateLog.optTime# AS DATE)
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.termType">
+	            t.TERM_TYPE like '%$operateLog.termType$%'
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.optTerm">
+	             t.OPT_TERM  like '%$operateLog.optTerm$%'
+	     </isNotEmpty>
+		<isNotEmpty prepend="and" property="operateLog.staffId">
+	            FB_GET_STAFF_NAME_BY_ID( t.staff_id)  like '%$operateLog.staffId$%'
+	     </isNotEmpty>
+	     <isNotEmpty prepend=" " property="START">
+		   limit $START$ , $END$
+		</isNotEmpty>
+	</select>
+	
+	<select id="findLogInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+	  select  
+	      cast(t.OPT_TIME AS CHAR) OPT_TIME,
+	      (select distinct d.menu_name 
+	         from td_menu_info d 
+	            where d.method = t.service_name ) SERVICE_NAME,	 
+	      (select distinct a.staff_name 
+	         from tf_operator a 
+	           where a.staff_id=t.staff_id ) staff_name,  
+			FB_GET_DEPT_NAME_BY_ID(t.staff_id) DeptName,   
+	       t.*,case OPT_RESULT when 1 then '操作成功' else '操作失败' end OPT_RESULTName
+	       from tf_operator_log t
+	         where 1=1 
+	  	<isNotEmpty prepend="and" property="staffId2">
+	   			FB_GET_DEPT_ID_BY_ID(t.staff_id)  in ($staffId2$)
+		</isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.serviceName">
+	    	 t.SERVICE_NAME in (select distinct d.method  from td_menu_info d where d.menu_name like  '%$operateLog.serviceName$%')
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.optTime">
+	           cast( t.OPT_TIME AS DATE)=cast(#operateLog.optTime# AS DATE)
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.termType">
+	            t.TERM_TYPE like '%$operateLog.termType$%'
+	    </isNotEmpty>
+	    <isNotEmpty prepend="and" property="operateLog.optTerm">
+	             t.OPT_TERM  like '%$operateLog.optTerm$%'
+	     </isNotEmpty>
+		 <isNotEmpty prepend="and" property="operateLog.staffId">
+	            FB_GET_STAFF_NAME_BY_ID( t.staff_id)  like '%$operateLog.staffId$%'
+	     </isNotEmpty>
+	     order by t.OPT_SEQ desc
+	     <isNotEmpty prepend=" " property="START">
+		   limit $START$ , $END$
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,14 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 专家向导|订阅向导
+	* @author lsr 
+-->
+<xwork>
+	<package name="orderGuidePackage" extends="struts-default" namespace="/">
+		<action name="orderGuide" class="orderGuideAction">
+			<result name="web">/WEB-INF/FrontModual/SelfConfig/Twitter/listTwitter.jsp</result>
+			<result name="wap">/WEB-INF/FrontModual/SelfConfig/Twitter/addTwitter.jsp</result>
+			<result name="note">/WEB-INF/FrontModual/SelfConfig/Twitter/viewTwitter.jsp</result>
+		</action>
+	</package>
+</xwork>

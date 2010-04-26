@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+        <select id="findUserCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+         select count(*) from T_ARCHIVES_USER a 
+                   where  a.state!=0
+		</select>
+<select id="findUserPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+ select a.USERID,USERNAME,SEX,POSITION,EXPERIENCE,CONTRIBUTE,FAME,STRENGTH,FAVOR,FINANCIAL,SAFEQUESTION,
+ SAFEANSWER,REALNAME,TELEPHONE,OCCUPATION,VOCATION,to_char(BIRTHDAY,'yyyy-mm-dd') BIRTHDAY,EMAIL,QQ,WORKPLACE,COMMEND,FAVORPLACE,
+ OFTENGOPLACE,OFTENCONSUMEPLACE,OFTENDOTHING,OFTENJOINACTIVITY,LOOKEDBOOK,a.INTERESTLIKE,
+ NEWMOOD  from T_ARCHIVES_USER a 
+                   where  a.state!=0
+                    
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+
+	   <insert id="insertT_ARCHIVES_USER"	parameterClass="java.util.HashMap">
+        insert into T_Archives_User(USERID,NICKNAME,USERNAME,PASSWORD,sex
+        
+               <isNotEmpty prepend="," property="plat">
+                lat
+               </isNotEmpty>
+                <isNotEmpty prepend="," property="plng">
+                lng
+               </isNotEmpty>
+               )
+               values(#USERID#,#pnickname#,#pusername#,#ppassword#,#psex#
+                <isNotEmpty prepend="," property="plat">
+                #plat#
+               </isNotEmpty>
+                <isNotEmpty prepend="," property="plng">
+                #plng#
+               </isNotEmpty> 
+               )
+       </insert>
+       
+       
+       <insert id="insertT_ARCHIVES_USER_EX"	parameterClass="java.util.HashMap">
+         insert into T_ARCHIVES_USER_EX(RENEWID,USERID,REALNAME
+           <isNotEmpty prepend="," property="ptelephone">
+           TELEPHONE
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poccupation">
+           OCCUPATION
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pvocation">
+           VOCATION
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pbirthday">
+           BIRTHDAY
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pemail">
+           EMAIL
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pqq">
+           QQ
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pworkplace">
+            WORKPLACE
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pcommend">
+            COMMEND
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pfavorplace">
+            FAVORPLACE
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poftengoplace">
+            OFTENGOPLACE
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poftenconsumeplace">
+           OFTENCONSUMEPLACE
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poftendothing">
+           OFTENDOTHING
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poftenjoinactivity">
+           OFTENJOINACTIVITY
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="plookedbook">
+           LOOKEDBOOK
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pinterestlike">
+           INTERESTLIKE
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pnewmood">
+           NEWMOOD
+           </isNotEmpty>
+           ,state)
+          
+         values(hunt.seqformat('T_ARCHIVES_USER_EX'),#USERID#,#prealname#
+          <isNotEmpty prepend="," property="ptelephone">
+           #ptelephone#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poccupation">
+           #poccupation#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pvocation">
+           #pvocation#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pbirthday">
+           to_date(#pbirthday#,'yyyy-mm-dd')
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pemail">
+           #pemail#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pqq">
+           #pqq#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pworkplace">
+            #pworkplace#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pcommend">
+           #pcommend#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pfavorplace">
+            #pfavorplace#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poftengoplace">
+           #poftengoplace#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poftenconsumeplace">
+           #poftenconsumeplace#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poftendothing">
+           #poftendothing#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="poftenjoinactivity">
+           #poftenjoinactivity#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="plookedbook">
+           #plookedbook#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pinterestlike">
+           #pinterestlike#
+           </isNotEmpty>
+           <isNotEmpty prepend="," property="pnewmood">
+           #pnewmood#
+           </isNotEmpty>
+         ,1)
+        </insert>
+       
+    <select id="isExist" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select * from T_Archives_User  where  username=#pusername#
+    </select>
+    
+    <select id="loginCorrect" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select * from T_Archives_User  where  username=#pusername# and password=#ppassword#
+    </select>
+    
+    
+    <select id="findOnlyUserList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select USERID,USERNAME,SEX,POSITION,EMAIL,EXPERIENCE,CONTRIBUTE,FAME,STRENGTH,FAVOR,FINANCIAL,
+    	 REALNAME,TELEPHONE,TELTYPE,OCCUPATION,VOCATION,to_char(BIRTHDAY,'yyyy-mm-dd') BIRTHDAY,
+    	 QQ,WORKPLACE,COMMEND,FAVORPLACE,OFTENGOPLACE,OFTENCONSUMEPLACE,OFTENDOTHING,OFTENJOINACTIVITY,
+    	 LOOKEDBOOK,INTERESTLIKE,NEWMOOD,TELTYPE,PROVINCEID,CITYID,DISTRICTID,LAT,LNG
+    	  from T_Archives_User where  username=#pusername#
+    </select>
+    
+    <!--  
+    <select id="findOnlyUser_ExList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select * from T_Archives_User_Ex  where USERID=#USERID#
+    </select>
+
+-->
+
+    <select id="selectProvinceList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select * from t_area t where fid=0
+    </select>
+    
+    <select id="selectCityList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select * from t_area t where fid=#fid#
+    </select>
+
+    <select id="selectDistrictList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select * from t_area t where fid=#fid#
+    </select>
+
+     <update id="updatePersonal" parameterClass="java.util.HashMap">
+       update T_Archives_User set sex=#psex#
+       <isNotEmpty prepend="," property="pmembertype">
+	    membertype=#pmembertype#
+	   </isNotEmpty>
+       <isNotEmpty prepend="," property="pposition">
+	   position=#pposition#
+	   </isNotEmpty>
+	   <isNotEmpty prepend="," property="pexperience">
+	   experience=#pexperience#
+	   </isNotEmpty>
+	   <isNotEmpty prepend="," property="pcontribute">
+	   contribute=#pcontribute#
+	   </isNotEmpty>
+	   <isNotEmpty prepend="," property="pfame">
+	    fame=#pfame#
+	   </isNotEmpty>
+	    <isNotEmpty prepend="," property="pstrength">
+	    strength=#pstrength#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="," property="pfavor">
+	    favor=#pfavor#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="," property="pfinancial">
+	    financial=#pfinancial#
+	    </isNotEmpty>
+	
+	     <isNotEmpty prepend="," property="pprovince">
+	     provinceid=#pprovince#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="," property="pcity">
+	     cityid=#pcity#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="," property="pdistrict">
+	     districtid=#pdistrict#
+	     </isNotEmpty>
+	     
+	     <isNotEmpty prepend="," property="prealname">
+	     realname=#prealname#
+	     </isNotEmpty>
+	     
+	     <isNotEmpty prepend="," property="ptelephone">
+	     telephone=#ptelephone#
+	     </isNotEmpty>
+	     
+	     <isNotEmpty prepend="," property="pteltype">
+	     teltype=#pteltype#
+	     </isNotEmpty>
+	     
+	     <isNotEmpty prepend="," property="poccupation">
+	     occupation=#poccupation#
+	     </isNotEmpty>
+	     
+	     <isNotEmpty prepend="," property="pvocation">
+	     vocation=#pvocation#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="," property="pbirthday">
+	      birthday=to_date(#pbirthday#,'yyyy-mm-dd')
+	     </isNotEmpty>
+	      <isNotEmpty prepend="," property="pqq">
+	      qq=#pqq#
+	      </isNotEmpty>
+	      
+	      <isNotEmpty prepend="," property="pworkplace">
+	      workplace=#pworkplace#
+	      </isNotEmpty>
+	      
+	      <isNotEmpty prepend="," property="pcommend">
+	      commend=#pcommend#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="pfavorplace">
+	      favorplace=#pfavorplace#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="poftengoplace">
+	      oftengoplace=#poftengoplace#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="poftenconsumeplace">
+	      oftenconsumeplace=#poftenconsumeplace#
+	      </isNotEmpty>
+	      
+	      <isNotEmpty prepend="," property="poftendothing">
+	      oftendothing=#poftendothing#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="poftenjoinactivity">
+	      oftenjoinactivity=#poftenjoinactivity#
+	      </isNotEmpty>
+	      
+	      <isNotEmpty prepend="," property="plookedbook">
+	      lookedbook=#plookedbook#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="pinterestlike">
+	       interestlike=#pinterestlike#
+	      </isNotEmpty>
+	       <isNotEmpty prepend="," property="pnewmood">
+	       newmood=#pnewmood#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="plat">
+	       lat=#plat#
+	      </isNotEmpty>
+	       <isNotEmpty prepend="," property="plng">
+	       lng=#plng#
+	      </isNotEmpty>
+           where username=#pusername#
+     </update>
+
+ <!--
+       <update id="updatePersonalUser" parameterClass="java.util.HashMap">
+	   update T_Archives_User_Ex set   realName=#prealname#
+	   <isNotEmpty prepend="," property="ptelephone">
+	    telephone=#ptelephone#
+	   </isNotEmpty>
+	   <isNotEmpty prepend="," property="poccupation">
+	    occupation=#poccupation#
+	   </isNotEmpty>
+	    <isNotEmpty prepend="," property="pvocation">
+	    vocation=#pvocation#
+	   </isNotEmpty>
+	    <isNotEmpty prepend="," property="pbirthday">
+	    birthday=to_date(#pbirthday#,'yyyy-mm-dd')
+	   </isNotEmpty>
+	    <isNotEmpty prepend="," property="pqq">
+	    qq=#pqq#
+	   </isNotEmpty>
+	    <isNotEmpty prepend="," property="pworkplace">
+	    workplace=#pworkplace#
+	   </isNotEmpty>
+	   <isNotEmpty prepend="," property="pcommend">
+	    commend=#pcommend#
+	   </isNotEmpty>
+	    <isNotEmpty prepend="," property="pfavorplace">
+	    favorplace=#pfavorplace#
+	   </isNotEmpty>
+	    <isNotEmpty prepend="," property="poftengoplace">
+	    oftengoplace=#poftengoplace#
+	   </isNotEmpty>
+	    <isNotEmpty prepend="," property="poftenconsumeplace">
+	    oftenconsumeplace=#poftenconsumeplace#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="," property="poftendothing">
+	    oftendothing=#poftendothing#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="," property="poftenjoinactivity">
+	    oftenjoinactivity=#poftenjoinactivity#
+	    </isNotEmpty>
+	     <isNotEmpty prepend="," property="plookedbook">
+	    lookedbook=#plookedbook#
+	    </isNotEmpty>
+	     <isNotEmpty prepend="," property="pinterestlike">
+	     interestlike=#pinterestlike#
+	    </isNotEmpty>
+	     <isNotEmpty prepend="," property="pnewmood">
+	     newmood=#pnewmood#
+	    </isNotEmpty>
+	     where UserId=#USERID#
+	</update>
+	
+	-->
+	
+	
+	<!-- 删除记录 -->
+	<delete id="deleteUserById" parameterClass="java.util.HashMap">
+    	update T_ARCHIVES_USER set state=0  where  userId=#USERID#
+    </delete>
+    
+    <delete id="deleteUserByEx" parameterClass="java.util.HashMap">
+    	update T_ARCHIVES_USER_EX set state=0  where  userId=#USERID#
+    </delete>
+    
+    
+    
+    
+    
+     <update id="updatePassword" parameterClass="java.util.HashMap">
+          update T_ARCHIVES_USER set password=#pnewPassword# 
+          
+            <isNotEmpty prepend="," property="psafequestion">
+             safequestion=#psafequestion#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="psafeanswer">
+             safeanswer=#psafeanswer#
+            </isNotEmpty>
+             where username=#pusername#
+     </update>
+	
+	
+	<select id="safeList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select  *  from T_ARCHIVES_USER  where  USERNAME=#pusername#
+    </select>
+	
+	<!-- 会员 -->
+	<select id="merchantExist" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select *  from T_MEMBER  where  membername=#pusername#
+    </select>
+       
+          <delete id="deleteMemberOnly" parameterClass="java.util.HashMap">
+       	   delete from T_MEMBER where  memberid=#Memberid#
+          </delete>
+         
+       <insert id="insertT_Member"	parameterClass="java.util.HashMap">
+         insert into T_Member(memberid,membername,merchantName
+            <isNotEmpty prepend="," property="paddress">
+            address
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="plegalRepresentative">
+            legalrepresentative
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pcontact">
+            contact
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="plocation">
+            location
+            </isNotEmpty>
+            
+            <isNotEmpty prepend="," property="ppicture">
+             picture
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pintroduction">
+             introduction
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pstrength">
+             strength
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="ppraise">
+             praise
+            </isNotEmpty>
+             <isNotEmpty prepend="," property="ppopularity">
+             popularity
+            </isNotEmpty>
+            
+            <isNotEmpty prepend="," property="pfinancial">
+             financial
+            </isNotEmpty>
+            )
+         
+            values(#memberid#,#pusername#,#pmerchantname#
+            <isNotEmpty prepend="," property="paddress">
+             #paddress#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="plegalRepresentative">
+             #plegalRepresentative#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pcontact">
+             #pcontact#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="plocation">
+              #plocation#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="ppicture">
+             #ppicture#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pintroduction">
+             #pintroduction#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pstrength">
+              #pstrength#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="ppraise">
+              #ppraise#
+            </isNotEmpty>
+             <isNotEmpty prepend="," property="ppopularity">
+              #ppopularity#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pfinancial">
+             #pfinancial#
+            </isNotEmpty>)
+       </insert>
+	  
+	  
+	  
+	   <update id="updateAudit" parameterClass="java.util.HashMap">
+	        update T_MEMBER  set  ISAUDIT=#ISAUDIT# 
+	        <isNotEmpty prepend="," property="pstrength">
+             strength=#pstrength#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="ppraise">
+             praise=#ppraise#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="ppopularity">
+             popularity=#ppopularity#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pfinancial">
+             financial=#pfinancial#
+            </isNotEmpty>
+	       where  MEMBERID=#MEMBERID#
+	   </update>
+	   
+	   <update id="updateT_Member" parameterClass="java.util.HashMap">
+          update T_MEMBER  set   merchantName=#pmerchantname#
+	      <isNotEmpty prepend="," property="paddress">
+	       address=#paddress#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="," property="plegalrepresentative">
+	       legalRepresentative=#plegalrepresentative#
+	      </isNotEmpty>
+	       <isNotEmpty prepend="," property="pcontact">
+	       contact=#pcontact#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="," property="plocation">
+	       location=#plocation#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="," property="ppicture">
+	       picture=#ppicture#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="," property="pintroduction">
+	       introduction=#pintroduction#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="," property="pstrength">
+	       strength=#pstrength#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="," property="ppraise">
+	       praise=#ppraise#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="," property="ppopularity">
+	       popularity=#ppopularity#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="," property="pfinancial">
+	       financial=#pfinancial#
+	       </isNotEmpty>
+	       where membername=#pusername#
+	   </update>
+	   
+	     <select id="merchantMemberList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	    select  *   from   T_MEMBER where  MEMBERNAME=#pusername#
+         </select>
+         
+          <select id="editOnlyRecordList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	    select  *   from   T_MEMBER where  MEMBERID=#memberid#
+          </select>
+         
+         
+         <select id="findMemberCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+         select count(*) from T_MEMBER
+		 </select>
+
+         <select id="findMemberList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+         select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		         select * from T_MEMBER
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	      </select>	
+
+    <!-- 会员 -->
+    
+      <!-- 会员 -->
+     
+      <!-- 部落 end-->
+       <select id="findT_chat_relateList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+           select * from t_chat_relate where  
+            mainuser=(select mainuser from t_chat_relate where chatid=#chatid#)
+       </select>
+
+
+
+      <select id="findTribalCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+        
+       select count(*) from t_chat_relate where MAINUSER=#MAINUSER# and IFVALID=1
+       </select>
+      <select id="findTribalList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+       select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		        select * from t_chat_relate where MAINUSER=#MAINUSER# and IFVALID=1
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+      </select>
+      
+      
+      <select id="findChatRecordCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+        
+       select count(*) from t_chat_record where MAINUSER=#MAINUSER#
+       </select>
+      <select id="findChatRecordList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+       select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		        select * from t_chat_record where MAINUSER=#MAINUSER#
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+      </select>
+      
+      
+    <select id="findSearchUserCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+
+       select count(*) from t_archives_user   
+        where USERNAME like '%$PUSERNAME$%'
+        		        <isNotEmpty prepend="and" property="PNICKNAME">
+                         NICKNAME LIKE '%$PNICKNAME$%'
+                        </isNotEmpty>
+                        
+       </select>
+      <select id="findSearchUserList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+       select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		        select * from t_archives_user  
+        		        
+        		         where USERNAME like '%$PUSERNAME$%'
+        		        <isNotEmpty prepend="and" property="PNICKNAME">
+                         NICKNAME LIKE '%$PNICKNAME$%'
+                        </isNotEmpty>
+        		            
+        		        
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+      </select>
+      
+      
+       <select id="findGroupCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+          select count(*) from t_chat_relate   
+          where memberuser=#pusername# 
+         </select>
+      <select id="findGroupList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+       select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		         select * from t_chat_relate  
+        		         where memberuser=#pusername#
+        		          )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+      </select>
+      
+      
+      
+      <insert id="insertT_CHAT_RECORD"	parameterClass="java.util.HashMap">
+         insert into T_CHAT_RECORD values(hunt.seqformat('t_chat_record'),#mainUser#,#chatSend#,#memberUser#,sysdate)
+      </insert>
+      
+      
+      
+      <!-- 群主的 -->
+      <insert id="insertT_chat_relate_admin"	parameterClass="java.util.HashMap">
+         insert into T_chat_relate values(hunt.seqformat('T_chat_relate'),#pusername#,1,2,#pgroupname#,#pusername#,2,#plat#,#plng#,#pmerchantsort#)
+      </insert>
+      <!-- 群主的 end -->
+      
+       <!-- 普通成员 -->
+      <insert id="insertT_CHAT_RELATE"	parameterClass="java.util.HashMap">
+         insert into t_chat_relate values(hunt.seqformat('t_chat_relate'),#MemberUser#,1,0,'',#MAINUSER#,1,#LAT#,#LNG#,#MERCHANTSORT#)
+      </insert> 
+      
+      
+      
+       <!-- 普通成员 -->
+        
+       <update id="updateT_CHAT_RELATE" parameterClass="java.util.HashMap">
+        update t_chat_relate set IFINVITED=1 where MemberUser=#MemberUser#
+       </update>
+ 
+        <select id="findT_chat_relate_ExistMemList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+           select * from t_chat_relate where  memberuser=#MemberUser#
+           and mainuser=(select mainuser  from t_chat_relate  where chatid=#chatid#)
+        </select>
+       
+       <select id="isExistCreate" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+           select * from t_chat_relate where  mainuser=#pusername#
+       </select>
+       <select id="findChatRelateMainList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+         select MAINUSER,LAT,LNG,MERCHANTSORT from t_chat_relate where chatid=#chatid#
+       </select>
+       <!-- 部落 end-->
+
+	   <!-- 商品信息-->
+	   <select id="findProductCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+        select count(*) from T_PRODUCT
+       </select>
+       <select id="findProductList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		        select * from T_PRODUCT  where MEMBERNAME=#pusername#
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+      </select>
+      
+      
+      
+      
+            
+      <insert id="insertT_PRODUCT"	parameterClass="java.util.HashMap">
+         insert into T_PRODUCT (PRODUCTID,PRODUCTSORT,MEMBERNAME
+            <isNotEmpty prepend="," property="pproductname">
+            productname
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pproductbrand">
+            productbrand
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pintroduct">
+            introduct
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="ppicture">
+            picture
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="porigin">
+            origin
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="psupplier">
+            supplier
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pviews">
+            views
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pguide">
+            guide
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="potherproduct">
+            otherproduct
+            </isNotEmpty>
+            )
+
+            values(hunt.seqformat('T_PRODUCT'),#pproductsort#,#pusername#
+            <isNotEmpty prepend="," property="pproductname">
+            #pproductname#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pproductbrand">
+            #pproductbrand#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pintroduct">
+            #pintroduct#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="ppicture">
+            #ppicture#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="porigin">
+            #porigin#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="psupplier">
+            #psupplier#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pviews">
+            #pviews#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pguide">
+            #pguide#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="potherproduct">
+            #potherproduct#
+            </isNotEmpty>
+            )
+      </insert>
+       <update id="updateT_PRODUCT" parameterClass="java.util.HashMap">
+        update T_PRODUCT set 
+          productsort=#pproductsort#
+            <isNotEmpty prepend="," property="pproductname">
+            productname=#pproductname#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pproductbrand">
+            productbrand=#pproductbrand#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pintroduct">
+            introduct=#pintroduct#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="ppicture">
+            picture=#ppicture#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="porigin">
+            origin=#porigin#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="psupplier">
+            supplier=#psupplier#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pviews">
+             views=#pviews#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="pguide">
+             guide=#pguide#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="potherproduct">
+             otherproduct=#potherproduct#
+            </isNotEmpty>
+        where PRODUCTID=#PRODUCTID#
+       </update>
+       
+        <select id="onlyProductList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	    select  *   from   T_PRODUCT where  PRODUCTID=#PRODUCTID#
+         </select>
+         <delete id="deleteProduct" parameterClass="java.util.HashMap">
+    	 delete from T_PRODUCT where  PRODUCTID=#PRODUCTID#
+         </delete>
+
+	   <!-- 商品信息 end-->
+	   
+	     <!-- 优惠券-->
+	       <select id="findFavourableCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+            select count(*) from T_SELFCONFIG_FAVOURABLE
+           </select>
+           <select id="findFavourableList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+           select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		        select * from T_SELFCONFIG_FAVOURABLE   
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+            </select>
+            
+            
+            <insert id="insertT_SELFCONFIG_FAVOURABLE"	parameterClass="java.util.HashMap">
+               insert into   T_SELFCONFIG_FAVOURABLE(ID,FAVOURABLENO,FAVOURABLENAME
+                   <isNotEmpty prepend="," property="puseinstance">
+                   USEINSTANCE
+                   </isNotEmpty>
+                   <isNotEmpty prepend="," property="pintroduce">
+                   introduce
+                   </isNotEmpty>
+                   <isNotEmpty prepend="," property="pcount">
+                   COUNT
+                   </isNotEmpty>
+                   <isNotEmpty prepend="," property="pcountreceve">
+                   COUNTRECEVE
+                   </isNotEmpty>
+                   
+                   <isNotEmpty prepend="," property="pusertribal">
+                   USERTRIBAL
+                   </isNotEmpty>
+                   )
+                   values(hunt.seqformat('T_SELFCONFIG_FAVOURABLE'),#pfavourableno#,#pfavourablename#
+                    <isNotEmpty prepend="," property="puseinstance">
+                   #puseinstance#
+                   </isNotEmpty>
+                   <isNotEmpty prepend="," property="pintroduce">
+                   #pintroduce#
+                   </isNotEmpty>
+                   <isNotEmpty prepend="," property="pcount">
+                   #pcount#
+                   </isNotEmpty>
+                   <isNotEmpty prepend="," property="pcountreceve">
+                   #pcountreceve#
+                   </isNotEmpty>
+                   <isNotEmpty prepend="," property="pusertribal">
+                   #pusertribal#
+                   </isNotEmpty>
+                   )
+            </insert>
+         <update id="updateT_SELFCONFIG_FAVOURABLE" parameterClass="java.util.HashMap">
+             update  T_SELFCONFIG_FAVOURABLE set   
+              favourableno=#pfavourableno#,
+              favourablename=#pfavourablename#
+              <isNotEmpty prepend="," property="puseinstance">
+                  useinstance=#puseinstance#
+              </isNotEmpty>
+              <isNotEmpty prepend="," property="pcount">
+                  count=#pcount#
+              </isNotEmpty>
+              <isNotEmpty prepend="," property="pcountreceve">
+                  countreceve=#pcountreceve#
+              </isNotEmpty>
+              <isNotEmpty prepend="," property="pusertribal">
+                  usertribal=#pusertribal#
+              </isNotEmpty>
+               where id=#ID#
+         </update> 
+         <select id="onlyFavourableList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	    select  *   from   T_SELFCONFIG_FAVOURABLE  where ID=#ID#
+         </select>
+         
+         <delete id="deleteFavourab" parameterClass="java.util.HashMap">
+    	   delete from T_SELFCONFIG_FAVOURABLE where  ID=#ID#
+         </delete>    
+
+	     <!-- 优惠券 end-->
+	     
+	     <!-- 会员 -->
+	     <insert id="insertT_ARCHIVES_APPEAL"	parameterClass="java.util.HashMap">
+	     insert into T_ARCHIVES_APPEAL(APPEALID,APPEALMERCHANT,APPEALCONTENT,APPEALTYPE,APPEALTIME,APPEALTITLE)
+	     values(hunt.seqformat('T_ARCHIVES_APPEAL'),#pappealmerchant#,#pintroduction#,0,sysdate,#pappealtitle#)
+	     </insert>
+	     
+	     <update id="updateT_ARCHIVES_APPEAL" parameterClass="java.util.HashMap">
+	         update  T_ARCHIVES_APPEAL   set REPLYCONTENT=#preplycontent#,
+	         REPLYTIME=sysdate where   APPEALID=#pappealid#
+	     </update>
+	     
+	   <select id="findAppealCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+         select count(*) from t_archives_appeal                
+       </select>
+      <select id="findAppealList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+       select * 	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		        select APPEALID,APPEALMERCHANT,
+        		        substr(APPEALCONTENT,1,10) APPEALCONTENT,
+        		        substr(REPLYCONTENT,1,10) REPLYCONTENT,
+        		        to_char(APPEALTIME,'yyyy-mm-dd hh:mm:ss') APPEALTIME,
+        		        to_char(REPLYTIME,'yyyy-mm-dd hh:mm:ss') REPLYTIME,
+        		        APPEALTITLE from t_archives_appeal  order by APPEALID desc
+        		        
+        		        
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+      </select>
+      
+	     
+	     <select id="onlyAppealRecordList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	    select  *   from   T_ARCHIVES_APPEAL  where APPEALID=#APPEALID#
+         </select>
+
+	     <delete id="deleteAppeal" parameterClass="java.util.HashMap">
+    	   delete from T_ARCHIVES_APPEAL where  APPEALID=#APPEALID#
+         </delete>    
+	     <!-- 会员 end-->
+	     
+	      <!-- 好友设置-->
+	     <select id="findIsExistUserList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	   select * from t_archives_user where username=#pusername#
+         </select>
+         
+	
+	
+	       <insert id="insertT_ARCHIVES_FRIENDZero1"	parameterClass="java.util.HashMap">
+	       insert into T_ARCHIVES_FRIEND  values(hunt.seqformat('T_ARCHIVES_FRIEND'),#mainuser#,#frienduser#,#mainuser#,#frienduser#,#sendcontext#,sysdate,sysdate,1)
+	       </insert>
+	       <insert id="insertT_ARCHIVES_FRIENDZero2"	parameterClass="java.util.HashMap">
+	       insert into T_ARCHIVES_FRIEND  values(hunt.seqformat('T_ARCHIVES_FRIEND'),#frienduser#,#mainuser#,#mainuser#,#frienduser#,#sendcontext#,sysdate,sysdate,1) 
+	       </insert>
+	     
+	      <insert id="insertT_ARCHIVES_FRIENDOne1"	parameterClass="java.util.HashMap">
+	      insert into T_ARCHIVES_FRIEND  values(hunt.seqformat('T_ARCHIVES_FRIEND'),#mainuser#,#frienduser#,#mainuser#,#frienduser#,#sendcontext#,sysdate,'',0)
+	      </insert>
+	     
+          <insert id="insertT_ARCHIVES_FRIENDOne2"	parameterClass="java.util.HashMap">
+	       insert into T_ARCHIVES_FRIEND  values(hunt.seqformat('T_ARCHIVES_FRIEND'),#frienduser#,#mainuser#,#mainuser#,#frienduser#,#sendcontext#,sysdate,'',0)
+	      </insert>
+      
+      
+       <select id="findUserInviteList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	   select * from T_ARCHIVES_USER where USERNAME=#frienduser#
+         </select>
+      
+	      <update id="updateUserInvitetype" parameterClass="java.util.HashMap">
+	         update  T_ARCHIVES_USER   set invitetype=#pinvitetype#  where   USERNAME=#pusername#
+	      </update>  
+	      
+	      
+	   <select id="findFriendCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+            select count(*) from t_archives_friend a,t_archives_user b
+            where a.frienduser=b.username  and a.mainuser=#pusername#    and a.state!=2             
+       </select>
+      <select id="findFriendList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+            select  * 	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		   
+        		 select a.friendid,a.mainuser,a.frienduser,b.nickname,a.send,a.state,to_char(a.sendtime,'yyyy-mm-dd hh:mm:ss') sendtime,
+        		 to_char(a.accepttime,'yyyy-mm-dd hh:mm:ss') accepttime,a.accept from t_archives_friend a,t_archives_user b
+                 where a.frienduser=b.username  and a.mainuser=#pusername#   and a.state!=2  
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+      </select>
+      
+         <delete id="deleteFriend" parameterClass="java.util.HashMap">
+    	 delete from T_ARCHIVES_FRIEND where mainuser=#mainuser# and frienduser=#frienduser#
+         </delete>
+      
+         <delete id="deleteFriendTwo" parameterClass="java.util.HashMap">
+    	 delete from T_ARCHIVES_FRIEND where  mainuser=#frienduser# and frienduser=#mainuser#
+         </delete>
+      
+      
+      	 <select id="onlyFriendRecordList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	    select  *   from   t_archives_friend  where friendid =#friendid#
+         </select>
+         
+         
+            <update id="updateAcceptStateOne" parameterClass="java.util.HashMap">
+	         update  t_archives_friend   set state=1,acceptTime=sysdate  where  
+	          mainuser=#MAINUSER# and  frienduser=#FRIENDUSER# 
+	      </update> 
+	            <update id="updateAcceptStateTwo" parameterClass="java.util.HashMap">
+	         update  t_archives_friend   set state=1,acceptTime=sysdate  where 
+	          mainuser=#FRIENDUSER# and  frienduser=#MAINUSER# 
+	      </update> 
+	      
+	      
+	       <select id="findFriendBlackCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+            select count(*) from t_archives_friend a,t_archives_user b
+            where a.frienduser=b.username   and a.mainuser=#pusername#    and a.state=2           
+           </select>
+          <select id="findFriendBlackList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+             select * 	from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		   
+        		 select a.friendid,a.mainuser,a.frienduser,b.nickname,a.send,a.state,to_char(a.sendtime,'yyyy-mm-dd hh:mm:ss') sendtime,
+        		 to_char(a.accepttime,'yyyy-mm-dd hh:mm:ss') accepttime,a.accept from t_archives_friend a,t_archives_user b
+                 where a.frienduser=b.username  and a.mainuser=#pusername#  and a.state=2
+                     
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+             </select>
+	      
+	      
+	     <select id="findFriendUserList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	   select * from t_archives_friend  where mainuser=#mainuser# and frienduser=#frienduser#
+         </select>
+	      
+  
+          <update id="updateBlackStateOne" parameterClass="java.util.HashMap">
+	         update  t_archives_friend   set state=2,sendTime=sysdate  where  
+	          mainuser=#mainuser# and  frienduser=#frienduser# 
+	      </update> 
+	      <update id="updateBlackStateTwo" parameterClass="java.util.HashMap">
+	         update  t_archives_friend   set state=2,sendTime=sysdate  where 
+	          mainuser=#frienduser#      and  frienduser=#mainuser# 
+	      </update> 
+	        	  	
+  	<select id="checkLogin" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+  	 select * from t_archives_user where  userName=#pusername#
+  	</select>
+  	
+  	     <select id="findfriBlaList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	   select * from t_archives_friend  where mainuser=#mainuser# and frienduser=#frienduser#
+         </select>
+	      
+     <!-- 好友设置 end-->
+	   <!-- 分类 -->  
+	     <select id="findCategoriesCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">   		    
+           select count(*) from t_archives_categories           
+       </select>
+      <select id="findCategoriesList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+          
+        		select * from t_archives_categories
+        	
+      </select>
+         <select id="onlyCategoriesList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	    select  *   from   T_ARCHIVES_CATEGORIES  where CATEGORIESID =#CID#
+         </select>
+         
+	      <insert id="insertT_ARCHIVES_CATEGORIES"	parameterClass="java.util.HashMap">
+	      insert into T_ARCHIVES_CATEGORIES  values(hunt.seqformat('T_ARCHIVES_CATEGORIES'),#CATEGORIESNAME#,#FID#)
+	      </insert>
+	      
+	        <update id="updateT_ARCHIVES_CATEGORIES" parameterClass="java.util.HashMap">
+	         update  T_ARCHIVES_CATEGORIES   set CATEGORIESNAME=#MCATEGORIESNAME#
+	           where  CATEGORIESID=#CID#
+	      </update> 
+	      
+	      
+	     <select id="findExistCategoriesList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	    select  *   from   T_ARCHIVES_CATEGORIES  where FID =#CID#
+         </select>
+         
+         <delete id="deleteCate" parameterClass="java.util.HashMap">
+    	 delete from T_ARCHIVES_CATEGORIES where  CATEGORIESID=#CID#
+         </delete>
+          <!-- 分类 end-->   
+          
+          <insert id="insertMobileT_ARCHIVES_USER"	parameterClass="java.util.HashMap">
+	      insert into T_ARCHIVES_USER(USERID,USERNAME,PASSWORD)  
+	        values(seqformat('T_ARCHIVES_USER'),#pusername#,#pwd#)
+	      </insert>  
+	     
+	     <update id="updateNewUserPosition" parameterClass="java.util.HashMap">
+	         update t_archives_user set lat=#plat#,lng=#plng#
+	          where username=#pusername#
+	     </update>
+	     
+	     
+	     
+	       
+	     
+	     
+	     
+
+</sqlMap>

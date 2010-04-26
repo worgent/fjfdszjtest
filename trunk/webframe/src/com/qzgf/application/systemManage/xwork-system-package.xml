@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<struts>
+    <!-- lsr begin -->
+	<package name="systemManage" extends="default"	namespace="/">
+	</package>
+	<!-- 系统模块｜站内短消息 -->
+	<include file="/com/qzgf/application/systemManage/message/action/xwork-Message.xml" /><!-- 站内短消息 -->
+	
+	<!-- 系统模块 |系统登录 -->
+	<include file="/com/qzgf/application/systemManage/login/action/xwork-login.xml" /><!-- 登录模块 -->
+ 
+    <!-- 系统模块 |用户等级 -->
+	<include file="/com/qzgf/application/systemManage/userlevel/action/xwork-userlevel.xml" /><!--用户等级模块 -->
+
+</struts>

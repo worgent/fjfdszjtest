@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="sms">
+    <!-- =====================================================短信接收==================================================== -->
+	<insert id="insertinceptsms" parameterClass="java.util.HashMap">
+				insert into t_sms_incept
+				(
+				id
+				<isNotEmpty prepend="," property="pmobile">mobile</isNotEmpty>
+				<isNotEmpty prepend="," property="pcontent">content</isNotEmpty>
+				<isNotEmpty prepend="," property="pmsisdn">msisdn</isNotEmpty>
+				<isNotEmpty prepend="," property="pservicecode">servicecode</isNotEmpty>
+				<isNotEmpty prepend="," property="pproid">proid</isNotEmpty>
+				<isNotEmpty prepend="," property="pprotime">protime</isNotEmpty>	
+				,state,incepttime
+				)
+				values
+				(
+				seqformat('T_SMS_INCEPT')
+				<isNotEmpty prepend="," property="pmobile">#pmobile#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcontent">#pcontent#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmsisdn">#pmsisdn#</isNotEmpty>
+				<isNotEmpty prepend="," property="pservicecode">#pservicecode#</isNotEmpty>
+				<isNotEmpty prepend="," property="pproid">#pproid#</isNotEmpty>
+				<isNotEmpty prepend="," property="pprotime">#pprotime#</isNotEmpty>		
+				,1,sysdate			
+				)
+	</insert>
+	
+	<update id="updateinceptsms" parameterClass="java.util.HashMap">
+			update t_sms_incept set id=id
+			<isNotEmpty prepend="," property="pmobile">mobile=#pmobile#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcontent">content=#pcontent#</isNotEmpty>
+			<isNotEmpty prepend="," property="pmsisdn">msisdn=#pmsisdn#</isNotEmpty>
+			<isNotEmpty prepend="," property="pservicecode">servicecode=#pservicecode#</isNotEmpty>
+			<isNotEmpty prepend="," property="pstate">state=#pstate#</isNotEmpty>
+			<isNotEmpty prepend="," property="pproid">proid=#pproid#</isNotEmpty>
+			<isNotEmpty prepend="," property="pprotime">protime=#pprotime#</isNotEmpty>
+			where id=#pid#	
+	</update>
+	
+	
+	<!-- ================================================短信发送==================================================== -->
+	<insert id="insertsendsms" parameterClass="java.util.HashMap">
+				insert into t_sms_send
+				(
+				id
+				<isNotEmpty prepend="," property="pmobile">mobile</isNotEmpty>
+				<isNotEmpty prepend="," property="pname">name</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">userid</isNotEmpty>
+				<isNotEmpty prepend="," property="psendid">sendid</isNotEmpty>
+				<isNotEmpty prepend="," property="pcontent">content</isNotEmpty>
+				<isNotEmpty prepend="," property="psrcbillid">srcbillid</isNotEmpty>
+				<isNotEmpty prepend="," property="pmsisdn">msisdn</isNotEmpty>
+				<isNotEmpty prepend="," property="pservicecode">servicecode</isNotEmpty>
+				,state,sendtime
+				)
+				values
+				(
+				seqformat('T_SMS_SEND')
+				<isNotEmpty prepend="," property="pmobile">#pmobile#</isNotEmpty>
+				<isNotEmpty prepend="," property="pname">#pname#</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">#puserid#</isNotEmpty>
+				<isNotEmpty prepend="," property="psendid">#psendid#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcontent">#pcontent#</isNotEmpty>
+				<isNotEmpty prepend="," property="psrcbillid">#psrcbillid#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmsisdn">#pmsisdn#</isNotEmpty>
+				<isNotEmpty prepend="," property="pservicecode">#pservicecode#</isNotEmpty>
+				,1,sysdate			
+				)
+	</insert>
+	
+	<update id="updatesendsms" parameterClass="java.util.HashMap">
+			update t_sms_send set id=id
+			<isNotEmpty prepend="," property="pmobile">mobile=#pmobile#</isNotEmpty>
+			<isNotEmpty prepend="," property="pname">name=#pname#</isNotEmpty>
+			<isNotEmpty prepend="," property="puserid">userid=#puserid#</isNotEmpty>
+			<isNotEmpty prepend="," property="psendid">sendid=#psendid#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcontent">content=#pcontent#</isNotEmpty>
+			<isNotEmpty prepend="," property="psrcbillid">srcbillid=#psrcbillid#</isNotEmpty>
+			<isNotEmpty prepend="," property="pmsisdn">msisdn=#pmsisdn#</isNotEmpty>
+			<isNotEmpty prepend="," property="pservicecode">servicecode=#pservicecode#</isNotEmpty>
+			<isNotEmpty prepend="," property="pstate">state=#pstate#</isNotEmpty>
+			where id=#pid#		
+	</update>
+	<!-- ================================================短信配置信息==================================================== -->
+	<select id="findconfigsms" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select servicecode,trim(clazz) clazz,trim(method)  method 
+		from  t_sms_config t where servicecode='$pservicecode$'
+    </select>
+</sqlMap>

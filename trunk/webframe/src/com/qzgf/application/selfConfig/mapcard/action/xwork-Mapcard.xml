@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 地图名片
+	* @author lsr 
+-->
+<struts>
+	<package name="mapcard" extends="selfconfig" namespace="/selfconfig">
+	     <!-- 地图名片 -->
+		<action name="mapcard" class="mapcardAction">
+		    <!-- 前台 -->
+			<!--地图名片列表-->
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/Mapcard/mapcardList.jsp</result>
+			<!--地图名片商家信息-->
+			<result name="detail">/WEB-INF/FrontModual/SelfConfig/Mapcard/mapcardDetail.jsp</result>
+			<!--地图名片商品信息-->	
+			<result name="detailitem">/WEB-INF/FrontModual/SelfConfig/Mapcard/mapcardDetailItem.jsp</result>		
+
+			<!-- 后台 -->
+			<!--地图名片列表-->
+			<result name="list">/WEB-INF/BackModual/SelfConfig/Mapcard/mapcardList.jsp</result>
+			<!--地图名片商家信息-->
+			<result name="edit">/WEB-INF/BackModual/SelfConfig/Mapcard/mapcardEdit.jsp</result>
+			<!--地图名片商品信息-->	
+			<result name="view">/WEB-INF/BackModual/SelfConfig/Mapcard/mapcardView.jsp</result>				
+			
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/error.jsp</result>
+
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+ 
+
+		</action>	
+		
+		<!-- 地图类别 -->
+		<action name="mapcardsort" class="mapcardAction" method="mapcardsort">
+		    <!-- 前台 -->
+			<!--地图名片分类-->
+			<result name="index">/WEB-INF/BackModual/SelfConfig/Mapcard/mapcardSort.jsp</result>				
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<!-- search的hashmap的拦截器 -->
+			<interceptor-ref name="mapParam"/>
+		</action>			
+	</package>
+</struts>

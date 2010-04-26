@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 测试模块
+	* @author lsr 
+-->
+<struts>
+	<package name="message" extends="systemManage" namespace="/system">
+		<action name="message" class="messageAction">
+			<result name="index">/WEB-INF/BackModual/System/Message/sendmessageList.jsp</result>
+			<result name="recmessage">/WEB-INF/BackModual/System/Message/recmessageList.jsp</result>
+			<result name="insertmessage">/WEB-INF/BackModual/System/Message/insertmessageList.jsp</result>
+			<result name="viewmessage">/WEB-INF/BackModual/System/Message/viewmessage.jsp</result>
+ 			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="success" type="redirect-action">adminUserLevel?action=index</result>
+			<interceptor-ref name="mapParam" />
+		</action>		
+	</package>
+</struts>

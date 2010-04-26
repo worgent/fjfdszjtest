@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 地图宝典
+	* 2009-10-30
+	* @author lsr
+-->
+<sqlMap namespace="MapFortune">	
+	<!-- 用于查询雇佣向导的页数 -->
+	<select id="findGuideByHireCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(a.memberid) from t_member a,
+		(select userid,username,ifonline,experience,contribute,favor,fame,Lat,lng from t_archives_user) b 
+		where a.userid=b.userid
+		and a.isaudit=1
+		<isEqual prepend="" property="selectType" compareValue="0">
+			<isNotEmpty prepend="and" property="plat">
+	   			GetDistance(b.lat,b.lng,#plat#,#plng#)&lt;=2 
+			</isNotEmpty>
+		</isEqual>
+		<isEqual prepend="and" property="selectType" compareValue="1">
+	   			b.lat&lt;=#neLat# and b.lng&lt;=#neLng# and b.lat&gt;=#swLat# and b.lng&gt;=#swLng# 
+		</isEqual>
+		
+		<isNotEmpty prepend=" and" property="haveVoucher">
+	   			a.haveVoucher=1
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="onLine">
+	   			b.ifOnLine=1
+		</isNotEmpty> 
+		<isNotEmpty prepend="" property="guideLevel">
+			<isNotEqual prepend="and" property="guideLevel" compareValue="0">
+	   			a.guideLevel=#guideLevel#
+	   		</isNotEqual>
+		</isNotEmpty> 
+	</select>
+	
+	<!-- 雇佣向导分页查询 -->
+	<select id="findGuideByHire" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+          select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+	select a.memberid,b.Lat,b.lng,b.userid,b.username,b.experience,a.HAVEVOUCHER,b.contribute,b.fame,b.ifonline from t_member a,
+		(select Lat,lng,userid,username,ifonline,experience,contribute,favor,fame from t_archives_user) b 
+		where a.userid=b.userid
+		and a.isaudit=1
+		<isEqual prepend="" property="selectType" compareValue="0">
+			<isNotEmpty prepend="and" property="plat">
+	   			GetDistance(b.lat,b.lng,#plat#,#plng#)&lt;=2 
+			</isNotEmpty>
+		</isEqual>
+		<isEqual prepend="and" property="selectType" compareValue="1">
+	   			b.lat&lt;=#neLat# and b.lng&lt;=#neLng# and b.lat&gt;=#swLat# and b.lng&gt;=#swLng# 
+		</isEqual>
+		
+		<isNotEmpty prepend=" and" property="haveVoucher">
+	   			a.haveVoucher=1
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="onLine">
+	   			b.ifOnLine=1
+		</isNotEmpty> 
+		<isNotEmpty prepend="" property="guideLevel">
+			<isNotEqual prepend="and" property="guideLevel" compareValue="0">
+	   			a.guideLevel=#guideLevel#
+	   		</isNotEqual>
+		</isNotEmpty> 
+		<isEqual prepend=" " property="sortId" compareValue="0">
+			order by b.favor desc
+		</isEqual>
+		<isEqual prepend=" " property="sortId" compareValue="1">
+			order by a.praise desc,b.favor desc
+		</isEqual>
+		<isEqual prepend=" " property="sortId" compareValue="2">
+			order by b.experience desc,b.favor desc
+		</isEqual>
+		<isEqual prepend=" " property="sortId" compareValue="3">
+			order by b.fame desc,b.favor desc
+		</isEqual>
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<select id="findGuideCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from t_member
+	</select>
+	
+
+	<!-- 白领向导 -->
+	<select id="findWhiteCollarGuide" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.*,b.username,b.experience,b.contribute,b.fame from t_member a,
+		(select userid,username,experience,contribute,favor,fame from t_archives_user) b 
+		where a.userid=b.userid(+)
+		and a.isaudit=1  and rownum &lt;=20  order by a.financial desc
+	</select>
+	
+	<!-- 白领向导分页 -->
+	<select id="findWhiteCollarGuideMore" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		
+		select a.*,b.username,b.experience,b.contribute,b.fame from t_member a,
+		(select userid,username,experience,contribute,favor,fame from t_archives_user) b 
+		where a.userid=b.userid(+)
+		and a.isaudit=1  order by a.financial desc
+		
+		 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>
+	
+	<!-- 名望向导前二十位 -->
+	<select id="findFameGuide" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.*,b.username,b.experience,b.contribute,b.fame from t_member a,
+		(select userid,username,experience,contribute,favor,fame from t_archives_user) b 
+		where a.userid=b.userid(+)
+		and a.isaudit=1  and rownum &lt;=20  order by b.fame desc
+	</select>
+	
+	<!-- 名望向导分页 -->
+	<select id="findFameGuideMore" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		
+		select a.*,b.username,b.experience,b.contribute,b.fame from t_member a,
+		(select userid,username,experience,contribute,favor,fame from t_archives_user) b 
+		where a.userid=b.userid(+)
+		and a.isaudit=1  order by b.fame desc
+		
+		 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>
+	
+	<!-- 赋闲向导前二十位 -->
+	<select id="findDallyGuide" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.*,b.username,b.experience,b.contribute,b.fame from t_member a,
+		(select userid,username,experience,contribute,favor,fame,ifonline from t_archives_user) b 
+		where a.userid=b.userid(+)
+		and a.isaudit=1 and b.ifonline=1  and rownum &lt;=20  order by b.experience desc
+	</select>
+	
+	<!-- 赋闲向导分页 -->
+	<select id="findDallyGuideMore" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		select a.*,b.username,b.experience,b.contribute,b.fame from t_member a,
+		(select userid,username,experience,contribute,favor,fame,ifonline from t_archives_user) b 
+		where a.userid=b.userid(+)
+		and a.isaudit=1 and b.ifonline=1   order by b.experience desc
+		 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>
+	
+	<select id="findGuideCountByDally" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		 select count(1) from t_member a,t_archives_user b where a.userid=b.userid(+) and b.ifonline=1
+	</select>
+	
+	<!-- 查询向导锦囊页数 -->
+	<select id="findGuideCoupCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from t_selfconfig_coup where state=1
+	</select>
+	
+	<!-- 向导锦囊分页 -->
+	<select id="findGuideCoupList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		select a.id,a.couptitle,a.coupcount,a.coupcreater,a.state,
+		         to_char(a.coupcreatedate,'yyyy-MM-dd HH24:mi:ss') coupcreatedate,b.username from t_selfconfig_coup a,t_archives_user b where a.coupcreater=b.userid(+) and a.state=1
+		 <isEqual prepend=" " property="sortType" compareValue="1">
+			order by a.coupcreatedate desc,a.coupcount desc
+		 </isEqual>
+		 <isEqual prepend=" " property="sortType" compareValue="2">
+			order by a.coupcount desc,a.coupcreatedate desc
+		 </isEqual>
+		 <isEmpty prepend=" " property="sortType">
+	   			order by a.coupcreatedate desc,a.coupcount desc
+		</isEmpty>
+		 
+		 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>
+	
+	<!-- 周边向导动态 -->
+	<select id="findGuideDynamicfList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		
+		select b.username,b.Lat,b.lng from t_member a,t_archives_user b where 
+		a.userid=b.userid(+) and GetDistance(b.lat,b.lng,#plat#,#plng#)&lt;=2 and state=1
+		 <isNotEmpty prepend=" and" property="onLine">
+	   			b.ifOnLine=1
+		</isNotEmpty> 
+		 
+		
+	</select>
+	
+	<!-- 查询周边向导动态数 -->
+	<select id="findGuideDynamicCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(a.memberid) from t_member a,t_archives_user b where 
+		a.userid=b.userid(+) and GetDistance(b.lat,b.lng,#plat#,#plng#)&lt;=0.5 and state=1
+		 <isNotEmpty prepend=" and" property="onLine">
+	   			b.ifOnLine=1
+		</isNotEmpty> 
+		
+	</select>
+	
+</sqlMap>

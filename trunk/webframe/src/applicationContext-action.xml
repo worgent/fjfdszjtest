@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="ajaxMessagesJson"  class="com.qzgf.utils.ajax.AjaxMessagesJson" singleton="false" />
+	
+	<bean id="permissionAction" class="com.qzgf.application.systemManage.permission.action.PermissionAction"	singleton="false" autowire="byName" /><!-- 权限模块 -->
+	<bean id="roleAction" class="com.qzgf.application.systemManage.role.action.RoleAction"	singleton="false" autowire="byName" /><!-- 角色模块 -->
+	<bean id="groupAction" class="com.qzgf.application.systemManage.group.action.GroupAction"	singleton="false" autowire="byName" /><!-- 角色模块 -->
+	
+	
+	<!-- 框架测试模块 -->
+	<bean id="testAction" class="com.qzgf.application.biz.testModel.action.TestAction"	singleton="false">
+		<property name="testFacade" ref="testFacade" />
+	</bean>
+
+	<!-- 用户注册 -->
+	<bean id="regAction" class="com.qzgf.application.biz.regModel.action.RegAction"	singleton="false">
+	</bean>
+
+	<!-- 用户登录 -->
+	<bean id="logoutAction" class="com.qzgf.application.systemManage.login.action.AdminLogout"		singleton="false">
+		<property name="loginFacade" ref="loginFacade" />
+	</bean>
+	<!-- =============================短信模块========================================= -->
+	<!--短信模块｜ 短信注册 
+	<bean id="smproxyAction" class="com.qzgf.utils.sms.SMProxySendFacade"	singleton="false">
+		<property name="smproxyFacade" ref="smproxyFacade" />
+	</bean>	
+	-->
+	
+	
+	<!-- =============================系统管理========================================= -->
+	<!--系统管理｜ 站内消息管理 -->
+	<bean id="messageAction" class="com.qzgf.application.systemManage.message.action.MessageAction"	singleton="false">
+		<property name="messageFacade" ref="messageFacade" />
+	</bean>	
+	
+	<!-- =============================控制面板========================================= -->
+	<!--控制面板｜ 悬赏管理 -->
+	<bean id="rewardAction" class="com.qzgf.application.selfConfig.reward.action.RewardAction"	singleton="false">
+		<property name="rewardFacade" ref="rewardFacade" />
+	</bean>	
+	<!--控制面板｜ 地图名片 -->
+	<bean id="mapcardAction" class="com.qzgf.application.selfConfig.mapcard.action.MapcardAction"	singleton="false">
+		<property name="mapcardFacade" ref="mapcardFacade" />
+	</bean>	
+	<!-- 2009-11-07信息公告 -->
+	<!--控制面板｜信息公告(优惠劵的发布，狩猎贴，领主招纳信息) -->
+	<bean id="bulletinAction" class="com.qzgf.application.selfConfig.bulletin.action.BulletinAction"	singleton="false">
+		<property name="bulletinFacade" ref="bulletinFacade" />
+	</bean>		
+	<!-- 2010-04-26信息公告 -->
+	<!--控制面板｜优惠分享-->
+	<bean id="shareFavAction" class="com.qzgf.application.selfConfig.shareFav.action.ShareFavAction"	singleton="false">
+		<property name="shareFavFacade" ref="shareFavFacade" />
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--控制面板｜ 地图日志 -->
+	<bean id="twitterAction" class="com.qzgf.application.selfConfig.twitter.action.TwitterAction"	singleton="false">
+		<property name="sysConfig" ref="sysConfig"></property>
+		<property name="twitterFacade" ref="twitterFacade" />
+	</bean>	
+	
+	<!--控制面板｜ 地图宝典 -->
+	<bean id="mapFortuneAction" class="com.qzgf.application.selfConfig.mapFortune.action.MapFortuneAction"	singleton="false">
+		<property name="twitterFacade" ref="twitterFacade" />
+	</bean>	
+	
+	<!-- 地图宝典 | 雇佣向导 -->
+	<bean id="hireGuideAction" class="com.qzgf.application.selfConfig.mapFortune.action.HireGuideAction"	singleton="false">
+		<property name="hireGuideFacade" ref="hireGuideFacade" />
+	</bean>
+	
+	<!-- 地图宝典 | 周边向导动态 -->
+	<bean id="guideDynamicAction" class="com.qzgf.application.selfConfig.mapFortune.action.GuideDynamicAction"	singleton="false">
+		<property name="guideDynamicFacade" ref="guideDynamicFacade"></property>
+	</bean>
+	
+	<!-- 地图宝典 | 向导锦囊 -->
+	<bean id="guideCoupAction" class="com.qzgf.application.selfConfig.mapFortune.action.GuideCoupAction"	singleton="false">
+		<property name="guideCoupFacade" ref="guideCoupFacade" />
+	</bean>
+	
+	<!-- 地图宝典 | 向导名人榜 -->
+	<bean id="guideToffAction" class="com.qzgf.application.selfConfig.mapFortune.action.GuideToffAction"	singleton="false">
+		<property name="guideToffFacade" ref="guideToffFacade" />
+	</bean>
+	
+	<!--地图日志｜ 日志分类 -->
+	<bean id="twitterTypeAction" class="com.qzgf.application.selfConfig.twitterType.action.TwitterTypeAction"	singleton="false">
+		<property name="twitterTypeFacade" ref="twitterTypeFacade" />
+	</bean>
+	
+	<bean id="jfreeAction" class="com.qzgf.application.selfConfig.chart.action.JfreeCharAction"	singleton="false">
+		
+	</bean>	
+	<bean id="sysConfig" class="com.qzgf.application.systemManage.taglib.config.SysConfig"	singleton="false"></bean>
+
+	<!--控制面板｜ 相册 -->
+	<bean id="albumAction" class="com.qzgf.application.selfConfig.album.action.AlbumAction"	singleton="false">
+		<property name="albumFacade" ref="albumFacade" />
+		<property name="sysConfig" ref="sysConfig"></property>
+	</bean>
+	
+	<!--控制面板｜ 向导锦囊 -->
+	<bean id="coupAction" class="com.qzgf.application.selfConfig.coup.action.CoupAction"	singleton="false">
+		<property name="coupFacade" ref="coupFacade" />
+		<property name="ajaxMessagesJson" ref="ajaxMessagesJson"></property>
+		
+	</bean>
+	
+	<!--用户等级设置 -->
+	   <bean id="userLevelAction" class="com.qzgf.application.systemManage.userlevel.action.UserLevelAction" singleton="false">
+		<property name="userLevelFacade" ref="userLevelFacade" />
+	</bean>	
+	
+	<!--消费认证|累积卡 -->
+	   <bean id="consumeAuthAction" class="com.qzgf.application.biz.ConsumeAuth.action.ConsumeAuthAction" singleton="false">
+		<property name="consumeAuthFacade" ref="consumeAuthFacade" />
+	</bean>	
+	
+	<!--专家向导|订阅向导 -->
+	   <bean id="orderGuideAction" class="com.qzgf.application.biz.OrderGuide.action.OrderGuideAction" singleton="false">
+		<property name="orderGuideFacade" ref="orderGuideFacade" />
+	</bean>	
+	
+	<!-- shen begin -->
+	
+	<!--空间配置 -->
+    <bean id="spaceAction" class="com.qzgf.application.archives.space.action.SpaceAction"	singleton="false">
+		<property name="spaceFacade" ref="spaceFacade" />
+	</bean>		
+	
+	<!--个人设置 -->
+	   <bean id="userAction" class="com.qzgf.application.archives.user.action.UserAction"	singleton="false">
+		<property name="userFacade" ref="userFacade" />
+	</bean>	
+	
+	
+	<!--广告推荐 -->
+	<bean id="adverRecommendAction" class="com.qzgf.application.archives.adverRecommend.action.AdverRecommendAction"	singleton="false">
+		<property name="adverRecommendFacade" ref="adverRecommendFacade" />
+	</bean>	
+	<!--广告推荐 -->
+	
+	
+	<!--商家跟向导的关系  -->
+	<bean id="businessGuideAction" class="com.qzgf.application.archives.businessGuide.action.BusinessGuideAction"	singleton="false">
+		<property name="businessGuideFacade" ref="businessGuideFacade" />
+	</bean>	
+	<!--商家跟向导的关系 -->
+	
+	<!-- 自助广告 -->
+	<bean id="selfAdvertiseAction" class="com.qzgf.application.archives.selfAdvertise.action.SelfAdvertiseAction"	singleton="false">
+		<property name="selfAdvertiseFacade" ref="selfAdvertiseFacade" />
+	</bean>	
+	<!-- 自助广告 -->
+	
+	
+	
+	<!-- shen end -->
+	
+</beans>

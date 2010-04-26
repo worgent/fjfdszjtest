@@ -1,0 +1,52 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 地图宝典模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="mapFortune" extends="selfconfig" namespace="/">
+		<action name="mapFortune" class="mapFortuneAction">
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/Twitter/listTwitter.jsp</result>
+			<result name="add">/WEB-INF/FrontModual/SelfConfig/Twitter/addTwitter.jsp</result>
+			<result name="view">/WEB-INF/FrontModual/SelfConfig/Twitter/viewTwitter.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 雇佣向导 -->
+	<package name="hireGuide" extends="selfconfig" namespace="/">
+		<action name="hireGuide" class="hireGuideAction">
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/MapFortune/hireGuide.jsp</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+	
+	<!-- 向导名人榜 -->
+	<package name="guideToff" extends="selfconfig" namespace="/">
+		<action name="guideToff" class="guideToffAction">
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/MapFortune/guideToff.jsp</result>
+			<result name="listDefault">/WEB-INF/FrontModual/SelfConfig/MapFortune/guideToffList.jsp</result>
+			<result name="listFame">/WEB-INF/FrontModual/SelfConfig/MapFortune/fameGuideList.jsp</result>
+			<result name="listDally">/WEB-INF/FrontModual/SelfConfig/MapFortune/dallyGuideList.jsp</result>
+			<result name="listMore">/WEB-INF/FrontModual/SelfConfig/MapFortune/guideToffMoreList.jsp</result>
+			<result name="listFameMore">/WEB-INF/FrontModual/SelfConfig/MapFortune/fameGuideMoreList.jsp</result>
+			<result name="listDallyMore">/WEB-INF/FrontModual/SelfConfig/MapFortune/dallyGuideMoreList.jsp</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+	
+	<!-- 向导锦囊 -->
+	<package name="guideCoup" extends="selfconfig" namespace="/">
+		<action name="guideCoup" class="guideCoupAction">
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/MapFortune/guideCoupSearch.jsp</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+	
+	<!-- 周边向导动态 -->
+	<package name="guideDynamic" extends="selfconfig" namespace="/">
+		<action name="guideDynamic" class="guideDynamicAction">
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/MapFortune/aroundGuideDynamic.jsp</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>

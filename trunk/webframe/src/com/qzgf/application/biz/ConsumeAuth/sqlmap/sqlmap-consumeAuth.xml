@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 框架测试模块
+	* @author lsr
+-->
+<sqlMap namespace="consumeAuth">
+	
+	<!-- 使用存储过程 -->
+	<select id="findAvailable" parameterClass="java.util.HashMap" resultClass="java.lang.String">
+		select  getcardavailible('$cumulateCard$', '$tel$','$money$') from dual
+	</select>
+	
+	<!-- 增加订阅向导记录 -->
+	<insert id="insertUserOrder" parameterClass="java.util.HashMap" >
+		insert into t_archives_userorder(id,userid,guideid)values(SEQ_T_ARCHIVES_guideorder.Nextval,'$userid$','$guideid$');
+    </insert>
+
+</sqlMap>

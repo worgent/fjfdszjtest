@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 向导锦囊
+	* 2009-10-14
+	* @author lsr
+-->
+<sqlMap namespace="Coup">	
+	
+	<!-- 锦囊记录总数 -->
+	<select id="findCoupCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from T_SELFCONFIG_COUP where state=1 
+		
+	</select>
+	
+	<!-- 查询向导锦囊记录 -->
+	<select id="findCoupPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		         select id,couptitle,coupcount,coupcreater,state,
+		         to_char(coupcreatedate,'yyyy-MM-dd HH24:mi:ss') coupcreatedate from t_selfconfig_coup where state=1 
+		         order by coupcreatedate desc
+
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加向导锦囊 -->
+	<insert id="insertGuideCoup" parameterClass="java.util.HashMap" >
+		insert into t_selfconfig_coup
+				(id,couptitle,coupcount,coupcreater,state,coupcreatedate,coupContent)values(		
+				hunt.seqformat('T_SELFCONFIG_COUP'),#coupTitle#,'0',#coupCreater#,1,sysdate,#coupContent#)
+    </insert>
+    
+    <!-- 根据Id查询向导锦囊 -->
+	<select id="findCoupById"
+		parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		select * from t_selfconfig_coup where id=#id#
+	</select>
+	
+	<!-- 更新向导锦囊 -->
+	<update id="updateCoupById" parameterClass="java.util.HashMap">
+		update t_selfconfig_coup
+		set coupTitle = #coupTitle#
+		    <isNotEmpty prepend="," property="coupContent">
+			   	coupContent=#coupContent#
+			</isNotEmpty>
+			
+		where id=#id# and state=1
+	</update>
+	
+	<!-- 根据ID删除某一向导锦囊 -->
+	<delete id="deleteCoupById" parameterClass="java.util.HashMap">
+    	update t_selfconfig_coup set State=0
+    	where Id=#id#
+    </delete>
+
+</sqlMap>

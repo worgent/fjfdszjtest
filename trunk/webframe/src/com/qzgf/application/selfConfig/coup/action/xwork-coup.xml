@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 向导锦囊
+	* @author lsr 
+-->
+<struts>
+	<package name="coup" extends="selfconfig" namespace="/">
+	    <!-- 向导锦囊 -->
+		<action name="coup" class="coupAction">
+			<result name="success">/WEB-INF/FrontModual/SelfConfig/Coup/guideCoup.jsp</result>
+			<result name="input">/WEB-INF/FrontModual/SelfConfig/Coup/editCoup.jsp</result>
+			<result name="list">/WEB-INF/FrontModual/SelfConfig/Coup/listCoup.jsp</result>
+			<result name="ajaxjson">/WEB-INF/jsp/ajaxjson.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+	</package>
+</struts>
