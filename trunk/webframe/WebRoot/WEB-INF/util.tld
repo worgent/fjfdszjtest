@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>2.2.3</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>qzgf</short-name>
+	<uri>/qzgf</uri>
+	<display-name>"QZGF Tags"</display-name>
+	<tag>
+		<name>webinfo</name><!-- 标签名 -->
+		<tag-class>com.qzgf.utils.taglib.WebInfoTag</tag-class><!-- 标签类 -->
+		<body-content>empty</body-content><!-- 标签中间放空,即不放值 -->
+		<description>网站基本信息标签</description>
+		<attribute><!-- 标签中的属性 -->   
+			<name>type</name><!-- 属性名 -->
+			<required>true</required><!-- 是否必须 -->
+			<rtexprvalue>true</rtexprvalue><!-- 表示该自定义标签的某属性的值可以直接指定或者通过动态计算指定 -->
+		</attribute>
+	</tag>
+	
+	<!-- 分页标签 -->
+	<tag>
+		<name>pages</name>
+		<tag-class>com.qzgf.utils.taglib.PageTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>argPage</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>argTotal</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>pageSep</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>javaScript</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- 用户标签,用于显示该用户的积分,等级等,后继可以再加上去 -->
+	<tag>
+		<name>userinfoinpost</name>
+		<tag-class>
+			com.qzgf.utils.taglib.UserInfoInPostTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>idValue</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+</taglib>
+
+
