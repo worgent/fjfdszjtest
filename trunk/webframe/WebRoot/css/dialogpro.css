@@ -1,0 +1,375 @@
+.generic_dialog {
+	Z-INDEX: 10000; POSITION: absolute; WIDTH: 100%; HEIGHT: 0px; OVERFLOW: visible; TOP: 0px; LEFT: 0px
+}
+#generic_dialog_iframe {
+	Z-INDEX: 3; POSITION: absolute; FILTER: alpha(opacity=0); TOP: 0px; LEFT: 0px
+}
+.generic_dialog .generic_dialog_popup {
+	POSITION: relative; HEIGHT: 0px; OVERFLOW: visible
+}
+.generic_dialog DIV.dialog_loading {
+	BORDER-BOTTOM: #606060 1px solid; BORDER-LEFT: #606060 1px solid; PADDING-BOTTOM: 10px; BACKGROUND-COLOR: #f2f2f2; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; FONT-SIZE: 24px; BORDER-TOP: #606060 1px solid; BORDER-RIGHT: #606060 1px solid; PADDING-TOP: 10px
+}
+#generic_dialog_overlay {
+	Z-INDEX: 99; POSITION: absolute; WIDTH: 100%; DISPLAY: block; TOP: 0px; LEFT: 0px
+}
+TABLE.pop_dialog_table {
+	MARGIN: auto; WIDTH: 465px; BORDER-COLLAPSE: collapse; TABLE-LAYOUT: fixed
+}
+TABLE.shorter.pop_dialog_table {
+	WIDTH: 270px
+}
+TD.pop_topleft {
+	PADDING-BOTTOM: 0px !important; PADDING-LEFT: 0px !important; WIDTH: 10px !important; PADDING-RIGHT: 0px !important; HEIGHT: 10px; OVERFLOW: hidden; PADDING-TOP: 0px !important
+}
+TD.pop_topright {
+	PADDING-BOTTOM: 0px !important; PADDING-LEFT: 0px !important; WIDTH: 10px !important; PADDING-RIGHT: 0px !important; HEIGHT: 10px; OVERFLOW: hidden; PADDING-TOP: 0px !important
+}
+TD.pop_bottomleft {
+	PADDING-BOTTOM: 0px !important; PADDING-LEFT: 0px !important; WIDTH: 10px !important; PADDING-RIGHT: 0px !important; HEIGHT: 10px; OVERFLOW: hidden; PADDING-TOP: 0px !important
+}
+TD.pop_bottomright {
+	PADDING-BOTTOM: 0px !important; PADDING-LEFT: 0px !important; WIDTH: 10px !important; PADDING-RIGHT: 0px !important; HEIGHT: 10px; OVERFLOW: hidden; PADDING-TOP: 0px !important
+}
+TD.pop_topleft {
+	BACKGROUND-IMAGE: url(/img/pop_dialog_top_left.png) !important; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://s.xnimg.cn/img/pop_dialog_top_left.png', sizingMethod='crop') !important
+}
+TD.pop_topright {
+	BACKGROUND-IMAGE: url(/img/pop_dialog_top_right.png) !important; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://s.xnimg.cn/img/pop_dialog_top_right.png', sizingMethod='crop') !important
+}
+TD.pop_bottomleft {
+	BACKGROUND-IMAGE: url(/img/pop_dialog_bottom_left.png) !important; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://s.xnimg.cn/img/pop_dialog_bottom_left.png', sizingMethod='crop') !important
+}
+TD.pop_bottomright {
+	BACKGROUND-IMAGE: url(/img/pop_dialog_bottom_right.png) !important; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://s.xnimg.cn/img/pop_dialog_bottom_right.png', sizingMethod='scale') !important
+}
+TD.pop_border {
+	BACKGROUND-IMAGE: url(/img/pop_dialog_border.png) !important; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://s.xnimg.cn/img/pop_dialog_border.png', sizingMethod='scale') !important
+}
+TD.pop_content {
+	PADDING-BOTTOM: 0px; BACKGROUND-COLOR: white; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+TD.morpadding_bluebg.pop_content {
+	PADDING-BOTTOM: 10px; BACKGROUND-COLOR: #d2d9e6; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px
+}
+TD.pop_content H2 {
+	BORDER-BOTTOM: #005eac 1px solid; BORDER-LEFT: #005eac 1px solid; MARGIN: 0px; BACKGROUND: #6d84b4; FLOAT: none !important; COLOR: white; FONT-SIZE: 14px; BORDER-TOP: #005eac 1px solid; FONT-WEIGHT: bold; BORDER-RIGHT: #005eac 1px solid
+}
+TD.pop_content H2 SPAN {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; DISPLAY: block; PADDING-TOP: 4px
+}
+TD.pop_content H2 A.floatright {
+	FLOAT: right
+}
+TD.pop_content .dialog_content {
+	BORDER-BOTTOM: #555 1px solid; BORDER-LEFT: #555 1px solid; BACKGROUND: #fff; BORDER-TOP: #555 0px solid; BORDER-RIGHT: #555 1px solid
+}
+TD.pop_content .borderblue.dialog_content {
+	BORDER-BOTTOM: #8598c0 1px solid; BORDER-LEFT: #8598c0 1px solid; BORDER-TOP: #8598c0 1px solid; BORDER-RIGHT: #8598c0 1px solid
+}
+TD.pop_content .dialog_body {
+	BORDER-BOTTOM: #ccc 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; FONT-SIZE: 12px; PADDING-TOP: 10px
+}
+TD.pop_content .dialog_summary {
+	BORDER-BOTTOM: #ccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; BACKGROUND: #f2f2f2; PADDING-TOP: 8px
+}
+TD.pop_content .dialog_summary P.centertext {
+	TEXT-ALIGN: center; LINE-HEIGHT: 20px; MARGIN: 30px
+}
+TD.pop_content .dialog_summary UL.classlist {
+	LIST-STYLE-TYPE: none
+}
+TD.pop_content .dialog_summary UL.classlist LI {
+	LINE-HEIGHT: 25px; LIST-STYLE-TYPE: none; HEIGHT: 25px
+}
+TD.pop_content .dialog_summary UL.classlist LI INPUT.floatleft {
+	MARGIN-TOP: 7px; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; VERTICAL-ALIGN: middle; MARGIN-RIGHT: 5px
+}
+* HTML TD.pop_content .dialog_summary UL.classlist LI INPUT.floatleft {
+	MARGIN: 3px 0px 0px
+}
+* + HTML TD.pop_content .dialog_summary UL.classlist LI INPUT.floatleft {
+	MARGIN: 3px 0px 0px
+}
+TD.pop_content .dialog_summary UL.classlist LI .gray {
+	COLOR: #b4b4b4
+}
+TD.pop_content .higher.dialog_summary {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 100px; PADDING-TOP: 10px
+}
+TD.pop_content .dialog_buttons {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 8px; PADDING-LEFT: 8px; PADDING-RIGHT: 8px; BACKGROUND: #f2f2f2; PADDING-TOP: 8px
+}
+TD.pop_content .alignleft.dialog_buttons {
+	TEXT-ALIGN: left
+}
+TD.pop_content .dialog_buttons INPUT {
+	MARGIN-LEFT: 5px
+}
+TD.pop_content .dialog_buttons_left_msg {
+	FLOAT: left
+}
+.contextual_dialog .generic_dialog_popup {
+	WIDTH: 360px
+}
+.contextual_dialog .contextual_arrow SPAN {
+	DISPLAY: none
+}
+.contextual_dialog .contextual_arrow_rev SPAN {
+	DISPLAY: none
+}
+.contextual_dialog H2 {
+	PADDING-BOTTOM: 4px; COLOR: black
+}
+.contextual_dialog .contextual_dialog_content {
+	BORDER-BOTTOM: #005eac 2px solid; BORDER-LEFT: #b7b7b7 1px solid; PADDING-BOTTOM: 10px; LINE-HEIGHT: 15px; BACKGROUND-COLOR: #f0f0f0; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; BORDER-TOP: #b7b7b7 1px solid; BORDER-RIGHT: #b7b7b7 1px solid; PADDING-TOP: 8px
+}
+.contextual_dialog .dialog_buttons {
+	PADDING-TOP: 10px
+}
+.contextual_dialog .dialog_buttons INPUT {
+	MARGIN-RIGHT: 10px
+}
+.errorDialog TD.pop_content H2 {
+	BORDER-BOTTOM: #aaaaaa 1px solid; BORDER-RIGHT-STYLE: none; BORDER-TOP-STYLE: none; BACKGROUND: #ffebe8; COLOR: #333333; BORDER-LEFT-STYLE: none
+}
+.errorDialog TD.pop_content H2 SPAN {
+	PADDING-BOTTOM: 7px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 6px
+}
+.errorDialog TD.pop_content {
+	BORDER-BOTTOM: #ee7c90 1px solid; BORDER-LEFT: #ee7c90 1px solid; BORDER-TOP: #ee7c90 1px solid; BORDER-RIGHT: #ee7c90 1px solid
+}
+.errorDialog TD.pop_content .dialog_content {
+	BORDER-BOTTOM-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-TOP-STYLE: none; BORDER-LEFT-STYLE: none
+}
+.errorDialog TD.pop_content .dialog_content .dialog_body {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 15px
+}
+UL.square_bullets {
+	LIST-STYLE: square none outside; PADDING-LEFT: 20px; COLOR: #005eac
+}
+#dialog_content .tabs {
+	BORDER-BOTTOM: #898989 1px solid; PADDING-TOP: 15px
+}
+#dialog_content .toggle_tabs {
+	LIST-STYLE-TYPE: none; MARGIN: 0px auto; WIDTH: 231px
+}
+#dialog_content .toggle_tabs LI {
+	BACKGROUND: url(/img/toggle_tab_bg.gif) #f1f1f1 repeat-x 0px 1px; FLOAT: left
+}
+#dialog_content .toggle_tabs LI A {
+	BORDER-BOTTOM: #898989 1px solid; BORDER-LEFT: #898989 0px solid; PADDING-BOTTOM: 3px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; DISPLAY: block; MARGIN-BOTTOM: -1px; COLOR: #333; BORDER-TOP: #898989 1px solid; BORDER-RIGHT: #898989 1px solid; PADDING-TOP: 3px
+}
+* HTML #dialog_content .toggle_tabs LI A {
+	PADDING-BOTTOM: 3px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 3px
+}
+* + HTML #dialog_content .toggle_tabs LI A {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 5px
+}
+#dialog_content .toggle_tabs LI A.selected {
+	BORDER-BOTTOM-COLOR: #005eac; BORDER-TOP-COLOR: #005eac; BACKGROUND: #6d84b4; COLOR: #fff; BORDER-RIGHT-COLOR: #005eac; BORDER-LEFT-COLOR: #005eac; TEXT-DECORATION: none
+}
+#dialog_content .toggle_tabs LI.first A {
+	BORDER-BOTTOM: #898989 1px solid; BORDER-LEFT: #898989 1px solid; BORDER-TOP: #898989 1px solid; BORDER-RIGHT: #898989 1px solid
+}
+#dialog_content .toggle_tabs LI.first A.selected {
+	BORDER-BOTTOM-COLOR: #005eac; BORDER-TOP-COLOR: #005eac; BORDER-RIGHT-COLOR: #5973a9; BORDER-LEFT-COLOR: #5973a9
+}
+TD.pop_content H2 A {
+	PADDING-BOTTOM: 6px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; FLOAT: right; COLOR: #fff; FONT-SIZE: 12px; FONT-WEIGHT: normal; PADDING-TOP: 6px
+}
+TD.pop_content H2 A:hover {
+	COLOR: #fff
+}
+.share_send {
+	BACKGROUND: #f7f7f7 0% 50%; PADDING-TOP: 15px
+}
+.share_post {
+	BACKGROUND: #f7f7f7 0% 50%; PADDING-TOP: 15px
+}
+.share_send {
+	DISPLAY: none
+}
+.share-preview {
+	BACKGROUND: #f7f7f7
+}
+.share_fields {
+	PADDING-BOTTOM: 10px
+}
+.composer_fields DT {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 0pt; MARGIN: 0pt; PADDING-LEFT: 20pt; WIDTH: 65px; PADDING-RIGHT: 10px; FLOAT: left; PADDING-TOP: 0pt
+}
+.composer_fields DD {
+	MARGIN: 0pt 0pt 10px; WIDTH: 300px; FLOAT: left
+}
+.composer_fields DD#dd_privacy_field {
+	MARGIN: 0px
+}
+.composer_fields TEXTAREA {
+	MARGIN: 0pt; HEIGHT: 50px; OVERFLOW: auto
+}
+.composer_fields LABEL {
+	DISPLAY: block; COLOR: #666; FONT-WEIGHT: bold; PADDING-TOP: 4px
+}
+.attachment_stage {
+	BORDER-BOTTOM: #ccc 1px solid; BACKGROUND-COLOR: #f0f0f0; BORDER-TOP: #ccc 1px solid
+}
+.attachment_stage_area {
+	PADDING-BOTTOM: 7px; PADDING-LEFT: 8px; PADDING-RIGHT: 3px; OVERFLOW: hidden; PADDING-TOP: 8px
+}
+.share-title {
+	COLOR: #555; FONT-WEIGHT: bold
+}
+.share-with-pic.share_info {
+	MARGIN-LEFT: 115px
+}
+.share_thumb {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; FLOAT: left; BORDER-TOP: #ccc 1px solid; MARGIN-RIGHT: 5px; BORDER-RIGHT: #ccc 1px solid
+}
+.share_thumb IMG {
+	BORDER-BOTTOM: #fff 3px solid; BORDER-LEFT: #fff 3px solid; BORDER-TOP: #fff 3px solid; BORDER-RIGHT: #fff 3px solid
+}
+.share-description {
+	LINE-HEIGHT: 18px; COLOR: #808080
+}
+.share-description SPAN {
+	COLOR: #333
+}
+.share-description A {
+	MARGIN-RIGHT: 3px
+}
+.share_buttons {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 10px; PADDING-LEFT: 0px; PADDING-RIGHT: 60px; PADDING-TOP: 0px
+}
+.share_buttons INPUT {
+	MARGIN: 0px 5px
+}
+.share_pop_dialog DIV.tokenizer {
+	BORDER-BOTTOM: #8496ba 1px solid; BORDER-LEFT: #8496ba 1px solid; WIDTH: 295px; BORDER-TOP: #8496ba 1px solid; BORDER-RIGHT: #8496ba 1px solid
+}
+.share_pop_dialog INPUT.inputtext {
+	BORDER-BOTTOM: #8496ba 1px solid; BORDER-LEFT: #8496ba 1px solid; WIDTH: 295px; BORDER-TOP: #8496ba 1px solid; BORDER-RIGHT: #8496ba 1px solid
+}
+.share_pop_dialog TEXTAREA {
+	BORDER-BOTTOM: #8496ba 1px solid; BORDER-LEFT: #8496ba 1px solid; WIDTH: 295px; BORDER-TOP: #8496ba 1px solid; BORDER-RIGHT: #8496ba 1px solid
+}
+.share_pop_dialog INPUT.inputtext {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 3px; PADDING-RIGHT: 0pt; PADDING-TOP: 5px
+}
+.share_pop_dialog TEXTAREA {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 3px; PADDING-RIGHT: 0pt; PADDING-TOP: 5px
+}
+.loading {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; BACKGROUND: #f7f7f7; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 10px
+}
+.messages_div {
+	FONT-SIZE: 14px
+}
+.share-description STRONG {
+	COLOR: #333
+}
+.friend-request {
+	ZOOM: 1; OVERFLOW: hidden
+}
+.friend-request .avatar {
+	FLOAT: left; MARGIN-RIGHT: 15px
+}
+.friend-request .avatar IMG {
+	WIDTH: 100px
+}
+.friend-request .msg {
+	BORDER-RIGHT-WIDTH: 0px; WIDTH: 275px; FLOAT: left; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.friend-request #addMsgBox P {
+	PADDING-BOTTOM: 0.2em
+}
+.twin_comment_holder LABEL {
+	POSITION: relative; PADDING-BOTTOM: 0px; MARGIN-TOP: -6px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FLOAT: right; FONT-WEIGHT: normal; PADDING-TOP: 0px
+}
+.twin_comment_holder LABEL INPUT {
+	BACKGROUND: #f7f7f7; MARGIN-RIGHT: 5px
+}
+* HTML .twin_comment_holder LABEL INPUT {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; VERTICAL-ALIGN: middle; PADDING-TOP: 0px
+}
+* + HTML .twin_comment_holder LABEL INPUT {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; VERTICAL-ALIGN: middle; PADDING-TOP: 0px
+}
+TD.pop_content .dialog_body H1.general {
+	MARGIN-BOTTOM: 15px; FONT-SIZE: 15px
+}
+TD.pop_content .dialog_body P.altbox {
+	BORDER-BOTTOM: #e0e0e0 1px solid; PADDING-BOTTOM: 3px; MARGIN-BOTTOM: 15px; COLOR: #999
+}
+TD.pop_content .dialog_body P.namefilter {
+	MARGIN-BOTTOM: 15px
+}
+TD.pop_content .dialog_body P.namefilter LABEL {
+	COLOR: #999; FONT-WEIGHT: bold
+}
+TD.pop_content .dialog_body P.namefilter .inputtext {
+	WIDTH: 200px
+}
+TD.pop_content .dialog_body #list-results .selector {
+	MARGIN-BOTTOM: 15px; HEIGHT: 200px
+}
+TABLE.w515.pop_dialog_table {
+	WIDTH: 515px
+}
+TD.pop_content .msbbox_yellow {
+	BORDER-BOTTOM: #e2c822 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #e2c822 1px solid; PADDING-BOTTOM: 15px; BACKGROUND-COLOR: #fff9d7; MARGIN: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; BORDER-TOP: #e2c822 1px solid; BORDER-RIGHT: #e2c822 1px solid; PADDING-TOP: 15px
+}
+.msg.dialog_body {
+	BORDER-BOTTOM: #555 1px solid; BORDER-LEFT: #555 1px solid; BORDER-TOP: #555 1px solid; BORDER-RIGHT: #555 1px solid
+}
+.msg.dialog_body H4 {
+	BORDER-BOTTOM: #e2c822 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #e2c822 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; BACKGROUND: #fff9d7; COLOR: #333; FONT-SIZE: 14px; BORDER-TOP: #e2c822 1px solid; BORDER-RIGHT: #e2c822 1px solid; PADDING-TOP: 10px
+}
+.error.msg.dialog_body H4 {
+	BORDER-BOTTOM-COLOR: #dd3c10; BORDER-TOP-COLOR: #dd3c10; BACKGROUND: #ffebe8; BORDER-RIGHT-COLOR: #dd3c10; BORDER-LEFT-COLOR: #dd3c10
+}
+.dialog_body H4.err-msg {
+	MARGIN-BOTTOM: 5px; COLOR: #dd3c10
+}
+.frsdes-pop {
+	ZOOM: 1; OVERFLOW: hidden
+}
+.frsdes-pop UL {
+	ZOOM: 1; MARGIN-LEFT: 10px; OVERFLOW: hidden; MARGIN-RIGHT: -5px
+}
+.frsdes-pop LABEL {
+	LINE-HEIGHT: 21px; WIDTH: 120px; DISPLAY: inline-block; HEIGHT: 21px; COLOR: #000; VERTICAL-ALIGN: middle; OVERFLOW: hidden; FONT-WEIGHT: normal; MARGIN-RIGHT: 5px
+}
+.frsdes-pop STRONG {
+	MARGIN: 0px 0px 5px; DISPLAY: block
+}
+.frsdes-pop .floatlist LI {
+	LINE-HEIGHT: 21px; WIDTH: 172px; MARGIN-BOTTOM: 5px; FLOAT: left; HEIGHT: 21px; OVERFLOW: hidden
+}
+.frsdes-pop LI INPUT.checkbox {
+	MARGIN: 0px 5px 0px 10px; WIDTH: 13px; HEIGHT: 13px
+}
+.frsdes-pop LI INPUT.input-text {
+	PADDING-BOTTOM: 1px; PADDING-LEFT: 3px; WIDTH: auto; PADDING-RIGHT: 3px; PADDING-TOP: 1px
+}
+.tR {
+	TEXT-ALIGN: right
+}
+.btns {
+	MARGIN: 10px 0px
+}
+.dialog_content .pri-infoset {
+	PADDING-BOTTOM: 20px; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; PADDING-TOP: 20px
+}
+.dialog_content .pri-infoset .info-content P {
+	MARGIN: 1em 0px
+}
+.frsdes-pop #popNewGroup {
+	PADDING-LEFT: 29px; CLEAR: both; PADDING-TOP: 5px
+}
+.dialog_content .pri-infoset .info-content P LABEL {
+	TEXT-ALIGN: right; MARGIN: 0px 7px 0px 0px; WIDTH: 70px; DISPLAY: inline-block
+}
+.dialog_content .pri-infoset .info-content P SELECT {
+	MARGIN: 0px 7px 0px 0px; WIDTH: 200px
+}

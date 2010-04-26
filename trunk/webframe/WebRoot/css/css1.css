@@ -1,0 +1,594 @@
+@charset "utf-8";
+body {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+}
+table {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+}
+.nag ul {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 14px;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+.nag ul li {
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 5px;
+	margin-left: 0px;
+}
+
+
+.t1 {
+	padding: 5px;
+}
+.table1 {
+	background-color: #FAFAFA;
+	border: 1px solid #CCCCCC;
+}
+.table2 { background-color:#ffffff }
+.table3 { background-color:#ebeadd }
+.table4 { background-color:#cfcdaf }
+.table5 { background-color:#cfcdaf; display:none }
+.table6 {
+	border: 1px dashed #CCCCCC;
+}
+.signDivOn {
+	border: 1px solid #F9513E;
+	padding: 3px;
+	cursor:hand;
+	cursor:pointer;
+	color: #000000;
+}
+.signDivOff {
+	padding: 4px;
+	color: #999999;
+}
+
+.table7 {
+	border: 1px solid #CCCCCC;
+}
+.font1 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 14px;
+}
+.font3 {
+	font-style: italic;
+	color: #666666;
+}
+.font4 {
+	color: #666666;
+}
+.font5 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	color: #666666;
+}
+.font6 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9px;
+	color: #006600;
+}
+.font6 a {
+    color: #006600;
+	text-decoration: none ;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.font6 a:link {
+    text-decoration: none;
+	color: #006600;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.font6 a:visited {
+    text-decoration: none;
+	color: #006600;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.font6 a:hover {
+    text-decoration: underline;
+	color: #006600;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.font6 a:active {
+    text-decoration: underline;
+	color: #006600;
+	font-family:Verdana, Tahoma, "宋体";
+}
+
+
+.font2 {
+	color: #FF0000;
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+}
+.title { font-size:14px; font-weight:bold; color:#ffffff; cursor:hand; cursor:pointer; }
+.item { font-size:14px; color:#000000; background-color:#ffffff; }
+.input1{
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	border: 1px solid #999999;
+	padding: 3px;
+}
+.input2 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	border: 1px solid #DBDBDB;
+	padding: 3px;
+}
+.textarea1 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	border: 1px solid #DBDBDB;
+	padding: 3px;
+}
+.hrcolor1 {
+	color: #CC3300;
+}
+.hrcolor2 {
+	color: #E8E8E8;
+}
+.msg1 {
+	color: #999999;
+	padding: 6px;
+}
+.msg2 {
+	background-color: #EDF3FA;
+	border: 1px solid #408FD0;
+	padding: 5px 5px 5px 25px;
+	background-image: url(../images/standard_msg_warning.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+}
+.msg3 {
+	background-color: #F0FFF0;
+	border: 1px solid #00EA00;
+	padding: 5px 5px 5px 25px;
+	background-image: url(../images/standard_msg_ok.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+}
+
+.errormsg {
+	background-color: #FFEFEE;
+	border: 1px solid #FF6860;
+	padding: 5px 5px 5px 25px;
+	background-image: url(../images/standard_msg_error.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+	line-height: 16pt;
+}
+.button1
+{
+	BACKGROUND-COLOR:#e0e0d5;
+	font-size: 9pt;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: ridge;
+	border-right-style: ridge;
+	border-bottom-style: ridge;
+	border-left-style: ridge;
+	border-top-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	font-family: "宋体", Tahoma, Verdana;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+.button2
+{
+	BACKGROUND-COLOR:#e0e0d5;
+	font-size: 9pt;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: ridge;
+	border-right-style: ridge;
+	border-bottom-style: ridge;
+	border-left-style: ridge;
+	border-top-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	font-family: "宋体", Tahoma, Verdana;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	width: 80px;
+	height: 20px;
+}
+.p1 {
+	line-height: 16pt;
+}
+.postDetail {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 14px;
+	line-height: 16pt;
+	word-wrap: break-word;
+	word-break:break-all;
+	overflow:auto;
+}
+.pic1 {
+	border: 1px solid #666666;
+}
+
+.td1 {
+	background-color: #F0F0F0;
+}
+.td3 {
+	background-color: #FAFAFA;
+}
+.select1 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	padding: 3px;
+	border: 1px solid #DBDBDB;
+}
+a {
+    color: #1428B1;
+	text-decoration: none ;
+	font-family:Verdana, Tahoma, "宋体";
+}
+a:link {
+    text-decoration: none;
+	color: #1428B1;
+	font-family:Verdana, Tahoma, "宋体";
+}
+a:visited {
+    text-decoration: none;
+	color: #1428B1;
+	font-family:Verdana, Tahoma, "宋体";
+}
+a:hover {
+    text-decoration: underline;
+	color: #FF6600;
+	font-family:Verdana, Tahoma, "宋体";
+}
+a:active {
+    text-decoration: underline;
+	color: #FF6600;
+	font-family:Verdana, Tahoma, "宋体";
+}
+
+.link1 a {
+    color: #666666;
+	text-decoration: none ;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.link1 a:link {
+    text-decoration: none;
+	color: #666666;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.link1 a:visited {
+    text-decoration: none;
+	color: #666666;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.link1 a:hover {
+    text-decoration: underline;
+	color: #666666;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.link1 a:active {
+    text-decoration: underline;
+	color: #666666;
+	font-family:Verdana, Tahoma, "宋体";
+}
+
+.link2 a {
+    color: #000000;
+	text-decoration: none ;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.link2 a:link {
+    text-decoration: none;
+	color: #000000;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.link2 a:visited {
+    text-decoration: none;
+	color: #000000;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.link2 a:hover {
+    text-decoration: underline;
+	color: #666666;
+	font-family:Verdana, Tahoma, "宋体";
+}
+.link2 a:active {
+    text-decoration: underline;
+	color: #666666;
+	font-family:Verdana, Tahoma, "宋体";
+}
+
+.iframe1 { height: 100%; visibility: inherit; width: 135px; z-index: 2 }
+.iframe2 { height: 100%; visibility: inherit; width: 100%; z-index: 1 }
+.td2 { width: 10pt;background-color:#ABBCDC}
+.bgColor1 {
+	background-color: #5175B7;
+}
+.bgColor5 {
+	background-color: #C6CCF4;
+}
+
+.bgColor2 {
+	background-color: #FFFFFF;
+}
+.noteClass1 {
+	background-color: #FFFFEC;
+	border: 1px dashed #CCCCCC;
+}
+.divClass1 {
+	position: absolute;
+}
+.nagbody {
+	background-color: #F2F2FB;
+}
+
+
+.bgColor3 {
+	background-color: #C2CFE7;
+}
+.bgColor4 {
+	background-color: #F2F2FB;
+}
+
+
+
+.navPoint { color: #000000; cursor: hand;font-family: "宋体",Tahoma, Verdana; font-size: 9pt }
+.switchbarfont { font-family: Tahoma, Verdana; font-size:12px; color:#ffffff; }
+.table8 {
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #5175B7;
+	border-bottom-color: #5175B7;
+	background-color: #FAFAFA;
+}
+.table9 {
+	background-color: #FAFAFA;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: dashed;
+	border-bottom-style: solid;
+	border-top-color: #E6E6E6;
+	border-bottom-color: #E6E6E6;
+}
+.readBoard {
+	background-color: #FAFAFA;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #E6E6E6;
+}
+
+.summary1 {
+	background-color: #FFFFEC;
+	padding: 3px;
+	border: 1px dashed #CCCCCC;
+	margin: 1px;
+}
+.titleColor1 {
+color: #990000;
+background-color: #990000;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor2 {
+color: #006600;
+background-color: #006600;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor3 {
+color: #666600;
+background-color: #666600;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor4 {
+color: #000066;
+background-color: #000066;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor5 {
+color: #660066;
+background-color: #660066;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor6 {
+color: #008080;
+background-color: #008080;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor7 {
+color: #808080;
+background-color: #808080;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor8 {
+color: #CCCCCC;
+background-color: #CCCCCC;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor9 {
+color: #FF0000;
+background-color: #FF0000;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor10 {
+color: #00FF00;
+background-color: #00FF00;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor11 {
+color: #FFFF00;
+background-color: #FFFF00;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor12 {
+color: #0000FF;
+background-color: #0000FF;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.titleColor13 {
+color: #FF00FF;
+background-color: #FF00FF;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.signInPost {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	line-height: 12pt;
+	color: #666666;
+	padding: 5px 3px;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: dashed;
+	border-bottom-style: dashed;
+	border-top-color: #999999;
+	border-bottom-color: #999999;
+	margin-top: 20px;
+}
+
+.titleColor14 {
+color: #00FFFF;
+background-color: #00FFFF;
+border-top-width: 1px;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-top-style: none;
+border-right-style: none;
+border-bottom-style: none;
+border-left-style: none;
+}
+.quote1 {
+	background-color: #FFFFF7;
+	border: 1px solid #F2ED8C;
+	padding: 5px;
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	color: #333333;
+}
+.upfile1 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.exeMsg {
+	display:block;
+	font-family:Verdana;
+	font-size:11px;
+	border:1px solid #990000;
+	background-color:#DD0000;
+	padding:1px;
+	position:absolute;
+	right:1px;
+	top:1px;
+	width:110px;
+	height:14px;
+	z-index:10000;
+	color: #FFFFFF;
+}
+
+.errorMessage{
+	font-family: Helvetica,sans-serif;color:red}	
+}
+
+.actionMessage{
+	font-family: Helvetica,sans-serif;color:red}	
+}
