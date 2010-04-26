@@ -1,0 +1,19 @@
+1.测试距用到的接口是
+PointDistance.js
+应用实例在:地图名片的,冒泡查询中.
+http://localhost:8080/selfconfig/mapcard.do?action=detail&search.pid=2010042200000195
+
+2.框选接口
+squarechoose.js
+应用实例:雇请向导 http://localhost:8080/hireGuide.do
+
+3.通用接口说明:
+MapBase.js中,实现基本的查看与编辑相关用法文件中有说明:
+ /*
+ 时间:      2009-11-25
+ 功能说明:google地图基本操作:点的标注与显示
+ 用法:    1. 首先页面层需要有  <div id="map_canvas" style="width: 500px; height: 300px"></div>(存放地图位置)
+ 		  	2. googlemap的引入经纬度信息:例如
+		  	<s:hidden name="search.plat" id="search.plat" value="%{mapcard.LAT}"></s:hidden><!-- 纬度 -->
+		  	<s:hidden name="search.plng" id="search.plng" value="%{mapcard.LNG}"></s:hidden><!-- 经度 -->
+ */
