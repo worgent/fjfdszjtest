@@ -1,0 +1,15 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 用户等级模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="userLevel" extends="selfconfig" namespace="/">
+		<action name="adminUserLevel" class="userLevelAction">
+			<result name="index">/WEB-INF/BackModual/System/UserLevel/userLevel.jsp</result>
+			<result name="input">/WEB-INF/BackModual/System/UserLevel/userLevelSet.jsp</result>
+			<result name="success" type="redirect-action">adminUserLevel?action=index</result>
+			<interceptor-ref name="mapParam" />		
+		</action>	
+	</package>
+</xwork>

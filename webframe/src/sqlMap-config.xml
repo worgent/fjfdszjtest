@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "./sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- debug环境下，将其设为false. 正式运行时应设为true,启用缓存 -->
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		useStatementNamespaces="true" maxSessions="64" maxTransactions="15"
+		maxRequests="128" />
+	<!-- 非常简洁，将用到的sqlMap文件列到这儿就行了 -->
+	<!-- 公共 -->
+	<sqlMap resource="/sqlMap-common.xml" />
+	
+	<!-- 系统管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/log/sqlmap/sqlmap-operatelog.xml"/><!-- 系统日志 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/taglib/sqlmap/sqlmap-config.xml"/><!-- 配置文件 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/manager/sqlmap/sqlmap-manager.xml"/><!-- 系统管理 -->
+	<sqlMap resource="/com/qzgf/application/biz/testModel/sqlmap/sqlmap-testManage.xml" /><!-- 框架测试模块 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/login/sqlmap/sqlmap-menu.xml" /><!-- 菜单模块 -->
+	<!-- ============================================短信模块======================================= -->
+	<!--  短信模块｜短信-->
+	<sqlMap resource="/com/qzgf/application/systemManage/sms/sqlmap/sqlmap-sms.xml" />
+	<!-- ============================================系统管理======================================= -->
+	<!--  系统管理｜站内消息-->
+	<sqlMap resource="/com/qzgf/application/systemManage/message/sqlmap/sqlmap-message.xml" />
+	
+	<!--  控制面板｜用户等级-->
+	<sqlMap resource="/com/qzgf/application/systemManage/userlevel/sqlmap/sqlmap-userlevel.xml" />
+	
+	<!--  控制面板｜用户信息-->
+	<sqlMap resource="/com/qzgf/application/systemManage/userInfo/sqlmap/sqlmap-userInfo.xml" />
+
+	<!-- ============================================控制面板====================================== -->
+	<!--  控制面板｜悬赏管理-->
+	<sqlMap resource="/com/qzgf/application/selfConfig/reward/sqlmap/sqlmap-reward.xml" />
+	<!--  控制面板｜地图名片-->
+	<sqlMap resource="/com/qzgf/application/selfConfig/mapcard/sqlmap/sqlmap-mapcard.xml" />
+	<!-- 2009-11-07信息公告 -->
+	<!--控制面板｜信息公告(优惠劵的发布，狩猎贴，领主招纳信息) -->
+	<sqlMap resource="/com/qzgf/application/selfConfig/bulletin/sqlmap/sqlmap-bulletin.xml" />	
+	<!-- 2010-04-26优惠分享 -->
+	<!--控制面板｜优惠分享 -->
+	<sqlMap resource="/com/qzgf/application/selfConfig/shareFav/sqlmap/sqlmap-shareFav.xml" />	
+	
+	
+	
+	
+
+
+	<!--  控制面板｜地图日志-->
+	<sqlMap resource="/com/qzgf/application/selfConfig/twitter/sqlmap/sqlmap-twitter.xml" />
+	<!--  地图日志｜日志分类-->
+	<sqlMap resource="/com/qzgf/application/selfConfig/twitterType/sqlmap/sqlmap-twitterType.xml" />
+	<!--  控制面板｜相册-->
+	<sqlMap resource="/com/qzgf/application/selfConfig/album/sqlmap/sqlmap-album.xml" />
+	
+	<!--  控制面板｜向导锦囊-->
+	<sqlMap resource="/com/qzgf/application/selfConfig/coup/sqlmap/sqlmap-coup.xml" />
+	
+	<!-- 地图宝典|雇佣向导 -->
+	<sqlMap resource="/com/qzgf/application/selfConfig/mapFortune/sqlmap/sqlmap-mapFortune.xml" />
+	
+	<!-- 消费认证|累积卡 -->
+	<sqlMap resource="/com/qzgf/application/biz/ConsumeAuth/sqlmap/sqlmap-consumeAuth.xml" />
+	
+	<!-- 专家向导|订阅向导 -->
+	<sqlMap resource="/com/qzgf/application/biz/OrderGuide/sqlmap/sqlmap-orderGuide.xml" />
+	
+	<!-- shen begin -->
+	
+	<!--空间配置-->
+	<sqlMap resource="/com/qzgf/application/archives/space/sqlmap/sqlmap-space.xml" />
+	<!--个人设置-->
+	<sqlMap resource="/com/qzgf/application/archives/user/sqlmap/sqlmap-User.xml" />
+	
+	<!--广告推荐-->
+	<sqlMap resource="/com/qzgf/application/archives/adverRecommend/sqlmap/sqlmap-AdverRecommend.xml" />
+	<!--广告推荐-->
+	
+	<!--自助广告-->
+	<sqlMap resource="/com/qzgf/application/archives/selfAdvertise/sqlmap/sqlmap-SelfAdvertise.xml" />
+	<!--自助广告-->
+	
+	<!--商家跟向导的关系-->
+	<sqlMap resource="/com/qzgf/application/archives/businessGuide/sqlmap/sqlmap-BusinessGuide.xml" />
+	<!--商家跟向导的关系-->
+	
+	
+	<!-- shen end -->
+	
+</sqlMapConfig>

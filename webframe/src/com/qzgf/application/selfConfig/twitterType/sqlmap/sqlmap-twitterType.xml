@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 日志分类
+	* 2009-08-15
+	* @author lsr
+-->
+<sqlMap namespace="TwitterType">	
+	
+	<!-- 查询记录，非分页 -->
+	<select id="findTwitterType" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		   select m.twittertypenum,m.twittertypeid,n.twittertypename,n.userid from 
+ (select count(a.twitterid) as twittertypenum,b.twittertypeid from t_archives_twitter a right join 
+ (select twittertypeid,userid,twittertypename from t_archives_twitter_type where userid=$UserId$ and state=1) b 
+on a.twittertypeid=b.twittertypeid and a.billstate=1 group by b.twittertypeid) m,t_archives_twitter_type n where m.twittertypeid=n.twittertypeid
+	</select>
+	
+	<!-- 增加记录 -->
+	<insert id="insertTwitterType"	parameterClass="java.util.HashMap" >
+		insert into T_ARCHIVES_TWITTER_TYPE(TWITTERTYPEID,UserId,TwitterTypeName,State)
+				 values (hunt.seqformat('T_ARCHIVES_TWITTERTYPE'),#UserId#,#TwitterTypeName#,'1')
+    </insert>
+    
+	<!-- 删除记录 -->
+	<delete id="deleteTwitterTypeById" parameterClass="java.util.HashMap">
+    	update t_archives_twitter_Type set State=0
+    	where TwitterTypeId=#TwitterTypeId#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateTwitterTypeById" parameterClass="java.util.HashMap">
+		update t_archives_twitter_Type
+		   set TwitterTypeName = #TwitterTypeName#
+		where TwitterTypeId=#TwitterTypeId# and state=1
+	</update>
+	
+	<!-- 修改日志分类为默认分类 -->
+	<update id="updateTwitterNewType" parameterClass="java.util.HashMap">
+		update t_archives_twitter
+		   set TwitterTypeId = 1
+		where TwitterTypeId=#TwitterTypeId#
+	</update>
+	
+</sqlMap>

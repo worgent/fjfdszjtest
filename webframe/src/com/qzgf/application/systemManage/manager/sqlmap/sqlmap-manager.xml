@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="ManagerInfo">
+	<resultMap id="ManagerByIdResultMap" class="com.qzgf.application.systemManage.manager.dto.UserInfo">
+	
+	    <result property="userid" column="userid"/>
+		<result property="username" column="username"/>
+		<result property="experience" column="experience"/>
+		<result property="contribute" column="contribute"/>
+		<result property="fame" column="fame"/>
+		
+		<result property="strength" column="strength"/>
+		<result property="favor" column="favor"/>
+		<result property="financial" column="financial"/>
+	
+  	</resultMap>
+
+  	
+  	  	
+  	<select id="checkLogin" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+  	 select * from t_archives_user where  userName=#pusername#
+  	</select>
+  	
+  	<!--
+		根据登录者读取所对应的所有角色id
+		查询条件：登录者流水号
+		返回：string
+	 -->
+	 <select id="findRoleIdByStaffId" resultClass="string" parameterClass="string">
+	 	select role_id 
+	 	  from tf_staff_role 
+	 	 where staff_id=#staffId#
+	 </select>
+	 
+	<!-- 
+	 	根据登录者的流水号取得所具有的权限
+	 -->
+	<select id="findManagePower" resultClass="com.qzgf.application.systemManage.menu.dto.MenuInfo" parameterClass="string">
+		select distinct mi.menu_id menuId, mi.method method
+		  from tf_staff_role ur, tf_role_menu rm, td_menu_info mi
+		 where ur.role_id = rm.role_id
+		   and rm.menu_id = mi.menu_id
+		   and mi.state = 1
+		   and ur.staff_id = #staffId#		
+	</select>
+	
+	<!-- 
+		根据登录者展示对应的菜单项
+		查询条件：父亲节点、人员工号
+		返回：com.doone.xtwh.dto.MenuInfo
+	-->
+	<select id="findMenuByStaffId" resultClass="com.qzgf.application.systemManage.menu.dto.MenuInfo" parameterClass="java.util.HashMap" >
+		SELECT distinct a.menu_id menuId,
+                a.menu_name menuName,
+                a.menu_order menuOrder,
+                a.is_root isRoot,
+                a.super_id superId,
+                a.img_src imgSrc,
+                a.title title,
+                a.have_sub haveSub,
+                a.ACTIVE_CLICK activeEvent,
+                a.is_Seperator isSeperator,
+                a.url,
+                a.state
+		  FROM TD_MENU_INFO a, TF_STAFF_ROLE b, TF_ROLE_MENU c
+		 WHERE a.menu_id = c.menu_id
+		   and b.role_id = c.role_id
+		   and a.SUPER_ID = #superId#
+		   AND a.IS_MENU = 1
+		   AND a.STATE = 1
+		   and b.STAFF_ID = #staffId#
+		 ORDER BY a.MENU_ORDER
+	</select>
+	
+	<!-- 查询用户信息总记录数 -->
+	<select id="findManagerInfoCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+			select count(*) from tf_operator
+				  where staff_state = 1 and staff_id &lt;&gt; 'admini'
+		    <isNotEmpty prepend="and" property="staffId2">
+				   		dept_Id  in ( $staffId2$)
+			</isNotEmpty> 
+			<isNotEmpty prepend="and" property="userInfo.staffId">
+				        staff_id = #userInfo.staffId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="userInfo.staffNo">
+						staff_no  like '%$userInfo.staffNo$%' 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="userInfo.staffName">
+				   		staff_name like '%$userInfo.staffName$%'
+			</isNotEmpty>	
+          	<isNotEmpty prepend="and" property="userInfo.isOnline">
+          				is_online = #userInfo.isOnline#
+          	</isNotEmpty>
+          	<isNotEmpty prepend="and" property="staffNo">
+						staff_no = #staffNo#
+			</isNotEmpty>
+	</select>
+	
+	<!-- 
+		查询人员信息
+	  -->
+	<select id="findManagerInfo" parameterClass="java.util.HashMap" resultMap="ManagerByIdResultMap">
+  		select a.*,a.STAFF_IsUse isUse,
+		case a.STAFF_IsUse when '1' then '是' else '否' end isUseName,b.JGMC deptName
+  		  from tf_operator a left outer join jgxxb b on a.Dept_Id=b.JG_ID 
+  		 where a.staff_State = 1 and a.staff_NO &lt;&gt;'admini'
+		    <isNotEmpty prepend="and" property="staffId2">
+				   		a.dept_Id  in ( $staffId2$)
+			</isNotEmpty> 
+        <isNotEmpty prepend="and" property="userInfo.staffId">
+			    a.staff_id = #userInfo.staffId#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="userInfo.staffNo">
+				  a.staff_no  like '%$userInfo.staffNo$%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="userInfo.staffName">
+			   	 a.staff_name like '%$userInfo.staffName$%'
+		</isNotEmpty>	
+        <isNotEmpty prepend="and" property="userInfo.isOnline">
+         		a.is_online= # userInfo.isOnline#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="staffNo">
+				  a.staff_no = #staffNo#
+		</isNotEmpty>
+		<isNotEmpty prepend=" " property="START">
+		   limit $START$ , $END$
+		</isNotEmpty>
+	</select>
+	
+	<insert id="insertManagerInfo" parameterClass="com.qzgf.application.systemManage.manager.dto.UserInfo">
+		insert into tf_operator 
+			(STAFF_NO, STAFF_ID, DEPT_ID, STAFF_STATE, PASSWORD, STAFF_NAME, IS_ONLINE, REGISTER_TIME, phone, STAFF_IsUse)
+		values
+			('$staffNo$', pb_get_sequences(@in_seq_name:='staff_id'), '$deptId$', 1, '$password$', '$staffName$', 0, NOW(), '$phone$'
+		<isNotEmpty prepend="," property="isUse">
+			#isUse#
+		</isNotEmpty>
+			)
+	</insert>
+	
+	<update id="updateManagerInfo" parameterClass="com.qzgf.application.systemManage.manager.dto.UserInfo">
+		<![CDATA[update tf_operator]]>
+			<dynamic prepend="set">
+				<isNotEmpty prepend="," property="staffName">
+					staff_name = '$staffName$'
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="deptId">
+					dept_id = '$deptId$'
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="password">
+					password = '$password$'
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="staffState">
+					STAFF_STATE = '$staffState$'
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="isOnline">
+					is_online = '$isOnline$'
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="isUse">
+					STAFF_IsUse='$isUse$'
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="phone">
+					phone='$phone$'
+				</isNotEmpty>
+			</dynamic>
+			<![CDATA[where staff_id = '$staffId$']]>
+	</update>
+	
+	<!-- 
+		分配角色给人员
+		列出人员已有的角色与没有的角色
+		1.从角色人员关系表，和角色信息表,权限的传送性方面考虑。
+		2.第二方面创建人(create_staff)，就是能分配我创建的，和可以分配给他人已经分配给我的。
+		3.关闭admini的角色权限分配.
+	  -->
+	<select id="findRole" parameterClass="com.qzgf.application.systemManage.manager.dto.UserInfo" resultClass="java.util.HashMap">
+			select a.role_id,1 checked,b.role_name
+			  from tf_staff_role a left outer join td_role_info b on a.role_id=b.role_id
+			 where b.role_state &lt;&gt; 0 and a.staff_id = #staffId#
+			union all
+			select b.role_id, 0 checked, b.role_name
+			  from td_role_info b
+               where b.role_state &lt;&gt; 0 and b.role_Id &lt;&gt;'admini' and b.create_staff = #temp# 
+			   and b.role_id not in (select c.role_id from tf_staff_role c where c.staff_id = #staffId#)
+			union  
+			select a.role_id,0 checked, b.role_name
+			 from tf_staff_role a left outer join td_role_info b on a.role_id=b.role_id
+			 where b.role_state &lt;&gt; 0 and b.role_Id &lt;&gt;'admini' and a.staff_id = #temp#
+			   and a.role_id not in (select c.role_id from tf_staff_role c where c.staff_id = #staffId#)
+	</select>
+	
+	<!-- 
+		添加人员与角色的关系
+	  -->
+	<insert id="insertManagerRole" parameterClass="java.util.HashMap">
+		<![CDATA[insert into tf_staff_role (role_id, staff_id )
+							values ('$roleId$','$staffId$')]]>
+	</insert>
+	
+	<!-- 
+		删除人员与角色的关系
+	  -->
+	<delete id="deleteManagerRole" parameterClass="java.lang.String">
+		<![CDATA[delete from tf_staff_role where staff_id = #staffId#]]>
+	</delete>
+	
+	<!-- 
+		修改人员在线状态
+		当容器被关闭的时候会自动执行该操作
+	  -->
+	<update id="updateManagerIsOnline" parameterClass="java.util.HashMap">
+		<![CDATA[update tf_operator set is_online = 0 where is_online = 1]]>
+	</update>
+	
+	<!-- 
+		分配区域给人员
+		列出人员已有的区域与没有的区域
+	  -->
+	<select id="findCity" parameterClass="com.qzgf.application.systemManage.manager.dto.UserInfo" resultClass="java.util.HashMap">
+		select a.city_id,
+			   1 checked,
+			   (select city_name from td_city c where c.city_id = a.city_id) city_name
+		  from tf_staff_city a
+		 where a.staff_id = -1
+		union all
+		select city_id,
+			   0 chekced,
+			   city_name
+		  from td_city c
+		 where c.city_id not in
+			   (select city_id from tf_staff_city a where a.staff_id = -1)
+	</select>
+	
+	<!-- 
+		添加人员与区域的关系
+	  -->
+	<insert id="insertManagerCity" parameterClass="java.util.HashMap">
+		<![CDATA[insert into tf_staff_city (city_id, staff_id )
+				 values ($cityId$,'$staffId$')]]>
+	</insert>
+	
+	<!-- 
+		删除人员与区域的关系
+	  -->
+	<delete id="deleteManagerCity" parameterClass="java.lang.String">
+		<![CDATA[delete from tf_staff_city where staff_id = #staffId#]]>
+	</delete>
+	
+	
+	
+	<insert id="insertRelation" parameterClass="java.util.HashMap">
+	insert into relation(lshID,CZY,GLmain,GLother)
+	values(pb_get_sequences(@in_seq_name := 'GXID'),#CZY#,#staffNo#,#deptId#)
+	</insert>
+	
+	
+	<select id="findFirstPageList"
+		parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		select  noticeID,noticeContent from  notice;
+	    </select>
+	   
+	   
+	   
+	   
+	   
+	   
+	    
+	 <select id="findOnlyUserList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+    	 select USERID,USERNAME,SEX,POSITION,EMAIL,EXPERIENCE,CONTRIBUTE,FAME,STRENGTH,FAVOR,FINANCIAL,
+    	 REALNAME,TELEPHONE,TELTYPE,OCCUPATION,VOCATION,to_char(BIRTHDAY,'yyyy-mm-dd') BIRTHDAY,
+    	 QQ,WORKPLACE,COMMEND,FAVORPLACE,OFTENGOPLACE,OFTENCONSUMEPLACE,OFTENDOTHING,OFTENJOINACTIVITY,
+    	 LOOKEDBOOK,INTERESTLIKE,NEWMOOD,TELTYPE,PROVINCEID,CITYID,DISTRICTID,LAT,LNG
+    	  from T_Archives_User where  username=#pusername#
+    </select>
+    
+    
+    
+    
+    
+	
+	
+</sqlMap>

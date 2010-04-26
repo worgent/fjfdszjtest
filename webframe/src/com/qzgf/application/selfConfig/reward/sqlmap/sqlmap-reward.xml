@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 控件面板｜悬赏揭榜
+	* 2009-08-06
+	* @author lsr
+-->
+<sqlMap namespace="Reward">	
+	<!-- 悬赏｜查询记录总数(除去删除了的) -->
+	<select id="findRewardCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from T_SELFCONFIG_REWARD
+		 where state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pid">
+	   			id='$pid$'
+		</isNotEmpty>    
+		<isNotEmpty prepend=" and" property="ptitle">
+	   			TITLE like '%$ptitle$%'
+		</isNotEmpty>		
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			content='$pcontent$'
+		</isNotEmpty> 
+	  	<isNotEmpty prepend=" and" property="ptype">
+	   			type='$ptype$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		state='$pstate$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="puserid">
+		   		userid=#puserid#
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="pcreattime">
+		   		creattime=cast(#pcreattime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pintegral">
+		   		integral=#pintegral#
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		postion=#ppostion#
+		</isNotEmpty>	
+	</select>
+	
+	<!--悬赏｜ 查询记录，非分页 -->
+	<select id="findReward" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select t.id,t.title,t.content,t.type,t.state,t.userid,to_char(t.creattime,'yyyy-mm-dd hh24:mi:ss') creattime,t.integral,
+		t.postion,GetParValue('USERID_USERNAME',t.userid) username
+        from  t_selfconfig_reward t where t.state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>    
+		<isNotEmpty prepend=" and" property="ptitle">
+	   			t.TITLE like '%$ptitle$%'
+		</isNotEmpty>	
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			t.content='$pcontent$'
+		</isNotEmpty> 
+	  	<isNotEmpty prepend=" and" property="ptype">
+	   			t.type='$ptype$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state='$pstate$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="puserid">
+		   		t.userid=#puserid#
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="pcreattime">
+		   		t.creattime=cast(#pcreattime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pintegral">
+		   		t.integral=#pintegral#
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		t.postion=#ppostion#
+		</isNotEmpty>	
+		order by t.id desc	
+	</select>
+	
+	<!--悬赏｜ 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findRewardPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		select t.id,t.title,t.content,t.type,t.state,t.userid,to_char(t.creattime,'yyyy-mm-dd hh24:mi:ss') creattime,t.integral,
+		t.postion,GetParValue('USERID_USERNAME',t.userid) username
+        from  t_selfconfig_reward t where t.state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>    
+		<isNotEmpty prepend=" and" property="ptitle">
+	   			t.TITLE like '%$ptitle$%'
+		</isNotEmpty>	
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			t.content='$pcontent$'
+		</isNotEmpty> 
+	  	<isNotEmpty prepend=" and" property="ptype">
+	   			t.type='$ptype$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state='$pstate$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="puserid">
+		   		t.userid=#puserid#
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="pcreattime">
+		   		t.creattime=cast(#pcreattime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pintegral">
+		   		t.integral=#pintegral#
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		t.postion=#ppostion#
+		</isNotEmpty>
+		<!-- 按时间排序 -->
+		<isEqual property="orderby"  compareValue="1"  prepend=" "> 
+     	        order by t.id desc
+		</isEqual> 
+		<!-- 按悬赏分值排序 -->
+		<isEqual property="orderby" compareValue="2" prepend=" "> 
+     	        order by t.integral desc,t.id desc
+		</isEqual>
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!--悬赏｜ 增加记录 -->
+	<insert id="insertReward"	parameterClass="java.util.HashMap" >
+		insert into T_SELFCONFIG_REWARD
+				(id
+				<isNotEmpty prepend="," property="ptitle">
+					    title
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="pcontent">
+					    content
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ptype">
+					    type
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">
+					    userid
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pintegral">
+					    integral
+				</isNotEmpty>
+				,creattime,state)
+				 values 
+				(hunt.seqformat('T_SELFCONFIG_REWARD')
+				<isNotEmpty prepend="," property="ptitle">
+					    #ptitle#
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="pcontent">
+					    #pcontent#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ptype">
+					    #ptype#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">
+					    #puserid#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pintegral">
+					    #pintegral#
+				</isNotEmpty>
+				,sysdate,1)
+    </insert>
+    
+	<!--悬赏｜ 删除记录 -->
+	<delete id="deleteRewardById" parameterClass="java.util.HashMap">
+    	update T_SELFCONFIG_REWARD set state=0
+    	where id=#pid#
+    </delete>
+    
+	<!--悬赏｜ 修改记录 -->
+	<update id="updateRewardById" parameterClass="java.util.HashMap">
+		update T_SELFCONFIG_REWARD
+		   set id = id
+		   		<isNotEmpty prepend="," property="ptitle">
+					   title=#ptitle#
+				</isNotEmpty>					   
+				<isNotEmpty prepend="," property="pcontent">
+					   content=#pcontent#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ptype">
+					    type=#ptype#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pstate">
+					    state=#pstate#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">
+					   userid=#puserid#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="pintegral">
+					    integral=#pintegral#
+				</isNotEmpty>
+	            <isNotEmpty prepend="," property="pcreattime">
+				   		creattime = cast(#pcreattime# AS DATETIME)
+				</isNotEmpty>
+		where id=#pid# and state &lt;&gt;0 
+	</update>
+	
+	
+	
+	
+	<!-- 揭榜｜查询记录总数(除去删除了的) -->
+	<select id="findSolveCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from T_SELFCONFIG_SOLVE
+		 where state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pid">
+	   			id='$pid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="prewardid">
+	   			rewardid='$prewardid$'
+		</isNotEmpty> 		
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			content='$pcontent$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="puserid">
+		   		userid=#puserid#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pcreattime">
+		   		creattime=cast(#pcreattime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		postion=#ppostion#
+		</isNotEmpty>		 
+	  	<isNotEmpty prepend=" and" property="pisprime">
+	   			isprime='$pisprime$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		state='$pstate$'
+		</isNotEmpty>
+	</select>
+	
+	<!--揭榜｜ 查询记录，非分页 -->
+	<select id="findSolve" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select t.id,t.rewardid,t.content,t.userid,to_char(t.creattime,'yyyy-mm-dd hh24:mi:ss') creattime,t.postion,t.isprime,t.state
+		,GetParValue('USERID_USERNAME',t.userid) username
+		from  t_selfconfig_solve t
+        where t.state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="prewardid">
+	   			t.rewardid='$prewardid$'
+		</isNotEmpty> 		
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			t.content='$pcontent$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="puserid">
+		   		t.userid=#puserid#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pcreattime">
+		   		t.creattime=cast(#pcreattime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		t.postion=#ppostion#
+		</isNotEmpty>		 
+	  	<isNotEmpty prepend=" and" property="pisprime">
+	   			t.isprime='$pisprime$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state='$pstate$'
+		</isNotEmpty>
+			order by t.id desc	
+	</select>
+	
+	<!--揭榜｜ 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findSolvePage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		select t.id,t.rewardid,t.content,t.userid,to_char(t.creattime,'yyyy-mm-dd hh24:mi:ss') creattime,t.postion,t.isprime,t.state
+      	,GetParValue('USERID_USERNAME',t.userid) username
+		from  t_selfconfig_solve t
+        where t.state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="prewardid">
+	   			t.rewardid='$prewardid$'
+		</isNotEmpty> 		
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			t.content='$pcontent$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="puserid">
+		   		t.userid=#puserid#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pcreattime">
+		   		t.creattime=cast(#pcreattime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		t.postion=#ppostion#
+		</isNotEmpty>		 
+	  	<isNotEmpty prepend=" and" property="pisprime">
+	   			t.isprime='$pisprime$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state='$pstate$'
+		</isNotEmpty>
+		        order by t.id desc	
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!--揭榜｜ 增加记录 -->
+	<insert id="insertSolve" parameterClass="java.util.HashMap" >
+		insert into T_SELFCONFIG_SOLVE
+				(id  
+			  	<isNotEmpty prepend="," property="prewardid">
+			   			rewardid
+				</isNotEmpty> 		
+			  	<isNotEmpty prepend="," property="pcontent">
+			   			content
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">
+				   		userid
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ppostion">
+				   		postion
+				</isNotEmpty>		 
+			  	<isNotEmpty prepend="," property="pisprime">
+			   			isprime
+				</isNotEmpty>
+				,creattime,state)
+				 values 
+				(hunt.seqformat('T_SELFCONFIG_SOLVE')
+			  	<isNotEmpty prepend="," property="prewardid">
+			   			#prewardid#
+				</isNotEmpty> 		
+			  	<isNotEmpty prepend="," property="pcontent">
+			   			#pcontent#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">
+				   		#puserid#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ppostion">
+				   		#ppostion#
+				</isNotEmpty>		 
+			  	<isNotEmpty prepend="," property="pisprime">
+			   			#pisprime#
+				</isNotEmpty>
+				,sysdate,1)
+    </insert>
+    
+	<!--揭榜｜ 删除记录 -->
+	<delete id="deleteSolveById" parameterClass="java.util.HashMap">
+    	update T_SELFCONFIG_SOLVE set state=0
+    	<dynamic prepend=" where">
+    		<isNotEmpty property="pid">
+    			id=#pid#
+    		</isNotEmpty>
+    		<isNotEmpty property="prewardid">
+    			REWARDID=#prewardid#
+    		</isNotEmpty>
+    	</dynamic>
+    </delete>
+    
+	<!--揭榜｜ 修改记录 -->
+	<update id="updateSolveById" parameterClass="java.util.HashMap">
+		update T_SELFCONFIG_SOLVE
+		   set id = id
+			  	<isNotEmpty prepend="," property="prewardid">
+			   			rewardid=#prewardid#
+				</isNotEmpty> 		
+			  	<isNotEmpty prepend="," property="pcontent">
+			   			content=#pcontent#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">
+				   		userid=#puserid#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ppostion">
+				   		postion=#ppostion#
+				</isNotEmpty>		 
+			  	<isNotEmpty prepend="," property="pisprime">
+			   			isprime=#pisprime#
+				</isNotEmpty>
+		where id=#pid# and state &lt;&gt;0 
+	</update>
+	
+	
+	<!--揭榜｜ 查询记录，非分页 -->
+	<select id="findRewardSolve" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		SELECT s.id sID,s.TITLE,to_char(s.CREATTIME,'yyyy-mm-dd hh24:mi:ss') sCREATTIME,s.INTEGRAL,
+		t.id,t.content,t.rewardid,t.userid,to_char(t.CREATTIME,'yyyy-mm-dd hh24:mi:ss') TCREATTIME,t.postion,t.isprime,t.state
+		,GetParValue('USERID_USERNAME',t.userid) susername ,GetParValue('USERID_USERNAME',s.userid) rsusername
+		FROM  T_SELFCONFIG_REWARD s  left outer join t_selfconfig_solve t on s.id=t.rewardid 
+        where t.state &lt;&gt;0 and s.state &lt;&gt;0   
+		<isNotEmpty prepend=" and" property="psid">
+	   			s.id='$=sid$'
+		</isNotEmpty>    
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="prewardid">
+	   			t.rewardid='$prewardid$'
+		</isNotEmpty> 		
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			t.content='$pcontent$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ptitle">
+	   			s.TITLE like '%$ptitle$%'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="puserid">
+		   		t.userid=#puserid#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pcreattime">
+		   		t.creattime=cast(#pcreattime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		t.postion=#ppostion#
+		</isNotEmpty>		 
+	  	<isNotEmpty prepend=" and" property="pisprime">
+	   			t.isprime='$pisprime$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state='$pstate$'
+		</isNotEmpty>
+		order by  s.id desc,t.id desc
+	</select>
+	
+	<!--揭榜｜ 查询记录，分页 -->
+	<select id="findRewardSolvePage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(	
+		SELECT s.id sID,s.TITLE,to_char(s.CREATTIME,'yyyy-mm-dd hh24:mi:ss') sCREATTIME,s.INTEGRAL,
+		t.id,t.content,t.rewardid,t.userid,to_char(t.CREATTIME,'yyyy-mm-dd hh24:mi:ss') TCREATTIME,t.postion,t.isprime,t.state
+		,GetParValue('USERID_USERNAME',t.userid) susername ,GetParValue('USERID_USERNAME',s.userid) rsusername
+		FROM  T_SELFCONFIG_REWARD s  left outer join t_selfconfig_solve t on s.id=t.rewardid 
+        where t.state &lt;&gt;0 and s.state &lt;&gt;0   
+		<isNotEmpty prepend=" and" property="psid">
+	   			s.id='$=sid$'
+		</isNotEmpty>    
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="prewardid">
+	   			t.rewardid='$prewardid$'
+		</isNotEmpty> 		
+	  	<isNotEmpty prepend=" and" property="pcontent">
+	   			t.content='$pcontent$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ptitle">
+	   			s.TITLE like '%$ptitle$%'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="puserid">
+		   		t.userid=#puserid#
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pcreattime">
+		   		t.creattime=cast(#pcreattime# AS DATE)
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		t.postion=#ppostion#
+		</isNotEmpty>		 
+	  	<isNotEmpty prepend=" and" property="pisprime">
+	   			t.isprime='$pisprime$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state='$pstate$'
+		</isNotEmpty>
+		order by  s.id desc ,t.id desc
+						 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$	
+	</select>
+</sqlMap>

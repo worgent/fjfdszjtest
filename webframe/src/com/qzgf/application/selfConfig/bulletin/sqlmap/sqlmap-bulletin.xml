@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+		2009-11-07信息公告 
+		控制面板｜信息公告(优惠劵的发布，狩猎贴，领主招纳信息)
+-->
+<sqlMap namespace="Bulletin">	
+	<!-- 查询记录总数 -->
+	<select id="findBulletinCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from  t_selfconfig_bulletin t where t.state &lt;&gt; 0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmerchantid">t.merchantid='$pmerchantid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ptype">t.type='$ptype$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbulletincontent">t.bulletincontent='$pbulletincontent$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcount">t.count='$pcount$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcountrealize">t.countrealize='$pcountrealize$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcountreceve">t.countreceve='$pcountreceve$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pstate">t.state='$pstate$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="puserid">t.userid='$puserid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreatetime">t.createtime=cast(#pcreatetime# AS DATE)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="plng">t.lng='$plng$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="plat">t.lat='$plat$'</isNotEmpty>
+	</select>
+	
+	<!-- 查询记录，非分页 -->
+	<select id="findBulletin" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select t.id,t.merchantid,t.type,t.bulletincontent,t.count,t.countrealize,t.countreceve,t.state,
+		t.userid,to_char(t.createtime,'yyyy-mm-dd hh24:mi:ss') createtime,t.lng,t.lat 
+		      ,GetParValue('USERID_USERNAME',t.userid) username
+		 from  t_selfconfig_bulletin t where t.state &lt;&gt; 0
+		<isNotEmpty prepend=" and " property="pid">t.id=#pid# </isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmerchantid">t.merchantid='$pmerchantid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ptype">t.type='$ptype$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbulletincontent">t.bulletincontent='$pbulletincontent$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcount">t.count='$pcount$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcountrealize">t.countrealize='$pcountrealize$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcountreceve">t.countreceve='$pcountreceve$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pstate">t.state='$pstate$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="puserid">t.userid='$puserid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreatetime">t.createtime=cast(#pcreatetime# AS DATE)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="plng">t.lng='$plng$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="plat">t.lat='$plat$'</isNotEmpty>
+		   order by t.id desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findBulletinPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		select t.id,t.merchantid,t.type,t.bulletincontent,t.count,t.countrealize,t.countreceve,t.state,
+		t.userid,to_char(t.createtime,'yyyy-mm-dd hh24:mi:ss') createtime,t.lng,t.lat 
+		      ,GetParValue('USERID_USERNAME',t.userid) username
+		 from  t_selfconfig_bulletin t where t.state &lt;&gt; 0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmerchantid">t.merchantid='$pmerchantid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="ptype">t.type='$ptype$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbulletincontent">t.bulletincontent='$pbulletincontent$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcount">t.count='$pcount$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcountrealize">t.countrealize='$pcountrealize$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcountreceve">t.countreceve='$pcountreceve$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pstate">t.state='$pstate$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="puserid">t.userid='$puserid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreatetime">t.createtime=cast(#pcreatetime# AS DATE)</isNotEmpty>
+		<isNotEmpty prepend=" and " property="plng">t.lng='$plng$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="plat">t.lat='$plat$'</isNotEmpty>
+		        order by t.id desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertBulletin"	parameterClass="java.util.HashMap" >
+		insert into t_selfconfig_bulletin
+				(id		
+				<isNotEmpty prepend="," property="pmerchantid">merchantid</isNotEmpty>
+				<isNotEmpty prepend="," property="ptype">type</isNotEmpty>
+				<isNotEmpty prepend="," property="pbulletincontent">bulletincontent</isNotEmpty>
+				<isNotEmpty prepend="," property="pcount">count</isNotEmpty>
+				<isNotEmpty prepend="," property="pcountrealize">countrealize</isNotEmpty>
+				<isNotEmpty prepend="," property="pcountreceve">countreceve</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">userid</isNotEmpty>
+				<isNotEmpty prepend="," property="plng">lng</isNotEmpty>
+				<isNotEmpty prepend="," property="plat">lat</isNotEmpty>
+				,state,createtime)
+				 values 
+				(hunt.seqformat('t_selfconfig_bulletin')
+				<isNotEmpty prepend="," property="pmerchantid">#pmerchantid#</isNotEmpty>
+				<isNotEmpty prepend="," property="ptype">#ptype#</isNotEmpty>
+				<isNotEmpty prepend="," property="pbulletincontent">#pbulletincontent#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcount">#pcount#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcountrealize">#pcountrealize#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcountreceve">#pcountreceve#</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">#puserid#</isNotEmpty>
+				<isNotEmpty prepend="," property="plng">#plng#</isNotEmpty>
+				<isNotEmpty prepend="," property="plat">#plat#</isNotEmpty>
+				,1,sysdate)
+    </insert>
+    
+	<!-- 删除记录 -->
+	<delete id="deleteBulletinById" parameterClass="java.util.HashMap">
+    	update t_selfconfig_bulletin set state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateBulletinById" parameterClass="java.util.HashMap">
+		update t_selfconfig_bulletin
+		   set id = id
+			<isNotEmpty prepend="," property="pmerchantid">merchantid=#pmerchantid#</isNotEmpty>
+			<isNotEmpty prepend="," property="ptype">type=#ptype#</isNotEmpty>
+			<isNotEmpty prepend="," property="pbulletincontent">bulletincontent=#pbulletincontent#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcount">count=#pcount#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcountrealize">countrealize=#pcountrealize#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcountreceve">countreceve=#pcountreceve#</isNotEmpty>
+			<isNotEmpty prepend="," property="pstate">state=#pstate#</isNotEmpty>
+			<isNotEmpty prepend="," property="plng">lng=#plng#</isNotEmpty>
+			<isNotEmpty prepend="," property="plat">lat=#plat#</isNotEmpty>
+		where id=#pid# and state=1
+	</update>
+	
+	
+	<!-- 用户交互相关记录信息 -->
+	<!-- 查询记录总数 -->
+	<select id="findRepBulletinCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from  t_selfconfig_repbulletin t where t.state &lt;&gt; 0
+		<isNotEmpty prepend=" and " property="pid">id='$pid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbulletinid">bulletinid='$pbulletinid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbulletincontent">bulletincontent='$pbulletincontent$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmobile">mobile='$pmobile$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pisrealize">isrealize='$pisrealize$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="puserid">userid='$puserid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreatetime">createtime==cast(#pcreatetime# AS DATE)</isNotEmpty>
+	</select>
+	
+	<!-- 查询记录，非分页 -->
+	<select id="findRepBulletin" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select t.id,t.bulletinid,t.bulletincontent,t.mobile,t.isrealize,t.state,t.userid, 
+		to_char(t.createtime,'yyyy-mm-dd hh24:mi:ss') createtime
+		      ,GetParValue('USERID_USERNAME',t.userid) username
+		 from  t_selfconfig_repbulletin t where t.state &lt;&gt; 0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbulletinid">t.bulletinid='$pbulletinid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pbulletincontent">t.bulletincontent='$pbulletincontent$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pisrealize">t.isrealize='$pisrealize$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pstate">t.state='$pstate$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="puserid">t.userid='$puserid$'</isNotEmpty>
+		<isNotEmpty prepend=" and " property="pcreatetime">t.createtime=cast(#pcreatetime# AS DATE)</isNotEmpty>
+		   order by t.id desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findRepBulletinPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+			select t.id,t.bulletinid,t.bulletincontent,t.mobile,t.isrealize,t.state,t.userid, 
+			to_char(t.createtime,'yyyy-mm-dd hh24:mi:ss') createtime
+			      ,GetParValue('USERID_USERNAME',t.userid) username
+			 from  t_selfconfig_repbulletin t where t.state &lt;&gt; 0
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbulletinid">t.bulletinid='$pbulletinid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbulletincontent">t.bulletincontent='$pbulletincontent$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pisrealize">t.isrealize='$pisrealize$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pstate">t.state='$pstate$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="puserid">t.userid='$puserid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreatetime">t.createtime=cast(#pcreatetime# AS DATE)</isNotEmpty>
+			   order by t.id desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertRepBulletin"	parameterClass="java.util.HashMap" >
+		insert into t_selfconfig_repbulletin
+				(id		
+				<isNotEmpty prepend="," property="pbulletinid">bulletinid</isNotEmpty>
+				<isNotEmpty prepend="," property="pbulletincontent">bulletincontent</isNotEmpty>
+				<isNotEmpty prepend="," property="pmobile">mobile</isNotEmpty>
+				<isNotEmpty prepend="," property="pisrealize">isrealize</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">userid</isNotEmpty>
+				,state,createtime)
+				 values 
+				(hunt.seqformat('t_selfconfig_repbulletin')
+				<isNotEmpty prepend="," property="pbulletinid">#pbulletinid#</isNotEmpty>
+				<isNotEmpty prepend="," property="pbulletincontent">#pbulletincontent#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmobile">#pmobile#</isNotEmpty>
+				<isNotEmpty prepend="," property="pisrealize">#pisrealize#</isNotEmpty>
+				<isNotEmpty prepend="," property="puserid">#puserid#</isNotEmpty>
+				,1,sysdate)
+    </insert>
+    
+	<!-- 删除记录 -->
+	<delete id="deleteRepBulletinById" parameterClass="java.util.HashMap">
+    	update t_selfconfig_repbulletin set state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateRepBulletinById" parameterClass="java.util.HashMap">
+		update t_selfconfig_repbulletin
+		   set id = id
+		<isNotEmpty prepend="," property="pbulletinid">bulletinid=#pbulletinid#</isNotEmpty>
+		<isNotEmpty prepend="," property="pbulletincontent">bulletincontent=#pbulletincontent#</isNotEmpty>
+		<isNotEmpty prepend="," property="pmobile">mobile=#pmobile#</isNotEmpty>
+		<isNotEmpty prepend="," property="pisrealize">isrealize=#pisrealize#</isNotEmpty>
+		<isNotEmpty prepend="," property="pstate">state=#pstate#</isNotEmpty>
+		<isNotEmpty prepend="," property="puserid">userid=#puserid#</isNotEmpty>
+		where id=#pid# and state=1
+	</update>
+	
+</sqlMap>

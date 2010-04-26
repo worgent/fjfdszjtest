@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 框架测试模块
+	* @author lsr
+-->
+<sqlMap namespace="TestManage">
+	
+	<!-- 增 -->
+	<insert id="insertTest"
+		parameterClass="java.util.HashMap" >
+		insert into test(name) values(#name#)
+    </insert>
+    
+	<!-- 删 -->
+	<delete id="deleteTestById" parameterClass="java.util.HashMap">
+    	delete from test where id=#id#
+    </delete>
+    
+	<!-- 改 -->
+	<update id="updateTestById"
+		parameterClass="java.util.HashMap">
+		update test set name=#name# where id=#id#
+	</update>	
+	
+	<!-- 查 -->
+	<select id="queryTest" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select id,name from test 
+		 <!-- 
+		 <isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	     </isNotEmpty>
+	      --> 
+	</select>
+	
+	<!-- 查Test表总数 -->
+	<select id="findTestCount"
+		parameterClass="java.util.HashMap" resultClass="java.lang.Integer"
+		remapResults="true">
+		select count(*) from test
+	</select>
+	
+
+</sqlMap>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+		2009-11-07信息公告 
+		控制面板｜信息公告(优惠劵的发布，狩猎贴，领主招纳信息)
+-->
+<struts>
+	<package name="bulletin" extends="selfconfig" namespace="/selfconfig">
+		<action name="bulletin" class="bulletinAction">
+			<!-- 前台//index1:优惠劵,index2:狩猎贴,index3:领主招纳  -->
+			<!--信息公告列表-->
+			<result name="index1">/WEB-INF/FrontModual/SelfConfig/Bulletin/bulletinIndex1.jsp</result>
+			<result name="index2">/WEB-INF/FrontModual/SelfConfig/Bulletin/bulletinIndex2.jsp</result>
+			<result name="index3">/WEB-INF/FrontModual/SelfConfig/Bulletin/bulletinIndex3.jsp</result>
+			
+			<!-- 后台 -->
+			<!--信息公告列表-->
+			<result name="list1">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinList1.jsp</result>
+			<result name="list2">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinList2.jsp</result>
+			<result name="list3">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinList3.jsp</result>
+			<!-- 参于的详细信息 -->
+			<result name="replist">/WEB-INF/BackModual/SelfConfig/Bulletin/repbulletinList.jsp</result>
+			
+			<!--信息公告编辑-->
+			<result name="edit1">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinEdit1.jsp</result>
+			<result name="edit2">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinEdit2.jsp</result>
+			<result name="edit3">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinEdit3.jsp</result>
+			<!--信息公告查看-->	
+			<result name="view1">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinView1.jsp</result>			
+			<result name="view2">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinView2.jsp</result>
+			<result name="view3">/WEB-INF/BackModual/SelfConfig/Bulletin/bulletinView3.jsp</result>
+			
+			
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/error.jsp</result>			
+			<interceptor-ref name="mapParam" />
+		</action>		
+	</package>
+</struts>

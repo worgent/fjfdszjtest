@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-lazy-init="false" default-dependency-check="none"
+	default-autowire="no">
+	<!-- 
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.30.21.2:1521:ems" />
+		<property name="username" value="selfplat" />
+		<property name="password" value="selfplat" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="5" />
+		<property name="maxWait" value="-1" />
+		<property name="defaultAutoCommit" value="true" />
+                <property name="removeAbandoned" value="true"/>
+                <property name="logAbandoned" value="true"/>
+		<property name="removeAbandonedTimeout" value="60" />
+	</bean>
+	 -->
+	<!-- 服务端的连接 
+    <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="driverUrl" value="jdbc:oracle:thin:@172.30.21.2:1521:ems"/>
+        <property name="user" value="selfplat"/>
+        <property name="password" value="selfplat"/>
+        <property name="alias" value="oraclesql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="120" />
+            <property name="minimumConnectionCount" value="5" />
+            <property name="houseKeepingSleepTime" value="90000"/>
+	    <property name="houseKeepingTestSql" value="select sysdate from dual"/>
+            <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="foo=bar" />
+    </bean>
+   --> 
+	<!-- 服务端的连接
+    <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="driverUrl" value="jdbc:oracle:thin:@218.207.131.134:1521:orcl"/>
+        <property name="user" value="hunt"/>
+        <property name="password" value="hunt"/>
+        <property name="alias" value="oraclesql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="100" />
+	    <property name="minimumConnectionCount" value="30" />
+	    <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="foo=bar" />
+    </bean>
+     -->
+    
+    <!-- 本地测试-->
+    <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="driverUrl" value="jdbc:oracle:thin:@127.0.0.1:1521:ems"/>
+        <property name="user" value="hunt"/>
+        <property name="password" value="hunt"/>
+        <property name="alias" value="oraclesql"/>
+	    <property name="prototypeCount" value="0" />
+	    <property name="maximumConnectionCount" value="100" />
+	    <property name="minimumConnectionCount" value="30" />
+	    <property name="simultaneousBuildThrottle" value="50" />
+	    <property name="delegateProperties" value="foo=bar" />
+    </bean>
+     
+	<bean id="lobHandler"
+		class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+	<!-- iBatis相关 -->
+	<bean id="sqlMapClient"
+		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+		abstract="false" singleton="true" lazy-init="default"
+		autowire="default" dependency-check="default">
+		<property name="configLocation">
+			<value>classpath:sqlMap-config.xml</value>
+		</property> 
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="lobHandler" ref="lobHandler" />
+	</bean>
+	
+	<!-- 事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	<bean id="baseTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="select*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="ajaxMessagesJson" class="com.qzgf.utils.AjaxMessagesJson" singleton="false">
+    </bean> 
+    
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>com.qzgf.application.BaseAction</value>
+            </list>
+        </property>
+    </bean>
+</beans>

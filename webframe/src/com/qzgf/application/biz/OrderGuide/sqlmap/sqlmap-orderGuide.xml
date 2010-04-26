@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 框架测试模块
+	* @author lsr
+-->
+<sqlMap namespace="OrderGuide">
+	
+	<!-- 模糊查找并订阅 -->
+	<procedure id="orderGuide" parameterClass="java.util.HashMap" >
+    	<![CDATA[{call orderGuide(@userid:='$userid$')}]]> 
+    </procedure>
+    
+    <!-- 直接订阅 -->
+    <insert id="insertUserGuide"
+		parameterClass="java.util.HashMap">
+		insert into t_archives_userorder(id,userid,guideid)values(SEQ_T_ARCHIVES_guideorder.Nextval,'$userid$','$guideid$');
+	</insert>
+
+</sqlMap>

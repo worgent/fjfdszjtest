@@ -1,0 +1,17 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<xwork>
+    <!-- lsr begin -->
+	<package name="archives" extends="default" namespace="/"> <!-- extentds="default"里面的default是struts.xml 的package name="default" -->
+	</package>
+	<!-- 空间配置 -->
+	<include file="/com/qzgf/application/archives/space/action/xwork-Space.xml"/> 
+	<include file="/com/qzgf/application/archives/user/action/xwork-User.xml"/> 
+	<include file="/com/qzgf/application/archives/adverRecommend/action/xwork-AdverRecommend.xml"/> 
+	
+    <include file="/com/qzgf/application/archives/businessGuide/action/xwork-BusinessGuide.xml"/>
+    <include file="/com/qzgf/application/archives/selfAdvertise/action/xwork-SelfAdvertise.xml"/>
+
+</xwork>

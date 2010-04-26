@@ -1,0 +1,14 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 地图日志模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="twitter" extends="selfconfig" namespace="/">
+		<action name="twitter" class="twitterAction">
+			<result name="index">/WEB-INF/FrontModual/SelfConfig/Twitter/listTwitter.jsp</result>
+			<result name="add">/WEB-INF/FrontModual/SelfConfig/Twitter/addTwitter.jsp</result>
+			<result name="view">/WEB-INF/FrontModual/SelfConfig/Twitter/viewTwitter.jsp</result>
+		</action>
+	</package>
+</xwork>

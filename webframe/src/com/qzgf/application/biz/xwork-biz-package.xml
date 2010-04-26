@@ -1,0 +1,19 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<xwork>
+    <!-- lsr begin -->
+	<package name="BizPackage" extends="default"
+		namespace="/biz">
+	</package>
+	<include
+		file="/com/qzgf/application/biz/testModel/action/xwork-Test.xml" /><!-- 框架测试模块 -->
+	
+	<include
+		file="/com/qzgf/application/biz/ConsumeAuth/action/xwork-consumeAuth.xml" /><!-- 消费认证|累积卡 -->
+ 	
+ 	<include
+		file="/com/qzgf/application/biz/OrderGuide/action/xwork-orderGuide.xml" /><!-- 专家向导|订阅向导 -->
+ 
+</xwork>

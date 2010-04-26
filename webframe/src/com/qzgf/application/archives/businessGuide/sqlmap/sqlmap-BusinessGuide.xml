@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BusinGud">
+      
+	 <!-- 此商家包含的向导列表 -->
+	 <select id="findBusinessGuideCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+        select count(*) from t_archives_businessguide t
+        where BUSINESSUSER=#pusername#
+		</select>
+		
+      <select id="findBusinessGuideList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	 from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		    
+               select BUSINESSGUIDEID,BUSINESSUSER,GUIDEUSER,
+               to_char(RELEASETIME,'yyyy-mm-dd') RELEASETIME from t_archives_businessguide t
+               where BUSINESSUSER=#pusername#
+                    
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	  </select>	
+	 <!-- 此商家包含的向导列表 -->
+	 
+	  <!-- 查找未被此商家加入为向导的 -->
+	  <select id="findBusinessGuideAddCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+          select count(*)  from t_archives_user 
+          where MEMBERTYPE=2 and username not in (select GUIDEUSER from
+          T_ARCHIVES_BUSINESSGUIDE where businessuser=#pusername#)
+		</select>
+		
+      <select id="findBusinessGuideAddList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	 from (select row_limit.*,rownum rownum_ 
+        		    from(
+        		    
+               select userid,username  from t_archives_user 
+               where MEMBERTYPE=2 and username not in (select GUIDEUSER from
+               T_ARCHIVES_BUSINESSGUIDE where businessuser=#pusername#)
+                    
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	  </select>	
+	 <!-- 查找未被此商家加入为向导的 -->
+	 
+	  <insert id="insertBusinessGuideRelate"	parameterClass="java.util.HashMap">
+        insert into T_ARCHIVES_BUSINESSGUIDE
+                    values(seqformat('T_ARCHIVES_BUSINESSGUIDE'),#pusername#,#GUIDENAME#,current_date)
+       </insert>
+	 
+	      <delete id="deleteGuide" parameterClass="java.util.HashMap">
+       	     delete from T_ARCHIVES_BUSINESSGUIDE  where  BUSINESSGUIDEID=#BUSINESSGUIDEID#
+          </delete>
+	
+
+
+</sqlMap>

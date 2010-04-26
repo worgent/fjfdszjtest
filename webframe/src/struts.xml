@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor name="mapParameter" class="com.qzgf.webutils.interceptor.MapParametersInterceptor"/>
+			<interceptor-stack name="mapParam">
+				<!-- 文件控件file -->
+				<interceptor-ref name="fileUpload"/>  
+				<!-- 处理search的处理 --> 
+				<interceptor-ref name="mapParameter" />
+			</interceptor-stack>
+			<!-- 
+			<interceptor name="userLoginInterceptor"
+				class="com.qzgf.webutils.interceptor.UserLoginInterceptor">
+			</interceptor>
+			
+			<interceptor name="permissionInterceptor"
+				class="com.qzgf.webutils.interceptor.PermissionInterceptor">
+			</interceptor>
+			
+			<interceptor name="userSessionInterceptor"
+				class="com.qzgf.webutils.interceptor.UserSessionInterceptor">
+			</interceptor>
+			
+			<interceptor-stack name="userSessionInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			-->
+			<!-- 用户权限       
+			<interceptor-stack name="authInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+				<interceptor-ref name="permissionInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			-->  
+			 
+		</interceptors>
+	</package>
+	<!-- 加载各模块的包 -->
+
+	<!-- 业务模块 -->
+	<include file="/com/qzgf/application/biz/xwork-biz-package.xml"/>
+	<!-- 系统模块 -->
+	<include file="/com/qzgf/application/systemManage/xwork-system-package.xml"/>
+	<!-- 控制面板 -->
+	<include file="/com/qzgf/application/selfConfig/xwork-selfconfig-package.xml"/>
+	<!--空间配置 -->
+	<include file="/com/qzgf/application/archives/xwork-space-package.xml"/>
+</struts>

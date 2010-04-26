@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 相册
+	* 2009-08-14
+	* @author lsr
+-->
+<sqlMap namespace="Album">	
+	<!-- 查询某一用户下相册记录总数 -->
+	<select id="findAlbumCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from T_ARCHIVES_ALBUM where state=1 and UserID=#USERID#
+		
+	</select>
+	
+	<!-- 查询记录，非分页 -->
+	<select id="findTwitter" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select Twitter,TwitterSort,TwitterTitle,TwitterSayId,TwitterContent,TwitterSendTime,TwitterLocation from T_ARCHIVES_TWITTER
+		 where billstate=1
+	</select>
+	
+	<!-- 根据照片Id查询该照片的相关评论信息 -->
+	<select id="findAlbumWordByPhotoId"
+		parameterClass="java.util.HashMap" resultClass="java.util.HashMap"
+		remapResults="true">
+		select PW_ID,PW_CONTENT,to_char(COMMIT_DATE,'yyyy-mm-dd hh24:mi:ss') as COMMIT_DATE,P_ID,USERID,STATE from t_archives_photo_word where P_ID=#P_ID#
+	</select>
+	
+	<!-- 根据用户Id查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findAlbumPageByUserId" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		select a.a_id,a.a_name,a.a_desc,a.a_create_date,a.a_times,a.userId,case when b.p_cover is null then '0' else b.p_cover end  p_cover,b.p_small_pic from t_archives_album a,t_archives_photo b where a.a_id=b.a_id(+) and a.state=1 and b.p_cover(+)=1
+and a.userId=#USERID# order by a.a_id
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>
+	
+	<!-- 根据相册ID查询记录-->
+	<select id="findAlbumByAlbumId" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select * from t_archives_album  where a_id=#A_ID# and state=1
+	</select>
+		
+	
+	<!-- 根据相册编号,可查询到该相册下相片总数 -->
+	<select id="findPhotoCountByAlbumId" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from T_ARCHIVES_PHOTO where state=1 and A_ID=#A_ID#
+	</select>
+	
+	<!-- 根据相册编号,可查询到该相册下面所有的相片 -->
+	<select id="findPhotosByAlbumId" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.*,b.a_name from t_archives_photo a, t_archives_album b where a.state=1  and a.a_id=b.a_id(+) and a.a_id=#A_ID# order by a.p_id
+					
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertPhoto" parameterClass="java.util.HashMap" >
+		insert into T_ARCHIVES_PHOTO
+				(P_ID,P_TITLE,P_DESC,P_BIG_PIC,P_SMALL_PIC,A_ID	)values(			   
+				hunt.seqformat('T_ARCHIVES_PHOTO'),#P_TITLE#,#P_DESC#,#P_BIG_PIC#,#P_SMALL_PIC#,#A_ID#)
+    </insert>
+    
+    <!-- 添加相册 -->
+	<insert id="insertAlbum" parameterClass="java.util.HashMap" >
+		insert into T_ARCHIVES_ALBUM
+				(A_ID,A_NAME,A_DESC,A_CREATE_DATE,USERID)values(			   
+				hunt.seqformat('T_ARCHIVES_ALBUM'),#A_NAME#,#A_DESC#,sysdate,#USERID#)
+    </insert>
+    
+    <!-- 添加照片评论 -->
+	<insert id="insertPhotoWord" parameterClass="java.util.HashMap" >
+		insert into T_ARCHIVES_PHOTO_WORD
+				(PW_ID,PW_CONTENT,COMMIT_DATE,P_ID,USERID)values(			   
+				hunt.seqformat('T_ARCHIVES_PHOTO_WORD'),#PW_CONTENT#,sysdate,#P_ID#,#USERID#)
+    </insert>
+    
+	<!-- 删除记录 -->
+	<delete id="deleteMessageById" parameterClass="java.util.HashMap">
+    	update t_archives_twitter set BillState=0
+    	where TwitterId=#TwitterId#
+    </delete>
+    
+    <!-- 修改相册 -->
+	<delete id="updateAlbumByAlbumId" parameterClass="java.util.HashMap">
+    	update t_archives_album set A_NAME=#A_NAME# ,A_DESC=#A_DESC#
+    	where A_ID=#A_ID# and USERID=#USERID#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateTwitterById" parameterClass="java.util.HashMap">
+		update t_archives_twitter
+		   set TwitterId = #TwitterId#
+		    <isNotEmpty prepend="," property="TwitterTitle">
+			   	TwitterTitle=#TwitterTitle#
+			</isNotEmpty>	
+		    <isNotEmpty prepend="," property="TwitterSort">
+			   	TwitterSort=#TwitterSort#
+			</isNotEmpty>	 				
+            <isNotEmpty prepend="," property="TwitterSayId">
+			   		TwitterSayId = #TwitterSayId#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="TwitterContent">
+			   		TwitterContent = #TwitterContent#
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="TwitterLocation">
+					TwitterLocation =  #TwitterLocation# 
+			</isNotEmpty>
+			
+		where TwitterId=#TwitterId# and billstate=1
+	</update>
+</sqlMap>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 用户等级SQL
+	* @author lsr
+-->
+<sqlMap namespace="UserLevel">	
+	
+	<select id="findUserLevel" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select id,levelname,experiencevalue,contributeValue,FameValue from t_system_userlevel where state=1
+		 <isNotEmpty prepend="and" property="id">
+		 	id=#id#
+		 </isNotEmpty>
+		 order by id
+	</select>
+	
+	<!-- 增加用户级别 -->
+	<insert id="insertUserLevel" parameterClass="java.util.HashMap" >
+		insert into T_System_UserLevel
+				(Id,levelname,experiencevalue,contributevalue,famevalue)values(		
+				hunt.seqformat('T_SYSTEM_USERLEVEL'),#LEVELNAME#,#EXPERIENCEVALUE#,#CONTRIBUTEVALUE#,#FAMEVALUE#)
+    </insert>
+    
+    <!-- 删除用户级别 -->
+	<delete id="deleteUserLevelById" parameterClass="java.util.HashMap">
+    	update T_System_UserLevel set State=0
+    	where Id=#id#
+    </delete>
+    
+    <!-- 修改记录 -->
+	<update id="updateUserLevelById" parameterClass="java.util.HashMap">
+		update T_System_UserLevel set id=#ID#
+		    <isNotEmpty prepend="," property="LEVELNAME">
+			   	levelName=#LEVELNAME#
+			</isNotEmpty>
+			 <isNotEmpty prepend="," property="EXPERIENCEVALUE">
+			   	experienceValue=#EXPERIENCEVALUE#
+			</isNotEmpty>	
+		    <isNotEmpty prepend="," property="CONTRIBUTEVALUE">
+			   	contributeValue=#CONTRIBUTEVALUE#
+			</isNotEmpty>	 				
+            <isNotEmpty prepend="," property="FAMEVALUE">
+			   		fameValue = #FAMEVALUE#
+			</isNotEmpty>	
+		where Id=#ID# and state=1
+	</update>
+	
+</sqlMap>

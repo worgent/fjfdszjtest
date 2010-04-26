@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<struts>
+    <!-- lsr begin -->
+	<package name="selfconfig" extends="default" namespace="/">
+	</package>
+	<!-- 控件面板｜悬赏管理 -->
+	<include file="/com/qzgf/application/selfConfig/reward/action/xwork-Reward.xml" />
+	<!-- 控件面板｜地图名片 -->
+	<include file="/com/qzgf/application/selfConfig/mapcard/action/xwork-Mapcard.xml" /> 
+	<!-- 2009-11-07信息公告 -->
+	<!--控制面板｜信息公告(优惠劵的发布，狩猎贴，领主招纳信息) -->
+	<include file="/com/qzgf/application/selfConfig/bulletin/action/xwork-Bulletin.xml" /> 	
+	<!-- 2010-04-26优惠分享 -->
+	<!--控制面板｜优惠分享 -->
+	<include file="/com/qzgf/application/selfConfig/shareFav/action/xwork-ShareFav.xml" /> 		
+	
+	
+	
+	<!-- 控件面板｜地图日志 -->
+	<include file="/com/qzgf/application/selfConfig/twitter/action/xwork-twitter.xml" /> 
+	<!-- 地图日志｜日志分类 -->
+	<include file="/com/qzgf/application/selfConfig/twitterType/action/xwork-twitterType.xml" /> 
+	<!-- 控制面板｜相册 -->
+	<include file="/com/qzgf/application/selfConfig/album/action/xwork-album.xml" />
+	
+	<!-- 控制面板｜向导锦囊 -->
+	<include file="/com/qzgf/application/selfConfig/coup/action/xwork-coup.xml" /> 	
+	
+	<!-- 地图日志｜日志分类 -->
+	<include file="/com/qzgf/application/selfConfig/mapFortune/action/xwork-mapFortune.xml" /> 
+	
+	<!-- 报表 -->
+	<include file="/com/qzgf/application/selfConfig/chart/action/xwork-chart.xml" /> 
+</struts>

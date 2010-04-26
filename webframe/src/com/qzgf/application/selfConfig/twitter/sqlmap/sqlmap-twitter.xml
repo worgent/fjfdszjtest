@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 地图日志
+	* 2009-08-14
+	* @author lsr
+-->
+<sqlMap namespace="Twitter">	
+	<!-- 查询记录总数 -->
+	<select id="findTwitterCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from T_ARCHIVES_TWITTER where billstate=1 and TwitterSayId=$UserId$
+		<isNotEmpty prepend="and" property="TwitterTypeId">
+					    TwitterTypeId=#TwitterTypeId#
+		</isNotEmpty>
+		
+	</select>
+	
+	<!-- 查询记录，非分页 -->
+	<select id="findTwitter" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		 select Twitter,TwitterSort,TwitterTitle,TwitterSayId,TwitterContent,TwitterSendTime,TwitterLocation from T_ARCHIVES_TWITTER
+		 where billstate=1
+	</select>
+	
+	<!-- 根据Id查询日志记录 -->
+	<select id="findTwitterById"
+		parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		select a.*,b.twittertypename from  T_ARCHIVES_TWITTER a,t_archives_twitter_type b  
+		where a.billstate=1 and a.twitterId=#TwitterId# and a.twittertypeid=b.twitterTypeId
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findTwitterPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		select a.TwitterId,a.TwitterSort,a.TwitterTitle,a.TwitterSayId,substr(a.TwitterContent,0,100) TwitterContent,
+a.TwitterSendTime,a.TwitterLocation,b.twittertypeid,b.twittertypename from T_ARCHIVES_TWITTER a,t_Archives_Twitter_Type b  
+		        where a.twittersayId=$UserId$ and a.billstate=1 and a.twittertypeid=b.twittertypeid 
+		        <isNotEmpty prepend="and" property="TwitterTypeId">
+					    b.TwitterTypeId=#TwitterTypeId#
+				</isNotEmpty>
+		        order by TwitterId desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertTwitter"	parameterClass="java.util.HashMap" >
+		insert into T_ARCHIVES_TWITTER
+				(TWITTERID,TwitterTitle,TwitterTypeId			   
+				<isNotEmpty prepend="," property="TwitterSort">
+					    TwitterSort
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TwitterSayId">
+					    TwitterSayId
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TwitterContent">
+					    TwitterContent
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TwitterSendTime">
+					    TwitterSendTime
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TwitterLocation">
+					    TwitterLocation
+				</isNotEmpty>
+				,BillState
+				)
+				 values 
+				(hunt.seqformat('T_ARCHIVES_TWITTER'),#TwitterTitle#,#TwitterTypeId#
+				<isNotEmpty prepend="," property="TwitterSort">
+					    #TwitterSort#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TwitterSayId">
+					    #TwitterSayId#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TwitterContent">
+					    #TwitterContent#
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TwitterSendTime">
+					    cast(#TwitterSendTime# AS DATE)
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TwitterLocation">
+					    #TwitterLocation#
+				</isNotEmpty>
+				
+				,1)
+    </insert>
+    
+	<!-- 删除记录 -->
+	<delete id="deleteTwitterById" parameterClass="java.util.HashMap">
+    	update t_archives_twitter set BillState=0
+    	where TwitterId=#TwitterId#
+    </delete>
+    
+    
+    
+	<!-- 修改记录 -->
+	<update id="updateTwitterById" parameterClass="java.util.HashMap">
+		update t_archives_twitter
+		   set TwitterId = #TwitterId#
+		    <isNotEmpty prepend="," property="TwitterTitle">
+			   	TwitterTitle=#TwitterTitle#
+			</isNotEmpty>
+			 <isNotEmpty prepend="," property="TwitterTypeId">
+			   	TwitterTypeId=#TwitterTypeId#
+			</isNotEmpty>	
+		    <isNotEmpty prepend="," property="TwitterSort">
+			   	TwitterSort=#TwitterSort#
+			</isNotEmpty>	 				
+            <isNotEmpty prepend="," property="TwitterSayId">
+			   		TwitterSayId = #TwitterSayId#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="TwitterLocation">
+					TwitterLocation =  #TwitterLocation# 
+			</isNotEmpty>
+			
+		where TwitterId=#TwitterId# and billstate=1
+	</update>
+	
+	<!-- 添加日志评论 -->
+	<insert id="insertTwitterWord" parameterClass="java.util.HashMap" >
+		insert into T_ARCHIVES_PHOTO_WORD
+				(PW_ID,PW_CONTENT,COMMIT_DATE,P_ID,USERID)values(			   
+				hunt.seqformat('T_ARCHIVES_PHOTO_WORD'),#PW_CONTENT#,sysdate,#P_ID#,#USERID#)
+    </insert>
+	
+</sqlMap>

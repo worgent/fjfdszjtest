@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="baseSqlMapDAO"
+		class="com.qzgf.IbatisDaoTools.BaseSqlMapDAOImpl" singleton="false">
+		<description>数据库基础操作工具包</description>
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+
+	<bean id="methodAthur"
+		class="com.qzgf.utils.interceptor.MethodBeforeAdvice">
+		<description>方法权限认证</description>
+		<property name="authoritiesMethods">
+			<ref bean="authoritiesMethods" />
+		</property>
+	</bean>
+
+	<bean id="managerSecurity"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="methodAthur" />
+		</property>
+		<property name="patterns">
+			<list>
+				<value>.*insert.*</value>
+				<value>.*find.*</value>
+				<value>.*update.*</value>
+				<value>.*delete.*</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="logger"
+		class="com.qzgf.utils.interceptor.LoggingInterceptor">
+		<description>日志拦截器</description>
+		<property name="baseSqlMapDAO">
+			<ref bean="baseSqlMapDAO" />
+		</property>
+	</bean>
+	<bean id="loggerAdvisor"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="logger" />
+		</property>
+		<property name="patterns">
+			<list>
+				<value>.*insert.*</value>
+				<!-- value>.*find.*</value-->
+				<value>.*update.*</value>
+				<value>.*delete.*</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- ====================================系统测试用例bean请配置在此下=========================================== -->
+	
+	<!-- 框架测试模块 -->
+	<bean id="testFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.biz.testModel.domain.TestFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="testFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.biz.testModel.domain.TestFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="testFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置模块 -->
+	<bean id="configFacade"
+		class="com.qzgf.application.systemManage.taglib.domain.ConfigFacadeImpl"
+		singleton="false">
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+		
+	<bean id="sysConfig"
+		class="com.qzgf.application.systemManage.taglib.config.SysConfig"
+		singleton="false">
+		<property name="configFacade" ref="configFacade" />
+	</bean>
+	
+	<!-- 登录模块 -->
+	<bean id="loginFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.login.domain.LoginFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="loginFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.login.domain.LoginFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="loginFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- =============================短信模块========================================= -->
+	<!--短信模块｜ 短信注册 -->	
+	<bean id="smproxyFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="com.qzgf.utils.sms.SMProxySendFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="smproxyFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.utils.sms.SMProxySendFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="messageFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- ====================================系统管理=========================================== -->
+	<!-- 站内消息模块 -->
+	<bean id="messageFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.message.domain.MessageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="messageFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.message.domain.MessageFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="messageFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- ====================================控制面板=========================================== -->
+	<!-- 悬赏管理 -->
+	<bean id="rewardFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.reward.domain.RewardFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="rewardFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.reward.domain.RewardFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="rewardFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 地图名片 -->
+	<bean id="mapcardFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.mapcard.domain.MapcardFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="mapcardFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.mapcard.domain.MapcardFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="mapcardFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+	<!-- 2009-11-07信息公告 -->
+	<!--控制面板｜信息公告(优惠劵的发布，狩猎贴，领主招纳信息) -->
+	<bean id="bulletinFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.bulletin.domain.BulletinFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="bulletinFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.bulletin.domain.BulletinFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="bulletinFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+	<!-- 2010-04-26信息公告 -->
+	<!--控制面板｜优惠分享 -->
+	<bean id="shareFavFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.shareFav.domain.ShareFavFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="shareFavFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.shareFav.domain.ShareFavFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="shareFavFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+
+
+
+
+	
+	
+	
+	<!-- 地图日志 -->
+	<bean id="twitterFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.twitter.domain.TwitterFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="twitterFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.twitter.domain.TwitterFacade" />
+		<property name="interceptorNames">
+			<list>
+				
+				<idref local="twitterFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+	
+	<!-- 日志分类 -->
+	<bean id="twitterTypeFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.twitterType.domain.TwitterTypeFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="twitterTypeFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.twitterType.domain.TwitterTypeFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="twitterTypeFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+	
+	<!-- 用户等级设置 -->
+	<bean id="userLevelFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.userlevel.domain.UserLevelFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="userLevelFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.userlevel.domain.UserLevelFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="userLevelFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+	
+	<!-- 用户信息 -->
+	<bean id="userInfoFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.userInfo.domain.UserInfoFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="userInfoFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.userInfo.domain.UserInfoFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="userInfoFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 雇佣向导 -->
+	<bean id="hireGuideFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.mapFortune.domain.HireGuideFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="hireGuideFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.mapFortune.domain.HireGuideFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="hireGuideFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+	
+	<!-- 向导锦囊排序 -->
+	<bean id="guideCoupFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.mapFortune.domain.GuideCoupFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="guideCoupFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.mapFortune.domain.GuideCoupFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="guideCoupFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+	
+	<!-- 白领向导 -->
+	<bean id="guideToffFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.mapFortune.domain.GuideToffFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="guideToffFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.mapFortune.domain.GuideToffFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="guideToffFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 向导锦囊 -->
+	<bean id="coupFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.coup.domain.CoupFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="coupFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.coup.domain.CoupFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="coupFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>				
+	
+	<!-- 相册 -->
+	<bean id="albumFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.album.domain.AlbumFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="albumFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.album.domain.AlbumFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="albumFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>	
+	
+	<!-- 消费认证|累积卡 -->
+	<bean id="consumeAuthFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.biz.ConsumeAuth.domain.ConsumeAuthFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="consumeAuthFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.biz.ConsumeAuth.domain.ConsumeAuthFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="consumeAuthFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>	
+	
+	
+	<!-- shen begin -->
+	<!-- 空间配置 -->
+	<bean id="spaceFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.archives.space.domain.SpaceFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="spaceFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.archives.space.domain.SpaceFacade" />
+		<property name="interceptorNames">
+			<list>
+				
+				<idref local="spaceFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>	
+	
+
+	<!--  个人设置 
+  --> 
+ <bean id="userFacadeTargetProxy" parent="baseTransactionProxy" lazy-init="default" autowire="default" dependency-check="default">
+ <property name="target">
+ <bean class="com.qzgf.application.archives.user.domain.UserFacadeImpl" lazy-init="default" autowire="default" dependency-check="default">
+  <property name="baseSqlMapDAO" ref="baseSqlMapDAO" /> 
+  </bean>
+  </property>
+  </bean>
+<bean id="userFacade" class="org.springframework.aop.framework.ProxyFactoryBean" lazy-init="default" autowire="default" dependency-check="default">
+  <property name="proxyInterfaces" value="com.qzgf.application.archives.user.domain.UserFacade" /> 
+ <property name="interceptorNames">
+ <list>
+  <idref local="loggerAdvisor" /> 
+  <idref local="managerSecurity" /> 
+  <idref local="userFacadeTargetProxy" /> 
+  </list>
+  </property>
+  </bean>
+		
+		
+		<!-- 自助广告 -->
+    <bean id="adverRecommendFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.archives.adverRecommend.domain.AdverRecommendFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="adverRecommendFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.archives.adverRecommend.domain.AdverRecommendFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="adverRecommendFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>	
+	
+		<!--商家跟向导的关系  -->
+    <bean id="businessGuideFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.archives.businessGuide.domain.BusinessGuideFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="businessGuideFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.archives.businessGuide.domain.BusinessGuideFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="businessGuideFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>	
+			<!--商家跟向导的关系  -->
+			
+			
+			<!-- 自助广告 -->
+    <bean id="selfAdvertiseFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.archives.selfAdvertise.domain.SelfAdvertiseFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="selfAdvertiseFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.archives.selfAdvertise.domain.SelfAdvertiseFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="selfAdvertiseFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>	
+			<!--自助广告 -->
+		
+		
+		
+
+	<!-- 向导周边动态 -->
+	<bean id="guideDynamicFacadeTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.selfConfig.mapFortune.domain.GuideDynamicFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="guideDynamicFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.selfConfig.mapFortune.domain.GuideDynamicFacade" />
+		<property name="interceptorNames">
+			<list>
+				
+				<idref local="guideDynamicFacadeTargetProxy" />
+			</list>
+		</property>
+	</bean>		
+	
+	
+	
+	<!-- shen end -->
+</beans>

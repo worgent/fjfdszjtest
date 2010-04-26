@@ -1,0 +1,21 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	
+-->
+<xwork>
+	<package name="businGud" extends="archives" namespace="/"><!-- 里面的extends="archives"是继承于xwork-space-package.xml的<package name="archives" -->
+		<action name="businGud" class="businessGuideAction">
+			<result name="index">/WEB-INF/BackModual/Archives/User/UserMain.jsp</result>
+			
+			<result name="businessGuideList">/WEB-INF/BackModual/Archives/businessGuide/businessGuidList.jsp</result>
+			<result name="guideListAdd">/WEB-INF/BackModual/Archives/businessGuide/businessGuidAddList.jsp</result>
+			
+			
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>

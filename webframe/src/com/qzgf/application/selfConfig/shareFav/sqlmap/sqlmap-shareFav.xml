@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 控件面板|优惠分享
+	* 2010-04-23
+-->
+<sqlMap namespace="ShareFav">	
+	<!-- 地图名片查询记录总数 -->
+	<select id="findShareFavCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from T_SELFCONFIG_MAPCARD
+		 where State &lt;&gt;0
+		<isNotEmpty prepend=" and" property="pid">
+	   			id='$pid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="pmerchantname">
+	   			merchantname='$pmerchantname$'
+		</isNotEmpty> 
+		<isNotEmpty prepend=" and" property="pmerchanticon">
+		   		merchanticon='$pmerchanticon$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pmerchanttype">
+		   		merchanttype='$pmerchanttype$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pmerchantid">
+		   		merchantid='$pmerchantid$'
+		</isNotEmpty>					
+		<isNotEmpty prepend=" and" property="pmerchanttelphone">
+		   		merchanttelphone='$pmerchanttelphone$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmerchantaddress">
+		   		merchantaddress='$pmerchantaddress$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmerchantintroduce">
+		   		merchantintroduce='$pmerchantintroduce$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="preadcount">
+		   		readcount='$preadcount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmessagecount">
+		   		messagecount='$pmessagecount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pvotecount">
+		   		votecount='$pvotecount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pfavoritecount">
+		   		favoritecount='$pfavoritecount$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ptastevalue">
+		   		tastevalue='$ptastevalue$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pservicevalue">
+		   		servicevalue='$pservicevalue$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="penvironmentvalue">
+		   		environmentvalue='$penvironmentvalue$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pcreatetime">
+		   		createtime=cast(#pcreatetime# AS DATE)
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="puserid">
+		   		userid='$puserid$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		postion='$ppostion$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		state=#pstate#
+		</isNotEmpty>	
+	</select>
+	
+	<!-- 地图名片｜查询记录，非分页 -->
+	<select id="findShareFav" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select t.id,t.merchantname,t.merchanticon,t.merchanttype,t.merchantid,t.merchanttelphone,t.merchantaddress,t.merchantintroduce,
+		t.readcount,t.messagecount,t.votecount,t.favoritecount,t.tastevalue,t.servicevalue,t.environmentvalue,
+		to_char(t.createtime,'yyyy-mm-dd hh24:mi:ss') createtime,t.userid,t.state,t.lng,t.lat,t.provinceid,t.cityid 
+		     ,GetParValue('USERID_USERNAME',t.userid) username ,GetParValue('USERID_USERNAME',t.merchantid) merchant_name
+		 from  t_selfconfig_mapcard t where t.state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="pmerchantname">
+	   			t.merchantname='$pmerchantname$'
+		</isNotEmpty> 
+		<isNotEmpty prepend=" and" property="pmerchanticon">
+		   		t.merchanticon='$pmerchanticon$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pmerchanttype">
+		   		t.merchanttype='$pmerchanttype$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pmerchantid">
+		   		t.merchantid='$pmerchantid$'
+		</isNotEmpty>					
+		<isNotEmpty prepend=" and" property="pmerchanttelphone">
+		   		t.merchanttelphone='$pmerchanttelphone$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmerchantaddress">
+		   		t.merchantaddress='$pmerchantaddress$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmerchantintroduce">
+		   		t.merchantintroduce='$pmerchantintroduce$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="preadcount">
+		   		t.readcount='$preadcount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmessagecount">
+		   		t.messagecount='$pmessagecount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pvotecount">
+		   		t.votecount='$pvotecount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pfavoritecount">
+		   		t.favoritecount='$pfavoritecount$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ptastevalue">
+		   		t.tastevalue='$ptastevalue$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pservicevalue">
+		   		t.servicevalue='$pservicevalue$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="penvironmentvalue">
+		   		t.environmentvalue='$penvironmentvalue$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pcreatetime">
+		   		t.createtime=cast(#pcreatetime# AS DATE)
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="puserid">
+		   		t.userid='$puserid$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		t.postion='$ppostion$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state=#pstate#
+		</isNotEmpty>
+		order by  t.id desc
+	</select>
+	
+	<!-- 地图名片｜查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findShareFavPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+		select t.id,t.merchantname,t.merchanticon,t.merchanttype,t.merchantid,t.merchanttelphone,t.merchantaddress,t.merchantintroduce,
+		t.readcount,t.messagecount,t.votecount,t.favoritecount,t.tastevalue,t.servicevalue,t.environmentvalue,
+		to_char(t.createtime,'yyyy-mm-dd hh24:mi:ss') createtime,t.userid,t.state,t.lng,t.lat,t.provinceid,t.cityid ,
+        nvl(m.STRENGTH,0) STRENGTH,nvl(m.FAVOR,0) FAVOR
+             ,GetParValue('USERID_USERNAME',t.userid) username ,GetParValue('USERID_USERNAME',t.merchantid) merchant_name
+		from  t_selfconfig_mapcard t left outer join T_ARCHIVES_USER m on t.merchantid=m.USERID
+		where t.state &lt;&gt;0 
+		<isNotEmpty prepend=" and" property="pid">
+	   			t.id='$pid$'
+		</isNotEmpty>    
+	  	<isNotEmpty prepend=" and" property="pmerchantname">
+	   			t.merchantname='$pmerchantname$'
+		</isNotEmpty> 
+		<isNotEmpty prepend=" and" property="pmerchanticon">
+		   		t.merchanticon='$pmerchanticon$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pmerchanttype">
+		   		t.merchanttype='$pmerchanttype$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="pmerchantid">
+		   		t.merchantid='$pmerchantid$'
+		</isNotEmpty>					
+		<isNotEmpty prepend=" and" property="pmerchanttelphone">
+		   		t.merchanttelphone='$pmerchanttelphone$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmerchantaddress">
+		   		t.merchantaddress='$pmerchantaddress$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmerchantintroduce">
+		   		t.merchantintroduce='$pmerchantintroduce$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="preadcount">
+		   		t.readcount='$preadcount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pmessagecount">
+		   		t.messagecount='$pmessagecount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pvotecount">
+		   		t.votecount='$pvotecount$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pfavoritecount">
+		   		t.favoritecount='$pfavoritecount$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ptastevalue">
+		   		t.tastevalue='$ptastevalue$'
+		</isNotEmpty>			
+		<isNotEmpty prepend=" and" property="pservicevalue">
+		   		t.servicevalue='$pservicevalue$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="penvironmentvalue">
+		   		t.environmentvalue='$penvironmentvalue$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pcreatetime">
+		   		t.createtime=cast(#pcreatetime# AS DATE)
+		</isNotEmpty>				
+		<isNotEmpty prepend=" and" property="puserid">
+		   		t.userid='$puserid$'
+		</isNotEmpty>	
+		<isNotEmpty prepend=" and" property="ppostion">
+		   		t.postion='$ppostion$'
+		</isNotEmpty>
+		<isNotEmpty prepend=" and" property="pstate">
+		   		t.state=#pstate#
+		</isNotEmpty>
+		<!-- 按时间排序,默认 -->
+		<isEqual property="orderby"  compareValue="1"  prepend=" "> 
+     	        order by t.id desc
+		</isEqual> 
+		<!-- 实力排序 -->
+		<isEqual property="orderby" compareValue="2" prepend=" "> 
+     	        order by nvl(m.STRENGTH,0) desc,t.id desc
+		</isEqual>
+		<!-- 口碑排序,仅商家拥有,而领主不拥有 -->
+		<isEqual property="orderby" compareValue="3" prepend=" "> 
+     	        order by t.id desc,t.id desc
+		</isEqual>
+		<!-- 人气排序 -->
+		<isEqual property="orderby" compareValue="4" prepend=" "> 
+     	        order by nvl(m.FAVOR,0) desc,t.id desc
+		</isEqual>
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!--地图名片｜ 增加记录 -->
+	<insert id="insertShareFav"	parameterClass="java.util.HashMap" >
+		insert into t_selfconfig_mapcard
+				(id					       
+	  	<isNotEmpty prepend="," property="pmerchantname">
+	   			merchantname
+		</isNotEmpty> 
+		<isNotEmpty prepend="," property="pmerchanticon">
+		   		merchanticon
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="pmerchanttype">
+		   		merchanttype
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="pmerchantid">
+		   		merchantid
+		</isNotEmpty>					
+		<isNotEmpty prepend="," property="pmerchanttelphone">
+		   		merchanttelphone
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmerchantaddress">
+		   		merchantaddress
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmerchantintroduce">
+		   		merchantintroduce
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="preadcount">
+		   		readcount
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmessagecount">
+		   		messagecount
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pvotecount">
+		   		votecount
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pfavoritecount">
+		   		favoritecount
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="ptastevalue">
+		   		tastevalue
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pservicevalue">
+		   		servicevalue
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="penvironmentvalue">
+		   		environmentvalue
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="puserid">
+		   		userid
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="plng">
+		   		lng
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="plat">
+		   		lat
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pprovinceid">
+		   		provinceid
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pcityid">
+		   		cityid
+		</isNotEmpty>	
+		   		,createtime,state)
+				 values 
+				(
+		<isEmpty property="pid">
+				hunt.seqformat('t_selfconfig_mapcard')
+		</isEmpty>		
+		<isNotEmpty property="pid">
+		    	#pid#
+		</isNotEmpty>		
+	  	<isNotEmpty prepend="," property="pmerchantname">
+	   			#pmerchantname#
+		</isNotEmpty> 
+		<isNotEmpty prepend="," property="pmerchanticon">
+		   		#pmerchanticon#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="pmerchanttype">
+		   		#pmerchanttype#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="pmerchantid">
+		   		#pmerchantid#
+		</isNotEmpty>					
+		<isNotEmpty prepend="," property="pmerchanttelphone">
+		   		#pmerchanttelphone#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmerchantaddress">
+		   		#pmerchantaddress#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmerchantintroduce">
+		   		#pmerchantintroduce#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="preadcount">
+		   		#preadcount#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmessagecount">
+		   		#pmessagecount#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pvotecount">
+		   		#pvotecount#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pfavoritecount">
+		   		#pfavoritecount#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="ptastevalue">
+		   		#ptastevalue#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pservicevalue">
+		   		#pservicevalue#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="penvironmentvalue">
+		   		#penvironmentvalue#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="puserid">
+		   		#puserid#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="plng">
+		   		#plng#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="plat">
+		   		#plat#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pprovinceid">
+		   		#pprovinceid#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pcityid">
+		   		#pcityid#
+		</isNotEmpty>
+		   		,sysdate,1)
+    </insert>
+    
+	<!--地图名片｜删除记录 -->
+	<delete id="deleteShareFavById" parameterClass="java.util.HashMap">
+    	update T_SELFCONFIG_MAPCARD set state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 地图名片｜修改记录 -->
+	<update id="updateShareFavById" parameterClass="java.util.HashMap">
+		update T_SELFCONFIG_MAPCARD set createtime=createtime
+	  	<isNotEmpty prepend="," property="pmerchantname">
+	   			merchantname=#pmerchantname#
+		</isNotEmpty> 
+		<isNotEmpty prepend="," property="pmerchanticon">
+		   		merchanticon=#pmerchanticon#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="pmerchanttype">
+		   		merchanttype=#pmerchanttype#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="pmerchantid">
+		   		merchantid=#pmerchantid#
+		</isNotEmpty>					
+		<isNotEmpty prepend="," property="pmerchanttelphone">
+		   		merchanttelphone=#pmerchanttelphone#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmerchantaddress">
+		   		merchantaddress=#pmerchantaddress#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmerchantintroduce">
+		   		merchantintroduce=#pmerchantintroduce#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="preadcount">
+		   		readcount=#preadcount#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pmessagecount">
+		   		messagecount=#pmessagecount#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pvotecount">
+		   		votecount=#pvotecount#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pfavoritecount">
+		   		favoritecount=#pfavoritecount#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="ptastevalue">
+		   		tastevalue=#ptastevalue#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="pservicevalue">
+		   		servicevalue=#pservicevalue#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="penvironmentvalue">
+		   		environmentvalue=#penvironmentvalue#
+		</isNotEmpty>			
+		<isNotEmpty prepend="," property="puserid">
+		   		userid=#puserid#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="plng">
+		   		lng=#plng#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="plat">
+		   		lat=#plat#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pprovinceid">
+		   		provinceid=#pprovinceid#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="pcityid">
+		   		cityid=#pcityid#
+		</isNotEmpty>
+		where id=#pid# and state &lt;&gt;0
+	</update>
+</sqlMap>
