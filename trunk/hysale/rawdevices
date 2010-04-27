@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# sendmail      This shell script takes care of starting and stopping
+#               sendmail.
+#
+# chkconfig: 2345 75 30
+# description: Sendmail is a Mail Transport Agent, which is the program \
+#              that moves mail from one machine to another.
+# processname: sendmail
+
+### BEGIN INIT INFO
+# Provides: sendmail MTA smtpdaemon
+# Required-Start: $local_fs $network
+# Required-Stop: $local_fs $network
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: start and stop sendmail
+# Description: sendmail is a Mail Transport Agent (MTA)
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+
+start() {
+ raw /dev/raw/raw6 /dev/sda6
+ raw /dev/raw/raw7 /dev/sda7
+ raw /dev/raw/raw8 /dev/sda8
+ raw /dev/raw/raw9 /dev/sda9
+ chown -R oracle:oinstall /dev/raw 
+}
+
+case "$1" in
+    start)
+      start
+	;;
+esac
+
+exit $RETVAL
