@@ -1,0 +1,30 @@
+#!/bin/sh
+killall -9 Xvnc
+killall -9 vino-server
+
+vino-preferences
+/usr/libexec/vino-server&
+rm -rf /tmp/.X11-unix/X3
+rm -rf /tmp/.X3-lock
+vncserver :3  -geometry 1280x800
+vncconfig -display :3.0 -AcceptKeyEvents=0 -AcceptPointerEvents=0 -AlwaysShared
+#!/bin/sh
+A=`ps aux | grep vino-server | head -n 2 |grep -v 'grep' | awk '{print $2}' | tr  '\n' ' '`
+for i in $A
+do
+ renice -20 $i
+done
+
+
+A=`ps aux | grep Xvnc | head -n 2 |grep -v 'grep' | awk '{print $2}' | tr  '\n' ' '`
+for i in $A
+do
+ renice -20 $i
+done
+
+
+A=`ps aux | grep vncviewer | head -n 2 |grep -v 'grep' | awk '{print $2}' | tr  '\n' ' '`
+for i in $A
+do
+ renice -20 $i
+done

@@ -1,0 +1,7 @@
+sqlplus /nolog << EOF
+conn / as sysdba
+startup
+exit
+EOF
+
+emctl start dbconsole
