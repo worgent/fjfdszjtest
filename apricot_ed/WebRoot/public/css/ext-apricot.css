@@ -1,0 +1,125 @@
+.gridBarItemAdd {
+   background-image:url(../images/shared/icons/fam/add.gif) !important;
+}
+.gridBarItemOption {
+   background-image:url(../images/shared/icons/fam/plugin.gif) !important;
+}
+.gridBarItemRemove {
+   background-image:url(../images/shared/icons/fam/delete.gif) !important;
+}
+.gridBarItemSave {
+   background-image:url(../images/shared/icons/save.gif) !important;
+}
+
+.gridBarItemQuery {
+   background-image:url(../images/shared/icons/fam/table_refresh.png) !important;
+}
+
+.gridBarItemUnion {
+   background-image:url(../../img/order_union.gif) !important;
+}
+
+.gridBarItemPay {
+   background-image:url(../../img/order_pay.gif) !important;
+}
+
+.gridBarItemSave {
+   background-image:url(../../img/grid_save.gif) !important;
+}
+
+.gridItemAdd{
+   background-image:url(../../img/grid_add.gif) !important;
+}
+
+.gridItemGo{
+   background-image:url(../../img/grid_go.gif) !important;
+}
+
+.gridItemDel{
+   background-image:url(../../img/grid_del.gif) !important;
+}
+.gridItemEdit{
+   background-image:url(../../img/grid_edit.gif) !important;
+}
+
+.orderCheck{
+   background-image:url(../../img/order_check.gif) !important;
+}
+
+.stocking{
+   background-image:url(../../img/stocking.gif) !important;
+}
+
+.but-query{
+   background-image:url(../../img/query.gif) !important;
+}
+
+.password{
+   background-image:url(../../img/password.gif) !important;
+}
+
+.gridmultiadd{
+   background-image:url(../../img/multi_add.gif) !important;
+}
+
+ .x-panel-body{
+	background: white;
+	font: 11px Arial, Helvetica, sans-serif;
+}
+ .thumb{
+	background: #dddddd;
+	padding: 3px;
+    border:1px solid #dddddd;
+    background: #efefef url(../images/default/grid/row-over.gif) repeat-x left top;
+	padding: 4px;
+}
+ .thumb img{
+	height: 60px;
+	width: 80px;
+
+}
+ .thumb-wrap{
+	float: left;
+	margin: 4px;
+	margin-right: 0;
+	padding: 5px;
+}
+ .thumb-wrap span{
+	display: block;
+	overflow: hidden;
+	text-align: center;
+}
+
+ .x-view-over{
+    border:1px solid #dddddd;
+    background: #efefef url(../images/default/grid/row-over.gif) repeat-x left top;
+	padding: 4px;
+}
+
+ .x-view-selected{
+	background-color: #FCE8D6;
+	border:1px solid #733908;
+	padding: 4px;#eff5fb;
+}
+ .x-view-selected .thumb{
+	//background:transparent;
+}
+
+ .loading-indicator {
+	font-size:11px;
+	background-image:url('../images/default/grid/loading.gif');
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left:20px;
+	margin:10px;
+}
+
+  body   {   
+    -moz-user-select : none;   
+  }  
+  
+  
+
+.foodimage {background-image:url(../../img/foodimage.gif) !important;}
+.upload-icon {background: url(../images/shared/icons/fam/image_add.png) no-repeat 0 0 !important;}
+  
