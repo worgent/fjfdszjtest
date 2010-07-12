@@ -1,0 +1,20 @@
+<html>
+
+<head>
+<meta content="text/html; charset=GBK" http-equiv="Content-Type" />
+<title>无标题 1</title>
+<link href="css/keyboard.css" rel="stylesheet" type="text/css" />
+<script language="javascript" charset="gbk" src="js/keyboard.js"></script>
+<script language="javascript" >
+   function onDocumentReady(){
+     var kb=new Keyboard();
+     kb.register(aaa);
+   }
+</script>
+</head>
+
+<body onload="onDocumentReady();">
+<input type="text" id="aaa">
+</body>
+
+</html>
