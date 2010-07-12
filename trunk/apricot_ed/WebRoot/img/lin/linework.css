@@ -1,0 +1,30 @@
+body{
+    margin:0px;
+    padding:0px;
+    text-align:center;
+    font-size:12px;
+    font-family:Arial,Helevetica,sans-serif;
+	background:url(picture/logon1.gif);
+    }
+#left
+{
+	float:left;
+	width:10%;
+	
+}
+#rightx
+{
+	height:500px;
+	float:none;
+	width:10%;
+	border:dotted #000;
+	background-color:#F0C}
+#right{
+	    float:left;
+		width:50%;
+		height:100%;
+		background-color:#D4EBF3;
+	   }
+#tableinformation{
+	float:left;
+	}
