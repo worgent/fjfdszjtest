@@ -1,0 +1,10 @@
+sys_attribute
+sys_attribute_value
+sys_table_attribute
+resource_info
+privilege_info
+privilege_rela
+privilege_respirce_map
+storefront_info
+staff_info
+staff_role_map
