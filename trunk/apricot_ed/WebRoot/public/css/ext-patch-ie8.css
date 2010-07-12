@@ -1,0 +1,10 @@
+/**修改定位**/
+
+
+.x-form-field-wrap .x-form-trigger{
+		top:0px;
+}
+.ext-ie6 .x-form-text, .ext-ie7 .x-form-text {
+    margin:0px 0; 
+    top:0px;
+}
