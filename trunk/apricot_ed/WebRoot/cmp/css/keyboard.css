@@ -1,0 +1,39 @@
+table.keyboard{
+}
+table.keyboard tbody td {
+	background-image:url('../images/key-bg.gif');
+	
+	height:55px;
+	padding-left:20px;
+	padding-right:20px;
+	font-family:Verdana, Geneva, Tahoma, sans-serif ;	
+	font-size:14pt;
+	text-align:center;
+	white-space:nowrap;
+	cursor:none;
+	}
+table.keyboard textarea{
+		font-family:Verdana, Geneva, Tahoma, sans-serif ;	
+	font-size:12pt;
+}
+table.keyboard tbody td.press{
+}	
+
+table.keyboard tbody td.checked{
+	 background-image:url('../images/key-selected-bg.gif');
+}
+
+span.keytitle{
+	background-image:url('../images/key-title.gif');
+	position:absolute;
+	width:42px;
+	height:47px;
+	z-index:10;
+	text-align:center;
+	line-height:42px;
+		font-family:Verdana, Geneva, Tahoma, sans-serif ;	
+		color:#0b8cc8;
+		font-weight:bold;
+	font-size:16pt;
+	
+}	
