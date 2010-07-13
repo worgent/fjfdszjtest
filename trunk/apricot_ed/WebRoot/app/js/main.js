@@ -4,22 +4,22 @@ Ext.ux.TabCloseMenu = function(){
         tabs = tp;
         tabs.on('contextmenu', onContextMenu);
     }
-
+   
     function onContextMenu(ts, item, e){
         if(!menu){ // create context menu on first right click
             menu = new Ext.menu.Menu([{
                 id: tabs.id + '-close',
-                text: 'å…³é—­æ‰€æœ‰',
+                text: '¹Ø±ÕËùÓĞ',
                 handler : function(){
                     tabs.items.each(function(item){
                     	     if(item.id=="myTaskList") return;
                              tabs.remove(item);
                     });
-                    addWindow({id:"blank",title:"ç©ºç™½é¡µ"});
+                    addWindow({id:"blank",title:"¿Õ°×Ò³"});
                 }
             },{
                 id: tabs.id + '-close-others',
-                text: 'å…³é—­å…¶ä»–æ‰€æœ‰',
+                text: '¹Ø±ÕÆäËûËùÓĞ',
                 handler : function(){
                     tabs.items.each(function(item){
                         if(item.closable && item != ctxItem){
@@ -29,7 +29,7 @@ Ext.ux.TabCloseMenu = function(){
                 }
             },"-",{
                 id: tabs.id + '-refresh',
-                text: 'åˆ·æ–°å½“å‰é¡µ',
+                text: 'Ë¢ĞÂµ±Ç°Ò³',
                 handler : function(){ 
                 	var o=Ext.apply({},getCmp(ctxItem.id));
                     tabs.remove(ctxItem);
@@ -55,11 +55,11 @@ Ext.ux.TabCloseMenu = function(){
     }
 };
   /**
-   * å®šä¹‰å·¦è¾¹å¯¹è±¡(mainSiderBar_xudahu)
+   * ¶¨Òå×ó±ß¶ÔÏó(mainSiderBar_xudahu)
    */
   var mainSiderBar_xudahu=new Ext.tree.TreePanel({
      region:"west",
-     title:"å¯¼èˆª",
+     title:"µ¼º½",
      split:true,
      collapsible:true,
      width:150,
@@ -80,11 +80,11 @@ Ext.ux.TabCloseMenu = function(){
          id:'source'
      }
   });
-  //å±•å¼€æ‰€æœ‰èŠ‚ç‚¹
+  //Õ¹¿ªËùÓĞ½Úµã
   mainSiderBar_xudahu.expandAll();
   
   /**
-   * å®šä¹‰ä¸­é—´å®¹å™¨(mainContent_xudahu)
+   * ¶¨ÒåÖĞ¼äÈİÆ÷(mainContent_xudahu)
    */
   
   var mainContent_xudahu=new Ext.TabPanel({
@@ -104,7 +104,7 @@ Ext.ux.TabCloseMenu = function(){
          var t = this.findTargets(e);
          if(t.close){
              this.remove(t.item);
-             if(this.items.length==0) addWindow({id:"blank",title:"ç©ºç™½é¡µ"});
+             if(this.items.length==0) addWindow({id:"blank",title:"¿Õ°×Ò³"});
              return;
          }
          if(t.item && t.item != this.activeTab){
@@ -112,14 +112,14 @@ Ext.ux.TabCloseMenu = function(){
          }
      },
 
-     items:[{title:"ç©ºç™½é¡µ",id:"blank_tab"}],
+     items:[{title:"¿Õ°×Ò³",id:"blank_tab"}],
      plugins:new Ext.ux.TabCloseMenu()
   });
   
   
 
   
-  //å®šä¹‰æ–°çª—å£æ·»åŠ å‡½æ•°
+  //¶¨ÒåĞÂ´°¿ÚÌí¼Óº¯Êı
   function addWindow(obj){
       var tabId=((obj.id)?obj.id:"blank")+"_tab";
       var aTab;
@@ -138,7 +138,7 @@ Ext.ux.TabCloseMenu = function(){
           });
         
      }else{
-        aTab={id:tabId,title:"&nbsp;&nbsp;ç©ºç™½é¡µ&nbsp;&nbsp;"};
+        aTab={id:tabId,title:"&nbsp;&nbsp;¿Õ°×Ò³&nbsp;&nbsp;"};
      }   
      if(tabId!=="blank_tab") mainContent_xudahu.remove("blank_tab");
      
@@ -151,7 +151,7 @@ Ext.ux.TabCloseMenu = function(){
   
   
   
-  //å®šä¹‰ç›®å½•æ ‘ç‚¹å‡»äº‹ä»¶
+  //¶¨ÒåÄ¿Â¼Ê÷µã»÷ÊÂ¼ş
   mainSiderBar_xudahu.on("click",function(node,obj){
       var obj=node.attributes;
       var tabId=((obj.id)?obj.id:"blank")+"_tab";
@@ -160,7 +160,7 @@ Ext.ux.TabCloseMenu = function(){
       }else {
           if(node.attributes.leaf==true && obj.url){
             if(mainContent_xudahu.items.length>6){
-               Ext.MessageBox.alert('ç³»ç»Ÿæé†’', 'æœ€å¤šåªèƒ½æ‰“å¼€7ä¸ªçª—å£ï¼Œè¯·å…³é—­ä¸€äº›çª—å£ã€‚');
+               Ext.MessageBox.alert('ÏµÍ³ÌáĞÑ', '×î¶àÖ»ÄÜ´ò¿ª7¸ö´°¿Ú£¬Çë¹Ø±ÕÒ»Ğ©´°¿Ú¡£');
                return;
             }
             addWindow(obj);
@@ -168,12 +168,11 @@ Ext.ux.TabCloseMenu = function(){
       }
   });
   /**
-   * åˆ›å»ºè§†å›¾
+   * ´´½¨ÊÓÍ¼
    */
   function documentReady(){
     Ext.QuickTips.init();
-    //åˆ›å»ºä¸€ä¸ªæ–°çš„è§†å›¾
-
+    //´´½¨Ò»¸öĞÂµÄÊÓÍ¼
     var mainViewer=new Ext.Viewport({
   	    layout:"border",
   	    hideBorders:true,
