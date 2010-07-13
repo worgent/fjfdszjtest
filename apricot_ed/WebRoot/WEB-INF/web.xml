@@ -256,7 +256,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>chexunjieguo</servlet-name>
-		<url-pattern>/servlet/chexunjieguo</url-pattern>
+		<url-pattern>/apricot_ed/servlet/chexunjieguo</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DelOrderDetail</servlet-name>
