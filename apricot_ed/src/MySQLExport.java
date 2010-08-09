@@ -49,7 +49,11 @@ public class MySQLExport {
 	 */
 	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException, Exception {
 		// TODO Auto-generated method stub
-		new MySQLExport().export("E:/program/apricot_ed/src/tabs.txt");
+		//导入指定表
+		new MySQLExport().export("G:/Java/apricot_ed/src/tabs.txt");
+		System.out.println("完成!");
+		//导出单表
+		//new MySQLExport().export1("");
 	}
 	private Connection conn = null;
 
@@ -60,12 +64,12 @@ public class MySQLExport {
 	public MySQLExport() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated constructor stub
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/eating_db", "root", "root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/deoa?characterEncoding=gbk", "root", "123@123");
 	}
 
 	public void export(String fileName) throws IOException, Exception {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
-		OutputStream out = new FileOutputStream("e:/data.sql");
+		OutputStream out = new FileOutputStream("d:/data.sql");
 		String line = null;
 		while ((line = reader.readLine()) != null) {
 			List l = export1(line);
@@ -118,7 +122,8 @@ public class MySQLExport {
 				if (v instanceof Date) {
 					data.append(DataUtil.format((Date) v, "yyyy-MM-dd HH:mm:ss"));
 				} else if (v instanceof String) {
-					data.append("'" + DataUtil.toGBK(v.toString()) + "'");
+					//data.append("'" + DataUtil.toGBK(v.toString()) + "'");
+					data.append("'" + v.toString() + "'");
 				} else {
 					data.append(v.toString());
 				}
