@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Mon Jul 26 09:29:41 CST 2010
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=MapleFetion_fat.jar
+manifest.mergeall=true
+manifest.mainclass=net.solosky.maplefetion.MapleFetionDemo
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<po|MapleFetion>~net/~message/~TestUtil.class;<po|MapleFetion>~org/;<jar|junit.jar>;<jar|httpunit.jar>;<jar|junit-4.8.1.jar>
+includes=

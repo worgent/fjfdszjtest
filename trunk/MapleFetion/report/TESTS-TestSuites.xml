@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" hostname="QZ-GFGS-SZJ" id="0" name="TestUtil" package="net.message" tests="1" time="0.08" timestamp="2010-03-30T09:06:55">
+      <properties>
+          <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+
+          <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.6.0_03\jre\bin" />
+
+          <property name="java.vm.version" value="1.6.0_03-b05" />
+
+          <property name="ant.library.dir" value="D:\eclipse\eclipse\plugins\org.apache.ant_1.7.0.v200706080842\lib" />
+
+          <property name="ant.version" value="Apache Ant version 1.7.0 compiled on December 13 2006" />
+
+          <property name="ant.java.version" value="1.6" />
+
+          <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+
+          <property name="src folder" value="src" />
+
+          <property name="java.vendor.url" value="http://java.sun.com/" />
+
+          <property name="path.separator" value=";" />
+
+          <property name="ant.file.auto unittest task" value="G:\Java\MapleFetion\build.xml" />
+
+          <property name="java.vm.name" value="Java HotSpot(TM) Client VM" />
+
+          <property name="file.encoding.pkg" value="sun.io" />
+
+          <property name="user.country" value="CN" />
+
+          <property name="sun.java.launcher" value="SUN_STANDARD" />
+
+          <property name="sun.os.patch.level" value="Service Pack 1" />
+
+          <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+
+          <property name="user.dir" value="G:\Java\MapleFetion" />
+
+          <property name="java.runtime.version" value="1.6.0_03-b05" />
+
+          <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+
+          <property name="eclipse.pdebuild.scripts" value="/D:/eclipse/eclipse/plugins/org.eclipse.pde.build_3.3.1.v20070828/scripts/" />
+
+          <property name="basedir" value="G:\Java\MapleFetion" />
+
+          <property name="java.endorsed.dirs" value="D:\Program Files\Java\jdk1.6.0_03\jre\lib\endorsed" />
+
+          <property name="os.arch" value="x86" />
+
+          <property name="java.io.tmpdir" value="C:\Users\fjfdszj\AppData\Local\Temp\" />
+
+          <property name="ant.core.lib" value="D:\eclipse\eclipse\plugins\org.apache.ant_1.7.0.v200706080842\lib\ant.jar" />
+
+          <property name="line.separator" value=" " />
+
+          <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+
+          <property name="user.variant" value="" />
+
+          <property name="os.name" value="Windows Vista" />
+
+          <property name="ant.home" value="D:\eclipse\eclipse\plugins\org.apache.ant_1.7.0.v200706080842" />
+
+          <property name="eclipse.pdebuild.templates" value="/D:/eclipse/eclipse/plugins/org.eclipse.pde.build_3.3.1.v20070828/templates/" />
+
+          <property name="ant.project.name" value="auto unittest task" />
+
+          <property name="sun.jnu.encoding" value="GBK" />
+
+          <property name="java.library.path" value="D:\Program Files\Java\jdk1.6.0_03\jre\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\Oracle\app\fjfdszj\product\11.1.0\db_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;D:\Program Files\MySQL\MySQL Server 5.0\bin;C:\Program Files\Microsoft SQL Server\90\Tools\binn\;C:\Program Files\Microsoft SQL Server\80\Tools\Binn\;C:\Program Files\Microsoft SQL Server\90\DTS\Binn\;C:\Program Files\Microsoft SQL Server\90\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files\Microsoft Visual Studio 8\Common7\IDE\PrivateAssemblies\;C:\Program Files\Common Files\Adobe\AGL;D:\Program Files\Sybase\SQL Anywhere 8\win32;D:\Program Files\Sybase\Shared\win32;D:\Program Files\Sybase\Shared\Sybase Central 4.1;D:\Program Files\Sybase\PowerDynamo\win32;C:\Program Files\Common Files\Thunder Network\KanKan\Codecs;D:\Program Files\Symantec\pcAnywhere\;D:\Program Files\cvsnt;D:\Program Files\Java\jdk1.6.0_03\bin;D:\Program Files\VistaMaster;C:\Program Files\Private Shell;D:\Program Files\StormII\Codec;D:\Program Files\StormII" />
+
+          <property name="eclipse.pdebuild.home" value="/D:/eclipse/eclipse/plugins/org.eclipse.pde.build_3.3.1.v20070828/./" />
+
+          <property name="java.class.version" value="50.0" />
+
+          <property name="java.specification.name" value="Java Platform API Specification" />
+
+          <property name="lib.dir" value="lib" />
+
+          <property name="sun.management.compiler" value="HotSpot Client Compiler" />
+
+          <property name="os.version" value="6.0" />
+
+          <property name="ant.file" value="G:\Java\MapleFetion\build.xml" />
+
+          <property name="user.home" value="C:\Users\fjfdszj" />
+
+          <property name="user.timezone" value="" />
+
+          <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+
+          <property name="java.specification.version" value="1.6" />
+
+          <property name="file.encoding" value="GBK" />
+
+          <property name="output folder" value="build" />
+
+          <property name="test folder" value="testsrc" />
+
+          <property name="user.name" value="fjfdszj" />
+
+          <property name="java.class.path" value="G:\Java\MapleFetion\lib\commons-logging-1.1.1.jar;G:\Java\MapleFetion\lib\jdom.jar;G:\Java\MapleFetion\lib\log4j-1.2.15.jar;G:\Java\MapleFetion\lib\mina-core-2.0.0-RC1.jar;G:\Java\MapleFetion\lib\slf4j-api-1.5.10.jar;G:\Java\MapleFetion\lib\slf4j-simple-1.5.10.jar;G:\Java\MapleFetion\build;G:\message\lucene-2.4.1\lucene-core-2.4.1.jar;G:\message\lucene-2.4.1\lucene-demos-2.4.1.jar;D:\eclipse\eclipse\plugins\org.junit4_4.3.1\junit.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.7.0.v200706080842\lib\ant-launcher.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.7.0.v200706080842\lib\ant.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.7.0.v200706080842\lib\ant-junit.jar" />
+
+          <property name="java.vm.specification.version" value="1.0" />
+
+          <property name="sun.arch.data.model" value="32" />
+
+          <property name="java.home" value="D:\Program Files\Java\jdk1.6.0_03\jre" />
+
+          <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+
+          <property name="user.language" value="zh" />
+
+          <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+
+          <property name="java.vm.info" value="mixed mode, sharing" />
+
+          <property name="java.version" value="1.6.0_03" />
+
+          <property name="java.ext.dirs" value="D:\Program Files\Java\jdk1.6.0_03\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" />
+
+          <property name="sun.boot.class.path" value="D:\Program Files\Java\jdk1.6.0_03\jre\lib\resources.jar;D:\Program Files\Java\jdk1.6.0_03\jre\lib\rt.jar;D:\Program Files\Java\jdk1.6.0_03\jre\lib\sunrsasign.jar;D:\Program Files\Java\jdk1.6.0_03\jre\lib\jsse.jar;D:\Program Files\Java\jdk1.6.0_03\jre\lib\jce.jar;D:\Program Files\Java\jdk1.6.0_03\jre\lib\charsets.jar;D:\Program Files\Java\jdk1.6.0_03\jre\classes" />
+
+          <property name="java.vendor" value="Sun Microsystems Inc." />
+
+          <property name="file.separator" value="\" />
+
+          <property name="report folder" value="report" />
+
+          <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+
+          <property name="sun.cpu.endian" value="little" />
+
+          <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+
+          <property name="sun.desktop" value="windows" />
+
+          <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86" />
+
+      </properties>
+
+      <testcase classname="net.message.TestUtil" name="TestMyself" time="0.0040" />
+
+      <system-out><![CDATA[]]></system-out>
+
+      <system-err><![CDATA[]]></system-err>
+
+  </testsuite>
+</testsuites>
