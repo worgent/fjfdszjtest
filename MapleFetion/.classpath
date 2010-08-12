@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="testsrc"/>
+	<classpathentry kind="lib" path="lib/jdom.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/mina-core-2.0.0-RC1.jar" sourcepath="G:/Java/MapleFetion/mina-2.0.0-RC1.zip"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.5.10.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-simple-1.5.10.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="H:/szjwork/sysback/桌面/graduation/设计模式/httpunit-1.7/lib/httpunit.jar" sourcepath="H:/szjwork/sysback/桌面/graduation/设计模式/httpunit-1.7/src"/>
+	<classpathentry kind="lib" path="H:/szjwork/sysback/桌面/graduation/设计模式/junit4.8.1/junit-4.8.1.jar" sourcepath="H:/szjwork/sysback/桌面/graduation/设计模式/junit4.8.1/junit-4.8.1-src.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
