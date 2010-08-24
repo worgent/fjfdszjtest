@@ -835,20 +835,15 @@ public class MapleFetionDemo implements INotifyListener,ILoginListener,IMessageC
 	 */
 	public static void main(String[] args)
 	{
-		
-		//args={"13599204724","szj-com"};
 		try {
 			//MapleFetionDemo  fetion = new MapleFetionDemo(Long.parseLong(args[0]), args[1]);
 			MapleFetionDemo fetion = new MapleFetionDemo(Long
-					.parseLong("13599204724"), "my123@123");//szj-com
+					.parseLong("135XXXXXXXX"), "myXXX@XXX");
 			if (fetion.login()) {
 				//主函数
 				//fetion.mainloop();
 
 				//发短信
-				//fetion.dispatch("13599204724 myself");
-				long tel = 13459327646L;//   13599204724L  624436624  13459327646L 613571635
-				String fetionno = "tel:13459327646";
 				String msg = "";
 
 				//新闻
