@@ -126,7 +126,7 @@ public class ClientFrameApp extends JFrame implements Runnable {
 		//加载Properties文件流
 		if ("".equals(ip)) {
 			Properties properties = new Properties();
-			ip="127.0.0.1";
+			ip="127.0.0.1";//local test
 			port=5024;
 //			try {
 //				properties
