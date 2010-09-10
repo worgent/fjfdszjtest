@@ -150,6 +150,11 @@ public class Util {
 		  mat = p.matcher(result.toString());
 		 result=mat.replaceAll(",");
 		 
+		 //去除回车,转行
+		 p = Pattern.compile("\t|\r|\n");
+		 mat = p.matcher(result.toString());
+		 result=mat.replaceAll("");
+		 
 		 return result;
 	}
 	
@@ -172,9 +177,9 @@ public class Util {
 			//System.out.println(dispatch("elefee "));
 			//System.out.println(dispatch("baidunew "));
 			//System.out.println(dispatch("news "));
-			
+			System.out.println(dispatch("weather2 ").indexOf("星期二"));
 			System.out.println(dispatch("wapsohu "));
-			
+			//System.out.println(dispatch("wapsohu ").indexOf("星期二"));
 			//System.out.println(dispatch("Train D3202"));
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
