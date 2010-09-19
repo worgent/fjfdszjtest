@@ -1,0 +1,1369 @@
+2010-08-17 17:43:28,519 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/images/.*.gif
+2010-08-17 17:43:28,535 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/js/.*.js
+2010-08-17 17:43:28,535 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/css/.*.css
+2010-08-17 17:43:28,535 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/images/.*.jpg
+2010-08-17 17:43:48,874 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/images/.*.gif
+2010-08-17 17:43:48,874 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/js/.*.js
+2010-08-17 17:43:48,874 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/css/.*.css
+2010-08-17 17:43:48,875 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/images/.*.jpg
+2010-08-17 18:00:05,888 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/images/.*.gif
+2010-08-17 18:00:08,951 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/js/.*.js
+2010-08-17 18:00:11,532 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/css/.*.css
+2010-08-17 18:00:13,118 [main] [com.qzgf.utils.CacheFilter] [INFO] - >>>>>>>>>>> init the cache pattern .*/images/.*.jpg
+2010-09-13 16:26:39,207 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:27:24,617 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:33:21,693 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:35:15,932 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:36:38,808 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:274)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:39:18,342 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:277)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:277)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:39:57,303 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:277)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:277)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:40:19,261 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:277)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:277)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:41:45,043 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:277)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:277)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:43:38,297 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:282)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:282)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:43:53,663 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:281)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:281)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:44:37,729 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:281)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:281)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:45:04,740 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:281)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:281)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:45:55,918 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:281)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:281)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:48:14,904 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:284)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:284)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after 'む' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:53:39,395 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:286)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:286)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-13 16:54:16,706 [main] [org.apache.axis.attachments.AttachmentsImpl] [WARN] - Exception:
+AxisFault
+ faultCode: {http://schemas.xmlsoap.org/soap/envelope/}Server.userException
+ faultSubcode: 
+ faultString: java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+ faultActor: 
+ faultNode: 
+ faultDetail: 
+	{http://xml.apache.org/axis/}stackTrace:java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:286)
+
+	{http://xml.apache.org/axis/}hostname:QZ-GFGS-SZJ
+
+java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.AxisFault.makeFault(AxisFault.java:101)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:317)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:269)
+	at org.apache.axis.SOAPPart.saveChanges(SOAPPart.java:530)
+	at org.apache.axis.attachments.AttachmentsImpl.getAttachmentCount(AttachmentsImpl.java:554)
+	at org.apache.axis.Message.getContentType(Message.java:486)
+	at org.apache.axis.transport.http.HTTPSender.writeToSocket(HTTPSender.java:343)
+	at org.apache.axis.transport.http.HTTPSender.invoke(HTTPSender.java:138)
+	at org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.java:32)
+	at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+	at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+	at org.apache.axis.client.AxisClient.invoke(AxisClient.java:165)
+	at org.apache.axis.client.Call.invokeEngine(Call.java:2784)
+	at org.apache.axis.client.Call.invoke(Call.java:2767)
+	at org.apache.axis.client.Call.invoke(Call.java:2443)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:286)
+Caused by: java.lang.IllegalArgumentException: The char '0x3' after '??' is not a valid XML character.
+	at org.apache.axis.components.encoding.UTF8Encoder.writeEncoded(UTF8Encoder.java:81)
+	at org.apache.axis.encoding.SerializationContext.writeSafeString(SerializationContext.java:1289)
+	at org.apache.axis.encoding.ser.SimpleSerializer.serialize(SimpleSerializer.java:104)
+	at org.apache.axis.encoding.SerializationContext.serializeActual(SerializationContext.java:1504)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:980)
+	at org.apache.axis.encoding.SerializationContext.serialize(SerializationContext.java:801)
+	at org.apache.axis.message.RPCParam.serialize(RPCParam.java:208)
+	at org.apache.axis.message.RPCElement.outputImpl(RPCElement.java:433)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.message.SOAPBody.outputImpl(SOAPBody.java:139)
+	at org.apache.axis.message.SOAPEnvelope.outputImpl(SOAPEnvelope.java:478)
+	at org.apache.axis.message.MessageElement.output(MessageElement.java:1208)
+	at org.apache.axis.SOAPPart.writeTo(SOAPPart.java:315)
+	... 18 more
+2010-09-14 16:39:40,901 [main] [org.apache.axis.client.Call] [ERROR] - Exception:
+org.xml.sax.SAXException: Invalid element in com._59112580.www.Postal - RecName
+	at org.apache.axis.encoding.ser.BeanDeserializer.onStartChild(BeanDeserializer.java:258)
+	at org.apache.axis.encoding.DeserializationContext.startElement(DeserializationContext.java:1035)
+	at org.apache.axis.message.SAX2EventRecorder.replay(SAX2EventRecorder.java:165)
+	at org.apache.axis.message.MessageElement.publishToHandler(MessageElement.java:1141)
+	at org.apache.axis.message.RPCElement.deserialize(RPCElement.java:236)
+	at org.apache.axis.message.RPCElement.getParams(RPCElement.java:384)
+	at org.apache.axis.client.Call.invoke(Call.java:2467)
+	at org.apache.axis.client.Call.invoke(Call.java:2366)
+	at org.apache.axis.client.Call.invoke(Call.java:1812)
+	at com._59112580.www.PostalServiceSoapStub.getList(PostalServiceSoapStub.java:288)
+	at com._59112580.www.PostalServiceSoapProxy.getList(PostalServiceSoapProxy.java:56)
+	at com.qzgf.datacollection.timer.Yd12580TimerTask.main(Yd12580TimerTask.java:280)

@@ -1,0 +1,163 @@
+@charset "utf-8";
+body {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+}
+table {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+}
+.t1 {
+	padding: 5px;
+}
+.table1 {
+	background-color: #FAFAFA;
+	border: 1px solid #CCCCCC;
+}
+.table2 { background-color:#ffffff }
+.table3 { background-color:#ebeadd }
+.table4 { background-color:#cfcdaf }
+.table5 { background-color:#cfcdaf; display:none }
+.table6 {
+	background-color: #FAFAFA;
+	border: 1px dashed #CCCCCC;
+}
+.font1 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 14px;
+}
+.font2 {
+	color: #FF0000;
+}
+.title { font-size:14px; font-weight:bold; color:#ffffff; cursor:hand; cursor:pointer; }
+.item { font-size:14px; color:#000000; background-color:#ffffff; }
+.input1{
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	border: 1px solid #999999;
+	padding: 3px;
+}
+.input2 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	border: 1px solid #DBDBDB;
+	padding: 3px;
+}
+.textarea1 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	border: 1px solid #DBDBDB;
+	padding: 3px;
+}
+.hrcolor1 {
+	color: #CC3300;
+}
+.hrcolor2 {
+	color: #E8E8E8;
+}
+.msg1 {
+	color: #999999;
+	padding: 5px;
+}
+.msg2 {
+	background-color: #EDF3FA;
+	border: 1px solid #408FD0;
+	padding: 5px 5px 5px 25px;
+	background-image: url(../images/standard_msg_warning.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+}
+.msg3 {
+	background-color: #F0FFF0;
+	border: 1px solid #00EA00;
+	padding: 5px 5px 5px 25px;
+	background-image: url(../images/standard_msg_ok.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+}
+
+.errormsg {
+	background-color: #FFEFEE;
+	border: 1px solid #FF6860;
+	padding: 5px 5px 5px 25px;
+	background-image: url(../images/standard_msg_error.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+	line-height: 16pt;
+}
+.button1
+{
+	BACKGROUND-COLOR:#e0e0d5;
+	font-size: 9pt;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: ridge;
+	border-right-style: ridge;
+	border-bottom-style: ridge;
+	border-left-style: ridge;
+	border-top-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	font-family: "宋体", Tahoma, Verdana;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	height: 20px;
+}
+.button2
+{
+	BACKGROUND-COLOR:#e0e0d5;
+	font-size: 9pt;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: ridge;
+	border-right-style: ridge;
+	border-bottom-style: ridge;
+	border-left-style: ridge;
+	border-top-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	font-family: "宋体", Tahoma, Verdana;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	width: 80px;
+	height: 20px;
+}
+.p1 {
+	line-height: 16pt;
+}
+.td1 {
+	background-color: #F0F0F0;
+}
+.select1 {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	padding: 3px;
+	border: 1px solid #DBDBDB;
+}
+a {
+    color: #69663F;
+	text-decoration: none ;
+	font-family:Verdana, Tahoma, "宋体";
+}
+a:link {
+    text-decoration: none;
+	color: #69663F;
+	font-family:Verdana, Tahoma, "宋体";
+}
+a:visited {
+    text-decoration: none;
+	color: #69663F;
+	font-family:Verdana, Tahoma, "宋体";
+}
+a:hover {
+    text-decoration: underline;
+	color: #403E26;
+	font-family:Verdana, Tahoma, "宋体";
+}
+a:active {
+    text-decoration: underline;
+	color: #403E26;
+	font-family:Verdana, Tahoma, "宋体"; 
+}

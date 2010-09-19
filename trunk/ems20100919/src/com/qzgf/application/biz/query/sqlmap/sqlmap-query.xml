@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	档案管理|用户管理
+	附加:用户登录,用户注册
+-->
+<sqlMap namespace="Query">	
+	
+	<!-- ==========================================区域信息======================================= -->
+	<!-- 省份信息 -->
+	<select id="findProvince" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select the_code,the_name from t_archives_province where the_code &lt;'710000'
+	</select>
+	<!-- 地市信息 -->
+	<select id="findCity" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		<!--  
+		select a.the_code,a.the_name from t_archives_city a, 
+		(select distinct REPLACE(t.send_office,'★','') cityName from td_mailfeearea t  where t.province_name=(select the_name from t_archives_province where the_code='$pid$')) b  
+ 		where a.province_code='$pid$'  and concat(b.cityName,'市')=a.the_name
+ 		
+ 		-->
+        select distinct REPLACE(t.send_office,'★','') the_name,send_office_code 
+the_code from td_mailfeearea t  where t.province_name like 
+    (select the_name from t_archives_province where the_code='$pid$')||'%' and send_office_code is not null
+	</select>
+	
+	<!-- 
+	select * from t_archives_city a, 
+(select distinct REPLACE(t.send_office,'★','') cityName from td_mailfeearea t  where t.province_name='甘肃省') b  
+ where a.province_code=620000  and concat(b.cityName,'市')=a.the_name
+	 -->
+	
+</sqlMap>

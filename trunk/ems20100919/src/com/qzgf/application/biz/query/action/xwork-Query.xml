@@ -1,0 +1,47 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 查询模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="query" extends="default" namespace="/query">
+		<!-- 邮件查询 -->
+		<action name="mail" class="queryAction">
+			<result name="EMS">/WEB-INF/FrontModual/query/mail.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+		<!-- 资费查询 -->
+		<action name="fee" class="queryAction">
+		</action>
+		
+		<!-- 国际资费查询 -->
+		<action name="ffee" class="queryAction">
+		<interceptor-ref name="mapParam" />
+		</action>
+		
+		<!-- 地区查询 -->
+		<action name="area" class="queryAction" method="area">
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+		<!-- 国内时限查询 -->
+		<action name="time" class="queryAction" method="time">
+			<interceptor-ref name="mapParam" />
+		</action>
+		<!-- 国际时限查询 -->
+		<action name="ftime" class="queryAction" method="ftime">
+			<result name="input" >/WEB-INF/FrontModual/query/ftime.jsp</result>
+			<result name="ftime_error" >/WEB-INF/FrontModual/query/ftime_error.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+	</package>
+</xwork>

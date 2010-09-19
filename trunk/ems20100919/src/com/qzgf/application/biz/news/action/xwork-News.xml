@@ -1,0 +1,32 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 空间配置
+	* @author swq
+-->
+<xwork>
+	<package name="news" extends="default" namespace="/">
+		<action name="news" class="newsAction" >
+			
+			<result name="index">/WEB-INF/BackModual/articles/news/newsList.jsp</result>
+			<result name="add">/WEB-INF/BackModual/articles/news/newsAdd.jsp</result>
+			<result name="edit">/WEB-INF/BackModual/articles/news/newsModify.jsp</result>
+			<result name="FrontNews">/WEB-INF/BackModual/articles/news/frontNews.jsp</result>
+			<result name="FrontNews_ex">/WEB-INF/BackModual/articles/news/frontNews_ex.jsp</result>
+			<result name="newsDetail">/WEB-INF/BackModual/articles/news/frontDetail.jsp</result>
+			<result name="test">/WEB-INF/BackModual/articles/news/newsList1.jsp</result>
+			<result name="brandNews">/WEB-INF/BackModual/articles/news/brandNews.jsp</result>
+			<result name="topEight">/index_right.jsp</result>
+			
+			<result name="fir">/index.jsp</result>
+			
+			
+            <!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			
+			<interceptor-ref name="mapParam" />	
+		</action>
+	</package>
+</xwork>

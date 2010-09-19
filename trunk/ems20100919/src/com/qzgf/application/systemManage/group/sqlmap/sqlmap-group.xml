@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 用户组管理 -->    
+<sqlMap namespace="group">
+  	<select id="findGroups" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		 select * from T_system_group where createId=#userId# order by GroupID 
+	</select>
+	
+	<!-- 插入用户组 -->
+	<insert id="insertGroup" parameterClass="java.util.HashMap" >
+		insert into t_system_group(groupId,groupName,groupDesc,createid)values(
+			#groupId#,#groupName#,#groupDesc#,#userId#
+		)
+    </insert>
+    
+    <!-- 插入用户组-角色 -->
+    <insert id="insertGroupRole" parameterClass="java.util.HashMap" >
+		insert into t_system_grouprole(grouproleId,groupid,roleId)values(
+			seqformat('t_system_grouprole'),#groupId#,#roleId#
+		)
+    </insert>
+    
+    <!-- 创建用户组ID -->
+    <select id="createNewId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		 select seq_t_system_group.nextval from dual
+	</select>
+	
+	<!-- 根据Id查询用户组 -->
+	<select id="findGroupByGroupId"
+		parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		select a.*,b.groupname,b.groupDesc from  t_system_grouprole a , (select * from t_system_group where groupId=#groupId#) b 
+		where a.groupid(+)=b.groupid
+	</select>
+	
+	<!-- 修改角色 -->
+	<update id="updateGroup" parameterClass="java.util.HashMap">
+		update t_system_group set groupName=#groupName# ,groupDesc=#groupDesc# 
+		where groupId=#groupId#
+	</update>
+	
+	<!-- 根据角色删除权限 -->
+	<delete id="deleteGroupRoleByGroupId" parameterClass="java.util.HashMap">
+    	delete t_system_GroupRole where groupid=#groupId#
+    </delete>
+    
+    <!-- 删除角色 -->
+	<delete id="deleteGroupByGroupId" parameterClass="java.util.HashMap">
+    	delete t_system_Group where groupid=#groupId#
+    </delete>
+    
+    <select id="findRoles" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		select e.* from T_system_role e  join( 
+		select distinct roleid from (
+		select a.roleid from t_system_grouprole a join (
+		select groupid from t_system_user where userid=#userId#)b on a.groupid=b.groupid 
+		union 
+		select roleid from t_system_role where createid=#userId#
+		)
+		)f
+ 		on e.roleid=f.roleid  order by e.roleid
+	</select>
+</sqlMap>

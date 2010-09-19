@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	自助平台|客户下订单
+	2009-12-17
+-->
+<sqlMap namespace="Order">	
+	<!-- 记录总数 -->
+	<select id="findOrderCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			 select count(1) 
+			 from  t_net_order t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="precprovince">t.recprovince='$precprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="preccity">t.reccity='$preccity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ppost">t.post='$ppost$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmailtype">t.mailtype='$pmailtype$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pclientremark">t.clientremark='$pclientremark$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingnum">t.orderingnum='$porderingnum$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingweight">t.orderingweight='$porderingweight$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbookingtime">t.bookingtime=cast(#pbookingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingtime">t.orderingtime=cast(#porderingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="precevingtime">t.recevingtime=cast(#precevingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingstate">t.orderingstate='$porderingstate$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+	</select>
+
+		
+	<!-- 查询记录，非分页 -->
+	<select id="findOrder" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id,t.name,t.unit,t.province, GetParValue('PROVINCEID_NAME',t.province) provincename,
+			t.city,GetParValue('CITYID_NAME',t.city) cityname,
+			t.county,GetParValue('COUNTYID_NAME',t.county) countyname,t.address,t.areacode,
+			t.tel,t.mobile,t.thirdparty,
+			t.recprovince,GetParValue('PROVINCEID_NAME',t.recprovince) recprovincename,
+			t.reccity,GetParValue('CITYID_NAME',t.reccity) reccityname,
+			t.post,t.mailtype,case when t.mailtype=0 then '物品型' else '文件型' end mailtypename,
+			t.clientremark,t.orderingnum,t.orderingweight,
+			to_char(t.bookingtime,'yyyy-mm-dd hh24:mi:ss') bookingtime,
+			to_char(t.orderingtime,'yyyy-mm-dd hh24:mi:ss') orderingtime,
+			to_char(T.recevingtime,'yyyy-mm-dd hh24:mi:ss') recevingtime,
+			t.orderingstate,GetParValue('SUBCODE_NAME',t.orderingstate) orderingvalue,
+			t.bill_state,t.addressid,t.plorderid,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(T.CREATE_DATE,'yyyy-mm-dd hh24:mi:ss') CREATE_DATE,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NAME,to_char(T.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date 
+			 from  t_net_order t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="precprovince">t.recprovince='$precprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="preccity">t.reccity='$preccity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ppost">t.post='$ppost$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmailtype">t.mailtype='$pmailtype$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pclientremark">t.clientremark='$pclientremark$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingnum">t.orderingnum='$porderingnum$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingweight">t.orderingweight='$porderingweight$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbookingtime">t.bookingtime=cast(#pbookingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingtime">t.orderingtime=cast(#porderingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="precevingtime">t.recevingtime=cast(#precevingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingstate">t.orderingstate='$porderingstate$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findOrderPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+			select t.id,t.name,t.unit,t.province, GetParValue('PROVINCEID_NAME',t.province) provincename,
+			t.city,GetParValue('CITYID_NAME',t.city) cityname,
+			t.county,GetParValue('COUNTYID_NAME',t.county) countyname,t.address,t.areacode,
+			t.tel,t.mobile,t.thirdparty,
+			t.recprovince,GetParValue('PROVINCEID_NAME',t.recprovince) recprovincename,
+			t.reccity,GetParValue('CITYID_NAME',t.reccity) reccityname,
+			t.post,t.mailtype,case when t.mailtype=0 then '物品型' else '文件型' end mailtypename,
+			t.clientremark,t.orderingnum,t.orderingweight,
+			to_char(t.bookingtime,'yyyy-mm-dd hh24:mi:ss') bookingtime,
+			to_char(t.orderingtime,'yyyy-mm-dd hh24:mi:ss') orderingtime,
+			to_char(T.recevingtime,'yyyy-mm-dd hh24:mi:ss') recevingtime,
+			t.orderingstate,GetParValue('SUBCODE_NAME',t.orderingstate) orderingvalue,
+			t.bill_state,t.addressid,t.plorderid,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(T.CREATE_DATE,'yyyy-mm-dd hh24:mi:ss') CREATE_DATE,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NAME,to_char(T.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+			 from  t_net_order t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pname">t.name='$pname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="punit">t.unit='$punit$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprovince">t.province='$pprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcity">t.city='$pcity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcounty">t.county='$pcounty$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="paddress">t.address='$paddress$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pareacode">t.areacode='$pareacode$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ptel">t.tel='$ptel$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmobile">t.mobile='$pmobile$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="precprovince">t.recprovince='$precprovince$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="preccity">t.reccity='$preccity$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="ppost">t.post='$ppost$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pmailtype">t.mailtype='$pmailtype$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pclientremark">t.clientremark='$pclientremark$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingnum">t.orderingnum='$porderingnum$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingweight">t.orderingweight='$porderingweight$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbookingtime">t.bookingtime=cast(#pbookingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingtime">t.orderingtime=cast(#porderingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="precevingtime">t.recevingtime=cast(#precevingtime# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderingstate">t.orderingstate='$porderingstate$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_code">t.editor_code='$peditor_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="peditor_date">t.editor_date=cast(#peditor_date# AS DATETIME)</isNotEmpty>	
+			order by  T.ID desc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertOrder"	parameterClass="java.util.HashMap" >
+		insert into t_net_order
+				(id
+				<isNotEmpty prepend="," property="pname">name</isNotEmpty>
+				<isNotEmpty prepend="," property="punit">unit</isNotEmpty>
+				<isNotEmpty prepend="," property="pprovince">province</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">city</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">county</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">address</isNotEmpty>
+				<isNotEmpty prepend="," property="pareacode">areacode</isNotEmpty>
+				<isNotEmpty prepend="," property="ptel">tel</isNotEmpty>
+				<isNotEmpty prepend="," property="pmobile">mobile</isNotEmpty>
+				<isNotEmpty prepend="," property="precprovince">recprovince</isNotEmpty>
+				<isNotEmpty prepend="," property="preccity">reccity</isNotEmpty>
+				<isNotEmpty prepend="," property="ppost">post</isNotEmpty>
+				<isNotEmpty prepend="," property="pmailtype">mailtype</isNotEmpty>
+				<isNotEmpty prepend="," property="pclientremark">clientremark</isNotEmpty>
+				<isNotEmpty prepend="," property="porderingnum">orderingnum</isNotEmpty>
+				<isNotEmpty prepend="," property="porderingweight">orderingweight</isNotEmpty>
+				<isNotEmpty prepend="," property="pbookingtime">bookingtime</isNotEmpty>
+				<isNotEmpty prepend="," property="porderingstate">orderingstate</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">create_code</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">editor_code</isNotEmpty>
+				<isNotEmpty prepend="," property="porderingtime">orderingtime</isNotEmpty>
+				<isNotEmpty prepend="," property="precevingtime">recevingtime</isNotEmpty>
+				<isNotEmpty prepend="," property="paddressid">addressid</isNotEmpty>
+				<isNotEmpty prepend="," property="pthirdparty">thirdparty</isNotEmpty>
+				,bill_state,create_date,editor_date)
+				 values 
+				(
+				<isNotEmpty prepend="" property="pidex">#pidex#</isNotEmpty>
+				<isEmpty prepend="" property="pidex">seqformat('t_net_order')</isEmpty>
+				<isNotEmpty prepend="," property="pname">#pname#</isNotEmpty>
+				<isNotEmpty prepend="," property="punit">#punit#</isNotEmpty>
+				<isNotEmpty prepend="," property="pprovince">#pprovince#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">#pcity#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">#pcounty#</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">#paddress#</isNotEmpty>
+				<isNotEmpty prepend="," property="pareacode">#pareacode#</isNotEmpty>
+				<isNotEmpty prepend="," property="ptel">#ptel#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmobile">#pmobile#</isNotEmpty>
+				<isNotEmpty prepend="," property="precprovince">#precprovince#</isNotEmpty>
+				<isNotEmpty prepend="," property="preccity">#preccity#</isNotEmpty>
+				<isNotEmpty prepend="," property="ppost">#ppost#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmailtype">#pmailtype#</isNotEmpty>
+				<isNotEmpty prepend="," property="pclientremark">#pclientremark#</isNotEmpty>
+				<isNotEmpty prepend="," property="porderingnum">#porderingnum#</isNotEmpty>
+				<isNotEmpty prepend="," property="porderingweight">#porderingweight#</isNotEmpty>
+				<isNotEmpty prepend="," property="pbookingtime">TO_DATE('$pbookingtime$','yyyy-mm-dd hh24:mi:ss')</isNotEmpty>
+				<isNotEmpty prepend="," property="porderingstate">#porderingstate#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">#pcreate_code#</isNotEmpty>
+				<isNotEmpty prepend="," property="peditor_code">#peditor_code#</isNotEmpty>
+				<isNotEmpty prepend="," property="porderingtime">sysdate</isNotEmpty>
+				<isNotEmpty prepend="," property="precevingtime">sysdate</isNotEmpty>
+				<isNotEmpty prepend="," property="paddressid">#paddressid#</isNotEmpty>
+				<isNotEmpty prepend="," property="pthirdparty">#pthirdparty#</isNotEmpty>
+		   		,1,sysdate,sysdate)
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteOrderById" parameterClass="java.util.HashMap">
+    	update t_net_order set bill_state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateOrderById" parameterClass="java.util.HashMap">
+		update t_net_order t set t.id=t.id
+			<isNotEmpty prepend="," property="pname">name=#pname#</isNotEmpty>
+			<isNotEmpty prepend="," property="punit">unit=#punit#</isNotEmpty>
+			<isNotEmpty prepend="," property="pprovince">province=#pprovince#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcity">city=#pcity#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcounty">county=#pcounty#</isNotEmpty>
+			<isNotEmpty prepend="," property="paddress">address=#paddress#</isNotEmpty>
+			<isNotEmpty prepend="," property="pareacode">areacode=#pareacode#</isNotEmpty>
+			<isNotEmpty prepend="," property="ptel">tel=#ptel#</isNotEmpty>
+			<isNotEmpty prepend="," property="pmobile">mobile=#pmobile#</isNotEmpty>
+			<isNotEmpty prepend="," property="precprovince">recprovince=#precprovince#</isNotEmpty>
+			<isNotEmpty prepend="," property="preccity">reccity=#preccity#</isNotEmpty>
+			<isNotEmpty prepend="," property="ppost">post=#ppost#</isNotEmpty>
+			<isNotEmpty prepend="," property="pmailtype">mailtype=#pmailtype#</isNotEmpty>
+			<isNotEmpty prepend="," property="pclientremark">clientremark=#pclientremark#</isNotEmpty>
+			<isNotEmpty prepend="," property="porderingnum">orderingnum=#porderingnum#</isNotEmpty>
+			<isNotEmpty prepend="," property="porderingweight">orderingweight=#porderingweight#</isNotEmpty>
+			<isNotEmpty prepend="," property="pbookingtime">bookingtime=TO_DATE('$pbookingtime$','yyyy-mm-dd hh24:mi:ss')</isNotEmpty>
+			<isNotEmpty prepend="," property="porderingtime">orderingtime=sysdate</isNotEmpty>
+			<isNotEmpty prepend="," property="precevingtime">recevingtime=sysdate</isNotEmpty>
+			<isNotEmpty prepend="," property="porderingstate">orderingstate=#porderingstate#</isNotEmpty>
+			<isNotEmpty prepend="," property="pcreate_code">create_code=#pcreate_code#</isNotEmpty>
+			<isNotEmpty prepend="," property="peditor_code">editor_code=#peditor_code#</isNotEmpty>
+			<isNotEmpty prepend="," property="peditor_date">editor_date=sysdate</isNotEmpty>
+			<isNotEmpty prepend="," property="paddressid">addressid=#paddressid#</isNotEmpty>
+		where id=#pid# and t.bill_state &lt;&gt;0
+	</update>
+	
+	
+	<!-- 默认地址信息
+select m.* from
+(
+)m 
+where  rownum=1	
+	-->
+	<select id="setAddress" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id,t.province,GetParValue('PROVINCEID_NAME',t.province) provincename,
+			t.city,GetParValue('CITYID_NAME',t.city) cityname,
+			t.county,GetParValue('COUNTYID_NAME',t.county) countyname,
+			t.address,t.ischeck,case when t.ischeck=1 then '是' else '否' end ischeckname,
+			t.bill_type,case when t.bill_type=1 then '是' else '否' end bill_typename,t.bill_state,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+			t.editor_code,GetParValue('USERID_USERNAME',T.EDITOR_CODE) EDITOR_NANE,to_char(t.editor_date,'yyyy-mm-dd hh24:mi:ss') editor_date
+			from  t_arichive_address t where T.bill_state &lt;&gt;0 and T.ischeck=1 
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			order by  T.ischeck desc 
+	</select>
+	
+	
+	<!-- 订单数增加 -->
+	<update id="addordernum" parameterClass="java.util.HashMap">
+		update T_Archives_User t set ordernum=ordernum+1 
+		where t.id='$ORDERID$'
+	</update>	
+	<!-- 揽收成功总数数增加 -->
+	<update id="addsuccessnum" parameterClass="java.util.HashMap">
+		update T_Archives_User t set successnum=successnum+1 
+		where t.id in (select create_code from  t_net_order where id='$ORDERID$' and rownum=1)
+	</update>
+</sqlMap>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	网上下单(与派揽系统之间的通信)
+	2009-12-30
+-->
+<sqlMap namespace="Communicate">	
+    <!--********************发送信息***************************** -->
+ 	<!-- 新增单据 -->
+	<select id="clientadd" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		 select t.id ORDERID,u.id CLIENTID,u.clientcode,u.ordernum,u.SUCCESSNUM,
+		 t.name CUSTNAME,t.tel,t.mobile,GetParValue('PROVINCEID_NAME',t.province) PROVINCE,
+		 GetParValue('CITYID_NAME',t.city) city,GetParValue('COUNTYID_NAME',t.county) county,
+		 t.addressid, t.address,case when t.mailtype=0 then '物品' else '文件' end MAILTYPE,
+		 to_char(t.bookingtime,'yyyy-mm-dd hh24:mi:ss') bookingtime,t.orderingnum,t.orderingweight,t.thirdparty,
+		 t.clientremark	from  t_net_order t left outer join T_Archives_User u on t.create_code=u.id
+		 where T.bill_state &lt;&gt;0  and u.bill_state &lt;&gt;0
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>			order by  T.ID desc
+	</select>   
+  	<!-- 客户修改 -->
+	<select id="clientmodify" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		 select t.id ORDERID,t.clientremark	from  t_net_order t 
+		 where T.bill_state &lt;&gt;0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>			order by  T.ID desc
+	</select>     
+	<!-- 客户撤单 -->
+	<select id="clientcancel" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		 select t.id ORDERID,t.clientremark	from  t_net_order t 
+		 where T.bill_state &lt;&gt;0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>			order by  T.ID desc
+	</select>  
+	<!-- 客户催揽 -->
+	<select id="clienthurry" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		 select t.id ORDERID,t.clientremark	from  t_net_order t
+		 where T.bill_state &lt;&gt;0
+		<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>			order by  T.ID desc
+	</select>
+	
+    <!--************************接收信息************************* -->
+   		<!-- 修改单据状态 -->
+    	<!--删除记录 -->
+		<update id="modifyBillState" parameterClass="java.util.HashMap">
+	    	update t_net_order set orderingstate=#orderingstate#
+	    	<isNotEmpty prepend="," property="pplorderid">plorderid=#pplorderid# </isNotEmpty>
+	    	<isNotEmpty prepend="," property="pclientremark">clientremark=#pclientremark#</isNotEmpty>
+	    	where id=#ORDERID#
+	    </update>
+	 
+	
+		<!-- 第三方，福建出入境局的访问 2010-06-21-->
+		<insert id="insertImmigration"	parameterClass="java.util.HashMap" >
+			insert into t_net_immigration(id
+				<isNotEmpty prepend="," property="ptblno">tblno</isNotEmpty>
+				<isNotEmpty prepend="," property="pbarcode">barcode</isNotEmpty>
+				<isNotEmpty prepend="," property="psemscontactor">semscontactor</isNotEmpty>
+				<isNotEmpty prepend="," property="psaddress">saddress</isNotEmpty>
+				<isNotEmpty prepend="," property="psphone">sphone</isNotEmpty>
+				<isNotEmpty prepend="," property="ppassno">passno</isNotEmpty>
+				<isNotEmpty prepend="," property="pcbtype1">cbtype1</isNotEmpty>
+				<isNotEmpty prepend="," property="pmoney1">money1</isNotEmpty>
+				<isNotEmpty prepend="," property="pcbtype2">cbtype2</isNotEmpty>
+				<isNotEmpty prepend="," property="pmoney2">money2</isNotEmpty>
+				<isNotEmpty prepend="," property="pexaminearea">examinearea</isNotEmpty>
+				<isNotEmpty prepend="," property="porderid">orderid</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">address</isNotEmpty>
+				,bill_state,getdate,result,remark 
+			)values (
+				seqformat('t_net_immigration')
+				<isNotEmpty prepend="," property="ptblno">#ptblno#</isNotEmpty>
+				<isNotEmpty prepend="," property="pbarcode">#pbarcode#</isNotEmpty>
+				<isNotEmpty prepend="," property="psemscontactor">#psemscontactor#</isNotEmpty>
+				<isNotEmpty prepend="," property="psaddress">#psaddress#</isNotEmpty>
+				<isNotEmpty prepend="," property="psphone">#psphone#</isNotEmpty>
+				<isNotEmpty prepend="," property="ppassno">#ppassno#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcbtype1">#pcbtype1#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmoney1">#pmoney1#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcbtype2">#pcbtype2#</isNotEmpty>
+				<isNotEmpty prepend="," property="pmoney2">#pmoney2#</isNotEmpty>
+				<isNotEmpty prepend="," property="pexaminearea">#pexaminearea#</isNotEmpty>
+				<isNotEmpty prepend="," property="porderid">#porderid#</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">#paddress#</isNotEmpty>
+		   		,1,sysdate,'0',' ')
+	    </insert>
+		
+		<update id="modifyImmigration" parameterClass="java.util.HashMap">
+	    	update t_net_immigration set getdate=sysdate
+	    	<isNotEmpty prepend="," property="presult">result=#presult#</isNotEmpty>
+	    	<isNotEmpty prepend="," property="pclientremark">remark=#pclientremark#</isNotEmpty>
+	    	where orderid=#ORDERID#
+	    </update>
+	    
+	    <select id="findImmigration" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.tblno,t.barcode,t.getdate,t.result,t.remark 
+			from  t_net_immigration t
+			where orderid=#ORDERID#
+		</select>
+		<!-- 分析getSemscontactor()取证联系人得到省市县编号 -->
+		<select id="gerCodeImmigration" parameterClass="java.lang.String" resultClass="java.lang.String" remapResults="true">
+	    	select to_char(CodeImmigration('$paddress$')) from dual
+		</select>
+
+
+
+
+
+		
+		
+			 
+	    <!-- 第三方，中国移动12580 2010-09-13-->
+		<insert id="insertYd12580"	parameterClass="java.util.HashMap">
+			insert into t_net_yd12580(id
+				<isNotEmpty prepend="," property="pno">no</isNotEmpty>
+				<isNotEmpty prepend="," property="pcontactor">contactor</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">address</isNotEmpty>
+				<isNotEmpty prepend="," property="pphone">phone</isNotEmpty>
+				<isNotEmpty prepend="," property="pproduct">product</isNotEmpty>
+				<isNotEmpty prepend="," property="pprice">price</isNotEmpty>
+				<isNotEmpty prepend="," property="pisfee">isfee</isNotEmpty>
+				<isNotEmpty prepend="," property="pspec">spec</isNotEmpty>
+				<isNotEmpty prepend="," property="pprovince">province</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">city</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">county</isNotEmpty>
+				<isNotEmpty prepend="," property="ppostcode">postcode</isNotEmpty>
+				<isNotEmpty prepend="," property="porderid">orderid</isNotEmpty>
+				<isNotEmpty prepend="," property="precprovince">recprovince</isNotEmpty>
+				<isNotEmpty prepend="," property="preccity">reccity</isNotEmpty>
+				<isNotEmpty prepend="," property="preccounty">reccounty</isNotEmpty>
+				<isNotEmpty prepend="," property="precname">recname</isNotEmpty>
+				<isNotEmpty prepend="," property="precaddress">recaddress</isNotEmpty>
+				<isNotEmpty prepend="," property="prectel">rectel</isNotEmpty>
+				,bill_state,rectime,result,recdesc 
+			)values (
+				seqformat('t_net_yd12580')
+				<isNotEmpty prepend="," property="pno">#pno#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcontactor">#pcontactor#</isNotEmpty>
+				<isNotEmpty prepend="," property="paddress">#paddress#</isNotEmpty>
+				<isNotEmpty prepend="," property="pphone">#pphone#</isNotEmpty>
+				<isNotEmpty prepend="," property="pproduct">#pproduct#</isNotEmpty>
+				<isNotEmpty prepend="," property="pprice">#pprice#</isNotEmpty>
+				<isNotEmpty prepend="," property="pisfee">#pisfee#</isNotEmpty>
+				<isNotEmpty prepend="," property="pspec">#pspec#</isNotEmpty>
+				<isNotEmpty prepend="," property="pprovince">#pprovince#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcity">#pcity#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcounty">#pcounty#</isNotEmpty>
+				<isNotEmpty prepend="," property="ppostcode">#ppostcode#</isNotEmpty>
+				<isNotEmpty prepend="," property="porderid">#porderid#</isNotEmpty>
+				<isNotEmpty prepend="," property="precprovince">#precprovince#</isNotEmpty>
+				<isNotEmpty prepend="," property="preccity">#preccity#</isNotEmpty>
+				<isNotEmpty prepend="," property="preccounty">#preccounty#</isNotEmpty>
+				<isNotEmpty prepend="," property="precname">#precname#</isNotEmpty>
+				<isNotEmpty prepend="," property="precaddress">#precaddress#</isNotEmpty>
+				<isNotEmpty prepend="," property="prectel">#prectel#</isNotEmpty>
+		   		,1,sysdate,'0',' ')
+	    </insert>
+		
+		
+		<update id="modifyYd12580" parameterClass="java.util.HashMap">
+	    	update t_net_yd12580 set rectime=sysdate
+	    	<isNotEmpty prepend="," property="presult">result=#presult#</isNotEmpty>
+	    	<isNotEmpty prepend="," property="pclientremark">recdesc=#pclientremark#</isNotEmpty>
+	    	where orderid=#ORDERID#
+	    </update>
+	    
+	    <select id="findYd12580" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.no,t.rectime,t.result,t.recdesc
+			from  t_net_yd12580 t
+			where t.orderid=#ORDERID#
+		</select>
+		
+		<!-- 分析从名称到编号取证联系人得到省市县编号 -->
+		<select id="gerCodeYd12580" parameterClass="java.util.HashMap" resultClass="java.lang.String" remapResults="true">
+	    	select to_char(GetParValue('$type$','$value$')) from dual
+		</select>
+</sqlMap>
