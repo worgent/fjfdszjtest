@@ -1,0 +1,9 @@
+#Fri Aug 13 11:30:25 CST 2010
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/BackModual/main/adminLeft.jsp=UTF-8
+encoding//WebRoot/WEB-INF/BackModual/permission/menuxml.ftl=UTF-8
+encoding//WebRoot/js/index_query.js=utf-8
+encoding//src/com/qzgf/utils/Util.java=UTF-8
+encoding//src/com/qzgf/utils/comm/Constant.java=utf-8
+encoding//src/com/qzgf/webutils/interceptor/UserLoginInterceptor.java=utf-8
+encoding/<project>=utf-8

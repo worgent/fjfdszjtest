@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	自助平台|客户下订单
+	2009-12-17
+-->
+<sqlMap namespace="ProLog">	
+	<!-- 记录总数 -->
+	<select id="findProLogCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			 select count(1) 
+			 from  t_net_prolog t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderid">t.orderid='$porderid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pproname">t.proname='$pproname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprocontent">t.procontent='$pprocontent$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+	</select>
+
+		
+	<!-- 查询记录，非分页 GetParValue('USERID_USERNAME',T.procode) proname-->
+	<select id="findProLog" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id,t.orderid,t.bill_state,
+			T.proname,
+			t.procontent,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date 
+			 from  t_net_prolog t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderid">t.orderid='$porderid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pproname">t.proname='$pproname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprocontent">t.procontent='$pprocontent$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			order by  T.ID asc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findProLogPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * 
+        	from (select row_limit.*,rownum rownum_ 
+        		    from(
+			select t.id,t.orderid,t.bill_state,
+			T.proname,
+			t.procontent,
+			t.create_code,GetParValue('USERID_USERNAME',T.create_code) create_name,to_char(t.create_date,'yyyy-mm-dd hh24:mi:ss') create_date 
+			 from  t_net_prolog t where T.bill_state &lt;&gt;0 
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="porderid">t.orderid='$porderid$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pbill_state">t.bill_state='$pbill_state$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pproname">t.proname='$pproname$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pprocontent">t.procontent='$pprocontent$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_code">t.create_code='$pcreate_code$'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="pcreate_date">t.create_date=cast(#pcreate_date# AS DATETIME)</isNotEmpty>
+			order by  T.ID asc
+					 )row_limit where rownum &lt;=$END$
+				) where rownum_&gt;= $START$
+	</select>	
+	
+	<!-- 增加记录 -->
+	<insert id="insertProLog"	parameterClass="java.util.HashMap" >
+		insert into t_net_prolog
+				(id
+				<isNotEmpty prepend="," property="porderid">orderid</isNotEmpty>
+				<isNotEmpty prepend="," property="pproname">proname</isNotEmpty>
+				<isNotEmpty prepend="," property="pprocontent">procontent</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">create_code</isNotEmpty>
+				,bill_state,create_date)
+				 values 
+				(seqformat('t_net_prolog')	
+				<isNotEmpty prepend="," property="porderid">#porderid#</isNotEmpty>
+				<isNotEmpty prepend="," property="pproname">#pproname#</isNotEmpty>
+				<isNotEmpty prepend="," property="pprocontent">#pprocontent#</isNotEmpty>
+				<isNotEmpty prepend="," property="pcreate_code">#pcreate_code#</isNotEmpty>
+		   		,1,sysdate)
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteProLogById" parameterClass="java.util.HashMap">
+    	update t_net_prolog set bill_state=0
+    	where id=#pid#
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateProLogById" parameterClass="java.util.HashMap">
+		update t_net_prolog t set t.id=t.id
+		<isNotEmpty prepend="," property="porderid">orderid=#porderid#</isNotEmpty>
+		<isNotEmpty prepend="," property="pbill_state">bill_state=#pbill_state#</isNotEmpty>
+		<isNotEmpty prepend="," property="pproname">proname=#pproname#</isNotEmpty>
+		<isNotEmpty prepend="," property="pprocontent">procontent=#pprocontent#</isNotEmpty>
+		where id=#pid# and t.bill_state &lt;&gt;0
+	</update>
+</sqlMap>

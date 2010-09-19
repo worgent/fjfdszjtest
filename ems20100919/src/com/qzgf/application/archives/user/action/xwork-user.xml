@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 地图名片
+	* @author lsr 
+-->
+<struts>
+	<package name="user" extends="archives" namespace="/archives">
+	    <!-- 用户信息管理 -->
+		<action name="user" class="userAction">
+		    <!-- ==================后台管理人员审核========================= -->
+		    <!-- 列表信息 -->
+			<result name="list">/WEB-INF/BackModual/Archives/User/userList.jsp</result>
+			<!-- 列表信息 -->
+			<result name="listdetail">/WEB-INF/BackModual/Archives/User/userListDetail.jsp</result>
+			<!-- 编辑,审核 -->
+			<result name="edit">/WEB-INF/BackModual/Archives/User/userEdit.jsp</result>
+
+			<!-- ===================个人用户操作============================= -->
+			<result name="changepwd">/WEB-INF/BackModual/Archives/User/userChangepwd.jsp</result>
+			<result name="changeuser">/WEB-INF/BackModual/Archives/User/userChangeuser.jsp</result>
+
+
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/login.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>	
+	    <!-- 用户信息管理 -->
+		<action name="area" class="userAction" method="area">
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="xmlex" type="freemarker">
+				<param name="location">/WEB-INF/xmlex.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>				
+	</package>
+</struts>

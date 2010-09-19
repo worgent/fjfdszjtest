@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="UploadExcelTwo">
+
+	<insert id="insertUploadExcelTwo" parameterClass="java.util.HashMap">
+		insert into tuploadexcel(ID
+		<isNotEmpty prepend="," property="numberStr">number</isNotEmpty>
+		<isNotEmpty prepend="," property="userNameStr">userName</isNotEmpty>
+		<isNotEmpty prepend="," property="BrandStr">Brand</isNotEmpty>
+		<isNotEmpty prepend="," property="fileNameStr">fileName</isNotEmpty>)
+		values(pb_get_sequences(@in_seq_name := 'uploadExcel')
+		<isNotEmpty prepend="," property="numberStr">#numberStr#</isNotEmpty>
+		<isNotEmpty prepend="," property="userNameStr">#userNameStr#</isNotEmpty>
+		<isNotEmpty prepend="," property="BrandStr">#BrandStr#</isNotEmpty>
+		<isNotEmpty prepend="," property="fileNameStr">#fileNameStr#</isNotEmpty>
+		);
+	</insert>
+
+	  <select id="isExistNumberTwo"
+		parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select  count(*)  from  tuploadexcel where number=#numberStr#
+	  </select>
+	  
+	  <!-- 导入时候存在的号码 直接更新 -->
+	  <update id="updateUploadExcelTwo" parameterClass="java.util.HashMap">
+		 update tuploadexcel set  fileName=#fileNameStr#
+		  <isNotEmpty prepend="," property="userNameStr">userName=#userNameStr#</isNotEmpty>
+		  <isNotEmpty prepend="," property="BrandStr">Brand=#BrandStr#</isNotEmpty>
+		  where number=#numberStr#;
+	  </update>
+	  
+	 
+	  
+	<select id="findUploadExcelTwoOnlyList" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap">
+		select * from tuploadexcel where id=#id#;
+	</select>
+	
+
+		<!-- 导入时候存在的号码 直接更新 -->
+		
+		
+	  <update id="updateSaveUploadExcelTwo" parameterClass="java.util.HashMap">
+		 update tuploadexcel set money=#money#
+		 <isNotEmpty prepend="," property="Operators">Operators=#Operators#</isNotEmpty>
+		 <isNotEmpty prepend="," property="userName">userName=#userName#</isNotEmpty>
+		 <isNotEmpty prepend="," property="address">address=#address#</isNotEmpty>
+		 <isNotEmpty prepend="," property="payNet">payNet=#payNet#</isNotEmpty>
+		 <isNotEmpty prepend="," property="updateNet">updateNet=#updateNet#</isNotEmpty>
+		  where number=#number#;
+	  </update>
+	  
+	  
+	   <select id="findUploadExcelTwoQueryCount"
+		parameterClass="java.util.HashMap" resultClass="java.lang.Integer"
+		remapResults="true">
+		select count(*) from tuploadexcel where 1=1
+	     <isNotEmpty prepend="and" property="Operators">
+			Operators = #Operators#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="and" property="number">
+			number = #number#
+	     </isNotEmpty>
+	      <isNotEmpty prepend="and" property="userName">
+			userName = #userName#
+	     </isNotEmpty>
+	      <isNotEmpty prepend="and" property="address">
+			address = #address#
+	     </isNotEmpty>
+	     
+	     <isNotEmpty prepend="and" property="KSRQ"> 
+			  JFtime between   #KSRQ#  and #JSRQ#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="and" property="payNet"> 
+	      payNet=#payNet#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="and" property="fileName"> 
+	      fileName=#fileName#
+	     </isNotEmpty>
+		</select> 
+	  <select id="UploadExcelTwoQueryList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	      select id,number,userName,address,Brand,cast(JFtime as char) JFtime,cast( money as char) money,payNet,
+	      updateNet,cast(ImportTime as char) ImportTime,Operators,fileName from  tuploadexcel where 1=1
+	      
+	     <isNotEmpty prepend="and" property="Operators">
+			Operators = #Operators#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="and" property="number">
+			number = #number#
+	     </isNotEmpty>
+	      <isNotEmpty prepend="and" property="userName">
+			userName = #userName#
+	     </isNotEmpty>
+	      <isNotEmpty prepend="and" property="address">
+			address = #address#
+	     </isNotEmpty>
+	     
+	     <isNotEmpty prepend="and" property="KSRQ"> 
+			  JFtime between   #KSRQ#  and #JSRQ#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="and" property="payNet"> 
+	      payNet=#payNet#
+	     </isNotEmpty>
+	     <isNotEmpty prepend="and" property="fileName"> 
+	      fileName=#fileName#
+	     </isNotEmpty>
+	     
+	       <isNotEmpty prepend=" " property="START">
+		   limit $START$ , $END$
+		</isNotEmpty>
+	  </select>
+	  
+	  <delete id="deleteUploadExcel" parameterClass="java.lang.String">
+	     delete from tuploadexcel where id=#id#
+	  </delete>
+	  
+	  
+	  
+	  
+	  
+</sqlMap>
