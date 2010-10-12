@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<!-- 存放手写的sql -->
+<mapper namespace="WoTask">
+	<resultMap id="WoTask.WoTaskfield" type="com.womobile.task.model.WoTaskfield">
+        <result property="fieldId" column="field_id"/>
+        <result property="field1" column="field_1"/>
+        <result property="field2" column="field_2"/>
+        <result property="field3" column="field_3"/>
+        <result property="field4" column="field_4"/>
+        <result property="field5" column="field_5"/>
+        <result property="field6" column="field_6"/>
+        <result property="field7" column="field_7"/>
+        <result property="field8" column="field_8"/>
+        <result property="field9" column="field_9"/>
+        <result property="field10" column="field_10"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="WoTask.columns">
+	    <![CDATA[
+		field_id,field_1,field_2,field_3,field_4,field_5,field_6,field_7,field_8,field_9,field_10
+	    ]]>
+	</sql>
+
+	<!-- 查询要作单自定义字段 
+	<select id="WoTask.findTaskField" resultMap="com.womobile.task.model.WoTaskfield">
+    	SELECT fieldId,field_1,field_2,field_3,field_4,field_5,field_6,field_7,field_8,field_9,field_10 
+	    FROM wo_taskfield where field_id=1
+    </select>
+    -->
+    <select id="WoTask.findTaskField" resultMap="WoTask.WoTaskfield">
+		SELECT <include refid="WoTask.columns" />
+	    <![CDATA[
+		    FROM wo_taskfield 
+	        WHERE 
+		        field_id = 1
+	    ]]>
+	</select>
+    
+</mapper>
+

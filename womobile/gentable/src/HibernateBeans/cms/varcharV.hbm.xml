@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="HibernateBeans.cms.varcharV" table="VARCHAR_V">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="e_id" type="int" column="e_id"/>
+        <property name="a_id" type="int" column="a_id"/>
+        <property name="varcharV" type="string" column="varcharV"/>
+    </class>
+</hibernate-mapping>

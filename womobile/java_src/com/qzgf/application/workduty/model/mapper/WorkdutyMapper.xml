@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="Workduty">
+
+	<resultMap id="RM.Workduty" type="com.qzgf.application.workduty.model.Workduty">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="detail" column="detail"/>
+        <result property="adjunct" column="adjunct"/>
+        <result property="target" column="target"/>
+        <result property="format" column="format"/>
+        <result property="proid" column="proid"/>
+        <result property="attitude" column="attitude"/>
+        <result property="grade" column="grade"/>
+        <result property="isend" column="isend"/>
+        <result property="deploymentid" column="deploymentid"/>
+        <result property="levelid" column="levelid"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Workduty.columns">
+	    <![CDATA[
+		id,title,detail,adjunct,target,format,proid,attitude,grade,isend,deploymentid,levelid
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="Workduty.insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO workduty (
+        	id ,
+        	title ,
+        	detail ,
+        	adjunct ,
+        	target ,
+        	format ,
+        	proid ,
+        	attitude ,
+        	grade ,
+        	isend ,
+        	deploymentid ,
+        	levelid 
+        ) VALUES (
+        	#{id} ,
+        	#{title} ,
+        	#{detail} ,
+        	#{adjunct} ,
+        	#{target} ,
+        	#{format} ,
+        	#{proid} ,
+        	#{attitude} ,
+        	#{grade} ,
+        	#{isend} ,
+        	#{deploymentid} ,
+        	#{levelid} 
+        )
+    ]]>
+		<!--	
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			DB2: order="BEFORE"" values nextval for sequenceName
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		-->
+	</insert>
+    
+	<update id="Workduty.update" >
+    <![CDATA[
+        UPDATE workduty SET
+	        title = #{title} ,
+	        detail = #{detail} ,
+	        adjunct = #{adjunct} ,
+	        target = #{target} ,
+	        format = #{format} ,
+	        proid = #{proid} ,
+	        attitude = #{attitude} ,
+	        grade = #{grade} ,
+	        isend = #{isend} ,
+	        deploymentid = #{deploymentid} ,
+	        levelid = #{levelid} 
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+
+    <delete id="Workduty.delete">
+    <![CDATA[
+        DELETE FROM workduty WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="Workduty.getById" resultMap="RM.Workduty">
+		SELECT <include refid="Workduty.columns" />
+	    <![CDATA[
+		    FROM workduty 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+	<sql id="Workduty.findPage.where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(id)">
+				AND id = #{id}
+			</if>
+	       <if test="@Ognl@isNotEmpty(title)">
+				AND title = #{title}
+			</if>
+	       <if test="@Ognl@isNotEmpty(detail)">
+				AND detail = #{detail}
+			</if>
+	       <if test="@Ognl@isNotEmpty(adjunct)">
+				AND adjunct = #{adjunct}
+			</if>
+	       <if test="@Ognl@isNotEmpty(target)">
+				AND target = #{target}
+			</if>
+	       <if test="@Ognl@isNotEmpty(format)">
+				AND format = #{format}
+			</if>
+	       <if test="@Ognl@isNotEmpty(proid)">
+				AND proid = #{proid}
+			</if>
+	       <if test="@Ognl@isNotEmpty(attitude)">
+				AND attitude = #{attitude}
+			</if>
+	       <if test="@Ognl@isNotEmpty(grade)">
+				AND grade = #{grade}
+			</if>
+	       <if test="@Ognl@isNotEmpty(isend)">
+				AND isend = #{isend}
+			</if>
+	       <if test="@Ognl@isNotEmpty(deploymentid)">
+				AND deploymentid = #{deploymentid}
+			</if>
+	       <if test="@Ognl@isNotEmpty(levelid)">
+				AND levelid = #{levelid}
+			</if>
+		</where>
+	</sql>
+		
+    <select id="Workduty.findPage.count" resultType="long">
+        SELECT count(*) FROM workduty 
+		<include refid="Workduty.findPage.where"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="Workduty.findPage" resultMap="RM.Workduty">
+    	SELECT <include refid="Workduty.columns" />
+	    FROM workduty 
+		<include refid="Workduty.findPage.where"/>
+		
+		<if test="@Ognl@isNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+</mapper>
+

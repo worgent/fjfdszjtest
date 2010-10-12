@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="HibernateBeans.cms.attribute" table="ATTRIBUTE" lazy="false">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="string" column="name" length="50"/>
+        <property name="sort" type="int" column="sort"/>
+        <property name="type" type="string" column="type" length="20"/>
+        <property name="legth" type="int" column="legth"/>
+        <property name="lockme" type="boolean" column="lockme"/>
+        <property name="listColumn" type="boolean" column="listColumn"/>
+        <property name="newEdit" type="boolean" column="newEdit"/>
+        <property name="updateEdit" type="boolean" column="updateEdit"/>
+        <property name="valueList" type="int" column="valueList"/>
+        <property name="defaultValue" type="string" column="defaultValue"/>
+        <property name="position" type="string" column="position" length="20"/>
+        <many-to-one name="cmsclass" class="HibernateBeans.cms.cmsClass" not-null="true" fetch="select" lazy="false">
+        <column name="cid" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
