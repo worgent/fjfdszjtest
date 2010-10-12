@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<!-- 
+修改说明:
+	1.修改pakcage的namespace属性,因为URL访问规则是: /namesapce/Entity/method.do 
+	2.根据你的包结构修改action节点的class属性 
+ -->
+ 
+<struts>
+
+    <constant name="struts.devMode" value="true" />
+    <!-- struts的URL扩展名 -->
+ 	<constant name="struts.action.extension" value="do" />
+ 	
+ 	<!-- 允许访问静态成员变量 -->
+ 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+ 	
+    <constant name="struts.custom.i18n.resources" value="i18n/messages"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.enable.SlashesInActionNames" value="true" />
+
+	<package name="custom-default" extends="struts-default">
+        <result-types>
+            <result-type name="direct" class="cn.org.rapid_framework.struts2.dispatcher.DirectResult"/>
+        </result-types>
+        <interceptors>
+        	<!-- 提供视图渲染的共享变量拦截器 -->
+        	<interceptor name="sharedRenderVariableInterceptor" class="javacommon.struts2.interceptor.SharedRenderVariableInterceptor"/>
+            <interceptor-stack name="customDefaultCrudStack">
+                <interceptor-ref name="paramsPrepareParamsStack"/>
+                <interceptor-ref name="sharedRenderVariableInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="customDefaultCrudStack"/>
+  	</package>
+ 
+ 
+
+  	<!-- 渠道巡访 2010-09-23 -->
+    <package name="perambulate" namespace="/perambulate" extends="custom-default">
+		<!-- 通过URL访问的路径是 /namesapce/Entity/method.do -->
+		<action name="*/*" method="{2}" class="com.qzgf.application.perambulate.action.{1}Action">
+		    <result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+		</action>	
+    </package>   
+    
+   <package name="workduty" namespace="/workduty" extends="custom-default">
+		<!-- 通过URL访问的路径是 /namesapce/Entity/method.do -->
+		<action name="*/*" method="{2}" class="com.qzgf.application.workduty.action.{1}Action">
+		    <result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+		</action>	
+    </package> 
+       	
+  	<!-- 修改为你自己的namespace -->
+    <package name="default" namespace="/test" extends="custom-default">
+		
+		<!-- 通过URL访问的路径是 /namesapce/Entity/method.do -->
+		<action name="*/*" method="{2}" class="com.company.test.action.{1}Action">
+		    <result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+		</action>
+		
+		<!-- 流程整合测试 http://localhost:8080/womobile/test/jbpmtest.do -->
+		<action name="jbpmtest" method="testJbpm" class="com.company.test.action.TestAction">
+		    <result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+		</action>		
+    </package>
+    
+    <!-- 渠道采集 -->
+    <package name="collect" namespace="/collect" extends="custom-default">
+		<!-- 通过URL访问的路径是 /collect/WoTask/method.do -->
+		<action name="*/*" method="{2}" class="com.womobile.collect.action.{1}Action">
+		    <result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+		</action>
+    </package>
+    
+    <package name="task" namespace="/task" extends="custom-default">
+		<!-- 通过URL访问的路径是 /collect/WoTask/method.do -->
+		<action name="*/*" method="{2}" class="com.womobile.task.action.{1}Action">
+		    <result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+		</action>
+    </package>
+
+     <!-- 全局 -->
+ 	<package name="global" namespace="/" extends="struts-default">
+ 		<global-results>
+ 			<result type="redirect">index.do</result>
+ 			<result name="login" >test/leave/login.jsp</result>
+ 		</global-results>
+    </package>  
+    <package name="web" namespace="/" extends="global">
+ 		<interceptors>
+			<interceptor name="sysInterceptor" class="com.zwl.interceptor.SysInterceptor">
+			</interceptor>
+			<interceptor-stack name="myAdminStack">
+				<interceptor-ref name="sysInterceptor">
+				</interceptor-ref> 
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myAdminStack" />
+		
+		<action name="login" class="com.zwl.action.JbpmAction" method="login">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+		<action name="view" class="com.zwl.action.JbpmAction" method="view">
+			<result>test/leave/view.jsp</result>
+		</action>
+
+		<action name="manager" class="com.zwl.action.JbpmAction" method="manager">
+			<result>test/leave/manager.jsp</result>
+		</action>
+
+		<action name="boss" class="com.zwl.action.JbpmAction" method="boss">
+			<result>test/leave/boss.jsp</result>
+		</action>
+		
+		<action name="*" class="com.zwl.action.JbpmAction" method="{1}">
+		</action>
+		
+		<action name="index" class="com.zwl.action.JbpmAction" method="loadIndexPage">
+			<result>test/leave/index.jsp</result>
+		</action>
+    </package>
+    <!-- 渠道采集 -->
+    <package name="sys" namespace="/sys" extends="custom-default">
+		<!-- 通过URL访问的路径是 /collect/WoTask/method.do -->
+		<action name="*/*" method="{2}" class="com.womobile.sysmanage.login.action.{1}Action">
+		    <result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+		</action>
+    </package>
+    
+</struts>

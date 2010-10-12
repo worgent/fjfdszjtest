@@ -1,0 +1,111 @@
+table {
+	FONT-SIZE: 9pt;
+	border-color:#336666;
+	/*border-style:hidden;*/
+	border-collapse: separate;
+	table-layout: auto;
+	border-collapse: collapse;
+}
+tr.title{
+background-color:#336666;
+color:#FFFFFF;
+text-align:center;
+font-weight:bold;
+font-size:14px;
+letter-spacing:5px;
+height:25px;
+} 
+tr.second{
+background-color:#99CCCC;
+font-weight:bold;
+color:#336666;
+text-align:center;
+height:25px;
+}
+a{
+	color: #336666;
+	text-decoration:none;
+}
+a:link {
+	color: #336666;
+	text-decoration:none;
+}
+a:visited {
+	color: #336666;	
+	text-decoration:none;
+}
+a:hover {
+   color: #669999;
+   text-decoration:none;
+}
+a:active {
+	color: #336666;
+	text-decoration:none;
+}
+/*********************gird begin********************************************/
+tr.gird
+{
+height:25px;
+line-height:25px;
+}
+tr.gird:hover
+{
+background-color:#CCFFCC;
+background:#CCFFCC;
+}
+tr.gird:active
+{
+background-color:#FFFF99;
+background:#FFFF99;
+}
+tr.gird:visited
+{
+background-color:#FFFF99;
+background:#FFFF99;
+}
+
+tr.gird td:hover
+{
+background-color:#99FFCC;
+background:#99FFCC;
+}
+tr.gird td:active
+{
+background-color:#FFFF66;
+background:#FFFF66;
+}
+tr.gird td:visited
+{
+background-color:#FFFF99;
+background:#FFFF99;
+}
+/*********************gird end********************************************/
+input[type=text],input[type=password]
+{
+background-color:#F4F4F4;
+background:#F4F4F4;
+border-top:thin dotted #FFFFFF;
+border-bottom:thin dotted #FFFFFF;
+border-left:thin dotted #FFFFFF;
+border-right:thin dotted #FFFFFF;
+}
+input[type=text]:hover,input[type=password]:hover
+{
+color:#FF0000;
+background-color:#FFFFCC;
+background:#FFFFCC;
+border-top:thin dotted #CCCCCC;
+border-bottom:thin dotted #CCCCCC;
+border-left:thin dotted #CCCCCC;
+border-right:thin dotted #CCCCCC;
+}
+input[type=text]:active,input[type=password]:active
+{
+color:#000000;
+background-color:#FFFFCC;
+background:#FFFFCC;
+border-top:thin solid #FF6600;
+border-bottom:thin solid #FF6600;
+border-left:thin solid #FF6600;
+border-right:thin solid #FF6600;
+}

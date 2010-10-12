@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="WoTask">
+
+	<resultMap id="RM.WoTask" type="com.womobile.collect.model.WoTask">
+        <result property="taskId" column="task_id"/>
+        <result property="topic" column="topic"/>
+        <result property="guideline" column="guideline"/>
+        <result property="description" column="description"/>
+        <result property="feedbacktypeId" column="feedbacktype_id"/>
+        <result property="examinecycleId" column="examinecycle_id"/>
+        <result property="statusId" column="status_id"/>
+        <result property="fieldId" column="field_id"/>
+        <result property="field1" column="field_1"/>
+        <result property="field2" column="field_2"/>
+        <result property="field3" column="field_3"/>
+        <result property="field4" column="field_4"/>
+        <result property="field5" column="field_5"/>
+        <result property="field6" column="field_6"/>
+        <result property="field7" column="field_7"/>
+        <result property="field8" column="field_8"/>
+        <result property="field9" column="field_9"/>
+        <result property="field10" column="field_10"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="WoTask.columns">
+	    <![CDATA[
+		task_id,topic,guideline,description,feedbacktype_id,examinecycle_id,status_id,field_id,field_1,field_2,field_3,field_4,field_5,field_6,field_7,field_8,field_9,field_10
+	    ]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="WoTask.insert" useGeneratedKeys="true" keyProperty="taskId">
+    <![CDATA[
+        INSERT INTO wo_task (
+        	task_id ,
+        	topic ,
+        	guideline ,
+        	description ,
+        	feedbacktype_id ,
+        	examinecycle_id ,
+        	status_id ,
+        	field_id ,
+        	field_1 ,
+        	field_2 ,
+        	field_3 ,
+        	field_4 ,
+        	field_5 ,
+        	field_6 ,
+        	field_7 ,
+        	field_8 ,
+        	field_9 ,
+        	field_10 
+        ) VALUES (
+        	#{taskId} ,
+        	#{topic} ,
+        	#{guideline} ,
+        	#{description} ,
+        	#{feedbacktypeId} ,
+        	#{examinecycleId} ,
+        	#{statusId} ,
+        	#{fieldId} ,
+        	#{field1} ,
+        	#{field2} ,
+        	#{field3} ,
+        	#{field4} ,
+        	#{field5} ,
+        	#{field6} ,
+        	#{field7} ,
+        	#{field8} ,
+        	#{field9} ,
+        	#{field10} 
+        )
+    ]]>
+		<!--	
+			oracle: order="BEFORE" SELECT sequenceName.nextval AS ID FROM DUAL 
+			DB2: order="BEFORE"" values nextval for sequenceName
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		-->
+	</insert>
+    
+	<update id="WoTask.update" >
+    <![CDATA[
+        UPDATE wo_task SET
+	        topic = #{topic} ,
+	        guideline = #{guideline} ,
+	        description = #{description} ,
+	        feedbacktype_id = #{feedbacktypeId} ,
+	        examinecycle_id = #{examinecycleId} ,
+	        status_id = #{statusId} ,
+	        field_id = #{fieldId} ,
+	        field_1 = #{field1} ,
+	        field_2 = #{field2} ,
+	        field_3 = #{field3} ,
+	        field_4 = #{field4} ,
+	        field_5 = #{field5} ,
+	        field_6 = #{field6} ,
+	        field_7 = #{field7} ,
+	        field_8 = #{field8} ,
+	        field_9 = #{field9} ,
+	        field_10 = #{field10} 
+        WHERE 
+	        task_id = #{taskId} 
+    ]]>
+	</update>
+
+    <delete id="WoTask.delete">
+    <![CDATA[
+        DELETE FROM wo_task WHERE
+        task_id = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="WoTask.getById" resultMap="RM.WoTask">
+		SELECT <include refid="WoTask.columns" />
+	    <![CDATA[
+		    FROM wo_task 
+	        WHERE 
+		        task_id = #{id} 
+	    ]]>
+	</select>
+	
+	<sql id="WoTask.findPage.where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(taskId)">
+				AND task_id = #{taskId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(topic)">
+				AND topic = #{topic}
+			</if>
+	       <if test="@Ognl@isNotEmpty(guideline)">
+				AND guideline = #{guideline}
+			</if>
+	       <if test="@Ognl@isNotEmpty(description)">
+				AND description = #{description}
+			</if>
+	       <if test="@Ognl@isNotEmpty(feedbacktypeId)">
+				AND feedbacktype_id = #{feedbacktypeId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(examinecycleId)">
+				AND examinecycle_id = #{examinecycleId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(statusId)">
+				AND status_id = #{statusId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(fieldId)">
+				AND field_id = #{fieldId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field1)">
+				AND field_1 = #{field1}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field2)">
+				AND field_2 = #{field2}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field3)">
+				AND field_3 = #{field3}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field4)">
+				AND field_4 = #{field4}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field5)">
+				AND field_5 = #{field5}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field6)">
+				AND field_6 = #{field6}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field7)">
+				AND field_7 = #{field7}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field8)">
+				AND field_8 = #{field8}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field9)">
+				AND field_9 = #{field9}
+			</if>
+	       <if test="@Ognl@isNotEmpty(field10)">
+				AND field_10 = #{field10}
+			</if>
+		</where>
+	</sql>
+		
+    <select id="WoTask.findPage.count" resultType="long">
+        SELECT count(*) FROM wo_task 
+		<include refid="WoTask.findPage.where"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="WoTask.findPage" resultMap="RM.WoTask">
+    	SELECT <include refid="WoTask.columns" />
+	    FROM wo_task 
+		<include refid="WoTask.findPage.where"/>
+		
+		<if test="@Ognl@isNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+    </select>
+
+	
+</mapper>
+

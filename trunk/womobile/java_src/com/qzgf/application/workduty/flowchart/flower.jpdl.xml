@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<process name="leave3" description="leave2 same" xmlns="http://jbpm.org/4.0/jpdl" >
+
+  <start name="start1" g="6,17,48,48" >
+    <transition name="SequenceFlow_1" to="发起巡访"/>
+  </start>
+
+  <task name="发起巡访" assignee="#{owner}" g="75,15,92,52" >
+    <transition name="SequenceFlow_2" to="领导审阅" g="286,41:"/>
+  </task>
+
+  <task name="领导审阅" assignee="manager" g="240,97,92,52" >
+    <transition name="no" to="发起巡访" g="121,123:"/>
+    <transition name="SequenceFlow_3" to="end1" g="419,123:"/>
+  </task>
+
+  <end name="end1" g="395,20,48,48" />
+
+</process>

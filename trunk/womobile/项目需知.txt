@@ -1,0 +1,19 @@
+****************
+* UTF-8 Encoding
+****************
+
+修改整个项目的属性为UTF-8编码
+项目搭建请查看 http://code.google.com/p/rapid-framework/wiki/menu
+项目网站:http://code.google.com/p/rapid-framework/
+
+
+
+项目入口：http://localhost:8080/womobile
+现可用模块是：测试模块
+
+
+整合了流程引擎
+测试账号：随便一个人登录，发布流程，接着走经理审批（manager）,若请假大于三天，走老板审批(boss)
+
+运行脚本在/sql_script下面
+将项目根目录下面的juel-api.jar,juel-engine.jar,juel-impl.jar 拷贝到tomcat/lib下,不然会引起冲突，原因不明

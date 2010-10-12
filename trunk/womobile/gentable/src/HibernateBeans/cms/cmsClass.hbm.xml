@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="HibernateBeans.cms.cmsClass" table="CMS_CLASS" lazy="false">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="pid" type="int" column="pid"/>
+        <property name="pathinfo" type="string" column="pathinfo"/>
+        <property name="name" type="string" column="name" length="50"/>
+        <property name="sort" type="int" column="sort"/>
+        <property name="wtime" type="timestamp" column="wtime"/>
+        <property name="lockme" type="boolean" column="lockme"/>
+        <property name="lastModify" type="timestamp" column="lastModify"/>
+        <set name="attributes" inverse="true" table="ATTRIBUTE" order-by="sort asc"  cascade="all" lazy="false">
+        <key>
+        <column name="cid" not-null="true" />
+        </key>
+        <one-to-many class="HibernateBeans.cms.attribute"/>
+        </set>
+        <set name="entities" inverse="true" table="ENTITY" order-by="wtime desc"  cascade="all" lazy="false">
+        <key>
+        <column name="cid" not-null="true" />
+        </key>
+        <one-to-many class="HibernateBeans.cms.entity"/>
+        </set>
+    </class>
+</hibernate-mapping>
