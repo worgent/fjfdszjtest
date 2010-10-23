@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World!</string>
+    <string name="app_name">联通移动助理</string>
+
+<string name="setting_account">设置帐号</string><string name="username">用户名</string>
+<string name="pwd">密码</string>
+<string name="btnabout">关于</string>
+<string name="btnexit">退出</string><string name="btnconfig">配置</string>
+
+<string name="version">这是一个测试版信息</string>
+<string name="btnimport">导入</string>
+<string name="btndelete">删除</string>
+<string name="importmsg">导入提示</string>
+<string name="deletemsg">删除提示</string>
+
+ 
+<!-- list页面 -->
+<string name="txtadd">增加</string>
+<string name="txtquery">查询</string>
+<string name="txtback">返回</string>
+<!-- query页面 -->
+<string name="txthome">首页</string>
+<string name="txtlastPage">上一页</string>
+<string name="txtnextPage">下一页</string>
+<string name="txtbottom">尾页</string>
+<string name="txtcurPage">当前页</string>
+<string name="txtsearch">查询</string>
+<string name="txtreturn">返回</string>
+<!-- edit页面 -->
+<string name="txtcancel">取消</string>
+<string name="txtsubmit">提交</string>
+
+<!-- menuUI -->
+<string name="editOrder_name">编辑订单</string>
+<string name="delOrder_name">删除订单</string>
+<string name="recieveOrder_name">确认收货</string>
+<!-- menuUI -->
+<string name="startDate_name">开始时间</string>
+<string name="endDate_name">结束时间</string>
+<string name="searchtxt">查询</string>
+</resources>

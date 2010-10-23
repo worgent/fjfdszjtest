@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<LinearLayout android:id="@+id/Linears"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:orientation="vertical">
+		<TableLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:stretchColumns="1">
+			<TableRow>
+				<TextView android:text="主键：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_ID"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="主题：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_TITLE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="描述：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_DETAIL"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="附件：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_ADJUNCT"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="意见：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_ATTITUDE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="评分：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_DEFINE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="流程状态：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_FLOWER_STATE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="处理人：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_PROCESS_CODE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="审核人：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_AUDITING_CODE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="单据状态：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_BILL_STATE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="创始建人：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_CREATE_CODE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="创建时间：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_CREATE_DATE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="编辑人：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_EDITOR_CODE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="编辑时间：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_EDITOR_DATE"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			<TableRow>
+				<TextView android:text="关连业务单号：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/feedback_BILLID"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			
+			<TableRow android:gravity="right">
+				<Button android:text="@string/txtcancel" android:id="@+id/btnfeedbackcancel"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+				<Button android:text="@string/txtsubmit" android:id="@+id/btnfeedbacksumbit"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+		    </TableRow>
+	   </TableLayout>
+	</LinearLayout>
+</ScrollView>

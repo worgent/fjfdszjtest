@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.womobile.mp"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <!-- android:screenOrientation="landscape"-->
+		<activity android:name=".LoginActivity" android:label="@string/app_name"  android:screenOrientation="portrait"> 
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name="MainMenuActivity"/>
+		<activity android:name="com.womobile.mp.location.MyPositionActivity"/>
+		<activity android:name="com.womobile.mp.channelcollect.InfoCollActivity"/>
+
+		<activity android:name=".Settings"/>
+		<uses-library android:name="com.google.android.maps" />
+	
+
+       <activity android:name="com.example.android.apis.MapsDemo" android:label="MapsDemo">
+       </activity>
+        <!-- ************************************* -->
+        <!--      VIEW/WIDGET PACKAGE SAMPLES      -->
+        <!-- ************************************* -->
+
+        <activity android:name="com.example.android.apis.view.MapViewDemo" android:label="MapView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.example.android.apis.view.MapViewCompassDemo" android:label="MapView and Compass">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>	
+        
+        <!-- 反馈单 -->
+        <activity android:name=".activity.FeedbackActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.Feedback" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.AddFeedbackActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.AddFeedback" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.EditFeedbackActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.EditFeedback" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.QueryFeedbackActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.QueryFeedback" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<provider android:name="com.womobile.mp.provider.FeedbackProvider"
+			android:authorities="com.womobile.mp.provider.FeedbackProvider">
+		</provider> 
+		<!--日常工作单 -->
+		<activity android:name=".activity.WorkdutyActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.Workduty" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.AddWorkdutyActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.AddWorkduty" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.EditWorkdutyActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.EditWorkduty" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.QueryWorkdutyActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.QueryWorkduty" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<provider android:name="com.womobile.mp.provider.WorkdutyProvider"
+			android:authorities="com.womobile.mp.provider.WorkdutyProvider">
+		</provider>
+		<!--巡检 -->
+		<activity android:name=".activity.CollectionActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.Collection" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.AddCollectionActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.AddCollection" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.EditCollectionActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.EditCollection" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.QueryCollectionActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.QueryCollection" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<provider android:name="com.womobile.mp.provider.CollectionProvider"
+			android:authorities="com.womobile.mp.provider.CollectionProvider">
+		</provider>
+    </application>
+    
+    <!-- 允许一个程序访问精良位置(如GPS)  -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+	<!--允许程序创建模拟位置提供用于测试 -->
+	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+	
+	<uses-permission android:name="android.permission.INTERNET" />
+	
+	<!-- 只要当前设备可以接收到基站的服务信号，便可获得位置信息 -->
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	
+    <uses-sdk android:minSdkVersion="4" />
+
+</manifest> 
