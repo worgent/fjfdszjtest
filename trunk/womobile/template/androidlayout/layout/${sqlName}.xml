@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<#assign className = table.className>   
+<#assign classNameLower = className?uncap_first> 
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<LinearLayout android:id="@+id/Linears"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:orientation="vertical">
+		<TableLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:stretchColumns="1">
+			<#list table.columns as column>
+			<TableRow>
+				<TextView android:text="${column.columnAlias}：" android:id="@+id/txt"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+				<EditText android:text="" android:id="@+id/${table.sqlName}_${column.constantName}"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+			</TableRow>
+			</#list>
+			
+			<TableRow android:gravity="right">
+				<Button android:text="@string/txtcancel" android:id="@+id/btn${table.sqlName}cancel"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+				<Button android:text="@string/txtsubmit" android:id="@+id/btn${table.sqlName}sumbit"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+		    </TableRow>
+	   </TableLayout>
+	</LinearLayout>
+</ScrollView>
