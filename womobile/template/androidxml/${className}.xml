@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<#assign className = table.className>   
+<#assign classNameLower = className?uncap_first> 
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="${basepackage}" android:versionCode="1"
+	android:versionName="1.0">
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:icon="@drawable/icon" android:label="@string/app_name">
+		<activity android:name=".activity.${className}Activity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.${className}" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.Add${className}Activity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.Add${className}" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.Edit${className}Activity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.Edit${className}" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".activity.Query${className}Activity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.Query${className}" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<provider android:name="${basepackage}.provider.${className}Provider"
+			android:authorities="${basepackage}.provider.${className}Provider">
+		</provider>
+	</application>
+	<uses-sdk android:minSdkVersion="3" />
+</manifest>
