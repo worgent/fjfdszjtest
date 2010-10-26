@@ -830,15 +830,62 @@ public class MapleFetionDemo implements INotifyListener,ILoginListener,IMessageC
     	}
     }
     
+    /**
+     * 
+     * Purpose      : 针对长短信分开发送方案2010-09-10
+     * @param msg  : 短信内容(允许超过180)测试中是165,现在设定150
+     * @param per  : 分隔短信的前缀
+     * @param cmd  : 命令字
+     */
+    public void SendMsgbyLong(String msg,String per,String cmd){
+    	try {
+    		int lenmax=150;//每条短信允许的最大长度
+    		int length=msg.length();//短信消息的长度
+    		int count=length/lenmax;//分为的段数 (89/24+"天"+89%24+"小时"))
+    		int lencur=length%lenmax;//分为的段数 (89/24+"天"+89%24+"小时"))
+    		//仅为单条就可发送的短信
+    		if(count==0){
+    			dispatch(cmd+msg);
+    		}else{
+    			//需要拆分同时要循环发送格式如 ([新闻1/2])
+    			if(lencur!=0){
+    				count=count+1;
+    			}
+    			for(int i=0;i<count;i++){
+    				String msgcur="";
+    				
+    				if(i==count-1){
+    					//最后一次
+    					msgcur=msg.substring(i*lenmax);
+    				}else{
+    					//其他的最150个字符
+    					msgcur=msg.substring(i*lenmax, (i+1)*lenmax);
+    				}
+    				//增加前缀信息
+    				msgcur="["+per+String.valueOf(i+1)+"/"+String.valueOf(count)+"]"+msgcur;
+    				dispatch(cmd+msgcur);
+    				
+    				//分开新闻与天气,相隔30秒
+ 		           try{ 
+ 		                Thread.sleep(30*1000); 
+ 		            } 
+ 		            catch(InterruptedException   e){}
+    			}
+    		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
 		try {
-			//MapleFetionDemo  fetion = new MapleFetionDemo(Long.parseLong(args[0]), args[1]);
-			MapleFetionDemo fetion = new MapleFetionDemo(Long
-					.parseLong("135XXXXXXXX"), "myXXX@XXX");
+			MapleFetionDemo  fetion = new MapleFetionDemo(Long.parseLong(args[0]), args[1]);
+			
 			if (fetion.login()) {
 				//主函数
 				//fetion.mainloop();
@@ -848,15 +895,15 @@ public class MapleFetionDemo implements INotifyListener,ILoginListener,IMessageC
 
 				//新闻
 				msg = Util.dispatch("wapsohu ");
-				fetion.dispatch("to 9 "+msg);
-				fetion.dispatch("self " + msg);
-
+				fetion.SendMsgbyLong(msg,"新闻","to 10 ");
+				fetion.SendMsgbyLong(msg,"新闻","self ");
+				
+				
 				//天气
 				msg = Util.dispatch("weather1 ");
-				fetion.dispatch("to 9 "+msg);
-				
+				fetion.SendMsgbyLong(msg,"天气","to 10 ");
 				msg = Util.dispatch("weather2 ");
-				fetion.dispatch("self " + msg);
+				fetion.SendMsgbyLong(msg,"天气","self ");
 
 				//msg=Util.dispatch("ip 210.34.120.1");
 
