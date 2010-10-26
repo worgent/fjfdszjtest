@@ -186,8 +186,7 @@ public class MapleFetionClient implements IFetionClient
 				this.fetionUser.getMobileNo()+"&pwd="+this.fetionUser.getPassword()
 				);
 		*/
-		//URL url = new URL("https://uid.fetion.com.cn/ssiportal/SSIAppSignInv2.aspx?mobileno=13599204724&pwd=my123@123");
-		
+
 		
 		URL url = new URL(FetionConfig.getString("server.ssi-sign-in")+"?mobileno="+this.fetionUser.getMobileNo()+"&pwd="+this.fetionUser.getPassword());
 		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
