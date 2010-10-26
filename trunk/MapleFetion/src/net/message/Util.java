@@ -81,6 +81,13 @@ public class Util {
 					 //<div class=\"forecastBox\" id=\"forecastID\">(全部)   <div class="weatherYubao" id="weatherYubao2">(3天)
 					 result="太姥山天气"+result.substring(result.lastIndexOf("<div class=\"box_contentl\">"),result.indexOf("<body></html>"));
 				}else if(cmd[0].equals("weather1")){
+					 ip="http://www.weather.com.cn/weather/101230308.shtml";//http://www.weather.com.cn/static/html/article/trip/tls_101230308.shtml
+					 sid="mod_weather";
+					 result=getResult(ip,"");
+					 //<div class=\"forecastBox\" id=\"forecastID\">(全部)   <div class="weatherYubao" id="weatherYubao2">(3天)
+					 result="福鼎天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
+		
+				}else if(cmd[0].equals("weather1ex")){
 					 ip="http://travel.mipang.com/weather/17353";
 					 sid="mod_weather";
 					 result=getResult(ip,"");
@@ -88,6 +95,12 @@ public class Util {
 					 result="太姥山天气"+result.substring(result.lastIndexOf("<!--day 2-->"),result.indexOf("<div class=\"forecastBox\" id=\"forecastID\">"));
 		
 				}else if(cmd[0].equals("weather2")){
+					 ip="http://www.weather.com.cn/weather/101230501.shtml";
+					 sid="mod_weather";
+					 result=getResult(ip,"");
+					 result="泉州天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
+			    // IP查询
+				}else if(cmd[0].equals("weather2ex")){
 					 ip="http://travel.mipang.com/weather/2609";
 					 sid="mod_weather";
 					 result=getResult(ip,"");
@@ -124,8 +137,15 @@ public class Util {
 					 result=getResult(ip,""); 
 					 result="百度WAP"+result.substring(result.indexOf("【今日焦点】"),result.indexOf("【分类推荐】"));
 				}else if(cmd[0].equals("wapsohu")){
-					 ip="http://wap.sohu.com/news/?nid=3237";
+					 ip="http://wap.sohu.com/news/tt/?nid=3236&uID=aqidHPNkiHklAAAA";//
 					 result=getResult(ip,""); 
+					 //System.out.println(result);
+					 result="搜狐WAP"+result.substring(result.indexOf("【时政头条】"),result.indexOf("【图片新闻】"));
+				//动车查询	 
+				}else if(cmd[0].equals("wapsohubk")){
+					 ip="http://wap.sohu.com/news/?nid=3237";//http://wap.sohu.com/news/?uID=aqidHPNkiHklAAAA
+					 result=getResult(ip,""); 
+					 System.out.println(result);
 					 result="搜狐WAP"+result.substring(result.indexOf("【焦点新闻】"),result.indexOf("【社会要闻】"));
 				//动车查询	 
 				}else if(cmd[0].equals("DTrain")){
@@ -177,7 +197,7 @@ public class Util {
 			//System.out.println(dispatch("elefee "));
 			//System.out.println(dispatch("baidunew "));
 			//System.out.println(dispatch("news "));
-			System.out.println(dispatch("weather2 ").indexOf("星期二"));
+			//System.out.println(dispatch("weather2 ").indexOf("星期二"));
 			System.out.println(dispatch("wapsohu "));
 			//System.out.println(dispatch("wapsohu ").indexOf("星期二"));
 			//System.out.println(dispatch("Train D3202"));
