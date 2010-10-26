@@ -32,7 +32,9 @@ import java.util.Timer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 
 import net.solosky.maplefetion.bean.FetionBuddy;
 import net.solosky.maplefetion.bean.FetionUser;
@@ -162,9 +164,18 @@ public class MapleFetionClient implements IFetionClient
 	}
 	
 	
+
+	
+	//2010-10-26 针对https的安全性,进行忽略操作
 	/**
-	 * SSI登录
-	 * @return	是否登录成功
+	 * 通过以下代码实现
+	 * conn.setHostnameVerifier(new HostnameVerifier()   
+        {         
+            public boolean verify(String hostname, SSLSession session)   
+            {   
+                return true;   
+            }   
+        }); 
 	 */
 	private boolean SSISignIn() throws Exception
 	{
@@ -175,9 +186,19 @@ public class MapleFetionClient implements IFetionClient
 				this.fetionUser.getMobileNo()+"&pwd="+this.fetionUser.getPassword()
 				);
 		*/
-		URL url = new URL("https://uid.fetion.com.cn/ssiportal/SSIAppSignInv2.aspx?mobileno=13599204724&pwd=my123@123");
+		//URL url = new URL("https://uid.fetion.com.cn/ssiportal/SSIAppSignInv2.aspx?mobileno=13599204724&pwd=my123@123");
 		
+		
+		URL url = new URL(FetionConfig.getString("server.ssi-sign-in")+"?mobileno="+this.fetionUser.getMobileNo()+"&pwd="+this.fetionUser.getPassword());
 		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+		conn.setHostnameVerifier(new HostnameVerifier()   
+        {         
+            public boolean verify(String hostname, SSLSession session)   
+            {   
+                return true;   
+            }   
+        }); 
+		
 		int resCode = conn.getResponseCode();
 		//resCode = conn.getResponseCode();
 		logger.debug("SSIstatusCode:"+resCode);
@@ -233,7 +254,7 @@ public class MapleFetionClient implements IFetionClient
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setDoOutput(true);
-        				                       
+
         //String content = "<config><user mobile-no=\""+this.getFetionUser().getMobileNo()+"\" /><client type=\"PC\" version=\"3.5.1170\" platform=\"W5.1\" /><servers version=\"0\" /><service-no version=\"0\" /><parameters version=\"0\" /><hints version=\"0\" /><http-applications version=\"0\" /><client-config version=\"0\" /><services version=\"0\" /></config>";
         String content = "<config><user mobile-no=\""+this.getFetionUser().getMobileNo()+"\" /><client type=\"PC\" version=\"3.5.1170\" platform=\"W5.1\" /><servers version=\"0\" /><service-no version=\"0\" /><parameters version=\"0\" /><hints version=\"0\" /><http-applications version=\"0\" /><client-config version=\"0\" /><services version=\"0\" /></config>";
         OutputStream out = conn.getOutputStream();
@@ -243,7 +264,7 @@ public class MapleFetionClient implements IFetionClient
         Element root = XMLHelper.build(conn.getInputStream());
         
         Element servers = root.getChild("servers");
-        FetionConfig.setString("server.ssi-sign-in",  servers.getChildText("ssi-app-sign-in"));
+        //FetionConfig.setString("server.ssi-sign-in",  servers.getChildText("ssi-app-sign-in"));//直接读取配置信息
         FetionConfig.setString("server.sipc-proxy",   servers.getChildText("sipc-proxy"));
         FetionConfig.setString("server.http-tunnel",  servers.getChildText("http-tunnel"));
 	}
