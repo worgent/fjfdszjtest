@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	2009-12-17 注以上的utf-8需要改成gbk,不然加载会报错
+-->
+<#include "/custom.include">
+<#assign className = table.className>   
+<#assign classNameLower = className?uncap_first>
+<#assign actionExtension = "do">
+<sqlMap namespace="${className}">	
+	<!-- 记录总数 -->
+	<select id="find${className}Count" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			select count(1)
+			 from  ${table.sqlName} t where t.State &lt;&gt; '0' 
+			<#list table.columns as column>
+			    <#if column.isDateTimeColumn>
+                   <isNotEmpty prepend=" and " property="pbeg${column.sqlName}">t.${column.sqlName} &gt;= cast(#pbeg${column.sqlName}# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pend${column.sqlName}">t.${column.sqlName} &lt;= cast(#pend${column.sqlName}# AS DATE)</isNotEmpty>
+				<#else>
+				   <isNotEmpty prepend=" and " property="p${column.sqlName}">t.${column.sqlName}='$p${column.sqlName}$'</isNotEmpty>
+			    </#if>
+			</#list>
+			order by T.ID desc
+	</select>
+
+		
+	<!-- 查询记录，非分页 -->
+	<select id="find${className}" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id
+			<#list table.columns as column>
+			<#if !column.htmlHidden>
+			    <#if column.isDateTimeColumn>
+                   ,cast(t.${column.sqlName} AS CHAR) ${column.sqlName}
+				<#else>
+					,t.${column.sqlName}
+			    </#if>
+			</#if>    
+			</#list>
+			from  ${table.sqlName} t where T.State &lt;&gt; '0'
+			<#list table.columns as column>
+				<#if column.isDateTimeColumn>
+                   <isNotEmpty prepend=" and " property="pbeg${column.sqlName}">t.${column.sqlName} &gt;= cast(#pbeg${column.sqlName}# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pend${column.sqlName}">t.${column.sqlName} &lt;= cast(#pend${column.sqlName}# AS DATE)</isNotEmpty>
+				<#else>
+				   <isNotEmpty prepend=" and " property="p${column.sqlName}">t.${column.sqlName}='$p${column.sqlName}$'</isNotEmpty>
+			    </#if>
+			</#list>
+			order by  T.ID desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="find${className}Page" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id
+			<#list table.columns as column>
+			<#if !column.htmlHidden>
+			    <#if column.isDateTimeColumn>
+                   ,cast(t.${column.sqlName} AS CHAR) ${column.sqlName}
+				<#else>
+					,t.${column.sqlName}
+			    </#if>
+			</#if>    
+			</#list>
+			from  ${table.sqlName} t where T.State &lt;&gt; '0' 
+			<#list table.columns as column>
+				<#if column.isDateTimeColumn>
+                   <isNotEmpty prepend=" and " property="pbeg${column.sqlName}">t.${column.sqlName} &gt;= cast(#pbeg${column.sqlName}# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pend${column.sqlName}">t.${column.sqlName} &lt;= cast(#pend${column.sqlName}# AS DATE)</isNotEmpty>
+				<#else>
+				   <isNotEmpty prepend=" and " property="p${column.sqlName}">t.${column.sqlName}='$p${column.sqlName}$'</isNotEmpty>
+			    </#if>
+			</#list>
+			order by  T.ID desc
+			<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+		    </isNotEmpty>
+	</select>
+	
+	<!-- 增加记录 -->
+	<insert id="insert${className}"	parameterClass="java.util.HashMap" >
+		insert into ${table.sqlName}
+				(id
+				<#list table.columns as column>
+				 <#if !column.htmlHidden>
+					    <isNotEmpty prepend="," property="p${column.sqlName}">${column.sqlName}</isNotEmpty>
+				 </#if>
+				</#list>
+				,State,MakeDatetime)
+				 values 
+				(seqformat(@in_seq_name:='${table.sqlName}')	
+				<#list table.columns as column>
+					<#if !column.htmlHidden>
+					<#if column.isDateTimeColumn>
+                       	<isNotEmpty prepend="," property="p${column.sqlName}"> cast(#p${column.sqlName}# AS DATETIME)</isNotEmpty>
+					<#else>
+						<isNotEmpty prepend="," property="p${column.sqlName}">#p${column.sqlName}#</isNotEmpty>
+				    </#if>
+				    </#if> 
+				</#list>
+		   		,'新任务',now())
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="delete${className}ById" parameterClass="java.util.HashMap">
+    	update ${table.sqlName} set State=0
+    	where id=#pid#
+    </delete>
+    
+    <!--删除记录 -->
+	<delete id="allpro${className}ById" parameterClass="java.util.HashMap">
+    	update ${table.sqlName} set state='$pstate$'
+    	where id in ($pid$) 
+    	<isNotEmpty prepend=" and " property="pexstate">state='$pexstate$'</isNotEmpty>
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="update${className}ById" parameterClass="java.util.HashMap">
+		update ${table.sqlName} t set t.id=t.id
+				<#list table.columns as column>
+					<#if !column.htmlHidden>
+					<#if column.isDateTimeColumn>
+                       	 <isNotEmpty prepend="," property="p${column.sqlName}">${column.sqlName}=cast(#p${column.sqlName}# AS DATETIME)</isNotEmpty>
+					<#else>			    
+						 <isNotEmpty prepend="," property="p${column.sqlName}">${column.sqlName}=#p${column.sqlName}#</isNotEmpty>
+				    </#if>
+				    </#if>
+				</#list>
+		where id=#pid# and t.State &lt;&gt; '0'
+	</update>
+</sqlMap>
