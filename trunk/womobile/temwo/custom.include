@@ -1,0 +1,15 @@
+<#-- 本文件包含一些公共的变量 -->
+
+<#-- actionBasePath 用于struts,springmvc框架的action路径前缀,如 /namespace/User/list.do的/namespace/User部分,可以自定义这个变量 -->
+<#assign actionBasePath = "/"+namespace+"/">
+
+<#-- jspFileBasePath 用于struts,springmvc框架的java文件引用的jsp前缀,如 /namespace/User/list.jsp的/namespace/User部分 -->
+<#assign jspFileBasePath = "/"+namespace+"/"+table.className>
+
+
+<#-- 本文件包含一些公共的函数,本文件会被其它模板自动include -->
+
+<#-- 将value变成jsp el表达式,主要由于FreeMarker生成表达式不方便 -->
+<#macro jspEl value>${r"${"}${value}}</#macro>
+
+

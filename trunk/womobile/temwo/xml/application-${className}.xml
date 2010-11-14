@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<#include "/custom.include">
+<#assign className = table.className>   
+<#assign classNameLower = className?uncap_first>
+<#assign actionExtension = "do">
+<!--${table.tableAlias} action -->
+<bean id="${classNameLower}Action" class="${basepackage}.action.${className}Action"	scope="prototype" autowire="byName" />
+
+
+<!-- ${table.tableAlias} domain-->
+<bean id="${classNameLower}Facade" class="${basepackage}.domain.${className}FacadeImpl">
+	<description>系统管理|用户登录</description>
+	<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+</bean>
+
+<!-- webwork -->
+<xwork>
+    <!-- lsr begin -->
+	<package name="SystemPackage" extends="default" namespace="/">
+	</package>
+	<include file="/${basepackage_dir}/action/xwork-${className}.xml" /><!--${table.tableAlias} -->
+</xwork>	
+
+<!-- sqlmap -->
+<sqlMapConfig>
+	<!--  ${table.tableAlias}-->
+	<sqlMap resource="/${basepackage_dir}/sqlmap/sqlmap-${className}.xml" />
+</sqlMapConfig>
+	
+		
