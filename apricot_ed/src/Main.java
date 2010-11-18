@@ -14,6 +14,7 @@ import com.mchange.util.PasswordUtils;
  */
 public class Main {
 	/**
+	 * 将数据转化为json格式显示,便于ext调用
 	 * @param args
 	 * @throws IOException
 	 */

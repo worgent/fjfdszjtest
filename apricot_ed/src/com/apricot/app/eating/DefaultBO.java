@@ -93,6 +93,7 @@ public class DefaultBO extends BO {
 				map.set(c.getName(), String.valueOf(getMax(tabName, c.getName())));
 			}
 		}
+		System.out.println(tab.getSQL());
 		execute(tab);
 		return null;
 	}

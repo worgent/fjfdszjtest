@@ -30,7 +30,7 @@ public class StorageBo extends BO {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select count(*) from check_info where ");
 		sql.append("sf_id=").append(map.getString("sf_id", "-1"));
-		sql.append(" and check_no=").append(map.getString("check_no"));
+		sql.append(" and check_no=").append(map.getString("check_no"));//map.getString("check_no")
 		if (getInt(sql) > 0) {
 			return getMessage("storage.check.havechecked", new String[] { map.getString("check_no") });
 		}

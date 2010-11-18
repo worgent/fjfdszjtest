@@ -107,7 +107,7 @@ System.out.println(sql.toString());
 		tab.setSqlType(Table.DELETE);
 		tab.setParameterMap(map);
 		tab.setWhereColumn(new String[] { "priv_id", "child_priv_id" });
-		// System.out.println(tab.getSQL());
+	    System.out.println(tab.getSQL());
 		execute(tab);
 		return null;
 	}

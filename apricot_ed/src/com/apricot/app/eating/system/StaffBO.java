@@ -159,6 +159,7 @@ public class StaffBO extends BO {
 		Table table = getTable("staff_info");
 		table.setSqlType(Table.INSERT);
 		table.setParameterMap(map);
+		//»ñÈ¡Ö÷¼ü
 		map.set("staff_id", getMax("staff_info", "staff_id"));
 		try {
 			map.set("staff_password", PasswordUtils.enCodeValue(map
