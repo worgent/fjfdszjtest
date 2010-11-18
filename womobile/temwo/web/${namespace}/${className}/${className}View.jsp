@@ -13,36 +13,29 @@
 %>
 <html>
 <body>
-<center>
-   <table width="90%" height="190" border="1">
+   <table width="90%"  border="0">
    <tr>
-   <td colspan="3"> 
+   <td colspan="3" align="center"> 
        <strong>${table.tableAlias}</strong>
    </td>
    </tr>
     <tr>
-	<td>
-		<s:actionerror theme="ems" />
-	</td>
-	<td>
-		<s:actionmessage theme="ems" />
+	<td colspan="3">
+		<s:actionerror theme="ems" /><s:actionmessage theme="ems" />
 	</td>
   </tr>
    <#list table.columns as c> 
    <tr> 
-   <td>${c.columnAlias}:</td>
-   <td>
+   <td>${c.columnAlias}:
    <s:property value="%{${classNameLower}.${c.sqlName}}"/>
    </td>
-   <td><div id="p${c.sqlName}Tip" style="width:250px"></div></td>
    </tr>   
    </#list>
    <tr>
-   <td align="center">
+   <td align="center" colspan="3">
       <input type="button" onclick="javascript:history.go(-1)" value="返回"/>
    </td>  
    </tr>
  </table>
-</center>
 </body>
 </html>
