@@ -40,10 +40,16 @@
 					<#if !c.htmlHidden>
 						<#if c.isDateTimeColumn>
 						<tr class="trex">
-							 <td class="tdex">${c.columnAlias}
-								 <s:textfield id="p${c.sqlName}" name="search.p${c.sqlName}" size="30" readonly="readonly" value="%{${classNameLower}.${c.sqlName}}"></s:textfield> 
-								 <div id="p${c.sqlName}Tip" style="display: inline"></div>
+							<td class="tdex">${c.columnAlias}
+								 <s:textfield id="pbeg${c.sqlName}" name="search.pbeg${c.sqlName}" size="30" readonly="readonly" value="%{${classNameLower}.${c.sqlName}}"></s:textfield> 
+								 <div id="pbeg${c.sqlName}Tip" style="display: inline"></div>
 							</td>
+						</tr>
+						<tr class="trex">
+						<td class="tdex">${c.columnAlias}
+								 <s:textfield id="pend${c.sqlName}" name="search.pend${c.sqlName}" size="30" readonly="readonly" value="%{${classNameLower}.${c.sqlName}}"></s:textfield> 
+								 <div id="pend${c.sqlName}Tip" style="display: inline"></div>
+						</td>
 						</tr>
 						<#else>
 						<tr class="trex">
@@ -130,9 +136,10 @@
 		<#list table.columns as c>
 		
 		<#if c.isDateTimeColumn>
-		$("#p${c.sqlName}").focus(function(){WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd', oncleared:function(){$(this).blur();},onpicked:function(){}})}).formValidator({onshow:"请输入${c.columnAlias}",tipid:"p${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
+		$("#pbeg${c.sqlName}").focus(function(){WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd', oncleared:function(){$(this).blur();},onpicked:function(){}})}).formValidator({onshow:"",tipid:"pbeg${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
+		$("#pend${c.sqlName}").focus(function(){WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd', oncleared:function(){$(this).blur();},onpicked:function(){}})}).formValidator({onshow:"",tipid:"pend${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
 		<#else>
-		$("#p${c.sqlName}").formValidator({onshow:"请输入${c.columnAlias}",tipid:"p${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
+		$("#p${c.sqlName}").formValidator({onshow:"",tipid:"p${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
 		</#if>
 		
 		</#list>

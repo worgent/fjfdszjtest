@@ -30,14 +30,13 @@
 											<table  border="0" cellpadding="0" style="border-collapse: collapse" width="80%" height="100%" id="table15">
 												<!-- 提示信息 -->
 												<tr >
-													<td width="98" height="37">
+													<td colspan="3">
 													<strong>
 													<span style="font-size: 9pt">
 													${table.tableAlias}</span></strong></td>
-													<td height="37">　</td>
 												</tr>
 												<tr align="left">
-													<td height="16" colspan="2" >
+													<td colspan="3">
 													<s:actionerror theme="ems" />
 													<s:actionmessage theme="ems" />
 													</td>
@@ -46,20 +45,18 @@
 											<#if !c.htmlHidden>
 											<#if c.isDateTimeColumn>
 														<tr align="left">
-															<td width="98" align="left">
+															<td>
 															<span style="FONT-SIZE: 9pt">
-															${c.columnAlias}</span><span style="font-size: 9pt">：</span></td>
-															<td align="left">
+															${c.columnAlias}</span><span style="font-size: 9pt">：</span>
 															<span style="font-size: 9pt">
 															<s:textfield id="p${c.sqlName}"  name="search.p${c.sqlName}"  readonly="readonly"  size="30" value="%{${classNameLower}.${c.sqlName}}" > </s:textfield>
-														</span> <div id="p${c.sqlName}Tip" style="display: inline "></div></td>
+														    </span> <div id="p${c.sqlName}Tip" style="display: inline "></div></td>
 														</tr>												
 											<#else>
 														<tr align="left">
-															<td width="98" align="left">
+															<td>
 															<span style="FONT-SIZE: 9pt">
-															${c.columnAlias}</span><span style="font-size: 9pt">：</span></td>
-															<td align="left">
+															${c.columnAlias}</span><span style="font-size: 9pt">：</span>
 															<span style="font-size: 9pt">
 															<s:textfield id="p${c.sqlName}"  name="search.p${c.sqlName}"  size="30" value="%{${classNameLower}.${c.sqlName}}" > </s:textfield>
 														</span> <div id="p${c.sqlName}Tip" style="display: inline "></div></td>
@@ -68,15 +65,9 @@
 											</#if>								
 											</#list>
 												<tr>
-													<td width="98">　</td>
-													<td>　</td>
-												</tr>
-												<tr>
-													<td width="98">
+													<td colspan="3">
 													<s:hidden value="%{${classNameLower}.id}" name="search.pid" id="pid"></s:hidden>
       												<s:hidden value="%{action}" name="action" id="action"></s:hidden>
-													</td>
-													<td align="left">
 													<input type="button" onclick="javascript:save()" value="保存" class="outStyle" onmouseover="this.className='overStyle'"  onmouseout="this.className='outStyle'" />
 													<input type="button" onclick="javascript:reset()" value="重置" class="outStyle" onmouseover="this.className='overStyle'"  onmouseout="this.className='outStyle'" />
 												    <input type="button" onclick="javascript:history.go(-1)" value="返回" class="outStyle" onmouseover="this.className='overStyle'"  onmouseout="this.className='outStyle'" />
@@ -115,9 +106,9 @@
 		$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)},onsuccess:function(){return true;}});
 		<#list table.columns as c>
 		<#if c.isDateTimeColumn>
-		$("#p${c.sqlName}").focus(function(){WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',oncleared:function(){$(this).blur();},onpicked:function(){}})}).formValidator({onshow:"请输入${c.columnAlias}",tipid:"p${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
+		$("#p${c.sqlName}").focus(function(){WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',oncleared:function(){$(this).blur();},onpicked:function(){}})}).formValidator({onshow:"",tipid:"p${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
 		<#else>
-		$("#p${c.sqlName}").formValidator({onshow:"请输入${c.columnAlias}",tipid:"p${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
+		$("#p${c.sqlName}").formValidator({onshow:"",tipid:"p${c.sqlName}Tip",onfocus:"",oncorrect:"请输入${c.columnAlias}"});
 		</#if>
 		</#list>
 	});
