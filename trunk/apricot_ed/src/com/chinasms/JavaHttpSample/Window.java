@@ -3,17 +3,17 @@ package com.chinasms.JavaHttpSample;
 //登入的用户名/密码:admin/123.
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.graphics.*;
 
 public class Window {
 	Display display = new Display();
@@ -30,7 +30,8 @@ public class Window {
 	
 	private void init() {
 		shell.setText("JavaHttp应用实例");
-		shell.setImage(new Image(display, "../image/china_sms_logo.ico"));
+		//shell.setImage(new Image(display, "../image/china_sms_logo.ico"));
+		//shell.setImage(new Image(display, "G:/Java/apricot_ed/WebRoot/image/china_sms_logo.ico"));
 
 		GridLayout gridLayout = new GridLayout(4, false);
 		gridLayout.verticalSpacing = 10;

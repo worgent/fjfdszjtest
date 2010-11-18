@@ -64,12 +64,12 @@ public class MySQLExport {
 	public MySQLExport() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated constructor stub
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/deoa?characterEncoding=gbk", "root", "123@123");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/yzapprove?characterEncoding=gbk", "root", "123@123");
 	}
 
 	public void export(String fileName) throws IOException, Exception {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
-		OutputStream out = new FileOutputStream("d:/data.sql");
+		OutputStream out = new FileOutputStream("d:/yzapprove.sql");
 		String line = null;
 		while ((line = reader.readLine()) != null) {
 			List l = export1(line);

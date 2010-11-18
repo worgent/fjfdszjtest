@@ -130,10 +130,13 @@ public class DefaultServlet extends HttpServlet {
 	// Set message resource;
 	MessageResource.createInstance(getServletContext().getRealPath(getInitParameter("MessageResource")));
 
+	//´òÓ¡½ø³Ì¡£
+	/*
 	PrinterJob job = new PrinterJob(getRequestConfig());
 	getServletContext().setAttribute(PrinterJob.KEY, job);
 	job.start();
-
+	*/
+	
     }
 
     private RequestConfig getRequestConfig() {

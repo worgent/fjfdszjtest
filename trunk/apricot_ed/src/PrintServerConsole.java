@@ -19,6 +19,9 @@ import java.net.Socket;
 public class PrintServerConsole {
 
     /**
+     * 打印开启服务端的socket端口
+     * #define PRINTER_STATUS_DMD      0x76     CHAR_ESC + request the printer status 
+     * #define PRINTER_CHAR_ESC        0x1B
      * 
      */
     public PrintServerConsole() {
