@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -125,9 +127,35 @@ public class UpdateZIP {
 		File s = new File(this.projectDir);
 		tarsferwhile(s,t);
 	}
+
 	
+	public static List ignoreList = new ArrayList();
+	static{
+		ignoreList.add(".svn");
+		ignoreList.add(".dll");
+		ignoreList.add(".pdm");
+		
+		ignoreList.add(".gif");
+		ignoreList.add(".css");
+		ignoreList.add(".db");
+		ignoreList.add(".jpg");
+	}
+	
+	private static boolean isIgnoreFile(File file) {
+
+		for(int i = 0; i < ignoreList.size(); i++) {
+			if(file.getName().equals(ignoreList.get(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	private void tarsferwhile(File s,File t){
+		//不处理的文件
+		if(isIgnoreFile(s)){
+			return;
+		}
 		if (!s.exists())
 			return;
 		else if (s.isDirectory()) {
@@ -146,6 +174,7 @@ public class UpdateZIP {
 		}else{//叶子结点
 			 try {
 				 int beginIndex=projectDir.length();
+				// if(s.)
 				 transferFile(s.getCanonicalPath(), un(this.build,s.getCanonicalPath().substring(beginIndex)));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
