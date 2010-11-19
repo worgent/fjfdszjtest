@@ -139,6 +139,8 @@ public class UpdateZIP {
 		ignoreList.add(".css");
 		ignoreList.add(".db");
 		ignoreList.add(".jpg");
+		ignoreList.add(".xml");
+		ignoreList.add("lib");
 	}
 	
 	private static boolean isIgnoreFile(File file) {
