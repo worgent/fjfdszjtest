@@ -65,7 +65,9 @@ public class Util {
 		String[] cmd = line.split(" ");
 		String ip="http://travel.mipang.com/weather/17353";
 		String sid="mod_weather";
-		
+		//相关域名转为ip
+		//www.weather.com.cn 113.108.239.105
+		//wap.sohu.com  221.179.173.143
 		try{
 				//天气
 				if(cmd[0].equals("weather")){
@@ -81,7 +83,7 @@ public class Util {
 					 //<div class=\"forecastBox\" id=\"forecastID\">(全部)   <div class="weatherYubao" id="weatherYubao2">(3天)
 					 result="太姥山天气"+result.substring(result.lastIndexOf("<div class=\"box_contentl\">"),result.indexOf("<body></html>"));
 				}else if(cmd[0].equals("weather1")){
-					 ip="http://www.weather.com.cn/weather/101230308.shtml";//http://www.weather.com.cn/static/html/article/trip/tls_101230308.shtml
+					 ip="http://113.108.239.105/weather/101230308.shtml";//http://www.weather.com.cn/static/html/article/trip/tls_101230308.shtml
 					 sid="mod_weather";
 					 result=getResult(ip,"");
 					 //<div class=\"forecastBox\" id=\"forecastID\">(全部)   <div class="weatherYubao" id="weatherYubao2">(3天)
@@ -95,7 +97,7 @@ public class Util {
 					 result="太姥山天气"+result.substring(result.lastIndexOf("<!--day 2-->"),result.indexOf("<div class=\"forecastBox\" id=\"forecastID\">"));
 		
 				}else if(cmd[0].equals("weather2")){
-					 ip="http://www.weather.com.cn/weather/101230501.shtml";
+					 ip="http://113.108.239.105/weather/101230501.shtml";
 					 sid="mod_weather";
 					 result=getResult(ip,"");
 					 result="泉州天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
@@ -137,11 +139,11 @@ public class Util {
 					 result=getResult(ip,""); 
 					 result="百度WAP"+result.substring(result.indexOf("【今日焦点】"),result.indexOf("【分类推荐】"));
 				}else if(cmd[0].equals("wapsohu")){
-					 ip="http://wap.sohu.com/news/tt/?nid=3236&uID=aqidHPNkiHklAAAA";//
+					 ip="http://221.179.173.143/news/tt/?nid=3236&uID=aqidHPNkiHklAAAA";//
 					 result=getResult(ip,""); 
 					 //System.out.println(result);
 					 result="搜狐WAP"+result.substring(result.indexOf("【时政头条】"),result.indexOf("【图片新闻】"));
-				//动车查询	 
+				//新闻	 
 				}else if(cmd[0].equals("wapsohubk")){
 					 ip="http://wap.sohu.com/news/?nid=3237";//http://wap.sohu.com/news/?uID=aqidHPNkiHklAAAA
 					 result=getResult(ip,""); 

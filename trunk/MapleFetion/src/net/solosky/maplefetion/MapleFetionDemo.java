@@ -527,6 +527,7 @@ public class MapleFetionDemo implements INotifyListener,ILoginListener,IMessageC
     	if(buddy!=null) {
     		this.activeBuddy = buddy;
     		this.client.sendChatMessageEx(uri, message, this);
+    		println("通过uri发送短信成功！");
     	}else {
     		println("找不到这个好友，请检查你的输入！");
     	}
@@ -885,7 +886,7 @@ public class MapleFetionDemo implements INotifyListener,ILoginListener,IMessageC
 	{
 		try {
 			MapleFetionDemo  fetion = new MapleFetionDemo(Long.parseLong(args[0]), args[1]);
-			
+
 			if (fetion.login()) {
 				//主函数
 				//fetion.mainloop();
@@ -893,15 +894,17 @@ public class MapleFetionDemo implements INotifyListener,ILoginListener,IMessageC
 				//发短信
 				String msg = "";
 
+				//fetion.dispatch("to 14 测试信息");
+				
 				//新闻
 				msg = Util.dispatch("wapsohu ");
-				fetion.SendMsgbyLong(msg,"新闻","to 10 ");
+				fetion.SendMsgbyLong(msg,"新闻","to 9 ");
 				fetion.SendMsgbyLong(msg,"新闻","self ");
 				
 				
 				//天气
 				msg = Util.dispatch("weather1 ");
-				fetion.SendMsgbyLong(msg,"天气","to 10 ");
+				fetion.SendMsgbyLong(msg,"天气","to 9 ");
 				msg = Util.dispatch("weather2 ");
 				fetion.SendMsgbyLong(msg,"天气","self ");
 
@@ -922,3 +925,76 @@ public class MapleFetionDemo implements INotifyListener,ILoginListener,IMessageC
 		}
 	}
 }
+
+/**
+ *found user specified maplefetion.properties..
+[登陆状态]:获取系统配置。。
+[登陆状态]:SSI登陆中。。
+log4j:WARN No appenders could be found for logger (net.solosky.maplefetion.MapleFetionClient).
+log4j:WARN Please initialize the log4j system properly.
+[登陆状态]:连接至主服务器。。
+[登陆状态]:注册主服务器。。
+[登陆状态]:验证用户名和密码。。
+[登陆状态]:获取用户个人信息。。
+[登陆状态]:获取好友详细信息。。
+[登陆状态]:订阅异步通知。。
+[登陆状态]:登陆成功！
+--------------------------------------------------
+--------------------------------------------------
+
+=================================
+所有好友列表
+-------------------------------
+#ID	好友昵称	在线状态	个性签名
+
+-------------------------------
+-------------------------------
+0	梦在下载	短信在线	混，也是一种生活
+1	江琼心	短信在线	马尔代夫的海，我与你
+2	newMyself	短信在线	
+3	吴维	短信在线	
+4	志超	短信在线	
+
+-------------------------------
+-------------------------------
+5	华远总仓	短信在线	
+
+-------------------------------
+-------------------------------
+6	陈铿	短信在线	骚扰无罪
+7	林晓玲	短信在线	
+
+-------------------------------
+-------------------------------
+8	姐姐	短信在线	
+9	老爸	短信在线	
+10	哥哥	短信在线	
+
+-------------------------------
+-------------------------------
+11	赖金龙	短信在线	
+
+-------------------------------
+-------------------------------
+12	国通王珏	短信在线	
+13	冠通马鹏	短信在线	
+14	林圣如	短信在线	
+
+-------------------------------
+-------------------------------
+暂无好友。。
+
+-------------------------------
+-------------------------------
+暂无好友。。
+
+-------------------------------
+-------------------------------
+15	陈钦风	短信在线	
+16	1340594841.	短信在线	
+
+-------------------------------
+-------------------------------
+暂无好友。。
+你已经成功的退出！
+*/
