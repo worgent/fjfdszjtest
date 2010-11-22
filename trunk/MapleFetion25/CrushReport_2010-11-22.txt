@@ -1,0 +1,630 @@
+=============================MapleFetion CrushReport=================================
+Thank you for working with MapleFetion!!! 
+ProjectHome : http://maplefetion.googlecode.com 
+Author      : solosky <solosky772@qq.com> 
+AuthorBlog  : http://www.solosky.net 
+-------------------------------------------------------------------------------------
+
+Ops, if you saw this report, FetionClient was crushed by some exceptions. Sorry for that.
+Please Email this crush file or log file to author to find and fix bugs, thank you sincerely.
+
+CrushedDate:Mon Nov 22 10:56:21 CST 2010
+
+------------------------------------Version---------------------------------------
+ClientVersion   : MapleFetion-2.5.0
+ProtocolVersion : 4.1.0740
+
+-------------------------------------Config--------------------------------------
+server.http-tunnel = http://221.130.46.141/ht/sd.aspx
+server.sipc-ssl-proxy = 221.130.46.141:443
+fetion.sip.check-alive-interval = 20
+fetion.sip.keep-connection-interval = 30
+crush.send.enable = false
+server.verify-pic-uri = http://221.130.45.201/nav/GetPicCodeV4.aspx
+fetion.dialog.check-idle-interval = 150
+server.set-portrait = http://221.130.44.232/HDS_S00/setportrait.aspx
+fetion.sip.default-alive-time = 120
+fetion.sip.machine-code = 5DBFE64D4449FBD0AE130C7B12D27A9F
+log.sipc.dir = ./
+fetion.dialog.max-idle-time = 300
+fetion.dialog.wait-buddy-enter-timeout = 20
+fetion.sip.default-retry-times = 0
+fetion.dialog.max-opened-number = 12
+server.sipc-proxy = 221.130.46.141:8080
+fetion.sip.keep-alive-interval = 600
+crush.log.dir = .
+log.sipc.enable = true
+crush.send.url = http://maplefetion.solosky.net/crushReport.php?report={report}
+crush.log.enable = true
+server.get-portrait = http://221.130.44.232/HDS_S00/getportrait.aspx
+server.nav-system-uri = http://221.130.45.201/nav/getsystemconfig.aspx
+server.ssi-sign-in-v2 = https://221.130.45.212/ssiportal/SSIAppSignInV4.aspx
+fetion.group.enable = false
+
+------------------------------Exception-----------------------------------
+net.solosky.maplefetion.client.SystemException: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:111)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.dispatch(AbstractMessageDispatcher.java:157)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.doProcessIncoming(AbstractMessageDispatcher.java:110)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:158)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.util.SipcParser.flushInMessage(SipcParser.java:156)
+	at net.solosky.maplefetion.util.SipcParser.processIncoming(SipcParser.java:293)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.net.AbstractTransfer.bytesRecived(AbstractTransfer.java:80)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer.access$3(TcpTransfer.java:1)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer$1.run(TcpTransfer.java:129)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:117)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.decryptCredential(UserAuthResponseHandler.java:186)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.doActionOK(UserAuthResponseHandler.java:162)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.doHandle(AbstractResponseHandler.java:168)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:102)
+	... 12 more
+Caused by: java.security.InvalidKeyException: Illegal key size
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:114)
+	... 16 more
+
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcRequest
+----------
+R fetion.com.cn SIP-C/4.0
+F: 624436624
+I: 1
+Q: 2 R
+A: Digest response="70ABAFEFA4D061C00832C144414914DDFAF87BCD5E635BC077EC24498FA1BB3CD8C6345ECC98C1C7527F0C3BACF8667B6B32B9A9453D6729D5F543FCFEDFD27804F0072DC5101EDCE33DA4D9CCE47685E99E453FC8BA32F7E49E7C97AA0AA9DAC85B23ADE97E9007BACB4AB488E9B17A9312E4A507D5A4935A72FC4E779521B0",algorithm="SHA1-sess-v4"
+AK: ak-value
+L: 466
+
+<args><device machine-code="5DBFE64D4449FBD0AE130C7B12D27A9F" accept-language="default"/><caps value="1FFF" /><events value="7f" /><user-info sid="624436624" user-id="420920607"><personal version="0" attributes="v4default" /><custom-config version="0" /><contact-list version="0"   buddy-attributes="v4default" /></user-info><credentials domains="fetion.com.cn;m161.com.cn;www.ikuwa.cn;games.fetion.com.cn" /><presence><basic value="400" desc="" /></presence></args>
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcResponse
+----------
+SIP-C/4.0 200 OK
+I: 1
+Q: 2 R
+X: 600
+L: 7290
+
+<results><client public-ip="112.109.193.222" login-place="" last-login-ip="211.138.132.210" last-login-place="" last-login-time="Mon, 22 Nov 2010 02:52:40 GMT" current-login-time="Mon, 22 Nov 2010 02:56:28 GMT" /><user-info><personal version="343671219" register-email="" user-id="420920607" sid="624436624" mobile-no="13599204724" uri="sip:624436624@fetion.com.cn;p=1893" name="" nickname="fjfdszj" gender="0" impresa="" portrait-crc="320303151" birth-date="1984-01-01" birthday-valid="0" carrier="CMCC" carrier-status="0" carrier-region="CN.fj.595." user-region="" profile="" blood-type="0" occupation="" hobby="" job-title="" home-phone="" work-phone="" other-phone="" personal-email="" work-email="fjfdszj@139.com" other-email="fjfdszj@139.com" primary-email="0" company="" company-website="" global-permission="identity=0;phone=0;email=0;birthday=0;business=0;presence=1;contact=0;location=3;buddy=2;ivr=2;buddy-ex=0;show=0;" sms-online-status="0.0:0:0" save-xeno-msg="0" email-binding-status="0" email-binding-alias="624436624" set-pwd-question="0"/><configs><config name="weather-city">-1</config><config name="directsms-rec">0</config><config name="weather-region"></config><config name="addbuddy-app-sms">0</config><config name="private-presence"></config><config name="permission-request">0</config><config name="alv2-setwarn">0</config></configs><custom-config version="343671219">H4sIAK7U6EwEAHSVy2obMRSGXyV9gOJL0rQLZcCxndoQX+i4mBKyUDzHtmBGGiRN0tk1u5aWQKCQRUu66KqL0i5CCSGlD9PUSVZ5hWo8UqzxTIyxfb7/Pzo6uozRSwG8zuiYTCKOJWHUQTXPGzEq8Uj2OQtC6ZRRKceQO2UH21iCkB0QAk9AOGPsC0ClAmXuHpBAMRyEzX3gcUdMHMkj7c9rqEkl8AFzgXraaBNUiyR7AaEfNyne88Ez1XMcdWIB/rhN62kDYpsIqUcslFCfgwBZmFAoId2nmlrHNfPIsMVs29SD1/MVzRK0zehEWV2QklCzNEsQbTXbfROoMewQDQHLKfAGjHHkm/kuQdUa2yd0BO2GkzSzCOpExur7cbWy9nRtdX298gyVNENuINI9Cof3e5FlyJUsTGI3FllbjqPnnEVhg4jQx3GHeZA0kmOpazNr0CFaSs7kqYOqtkgYzQ6NlsxnSb9H84Paoz6hoLdYBbF9svMiSrM5NEBi4gvrWNt0btP1ujgAe1Ab2z61ZvZwNkW1Axz3aNvzQTssYIkdQiN1F50ntsFA7XNHHIC6WN29zFg2R73xOOlcV9CTz8Ksp8UiLpzqkimlaDMSqsBW5PtpEV03h1GXpSveZZKM4+EUaOLR9gdElaSv3wNZxSrawvuME2l2V12RHGkGIeE60TyWbIS6cLBHwJVYRsIppy9V0qbIJUHoQ9apdjhP1WjgpSRTModRhzGvP+VYJLsqJE8eCRO2MmWBsuvY8Nm797PPFzd/Ps1+nt1dfri6PJ4d/rg6/353ebT0zqVef7u4PTm7Oj+anfxSPzY2rj9++Xf8O+cbtmqDv28OW72h+hy2XuUMt19Pb96eLnAp04B5OJJFN2UHPdqpN2qD2s7urmMSy0auFMoVI1cL5aqRVwvlVSOvFcqKljITrUdCqvXm8z8J9VwVKyVlyf/D/gcAAP//AAAAAHUHAAA=</custom-config><contact-list version="343521018"><buddy-lists><buddy-list id="1" name="我的好友"/><buddy-list id="2" name="华远"/><buddy-list id="3" name="华鹰"/><buddy-list id="4" name="家人"/><buddy-list id="5" name="工作"/><buddy-list id="6" name="冠发"/></buddy-lists><buddies><b i="415634986" u="tel:13405948417" n="" l="5" r="0" o="1" p="identity=1;"/><b i="416106697" u="sip:613571635@fetion.com.cn;p=594" n="老爸" l="4" f="0" r="1" o="0" p=""/><b i="418094803" u="sip:618096706@fetion.com.cn;p=961" n="冠通马鹏" l="6" f="0" r="1" o="0" p="identity=1;"/><b i="419197586" u="tel:13559602263" n="姐姐" l="4" r="1" o="0" p="identity=1;"/><b i="421286166" u="tel:13599416694" n="国通王珏" l="6" r="1" o="0" p="identity=1;"/><b i="421574142" u="sip:615079310@fetion.com.cn;p=1898" n="吴维" l="1" f="338490573" r="1" o="0" p=""/><b i="423212045" u="sip:699840355@fetion.com.cn;p=2270" n="林晓玲" l="3" f="0" r="1" o="0" p="identity=1;"/><b i="423349589" u="sip:853334717@fetion.com.cn;p=2351" n="陈钦风" l="5" f="0" r="0" o="0" p="identity=1;"/><b i="435225313" u="sip:712580847@fetion.com.cn;p=4402" n="江琼心" l="1" f="343501117" r="1" o="1" p="identity=1;"/><b i="437581648" u="sip:622384615@fetion.com.cn;p=5500" n="华远总仓" l="2" f="0" r="1" o="0" p="identity=0;phone=0;email=1;birthday=1;business=0;presence=1;contact=1;buddy=2;ivr=2;location=3;"/><b i="438748196" u="sip:574873774@fetion.com.cn;p=5951" n="" l="1" f="342963849" r="1" o="0" p="identity=1;"/><b i="438754784" u="sip:908505327@fetion.com.cn;p=5951" n="林圣如" l="6" f="342283750" r="1" o="0" p="identity=1;"/><b i="439587990" u="tel:15959522512" n="赖金龙" l="5" r="1" o="1" p="identity=1;"/><b i="442492403" u="sip:802972392@fetion.com.cn;p=7701" n="志超" l="1" f="0" r="1" o="1" p="identity=1;"/><b i="472185346" u="sip:657869401@fetion.com.cn;p=7034" n="陈铿" l="3" f="0" r="1" o="1" p="identity=1;"/><b i="746743433" u="sip:501558386@fetion.com.cn;p=16101" n="newMyself" l="1" f="342638303" r="1" o="0" p=""/><b i="756754145" u="sip:522705756@fetion.com.cn;p=10262" n="哥哥" l="4" f="327617670" r="1" o="0" p="identity=1;"/></buddies><chat-friends><c i="200570961" u="sip:722754670@fetion.com.cn;p=1697"/><c i="227596643" u="sip:651447427@fetion.com.cn;p=3706"/><c i="391371289" u="sip:761273525@fetion.com.cn;p=6910"/><c i="670839837" u="sip:933239675@fetion.com.cn;p=13081"/><c i="683143411" u="sip:945328767@fetion.com.cn;p=5185"/><c i="686623825" u="sip:949864550@fetion.com.cn;p=13090"/></chat-friends><blacklist><k i="200570961" u="sip:722754670@fetion.com.cn;p=1697" n=""/><k i="227596643" u="sip:651447427@fetion.com.cn;p=3706" n=""/><k i="300287763" u="sip:660015427@fetion.com.cn;p=3071" n=""/><k i="391371289" u="sip:761273525@fetion.com.cn;p=6910" n=""/><k i="443875001" u="sip:756725375@fetion.com.cn;p=9499" n=""/><k i="670839837" u="sip:933239675@fetion.com.cn;p=13081" n=""/></blacklist></contact-list><score value="7652" level="10" level-score="7038"/><services><service id="99"/></services><quotas><quota-limit><limit name="max-buddies" value="300"/><limit name="max-groupadmin-count" value="4"/><limit name="max-joingroup-count" value="20"/></quota-limit><quota-frequency><frequency name="send-sms" day-limit="600" day-count="1" month-limit="10000" month-count="439"/></quota-frequency></quotas><capability-list basic-caps="1ffff" contact-caps="ffffff" extended-caps="201fff"><contact carrier="CMCC" contact-caps="ffffff" /><contact carrier="CMHK" contact-caps="9ffc9f" /><contact carrier="CMPAK" contact-caps="857c08" /><contact carrier="HK.OTHER" contact-caps="0" /><contact carrier="" contact-caps="a57008" /><contact carrier="SGSH" contact-caps="857c08" /><contact carrier="SGST" contact-caps="857c08" /></capability-list></user-info><credentials kernel="LO2twPtOop8vvIAhT1f+Mhrz7vsfVVcO8d8YAZlUfpvp6bMy/Mged2UaL2NOHWyZ+6vBN5QKgXGrR45X1s5duA10iDNKz1eukNU1iCr7p5EKA+rBzcPOWCJJSV/oePxl0QypvmO5B/WZFLl3bPsezLUQXaDSN0alieSkaHslQgCLwHsTUTr82fFp/X0ohZyR"><credential domain="fetion.com.cn" c="x34356ljr7QF9Tv7A3iVuyfEExHxU4dlZT6Soqox38BXa4bg0SC4dd7y/O1NRXvYDtStawpKxt94onXJyBQpQHX/++nJNiIHqEdSkbcEcVILCJwkPL1aahG7pscJAe/5PVxH2zv0kpmhKMH2kxj8MNhyH/az5Oi0lJfQ2UdSJN8qebFxTe8bu4g8uQHa9zFq"/><credential domain="m161.com.cn" c="bP0Ymj2g383YTvacnd/Cvarp4lLFtn403wa05MPXlFY8GUdAcYmJgyeGg1mN/yZW1m+el4MzIWDVUlC/JdiV2XJoJelVHCqfbMGANk/MBdPNoQEwfgNpC9Or4w+Z/RffiBqsOdY/KwF8La3iR8trWSyvjBSrSJGgwP1giuv7dYE="/><credential domain="www.ikuwa.cn" c="N9oMLDgYkyt7yED//E0Kz2n3O4brevz8R6g9LD2mMnIpvNNcaDAOqmFGmRgtKVhvKwbAQxAQqS08ChKor9P/EDgpRGCs6VJqQhzYYi35MNjppT7vj/+7R/2Z0gn037sqkg8gHwfgybFKuFBiVrMPlQOgvHVV4vKUmDsw2ln31zc="/><credential domain="games.fetion.com.cn" c="ZnWxz9Aiz1DG17NrjpTidvtOtuB7Zpqh8Fe81LMtztLOlTuVlyx+sFt6ilMo4rCHUFaLWTOqvYbpeEAYUUY39yJRyqV34Z+/BHiEdFWUTvqhigHF/QuXLxgupWn52babatEMGEdY5BHaOeEOReqMiZpGdtFznhRi67XVwPm1ZNFCWpwGRmWuwC6R5Grmo3uM"/></credentials></results>
+===================================================================================
+
+
+=============================MapleFetion CrushReport=================================
+Thank you for working with MapleFetion!!! 
+ProjectHome : http://maplefetion.googlecode.com 
+Author      : solosky <solosky772@qq.com> 
+AuthorBlog  : http://www.solosky.net 
+-------------------------------------------------------------------------------------
+
+Ops, if you saw this report, FetionClient was crushed by some exceptions. Sorry for that.
+Please Email this crush file or log file to author to find and fix bugs, thank you sincerely.
+
+CrushedDate:Mon Nov 22 11:00:23 CST 2010
+
+------------------------------------Version---------------------------------------
+ClientVersion   : MapleFetion-2.5.0
+ProtocolVersion : 4.1.0740
+
+-------------------------------------Config--------------------------------------
+server.http-tunnel = http://221.130.46.141/ht/sd.aspx
+server.sipc-ssl-proxy = 221.130.46.141:443
+fetion.sip.check-alive-interval = 20
+fetion.sip.keep-connection-interval = 30
+crush.send.enable = false
+server.verify-pic-uri = http://221.130.45.201/nav/GetPicCodeV4.aspx
+fetion.dialog.check-idle-interval = 150
+server.set-portrait = http://221.130.44.232/HDS_S00/setportrait.aspx
+fetion.sip.default-alive-time = 120
+fetion.sip.machine-code = 5DBFE64D4449FBD0AE130C7B12D27A9F
+log.sipc.dir = ./
+fetion.dialog.max-idle-time = 300
+fetion.dialog.wait-buddy-enter-timeout = 20
+fetion.sip.default-retry-times = 0
+fetion.dialog.max-opened-number = 12
+server.sipc-proxy = 221.130.46.141:8080
+fetion.sip.keep-alive-interval = 600
+crush.log.dir = .
+log.sipc.enable = true
+crush.send.url = http://maplefetion.solosky.net/crushReport.php?report={report}
+crush.log.enable = true
+server.get-portrait = http://221.130.44.232/HDS_S00/getportrait.aspx
+server.nav-system-uri = http://221.130.45.201/nav/getsystemconfig.aspx
+server.ssi-sign-in-v2 = https://221.130.45.212/ssiportal/SSIAppSignInV4.aspx
+fetion.group.enable = false
+
+------------------------------Exception-----------------------------------
+net.solosky.maplefetion.client.SystemException: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:111)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.dispatch(AbstractMessageDispatcher.java:157)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.doProcessIncoming(AbstractMessageDispatcher.java:110)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:158)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.util.SipcParser.flushInMessage(SipcParser.java:156)
+	at net.solosky.maplefetion.util.SipcParser.processIncoming(SipcParser.java:293)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.net.AbstractTransfer.bytesRecived(AbstractTransfer.java:80)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer.access$3(TcpTransfer.java:1)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer$1.run(TcpTransfer.java:129)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:117)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.decryptCredential(UserAuthResponseHandler.java:186)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.doActionOK(UserAuthResponseHandler.java:162)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.doHandle(AbstractResponseHandler.java:168)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:102)
+	... 12 more
+Caused by: java.security.InvalidKeyException: Illegal key size
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:114)
+	... 16 more
+
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcRequest
+----------
+R fetion.com.cn SIP-C/4.0
+F: 624436624
+I: 1
+Q: 2 R
+A: Digest response="794BFEEAFEC62DF9ABE8A2C76C96048424DB3555CB1307DB34708AF1D98EC4FBFAF46BD4C1E3F49C227E0534B1F9E5602B4FD304306A56140B58E567B700D81A68225B073A67613A0C037EC2B427F7209ADB04243EC67B33A9C0B468648F198E9009D5C2FE58D04EC7097B31D63683BB14545A8623C1612F0D93FE36E6696782",algorithm="SHA1-sess-v4"
+AK: ak-value
+L: 482
+
+<args><device machine-code="5DBFE64D4449FBD0AE130C7B12D27A9F" accept-language="default"/><caps value="1FFF" /><events value="7f" /><user-info sid="624436624" user-id="420920607"><personal version="343671219" attributes="v4default" /><custom-config version="0" /><contact-list version="343521018"   buddy-attributes="v4default" /></user-info><credentials domains="fetion.com.cn;m161.com.cn;www.ikuwa.cn;games.fetion.com.cn" /><presence><basic value="400" desc="" /></presence></args>
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcResponse
+----------
+SIP-C/4.0 200 OK
+I: 1
+Q: 2 R
+X: 600
+L: 4392
+
+<results><client public-ip="112.109.193.222" login-place="" last-login-ip="112.109.193.222" last-login-place="" last-login-time="Mon, 22 Nov 2010 02:59:59 GMT" current-login-time="Mon, 22 Nov 2010 03:00:30 GMT" /><user-info><personal version="343738812" register-email="" user-id="420920607" sid="624436624" mobile-no="13599204724" uri="sip:624436624@fetion.com.cn;p=1893" name="" nickname="fjfdszj" gender="0" impresa="" portrait-crc="320303151" birth-date="1984-01-01" birthday-valid="0" carrier="CMCC" carrier-status="0" carrier-region="CN.fj.595." user-region="" profile="" blood-type="0" occupation="" hobby="" job-title="" home-phone="" work-phone="" other-phone="" personal-email="" work-email="fjfdszj@139.com" other-email="fjfdszj@139.com" primary-email="0" company="" company-website="" global-permission="identity=0;phone=0;email=0;birthday=0;business=0;presence=1;contact=0;location=3;buddy=2;ivr=2;buddy-ex=0;show=0;" sms-online-status="0.0:0:0" save-xeno-msg="0" email-binding-status="0" email-binding-alias="624436624" set-pwd-question="0"/><configs><config name="weather-city">-1</config><config name="directsms-rec">0</config><config name="weather-region"></config><config name="addbuddy-app-sms">0</config><config name="private-presence"></config><config name="permission-request">0</config><config name="alv2-setwarn">0</config></configs><custom-config version="343738812">H4sIALXc6UwEAHSVy2obMRSGXyV9gOJL0rQLZcCxndoQX+i4mBKyUDzHtmBGGiRN0tk1u5aWQKCQRUu66KqL0i5CCSGlD9PUSVZ5hWo8UqzxTIyxfb7/Pzo6uozRSwG8zuiYTCKOJWHUQTXPGzEq8Uj2OQtC6ZRRKceQO2UH21iCkB0QAk9AOGPsC0ClAmXuHpBAMRyEzX3gcUdMHMkj7c9rqEkl8AFzgXraaBNUiyR7AaEfNyne88Ez1XMcdWIB/rhN62kDYpsIqUcslFCfgwBZmFAoId2nmlrHNfPIsMVs29SD1/MVzRK0zehEWV2QklCzNEsQbTXbfROoMewQDQHLKfAGjHHkm/kuQdUa2yd0BO2GkzSzCOpExur7cbWy9nRtdX298gyVNENuINI9Cof3e5FlyJUsTGI3FllbjqPnnEVhg4jQx3GHeZA0kmOpazNr0CFaSs7kqYOqtkgYzQ6NlsxnSb9H84Paoz6hoLdYBbF9svMiSrM5NEBi4gvrWNt0btP1ujgAe1Ab2z61ZvZwNkW1Axz3aNvzQTssYIkdQiN1F50ntsFA7XNHHIC6WN29zFg2R73xOOlcV9CTz8Ksp8UiLpzqkimlaDMSqsBW5PtpEV03h1GXpSveZZKM4+EUaOLR9gdElaSv3wNZxSrawvuME2l2V12RHGkGIeE60TyWbIS6cLBHwJVYRsIppy9V0qbIJUHoQ9apdjhP1WjgpSRTModRhzGvP+VYJLsqJE8eCRO2MmWBsuvY8Nm797PPFzd/Ps1+nt1dfri6PJ4d/rg6/353ebT0zqVef7u4PTm7Oj+anfxSPzY2rj9++Xf8O+cbtmqDv28OW72h+hy2XuUMt19Pb96eLnAp04B5OJJFN2UHPdqpN2qD2s7urmMSy0auFMoVI1cL5aqRVwvlVSOvFcqKljITrUdCqvXm8z8J9VwVKyVlyf/D/gcAAP//AAAAAHUHAAA=</custom-config><contact-list version="343521018"/><score value="7652" level="10" level-score="7038"/><services><service id="99"/></services><quotas><quota-limit><limit name="max-buddies" value="300"/><limit name="max-groupadmin-count" value="4"/><limit name="max-joingroup-count" value="20"/></quota-limit><quota-frequency><frequency name="send-sms" day-limit="600" day-count="2" month-limit="10000" month-count="440"/></quota-frequency></quotas><capability-list basic-caps="1ffff" contact-caps="ffffff" extended-caps="201fff"><contact carrier="CMCC" contact-caps="ffffff" /><contact carrier="CMHK" contact-caps="9ffc9f" /><contact carrier="CMPAK" contact-caps="857c08" /><contact carrier="HK.OTHER" contact-caps="0" /><contact carrier="" contact-caps="a57008" /><contact carrier="SGSH" contact-caps="857c08" /><contact carrier="SGST" contact-caps="857c08" /></capability-list></user-info><credentials kernel="2juScXbQCt9n7ptW5nOk5Gr2uHDd8VdJqXLvOYj2xHN3hSD/T+4Vo3BuxcnCuLyr1vwDzC9jCf2cHe1oSKbEnnhV9f8FJE+e2N5IuirakIApvJB8JXVlaC/okhoa3re3Z3iFY5IQckrCiUl6pdnrYMHzTBpyV02axweyC4aMUI6+QBUupLQ/kc3ZIpIpGzQp"><credential domain="fetion.com.cn" c="YuMk6UO6KTiaZxE9P1UE8RsydW96g2q4rNcmXIppXUG8A2ulfFcTlKTV5w8ZZttSrSTNQjifyBHo47YOOgSpHPu5vi7RH2xsVWEvCxU0s1hCmrpcNLvKuAwWHoY1EzZPVk9oy1I2cKxYZnt1sVAHJEUuASQ7wCDreSKmjc4iSXNBbaEphGUysW1g3cD/rRUz"/><credential domain="m161.com.cn" c="/CrVocufBeGx8dXbmRw/pW7w78cIiBbC1cueefnRkLm0ucG6fXdKmlsawm0ma32UBvwyjLuYOTL4DHM6omKadQUXOHqMXIFj0xe+LVZcMbXwWCaLTk59aPny/rl3Z4mVZt6dCtH303iT9VrF0r1bWQQZIYvuIn6XF5/7lbkJHNE="/><credential domain="www.ikuwa.cn" c="y3nJ/uvK7bWzxi8S4rzm4BKEonXXetNJwdcUJ3rcCyRQ0G2nnt/BbiSwyWzbm0aNbb/nx4YeKKruTbQ9Xm+yooovwaAKqvYa3Dh9VqB2gxS69aWdxPv7FQ5WU/HtC0d5QnS8vu8vZyzhjob72Swb5k7aP64gFx6xLhRbOfu/zko="/><credential domain="games.fetion.com.cn" c="luNmZBDzspa0XD4/Mw4Hh0mGaei2XVJz884ym1Q+LrKk07X/a99+ycsh6rN0MNcMSTEeSjqipEKPk1+pbqB4rPrs0zhuKRwTS8McGJ71XYSmLJolNOLLUHRneYBeB4yxjzD9HYeh6x9mNtrLOxmtdH3RYj2eqDnSDfya747UVQxVa3pDP83F0sWhKcht3RJW"/></credentials></results>
+===================================================================================
+
+
+=============================MapleFetion CrushReport=================================
+Thank you for working with MapleFetion!!! 
+ProjectHome : http://maplefetion.googlecode.com 
+Author      : solosky <solosky772@qq.com> 
+AuthorBlog  : http://www.solosky.net 
+-------------------------------------------------------------------------------------
+
+Ops, if you saw this report, FetionClient was crushed by some exceptions. Sorry for that.
+Please Email this crush file or log file to author to find and fix bugs, thank you sincerely.
+
+CrushedDate:Mon Nov 22 11:02:17 CST 2010
+
+------------------------------------Version---------------------------------------
+ClientVersion   : MapleFetion-2.5.0
+ProtocolVersion : 4.1.0740
+
+-------------------------------------Config--------------------------------------
+server.http-tunnel = http://221.130.46.141/ht/sd.aspx
+server.sipc-ssl-proxy = 221.130.46.141:443
+fetion.sip.check-alive-interval = 20
+fetion.sip.keep-connection-interval = 30
+crush.send.enable = false
+server.verify-pic-uri = http://221.130.45.201/nav/GetPicCodeV4.aspx
+fetion.dialog.check-idle-interval = 150
+server.set-portrait = http://221.130.44.232/HDS_S00/setportrait.aspx
+fetion.sip.default-alive-time = 120
+fetion.sip.machine-code = 5DBFE64D4449FBD0AE130C7B12D27A9F
+log.sipc.dir = ./
+fetion.dialog.max-idle-time = 300
+fetion.dialog.wait-buddy-enter-timeout = 20
+fetion.sip.default-retry-times = 0
+fetion.dialog.max-opened-number = 12
+server.sipc-proxy = 221.130.46.141:8080
+fetion.sip.keep-alive-interval = 600
+crush.log.dir = .
+log.sipc.enable = true
+crush.send.url = http://maplefetion.solosky.net/crushReport.php?report={report}
+crush.log.enable = true
+server.get-portrait = http://221.130.44.232/HDS_S00/getportrait.aspx
+server.nav-system-uri = http://221.130.45.201/nav/getsystemconfig.aspx
+server.ssi-sign-in-v2 = https://221.130.45.212/ssiportal/SSIAppSignInV4.aspx
+fetion.group.enable = false
+
+------------------------------Exception-----------------------------------
+net.solosky.maplefetion.client.SystemException: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:111)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.dispatch(AbstractMessageDispatcher.java:157)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.doProcessIncoming(AbstractMessageDispatcher.java:110)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:158)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.util.SipcParser.flushInMessage(SipcParser.java:156)
+	at net.solosky.maplefetion.util.SipcParser.processIncoming(SipcParser.java:293)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.net.AbstractTransfer.bytesRecived(AbstractTransfer.java:80)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer.access$3(TcpTransfer.java:1)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer$1.run(TcpTransfer.java:129)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:117)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.decryptCredential(UserAuthResponseHandler.java:186)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.doActionOK(UserAuthResponseHandler.java:162)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.doHandle(AbstractResponseHandler.java:168)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:102)
+	... 12 more
+Caused by: java.security.InvalidKeyException: Illegal key size
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:114)
+	... 16 more
+
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcRequest
+----------
+R fetion.com.cn SIP-C/4.0
+F: 624436624
+I: 1
+Q: 2 R
+A: Digest response="A97CD4F3EF36AE9988D72F225CE211A2FDAB522FD34B180C1BD86359204F53529E3533DDEF723D686AD4E6037CE9844EC8B74F53AB9C7C9BECC8B0B8776724E0CE1643DEF0DE9C918E4F7579751029D94AD9CFD8C0594CF3104D9B204950B37C0DB898D0F54AAC7D94F1E9C0CDADCA3E8C23B6487E56505766F19C291F007BBB",algorithm="SHA1-sess-v4"
+AK: ak-value
+L: 466
+
+<args><device machine-code="5DBFE64D4449FBD0AE130C7B12D27A9F" accept-language="default"/><caps value="1FFF" /><events value="7f" /><user-info sid="624436624" user-id="420920607"><personal version="0" attributes="v4default" /><custom-config version="0" /><contact-list version="0"   buddy-attributes="v4default" /></user-info><credentials domains="fetion.com.cn;m161.com.cn;www.ikuwa.cn;games.fetion.com.cn" /><presence><basic value="400" desc="" /></presence></args>
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcResponse
+----------
+SIP-C/4.0 200 OK
+I: 1
+Q: 2 R
+X: 600
+L: 7290
+
+<results><client public-ip="112.109.193.222" login-place="" last-login-ip="112.109.193.222" last-login-place="" last-login-time="Mon, 22 Nov 2010 03:00:30 GMT" current-login-time="Mon, 22 Nov 2010 03:02:24 GMT" /><user-info><personal version="343738812" register-email="" user-id="420920607" sid="624436624" mobile-no="13599204724" uri="sip:624436624@fetion.com.cn;p=1893" name="" nickname="fjfdszj" gender="0" impresa="" portrait-crc="320303151" birth-date="1984-01-01" birthday-valid="0" carrier="CMCC" carrier-status="0" carrier-region="CN.fj.595." user-region="" profile="" blood-type="0" occupation="" hobby="" job-title="" home-phone="" work-phone="" other-phone="" personal-email="" work-email="fjfdszj@139.com" other-email="fjfdszj@139.com" primary-email="0" company="" company-website="" global-permission="identity=0;phone=0;email=0;birthday=0;business=0;presence=1;contact=0;location=3;buddy=2;ivr=2;buddy-ex=0;show=0;" sms-online-status="0.0:0:0" save-xeno-msg="0" email-binding-status="0" email-binding-alias="624436624" set-pwd-question="0"/><configs><config name="weather-city">-1</config><config name="directsms-rec">0</config><config name="weather-region"></config><config name="addbuddy-app-sms">0</config><config name="private-presence"></config><config name="permission-request">0</config><config name="alv2-setwarn">0</config></configs><custom-config version="343738812">H4sIALXc6UwEAHSVy2obMRSGXyV9gOJL0rQLZcCxndoQX+i4mBKyUDzHtmBGGiRN0tk1u5aWQKCQRUu66KqL0i5CCSGlD9PUSVZ5hWo8UqzxTIyxfb7/Pzo6uozRSwG8zuiYTCKOJWHUQTXPGzEq8Uj2OQtC6ZRRKceQO2UH21iCkB0QAk9AOGPsC0ClAmXuHpBAMRyEzX3gcUdMHMkj7c9rqEkl8AFzgXraaBNUiyR7AaEfNyne88Ez1XMcdWIB/rhN62kDYpsIqUcslFCfgwBZmFAoId2nmlrHNfPIsMVs29SD1/MVzRK0zehEWV2QklCzNEsQbTXbfROoMewQDQHLKfAGjHHkm/kuQdUa2yd0BO2GkzSzCOpExur7cbWy9nRtdX298gyVNENuINI9Cof3e5FlyJUsTGI3FllbjqPnnEVhg4jQx3GHeZA0kmOpazNr0CFaSs7kqYOqtkgYzQ6NlsxnSb9H84Paoz6hoLdYBbF9svMiSrM5NEBi4gvrWNt0btP1ujgAe1Ab2z61ZvZwNkW1Axz3aNvzQTssYIkdQiN1F50ntsFA7XNHHIC6WN29zFg2R73xOOlcV9CTz8Ksp8UiLpzqkimlaDMSqsBW5PtpEV03h1GXpSveZZKM4+EUaOLR9gdElaSv3wNZxSrawvuME2l2V12RHGkGIeE60TyWbIS6cLBHwJVYRsIppy9V0qbIJUHoQ9apdjhP1WjgpSRTModRhzGvP+VYJLsqJE8eCRO2MmWBsuvY8Nm797PPFzd/Ps1+nt1dfri6PJ4d/rg6/353ebT0zqVef7u4PTm7Oj+anfxSPzY2rj9++Xf8O+cbtmqDv28OW72h+hy2XuUMt19Pb96eLnAp04B5OJJFN2UHPdqpN2qD2s7urmMSy0auFMoVI1cL5aqRVwvlVSOvFcqKljITrUdCqvXm8z8J9VwVKyVlyf/D/gcAAP//AAAAAHUHAAA=</custom-config><contact-list version="343521018"><buddy-lists><buddy-list id="1" name="我的好友"/><buddy-list id="2" name="华远"/><buddy-list id="3" name="华鹰"/><buddy-list id="4" name="家人"/><buddy-list id="5" name="工作"/><buddy-list id="6" name="冠发"/></buddy-lists><buddies><b i="415634986" u="tel:13405948417" n="" l="5" r="0" o="1" p="identity=1;"/><b i="416106697" u="sip:613571635@fetion.com.cn;p=594" n="老爸" l="4" f="0" r="1" o="0" p=""/><b i="418094803" u="sip:618096706@fetion.com.cn;p=961" n="冠通马鹏" l="6" f="0" r="1" o="0" p="identity=1;"/><b i="419197586" u="tel:13559602263" n="姐姐" l="4" r="1" o="0" p="identity=1;"/><b i="421286166" u="tel:13599416694" n="国通王珏" l="6" r="1" o="0" p="identity=1;"/><b i="421574142" u="sip:615079310@fetion.com.cn;p=1898" n="吴维" l="1" f="338490573" r="1" o="0" p=""/><b i="423212045" u="sip:699840355@fetion.com.cn;p=2270" n="林晓玲" l="3" f="0" r="1" o="0" p="identity=1;"/><b i="423349589" u="sip:853334717@fetion.com.cn;p=2351" n="陈钦风" l="5" f="0" r="0" o="0" p="identity=1;"/><b i="435225313" u="sip:712580847@fetion.com.cn;p=4402" n="江琼心" l="1" f="343501117" r="1" o="1" p="identity=1;"/><b i="437581648" u="sip:622384615@fetion.com.cn;p=5500" n="华远总仓" l="2" f="0" r="1" o="0" p="identity=0;phone=0;email=1;birthday=1;business=0;presence=1;contact=1;buddy=2;ivr=2;location=3;"/><b i="438748196" u="sip:574873774@fetion.com.cn;p=5951" n="" l="1" f="342963849" r="1" o="0" p="identity=1;"/><b i="438754784" u="sip:908505327@fetion.com.cn;p=5951" n="林圣如" l="6" f="342283750" r="1" o="0" p="identity=1;"/><b i="439587990" u="tel:15959522512" n="赖金龙" l="5" r="1" o="1" p="identity=1;"/><b i="442492403" u="sip:802972392@fetion.com.cn;p=7701" n="志超" l="1" f="0" r="1" o="1" p="identity=1;"/><b i="472185346" u="sip:657869401@fetion.com.cn;p=7034" n="陈铿" l="3" f="0" r="1" o="1" p="identity=1;"/><b i="746743433" u="sip:501558386@fetion.com.cn;p=16101" n="newMyself" l="1" f="342638303" r="1" o="0" p=""/><b i="756754145" u="sip:522705756@fetion.com.cn;p=10262" n="哥哥" l="4" f="327617670" r="1" o="0" p="identity=1;"/></buddies><chat-friends><c i="200570961" u="sip:722754670@fetion.com.cn;p=1697"/><c i="227596643" u="sip:651447427@fetion.com.cn;p=3706"/><c i="391371289" u="sip:761273525@fetion.com.cn;p=6910"/><c i="670839837" u="sip:933239675@fetion.com.cn;p=13081"/><c i="683143411" u="sip:945328767@fetion.com.cn;p=5185"/><c i="686623825" u="sip:949864550@fetion.com.cn;p=13090"/></chat-friends><blacklist><k i="200570961" u="sip:722754670@fetion.com.cn;p=1697" n=""/><k i="227596643" u="sip:651447427@fetion.com.cn;p=3706" n=""/><k i="300287763" u="sip:660015427@fetion.com.cn;p=3071" n=""/><k i="391371289" u="sip:761273525@fetion.com.cn;p=6910" n=""/><k i="443875001" u="sip:756725375@fetion.com.cn;p=9499" n=""/><k i="670839837" u="sip:933239675@fetion.com.cn;p=13081" n=""/></blacklist></contact-list><score value="7652" level="10" level-score="7038"/><services><service id="99"/></services><quotas><quota-limit><limit name="max-buddies" value="300"/><limit name="max-groupadmin-count" value="4"/><limit name="max-joingroup-count" value="20"/></quota-limit><quota-frequency><frequency name="send-sms" day-limit="600" day-count="4" month-limit="10000" month-count="442"/></quota-frequency></quotas><capability-list basic-caps="1ffff" contact-caps="ffffff" extended-caps="201fff"><contact carrier="CMCC" contact-caps="ffffff" /><contact carrier="CMHK" contact-caps="9ffc9f" /><contact carrier="CMPAK" contact-caps="857c08" /><contact carrier="HK.OTHER" contact-caps="0" /><contact carrier="" contact-caps="a57008" /><contact carrier="SGSH" contact-caps="857c08" /><contact carrier="SGST" contact-caps="857c08" /></capability-list></user-info><credentials kernel="Ta4tMmr1xVsuWlDtkqXsu8CTs8e4deiB+9GlPKJLVM/6o0YHgEJ6ht4G/RFMSSS0lyFXVhBqSDaQ0C3ITF/x7QDOasvgT9YTbJvo1bZ0wLgCWvZsTRtyO3L3GZVm+frv5PLkrC2hygcudt4Ihxaqo41au8ARckLSoT8TEm70EdDIOYJd19HrNFEoArrAD+A+"><credential domain="fetion.com.cn" c="y1pqsdQlT7G9Z08NXX1ebGgzjBns+NVBT2pM+bYPiQKS9EoRvKDfX4FXjIjkiWuzPoSfTqdew0rTVtNfMSmuLETQQDJfUzH4SpwSQXc0x8bigYFk2dtTr2ku1qAMQRWdro5fCJ3y7ctSolWcRo94FHh93UV5p4VMQz8v00M5bfqr232SB2ovvxFrSTc/D86o"/><credential domain="m161.com.cn" c="JxtrUZgVNl4QGEzxUrlUzq4X0HscekZrL0NxHXBnQD5gL/Uq0oQsc/NuQsT96N57cFpfqqFoiTxZ2yc+FnVPEhImTVw3KBn2cdWTolZrcE6PcRC8uN5uJzkGmIlmQPMBw6Obn6pudSYpxPAS0f5TUirrWz84a44GF2Fi6Z1KDTo="/><credential domain="www.ikuwa.cn" c="484hUFEzcDZl171W72/fCvWxVAZiz+cgDry5yF7v43BteTXnhng+3wMPEqASLJss9Chuyy0uFW15ZPF6DejVL+cnT17A1KBLhHs0bZIIIvKBMsxM8a/QxXin225E4OCqt7LK+C7kHEG6lx+Ui+aWNKA7n+zMVSFb25HAGMSxuvM="/><credential domain="games.fetion.com.cn" c="6LBGa1BZ46VBqd6QD4k/taluGwjDW8pPrIBTLecfQiIWvWslrutG0r6mqw6a1ocL4K74a1j4pFV3YUO6jYdpKPRzaJsiNudUutQgU10tVNWTSyL9BSn8xYvwK8CYi5pkTzRlDofdfBzng9PuYP2yp1p8/8nKJxrcVynDnfycgsVX6ZZUrIIP+tZi8Wk4U+mG"/></credentials></results>
+===================================================================================
+
+
+=============================MapleFetion CrushReport=================================
+Thank you for working with MapleFetion!!! 
+ProjectHome : http://maplefetion.googlecode.com 
+Author      : solosky <solosky772@qq.com> 
+AuthorBlog  : http://www.solosky.net 
+-------------------------------------------------------------------------------------
+
+Ops, if you saw this report, FetionClient was crushed by some exceptions. Sorry for that.
+Please Email this crush file or log file to author to find and fix bugs, thank you sincerely.
+
+CrushedDate:Mon Nov 22 11:25:22 CST 2010
+
+------------------------------------Version---------------------------------------
+ClientVersion   : MapleFetion-2.5.0
+ProtocolVersion : 4.1.0740
+
+-------------------------------------Config--------------------------------------
+server.http-tunnel = http://221.130.46.141/ht/sd.aspx
+server.sipc-ssl-proxy = 221.130.46.141:443
+fetion.sip.check-alive-interval = 20
+fetion.sip.keep-connection-interval = 30
+crush.send.enable = false
+server.verify-pic-uri = http://221.130.45.201/nav/GetPicCodeV4.aspx
+fetion.dialog.check-idle-interval = 150
+server.set-portrait = http://221.130.44.232/HDS_S00/setportrait.aspx
+fetion.sip.default-alive-time = 120
+fetion.sip.machine-code = 5DBFE64D4449FBD0AE130C7B12D27A9F
+log.sipc.dir = ./
+fetion.dialog.max-idle-time = 300
+fetion.dialog.wait-buddy-enter-timeout = 20
+fetion.sip.default-retry-times = 0
+fetion.dialog.max-opened-number = 12
+server.sipc-proxy = 221.130.46.141:8080
+fetion.sip.keep-alive-interval = 600
+crush.log.dir = .
+log.sipc.enable = true
+crush.send.url = http://maplefetion.solosky.net/crushReport.php?report={report}
+crush.log.enable = true
+server.get-portrait = http://221.130.44.232/HDS_S00/getportrait.aspx
+server.nav-system-uri = http://221.130.45.201/nav/getsystemconfig.aspx
+server.ssi-sign-in-v2 = https://221.130.45.212/ssiportal/SSIAppSignInV4.aspx
+fetion.group.enable = false
+
+------------------------------Exception-----------------------------------
+net.solosky.maplefetion.client.SystemException: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:111)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.dispatch(AbstractMessageDispatcher.java:157)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.doProcessIncoming(AbstractMessageDispatcher.java:110)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:158)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.util.SipcParser.flushInMessage(SipcParser.java:156)
+	at net.solosky.maplefetion.util.SipcParser.processIncoming(SipcParser.java:293)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.net.AbstractTransfer.bytesRecived(AbstractTransfer.java:80)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer.access$3(TcpTransfer.java:1)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer$1.run(TcpTransfer.java:129)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:117)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.decryptCredential(UserAuthResponseHandler.java:186)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.doActionOK(UserAuthResponseHandler.java:162)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.doHandle(AbstractResponseHandler.java:168)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:102)
+	... 12 more
+Caused by: java.security.InvalidKeyException: Illegal key size
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:114)
+	... 16 more
+
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcRequest
+----------
+R fetion.com.cn SIP-C/4.0
+F: 624436624
+I: 1
+Q: 2 R
+A: Digest response="58432363915AF99230EC5CD4EFB5BDF1800151556AF3F5E7B821130F49EFB2560D2C923D8EAC6CDEA0B4FB8F099BB213AA1FE579933A9AC5E2F6DC354F688FE866E0EA80F2D00BE1D66E298E0DD5E2A11BECEDD03BF96178342C89913C359705BCB6F6B8D96735585FAC06816F63AC64FFDE5E0DEEB9BDDB71AFED948484DC93",algorithm="SHA1-sess-v4"
+AK: ak-value
+L: 466
+
+<args><device machine-code="5DBFE64D4449FBD0AE130C7B12D27A9F" accept-language="default"/><caps value="1FFF" /><events value="7f" /><user-info sid="624436624" user-id="420920607"><personal version="0" attributes="v4default" /><custom-config version="0" /><contact-list version="0"   buddy-attributes="v4default" /></user-info><credentials domains="fetion.com.cn;m161.com.cn;www.ikuwa.cn;games.fetion.com.cn" /><presence><basic value="400" desc="" /></presence></args>
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcResponse
+----------
+SIP-C/4.0 200 OK
+I: 1
+Q: 2 R
+X: 600
+L: 7290
+
+<results><client public-ip="112.109.193.222" login-place="" last-login-ip="112.109.193.222" last-login-place="" last-login-time="Mon, 22 Nov 2010 03:02:24 GMT" current-login-time="Mon, 22 Nov 2010 03:25:28 GMT" /><user-info><personal version="343738812" register-email="" user-id="420920607" sid="624436624" mobile-no="13599204724" uri="sip:624436624@fetion.com.cn;p=1893" name="" nickname="fjfdszj" gender="0" impresa="" portrait-crc="320303151" birth-date="1984-01-01" birthday-valid="0" carrier="CMCC" carrier-status="0" carrier-region="CN.fj.595." user-region="" profile="" blood-type="0" occupation="" hobby="" job-title="" home-phone="" work-phone="" other-phone="" personal-email="" work-email="fjfdszj@139.com" other-email="fjfdszj@139.com" primary-email="0" company="" company-website="" global-permission="identity=0;phone=0;email=0;birthday=0;business=0;presence=1;contact=0;location=3;buddy=2;ivr=2;buddy-ex=0;show=0;" sms-online-status="0.0:0:0" save-xeno-msg="0" email-binding-status="0" email-binding-alias="624436624" set-pwd-question="0"/><configs><config name="weather-city">-1</config><config name="directsms-rec">0</config><config name="weather-region"></config><config name="addbuddy-app-sms">0</config><config name="private-presence"></config><config name="permission-request">0</config><config name="alv2-setwarn">0</config></configs><custom-config version="343738812">H4sIALXc6UwEAHSVy2obMRSGXyV9gOJL0rQLZcCxndoQX+i4mBKyUDzHtmBGGiRN0tk1u5aWQKCQRUu66KqL0i5CCSGlD9PUSVZ5hWo8UqzxTIyxfb7/Pzo6uozRSwG8zuiYTCKOJWHUQTXPGzEq8Uj2OQtC6ZRRKceQO2UH21iCkB0QAk9AOGPsC0ClAmXuHpBAMRyEzX3gcUdMHMkj7c9rqEkl8AFzgXraaBNUiyR7AaEfNyne88Ez1XMcdWIB/rhN62kDYpsIqUcslFCfgwBZmFAoId2nmlrHNfPIsMVs29SD1/MVzRK0zehEWV2QklCzNEsQbTXbfROoMewQDQHLKfAGjHHkm/kuQdUa2yd0BO2GkzSzCOpExur7cbWy9nRtdX298gyVNENuINI9Cof3e5FlyJUsTGI3FllbjqPnnEVhg4jQx3GHeZA0kmOpazNr0CFaSs7kqYOqtkgYzQ6NlsxnSb9H84Paoz6hoLdYBbF9svMiSrM5NEBi4gvrWNt0btP1ujgAe1Ab2z61ZvZwNkW1Axz3aNvzQTssYIkdQiN1F50ntsFA7XNHHIC6WN29zFg2R73xOOlcV9CTz8Ksp8UiLpzqkimlaDMSqsBW5PtpEV03h1GXpSveZZKM4+EUaOLR9gdElaSv3wNZxSrawvuME2l2V12RHGkGIeE60TyWbIS6cLBHwJVYRsIppy9V0qbIJUHoQ9apdjhP1WjgpSRTModRhzGvP+VYJLsqJE8eCRO2MmWBsuvY8Nm797PPFzd/Ps1+nt1dfri6PJ4d/rg6/353ebT0zqVef7u4PTm7Oj+anfxSPzY2rj9++Xf8O+cbtmqDv28OW72h+hy2XuUMt19Pb96eLnAp04B5OJJFN2UHPdqpN2qD2s7urmMSy0auFMoVI1cL5aqRVwvlVSOvFcqKljITrUdCqvXm8z8J9VwVKyVlyf/D/gcAAP//AAAAAHUHAAA=</custom-config><contact-list version="343521018"><buddy-lists><buddy-list id="1" name="我的好友"/><buddy-list id="2" name="华远"/><buddy-list id="3" name="华鹰"/><buddy-list id="4" name="家人"/><buddy-list id="5" name="工作"/><buddy-list id="6" name="冠发"/></buddy-lists><buddies><b i="415634986" u="tel:13405948417" n="" l="5" r="0" o="1" p="identity=1;"/><b i="416106697" u="sip:613571635@fetion.com.cn;p=594" n="老爸" l="4" f="0" r="1" o="0" p=""/><b i="418094803" u="sip:618096706@fetion.com.cn;p=961" n="冠通马鹏" l="6" f="0" r="1" o="0" p="identity=1;"/><b i="419197586" u="tel:13559602263" n="姐姐" l="4" r="1" o="0" p="identity=1;"/><b i="421286166" u="tel:13599416694" n="国通王珏" l="6" r="1" o="0" p="identity=1;"/><b i="421574142" u="sip:615079310@fetion.com.cn;p=1898" n="吴维" l="1" f="338490573" r="1" o="0" p=""/><b i="423212045" u="sip:699840355@fetion.com.cn;p=2270" n="林晓玲" l="3" f="0" r="1" o="0" p="identity=1;"/><b i="423349589" u="sip:853334717@fetion.com.cn;p=2351" n="陈钦风" l="5" f="0" r="0" o="0" p="identity=1;"/><b i="435225313" u="sip:712580847@fetion.com.cn;p=4402" n="江琼心" l="1" f="343501117" r="1" o="1" p="identity=1;"/><b i="437581648" u="sip:622384615@fetion.com.cn;p=5500" n="华远总仓" l="2" f="0" r="1" o="0" p="identity=0;phone=0;email=1;birthday=1;business=0;presence=1;contact=1;buddy=2;ivr=2;location=3;"/><b i="438748196" u="sip:574873774@fetion.com.cn;p=5951" n="" l="1" f="342963849" r="1" o="0" p="identity=1;"/><b i="438754784" u="sip:908505327@fetion.com.cn;p=5951" n="林圣如" l="6" f="342283750" r="1" o="0" p="identity=1;"/><b i="439587990" u="tel:15959522512" n="赖金龙" l="5" r="1" o="1" p="identity=1;"/><b i="442492403" u="sip:802972392@fetion.com.cn;p=7701" n="志超" l="1" f="0" r="1" o="1" p="identity=1;"/><b i="472185346" u="sip:657869401@fetion.com.cn;p=7034" n="陈铿" l="3" f="0" r="1" o="1" p="identity=1;"/><b i="746743433" u="sip:501558386@fetion.com.cn;p=16101" n="newMyself" l="1" f="342638303" r="1" o="0" p=""/><b i="756754145" u="sip:522705756@fetion.com.cn;p=10262" n="哥哥" l="4" f="327617670" r="1" o="0" p="identity=1;"/></buddies><chat-friends><c i="200570961" u="sip:722754670@fetion.com.cn;p=1697"/><c i="227596643" u="sip:651447427@fetion.com.cn;p=3706"/><c i="391371289" u="sip:761273525@fetion.com.cn;p=6910"/><c i="670839837" u="sip:933239675@fetion.com.cn;p=13081"/><c i="683143411" u="sip:945328767@fetion.com.cn;p=5185"/><c i="686623825" u="sip:949864550@fetion.com.cn;p=13090"/></chat-friends><blacklist><k i="200570961" u="sip:722754670@fetion.com.cn;p=1697" n=""/><k i="227596643" u="sip:651447427@fetion.com.cn;p=3706" n=""/><k i="300287763" u="sip:660015427@fetion.com.cn;p=3071" n=""/><k i="391371289" u="sip:761273525@fetion.com.cn;p=6910" n=""/><k i="443875001" u="sip:756725375@fetion.com.cn;p=9499" n=""/><k i="670839837" u="sip:933239675@fetion.com.cn;p=13081" n=""/></blacklist></contact-list><score value="7652" level="10" level-score="7038"/><services><service id="99"/></services><quotas><quota-limit><limit name="max-buddies" value="300"/><limit name="max-groupadmin-count" value="4"/><limit name="max-joingroup-count" value="20"/></quota-limit><quota-frequency><frequency name="send-sms" day-limit="600" day-count="5" month-limit="10000" month-count="443"/></quota-frequency></quotas><capability-list basic-caps="1ffff" contact-caps="ffffff" extended-caps="201fff"><contact carrier="CMCC" contact-caps="ffffff" /><contact carrier="CMHK" contact-caps="9ffc9f" /><contact carrier="CMPAK" contact-caps="857c08" /><contact carrier="HK.OTHER" contact-caps="0" /><contact carrier="" contact-caps="a57008" /><contact carrier="SGSH" contact-caps="857c08" /><contact carrier="SGST" contact-caps="857c08" /></capability-list></user-info><credentials kernel="qhqiQRmPyA6bgHAuRQZazb3O1rcnx+lvrVHDE5GeUe5t8DMiGMd/LuU+Y2WhyxlNwC2CQI8f61RR8GgKJqx+XzDN5cJQLRbmIu8cUhSdtxkO5LN/y/GA+c6qcZyCaMNPBE4EWIokCArmRfltfH8hYkCfN8Uj2XEu7f467Z2qs0BF+IKdBh+QkMz6zb2zdvAg"><credential domain="fetion.com.cn" c="FUOVwCeRy9BC/emuQDJPWjJE8BXc7H2dgxYOiMfNq8axSkwjt0iuibuaj9Bi1I/oOYswu3RxIoB4FaNXLjpHnClbgB9v/c31w5SNiZon7YD13LNWlbMZsRmWX6wNxT4GRfctk7LMWpZcXVtB7AhdR8PEs80/y/to0h0KilkubDP2f1uDDCKJuG/85PoEethD"/><credential domain="m161.com.cn" c="4z/wrCNOhMGndBM+loxr76+seFgOHxIr9wca/XVOp3ubTS/a81uu3Ep9RVrCRqEXiRtD6Qyfz9dmFnFuZVDc9B386NgYm+u/280AM2745XhrWmd5MCt59Pzrxb+cBVapkzB1XBga8u3foUON0V6s67Msbiq6XWPBYbbtrcq3m8I="/><credential domain="www.ikuwa.cn" c="Fe4wuQaWE/mg1BXGCBORjD1x3NNFo7WVw8+2e1dLxzDmO4kDi2Q+9s4PusKknszUBKx9SD9NSUrvJivTnaeWC52DM2WcRx8iX3rd90qqztw453A0GjSpmli+ppS/wFEljJm3S35JfZ51AkogqGjuYX/s6cAr86SUs3jTmHxmzXQ="/><credential domain="games.fetion.com.cn" c="e+SLFaKXR+SRhyQSnezI42B4Wrd+AyVxrRMnCg9oHzWCgr04wjlGkAoj13+Q9jzryUrlJIp3u3W9ij0fm44D5PIEM8q2fATH4hMmJlogkDDqO23IleH7DJ4Zllp0aL5nNA0Wq3OAdMJ4wfNCRQDO2AeoZ+dwLz5u6fBCw2p2CmM/2M6DLVnVMlJMixLBBgR3"/></credentials></results>
+===================================================================================
+
+
+=============================MapleFetion CrushReport=================================
+Thank you for working with MapleFetion!!! 
+ProjectHome : http://maplefetion.googlecode.com 
+Author      : solosky <solosky772@qq.com> 
+AuthorBlog  : http://www.solosky.net 
+-------------------------------------------------------------------------------------
+
+Ops, if you saw this report, FetionClient was crushed by some exceptions. Sorry for that.
+Please Email this crush file or log file to author to find and fix bugs, thank you sincerely.
+
+CrushedDate:Mon Nov 22 15:16:42 CST 2010
+
+------------------------------------Version---------------------------------------
+ClientVersion   : MapleFetion-2.5.0
+ProtocolVersion : 4.1.0740
+
+-------------------------------------Config--------------------------------------
+server.http-tunnel = http://221.130.46.141/ht/sd.aspx
+server.sipc-ssl-proxy = 221.130.46.141:443
+fetion.sip.check-alive-interval = 20
+fetion.sip.keep-connection-interval = 30
+crush.send.enable = false
+server.verify-pic-uri = http://221.130.45.201/nav/GetPicCodeV4.aspx
+fetion.dialog.check-idle-interval = 150
+server.set-portrait = http://221.130.44.232/HDS_S00/setportrait.aspx
+fetion.sip.default-alive-time = 120
+fetion.sip.machine-code = 5DBFE64D4449FBD0AE130C7B12D27A9F
+log.sipc.dir = ./
+fetion.dialog.max-idle-time = 300
+fetion.dialog.wait-buddy-enter-timeout = 20
+fetion.sip.default-retry-times = 0
+fetion.dialog.max-opened-number = 12
+server.sipc-proxy = 221.130.46.141:8080
+fetion.sip.keep-alive-interval = 600
+crush.log.dir = .
+log.sipc.enable = true
+crush.send.url = http://maplefetion.solosky.net/crushReport.php?report={report}
+crush.log.enable = true
+server.get-portrait = http://221.130.44.232/HDS_S00/getportrait.aspx
+server.nav-system-uri = http://221.130.45.201/nav/getsystemconfig.aspx
+server.ssi-sign-in-v2 = https://221.130.45.212/ssiportal/SSIAppSignInV4.aspx
+fetion.group.enable = false
+
+------------------------------Exception-----------------------------------
+net.solosky.maplefetion.client.SystemException: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:111)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.dispatch(AbstractMessageDispatcher.java:157)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.doProcessIncoming(AbstractMessageDispatcher.java:110)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:158)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.util.SipcParser.flushInMessage(SipcParser.java:156)
+	at net.solosky.maplefetion.util.SipcParser.processIncoming(SipcParser.java:293)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.net.AbstractTransfer.bytesRecived(AbstractTransfer.java:80)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer.access$3(TcpTransfer.java:1)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer$1.run(TcpTransfer.java:129)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:117)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.decryptCredential(UserAuthResponseHandler.java:186)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.doActionOK(UserAuthResponseHandler.java:162)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.doHandle(AbstractResponseHandler.java:168)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:102)
+	... 12 more
+Caused by: java.security.InvalidKeyException: Illegal key size
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:114)
+	... 16 more
+
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcRequest
+----------
+R fetion.com.cn SIP-C/4.0
+F: 624436624
+I: 1
+Q: 2 R
+A: Digest response="8AB7077B42F9A3F50A06BDC68A9938EC872F9F11DD38EC8522982CDD6FF57B100CFFA0F8DF80AA7718888A07D24B0BBDFFB5023EB5A9FFBCD683CAC567EB4A29C01A95DC71709EB3C19D0CF74D29F0460E8E9D59E3BA22C43FF63D951355D38405BF8088469DC57CE7DABBC441418ED16F0DB23DD9D97E02FE72AFACCE76F2A2",algorithm="SHA1-sess-v4"
+AK: ak-value
+L: 466
+
+<args><device machine-code="5DBFE64D4449FBD0AE130C7B12D27A9F" accept-language="default"/><caps value="1FFF" /><events value="7f" /><user-info sid="624436624" user-id="420920607"><personal version="0" attributes="v4default" /><custom-config version="0" /><contact-list version="0"   buddy-attributes="v4default" /></user-info><credentials domains="fetion.com.cn;m161.com.cn;www.ikuwa.cn;games.fetion.com.cn" /><presence><basic value="400" desc="" /></presence></args>
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcResponse
+----------
+SIP-C/4.0 200 OK
+I: 1
+Q: 2 R
+X: 600
+L: 7291
+
+<results><client public-ip="112.109.193.222" login-place="" last-login-ip="211.138.132.210" last-login-place="" last-login-time="Mon, 22 Nov 2010 07:00:59 GMT" current-login-time="Mon, 22 Nov 2010 07:16:49 GMT" /><user-info><personal version="343738812" register-email="" user-id="420920607" sid="624436624" mobile-no="13599204724" uri="sip:624436624@fetion.com.cn;p=1893" name="" nickname="fjfdszj" gender="0" impresa="" portrait-crc="320303151" birth-date="1984-01-01" birthday-valid="0" carrier="CMCC" carrier-status="0" carrier-region="CN.fj.595." user-region="" profile="" blood-type="0" occupation="" hobby="" job-title="" home-phone="" work-phone="" other-phone="" personal-email="" work-email="fjfdszj@139.com" other-email="fjfdszj@139.com" primary-email="0" company="" company-website="" global-permission="identity=0;phone=0;email=0;birthday=0;business=0;presence=1;contact=0;location=3;buddy=2;ivr=2;buddy-ex=0;show=0;" sms-online-status="0.0:0:0" save-xeno-msg="0" email-binding-status="0" email-binding-alias="624436624" set-pwd-question="0"/><configs><config name="weather-city">-1</config><config name="directsms-rec">0</config><config name="weather-region"></config><config name="addbuddy-app-sms">0</config><config name="private-presence"></config><config name="permission-request">0</config><config name="alv2-setwarn">0</config></configs><custom-config version="343738812">H4sIALXc6UwEAHSVy2obMRSGXyV9gOJL0rQLZcCxndoQX+i4mBKyUDzHtmBGGiRN0tk1u5aWQKCQRUu66KqL0i5CCSGlD9PUSVZ5hWo8UqzxTIyxfb7/Pzo6uozRSwG8zuiYTCKOJWHUQTXPGzEq8Uj2OQtC6ZRRKceQO2UH21iCkB0QAk9AOGPsC0ClAmXuHpBAMRyEzX3gcUdMHMkj7c9rqEkl8AFzgXraaBNUiyR7AaEfNyne88Ez1XMcdWIB/rhN62kDYpsIqUcslFCfgwBZmFAoId2nmlrHNfPIsMVs29SD1/MVzRK0zehEWV2QklCzNEsQbTXbfROoMewQDQHLKfAGjHHkm/kuQdUa2yd0BO2GkzSzCOpExur7cbWy9nRtdX298gyVNENuINI9Cof3e5FlyJUsTGI3FllbjqPnnEVhg4jQx3GHeZA0kmOpazNr0CFaSs7kqYOqtkgYzQ6NlsxnSb9H84Paoz6hoLdYBbF9svMiSrM5NEBi4gvrWNt0btP1ujgAe1Ab2z61ZvZwNkW1Axz3aNvzQTssYIkdQiN1F50ntsFA7XNHHIC6WN29zFg2R73xOOlcV9CTz8Ksp8UiLpzqkimlaDMSqsBW5PtpEV03h1GXpSveZZKM4+EUaOLR9gdElaSv3wNZxSrawvuME2l2V12RHGkGIeE60TyWbIS6cLBHwJVYRsIppy9V0qbIJUHoQ9apdjhP1WjgpSRTModRhzGvP+VYJLsqJE8eCRO2MmWBsuvY8Nm797PPFzd/Ps1+nt1dfri6PJ4d/rg6/353ebT0zqVef7u4PTm7Oj+anfxSPzY2rj9++Xf8O+cbtmqDv28OW72h+hy2XuUMt19Pb96eLnAp04B5OJJFN2UHPdqpN2qD2s7urmMSy0auFMoVI1cL5aqRVwvlVSOvFcqKljITrUdCqvXm8z8J9VwVKyVlyf/D/gcAAP//AAAAAHUHAAA=</custom-config><contact-list version="343521018"><buddy-lists><buddy-list id="1" name="我的好友"/><buddy-list id="2" name="华远"/><buddy-list id="3" name="华鹰"/><buddy-list id="4" name="家人"/><buddy-list id="5" name="工作"/><buddy-list id="6" name="冠发"/></buddy-lists><buddies><b i="415634986" u="tel:13405948417" n="" l="5" r="0" o="1" p="identity=1;"/><b i="416106697" u="sip:613571635@fetion.com.cn;p=594" n="老爸" l="4" f="0" r="1" o="0" p=""/><b i="418094803" u="sip:618096706@fetion.com.cn;p=961" n="冠通马鹏" l="6" f="0" r="1" o="0" p="identity=1;"/><b i="419197586" u="tel:13559602263" n="姐姐" l="4" r="1" o="0" p="identity=1;"/><b i="421286166" u="tel:13599416694" n="国通王珏" l="6" r="1" o="0" p="identity=1;"/><b i="421574142" u="sip:615079310@fetion.com.cn;p=1898" n="吴维" l="1" f="338490573" r="1" o="0" p=""/><b i="423212045" u="sip:699840355@fetion.com.cn;p=2270" n="林晓玲" l="3" f="0" r="1" o="0" p="identity=1;"/><b i="423349589" u="sip:853334717@fetion.com.cn;p=2351" n="陈钦风" l="5" f="0" r="0" o="0" p="identity=1;"/><b i="435225313" u="sip:712580847@fetion.com.cn;p=4402" n="江琼心" l="1" f="343501117" r="1" o="1" p="identity=1;"/><b i="437581648" u="sip:622384615@fetion.com.cn;p=5500" n="华远总仓" l="2" f="0" r="1" o="0" p="identity=0;phone=0;email=1;birthday=1;business=0;presence=1;contact=1;buddy=2;ivr=2;location=3;"/><b i="438748196" u="sip:574873774@fetion.com.cn;p=5951" n="" l="1" f="342963849" r="1" o="0" p="identity=1;"/><b i="438754784" u="sip:908505327@fetion.com.cn;p=5951" n="林圣如" l="6" f="342283750" r="1" o="0" p="identity=1;"/><b i="439587990" u="tel:15959522512" n="赖金龙" l="5" r="1" o="1" p="identity=1;"/><b i="442492403" u="sip:802972392@fetion.com.cn;p=7701" n="志超" l="1" f="0" r="1" o="1" p="identity=1;"/><b i="472185346" u="sip:657869401@fetion.com.cn;p=7034" n="陈铿" l="3" f="0" r="1" o="1" p="identity=1;"/><b i="746743433" u="sip:501558386@fetion.com.cn;p=16101" n="newMyself" l="1" f="342638303" r="1" o="0" p=""/><b i="756754145" u="sip:522705756@fetion.com.cn;p=10262" n="哥哥" l="4" f="327617670" r="1" o="0" p="identity=1;"/></buddies><chat-friends><c i="200570961" u="sip:722754670@fetion.com.cn;p=1697"/><c i="227596643" u="sip:651447427@fetion.com.cn;p=3706"/><c i="391371289" u="sip:761273525@fetion.com.cn;p=6910"/><c i="670839837" u="sip:933239675@fetion.com.cn;p=13081"/><c i="683143411" u="sip:945328767@fetion.com.cn;p=5185"/><c i="686623825" u="sip:949864550@fetion.com.cn;p=13090"/></chat-friends><blacklist><k i="200570961" u="sip:722754670@fetion.com.cn;p=1697" n=""/><k i="227596643" u="sip:651447427@fetion.com.cn;p=3706" n=""/><k i="300287763" u="sip:660015427@fetion.com.cn;p=3071" n=""/><k i="391371289" u="sip:761273525@fetion.com.cn;p=6910" n=""/><k i="443875001" u="sip:756725375@fetion.com.cn;p=9499" n=""/><k i="670839837" u="sip:933239675@fetion.com.cn;p=13081" n=""/></blacklist></contact-list><score value="7652" level="10" level-score="7038"/><services><service id="99"/></services><quotas><quota-limit><limit name="max-buddies" value="300"/><limit name="max-groupadmin-count" value="4"/><limit name="max-joingroup-count" value="20"/></quota-limit><quota-frequency><frequency name="send-sms" day-limit="600" day-count="40" month-limit="10000" month-count="478"/></quota-frequency></quotas><capability-list basic-caps="1ffff" contact-caps="ffffff" extended-caps="201fff"><contact carrier="CMCC" contact-caps="ffffff" /><contact carrier="CMHK" contact-caps="9ffc9f" /><contact carrier="CMPAK" contact-caps="857c08" /><contact carrier="HK.OTHER" contact-caps="0" /><contact carrier="" contact-caps="a57008" /><contact carrier="SGSH" contact-caps="857c08" /><contact carrier="SGST" contact-caps="857c08" /></capability-list></user-info><credentials kernel="ngA6VpzxrZsFhs5PBdvd8Fz8JubtziV+XDC9ZgzPKXEvaTIGi7WNBcEARCaZhN+wOtDi7LRi+tfnQeW8hri0g2LGXAVkmdVtcUHjUqh8nSMERMr5njQ8VHk0+x8eV3/LhFW45zFDIrNxWDMN4EzPHXB5qJg8gQp9rJsDnYT9ZY0QxraypLTOWLuejSB133Op"><credential domain="fetion.com.cn" c="bLYpDchZUMCqn1wwgMLQeJu3Uz1UCLKfR8BjD/hHuzgSbaSqDQS8gOUK5c6MNT/OCcPqyYjqpi6RnFWdpqk98KfeE68gG4faLzDMAhaTAjqEPqybB+jU//j4o8GuCeSqLQFbEKzg5bP2Fzl9Y4DOMK6Qq/I3a8jqRqE9Eay/mIZvrP78xSLQKLTPARWG6aRv"/><credential domain="m161.com.cn" c="XpEeIxunCou29fpqB01LzTwlFQbw4mvsCVnGAyQljoHGOwfsM9rrRF/QQ9/zealKMl0XlsIGAh7eXKZLYaGWnNeVog1Ies2iCptlc16WDs9J2SbWYLIf1/73ZGRgrpC1RXROQdWbte9MCivw/a/aeRh9OEX6cIepf5g+bDt9cG4="/><credential domain="www.ikuwa.cn" c="ffPOB0JB4jaPAHxnZcj8B7A8+pF+Jqa4RajYJM/o1+oYuO2V4Nu4xrAP2kgxEPNXqTcVMvJeWlXKHMvFYIrhY/bNHGGi6YKiCBKffx1AOIKbTp6I1HYOZc2U0BM3lXZ/0Lk8MHceb5G1s86zG3Yk8F9RfRhLFAemfFu6NBNbQ1s="/><credential domain="games.fetion.com.cn" c="Ajv5tprvbZsYUSsCCzyFzuIITPLAhG6B4RCHKzfDUGftsMhBIvX12lGNMB4U+hy/Zb1mohxPwEwUD1Y8jG4qooH8z+PxWf8udduycdshw/yBi158t75NnZ9P+Ca7v7A3xKAjpC70mrzbH66tPAw+zVUGuMrByCXQ0sD56TkHfWCpTJHs+A0+6wTSyREjA3un"/></credentials></results>
+===================================================================================
+
+
+=============================MapleFetion CrushReport=================================
+Thank you for working with MapleFetion!!! 
+ProjectHome : http://maplefetion.googlecode.com 
+Author      : solosky <solosky772@qq.com> 
+AuthorBlog  : http://www.solosky.net 
+-------------------------------------------------------------------------------------
+
+Ops, if you saw this report, FetionClient was crushed by some exceptions. Sorry for that.
+Please Email this crush file or log file to author to find and fix bugs, thank you sincerely.
+
+CrushedDate:Mon Nov 22 15:17:32 CST 2010
+
+------------------------------------Version---------------------------------------
+ClientVersion   : MapleFetion-2.5.0
+ProtocolVersion : 4.1.0740
+
+-------------------------------------Config--------------------------------------
+server.http-tunnel = http://221.130.46.141/ht/sd.aspx
+server.sipc-ssl-proxy = 221.130.46.141:443
+fetion.sip.check-alive-interval = 20
+fetion.sip.keep-connection-interval = 30
+crush.send.enable = false
+server.verify-pic-uri = http://221.130.45.201/nav/GetPicCodeV4.aspx
+fetion.dialog.check-idle-interval = 150
+server.set-portrait = http://221.130.44.232/HDS_S00/setportrait.aspx
+fetion.sip.default-alive-time = 120
+fetion.sip.machine-code = 5DBFE64D4449FBD0AE130C7B12D27A9F
+log.sipc.dir = ./
+fetion.dialog.max-idle-time = 300
+fetion.dialog.wait-buddy-enter-timeout = 20
+fetion.sip.default-retry-times = 0
+fetion.dialog.max-opened-number = 12
+server.sipc-proxy = 221.130.46.141:8080
+fetion.sip.keep-alive-interval = 600
+crush.log.dir = .
+log.sipc.enable = true
+crush.send.url = http://maplefetion.solosky.net/crushReport.php?report={report}
+crush.log.enable = true
+server.get-portrait = http://221.130.44.232/HDS_S00/getportrait.aspx
+server.nav-system-uri = http://221.130.45.201/nav/getsystemconfig.aspx
+server.ssi-sign-in-v2 = https://221.130.45.212/ssiportal/SSIAppSignInV4.aspx
+fetion.group.enable = false
+
+------------------------------Exception-----------------------------------
+net.solosky.maplefetion.client.SystemException: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:111)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.dispatch(AbstractMessageDispatcher.java:157)
+	at net.solosky.maplefetion.client.dispatcher.AbstractMessageDispatcher.doProcessIncoming(AbstractMessageDispatcher.java:110)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:158)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.util.SipcParser.flushInMessage(SipcParser.java:156)
+	at net.solosky.maplefetion.util.SipcParser.processIncoming(SipcParser.java:293)
+	at net.solosky.maplefetion.chain.AbstractProcessor.processIncoming(AbstractProcessor.java:160)
+	at net.solosky.maplefetion.net.AbstractTransfer.bytesRecived(AbstractTransfer.java:80)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer.access$3(TcpTransfer.java:1)
+	at net.solosky.maplefetion.net.tcp.TcpTransfer$1.run(TcpTransfer.java:129)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.IllegalArgumentException: if you see 'java.security.InvalidKeyException: Illegal key size', it cause by default JCE does not support 256-aes key for shipping reason.
+but you can download those two policy files		(US_export_policy.jar,local_policy.jar : Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files) and replace the same files in '$JDK_HOME/jre/lib/security',
+then it still work well. I would implement AES/CBC/NoPadding algorithm to make things better in futrue.
+download link:https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jce_policy-6-oth-JPR@CDS-CDS_Developer
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:117)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.decryptCredential(UserAuthResponseHandler.java:186)
+	at net.solosky.maplefetion.client.response.UserAuthResponseHandler.doActionOK(UserAuthResponseHandler.java:162)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.doHandle(AbstractResponseHandler.java:168)
+	at net.solosky.maplefetion.client.response.AbstractResponseHandler.handle(AbstractResponseHandler.java:102)
+	... 12 more
+Caused by: java.security.InvalidKeyException: Illegal key size
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.a(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at javax.crypto.Cipher.init(DashoA13*..)
+	at net.solosky.maplefetion.util.DigestHelper.AESDecrypt(DigestHelper.java:114)
+	... 16 more
+
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcRequest
+----------
+R fetion.com.cn SIP-C/4.0
+F: 624436624
+I: 1
+Q: 2 R
+A: Digest response="4907FD2CCEDA39CE29C34C45726B7DD4B303A2AF2474ED72A0E67AA70FF4F3A19F2FFA998414C0AB193EBDCF32D9152F0F9D06EF72D9E3B968BC065E094C83415776B431FA9D73BCD55F8669D5B6154BE489A386A613990DE7E787083B906E3588F860114201937EEACD6F6223E9314AD66A20BF87B773D43FCC6989C611A673",algorithm="SHA1-sess-v4"
+AK: ak-value
+L: 466
+
+<args><device machine-code="5DBFE64D4449FBD0AE130C7B12D27A9F" accept-language="default"/><caps value="1FFF" /><events value="7f" /><user-info sid="624436624" user-id="420920607"><personal version="0" attributes="v4default" /><custom-config version="0" /><contact-list version="0"   buddy-attributes="v4default" /></user-info><credentials domains="fetion.com.cn;m161.com.cn;www.ikuwa.cn;games.fetion.com.cn" /><presence><basic value="400" desc="" /></presence></args>
+-------------------------------SipcMessage----------------------------------
+Class:class net.solosky.maplefetion.sipc.SipcResponse
+----------
+SIP-C/4.0 200 OK
+I: 1
+Q: 2 R
+X: 600
+L: 7291
+
+<results><client public-ip="112.109.193.222" login-place="" last-login-ip="112.109.193.222" last-login-place="" last-login-time="Mon, 22 Nov 2010 07:16:49 GMT" current-login-time="Mon, 22 Nov 2010 07:17:39 GMT" /><user-info><personal version="343738812" register-email="" user-id="420920607" sid="624436624" mobile-no="13599204724" uri="sip:624436624@fetion.com.cn;p=1893" name="" nickname="fjfdszj" gender="0" impresa="" portrait-crc="320303151" birth-date="1984-01-01" birthday-valid="0" carrier="CMCC" carrier-status="0" carrier-region="CN.fj.595." user-region="" profile="" blood-type="0" occupation="" hobby="" job-title="" home-phone="" work-phone="" other-phone="" personal-email="" work-email="fjfdszj@139.com" other-email="fjfdszj@139.com" primary-email="0" company="" company-website="" global-permission="identity=0;phone=0;email=0;birthday=0;business=0;presence=1;contact=0;location=3;buddy=2;ivr=2;buddy-ex=0;show=0;" sms-online-status="0.0:0:0" save-xeno-msg="0" email-binding-status="0" email-binding-alias="624436624" set-pwd-question="0"/><configs><config name="weather-city">-1</config><config name="directsms-rec">0</config><config name="weather-region"></config><config name="addbuddy-app-sms">0</config><config name="private-presence"></config><config name="permission-request">0</config><config name="alv2-setwarn">0</config></configs><custom-config version="343738812">H4sIALXc6UwEAHSVy2obMRSGXyV9gOJL0rQLZcCxndoQX+i4mBKyUDzHtmBGGiRN0tk1u5aWQKCQRUu66KqL0i5CCSGlD9PUSVZ5hWo8UqzxTIyxfb7/Pzo6uozRSwG8zuiYTCKOJWHUQTXPGzEq8Uj2OQtC6ZRRKceQO2UH21iCkB0QAk9AOGPsC0ClAmXuHpBAMRyEzX3gcUdMHMkj7c9rqEkl8AFzgXraaBNUiyR7AaEfNyne88Ez1XMcdWIB/rhN62kDYpsIqUcslFCfgwBZmFAoId2nmlrHNfPIsMVs29SD1/MVzRK0zehEWV2QklCzNEsQbTXbfROoMewQDQHLKfAGjHHkm/kuQdUa2yd0BO2GkzSzCOpExur7cbWy9nRtdX298gyVNENuINI9Cof3e5FlyJUsTGI3FllbjqPnnEVhg4jQx3GHeZA0kmOpazNr0CFaSs7kqYOqtkgYzQ6NlsxnSb9H84Paoz6hoLdYBbF9svMiSrM5NEBi4gvrWNt0btP1ujgAe1Ab2z61ZvZwNkW1Axz3aNvzQTssYIkdQiN1F50ntsFA7XNHHIC6WN29zFg2R73xOOlcV9CTz8Ksp8UiLpzqkimlaDMSqsBW5PtpEV03h1GXpSveZZKM4+EUaOLR9gdElaSv3wNZxSrawvuME2l2V12RHGkGIeE60TyWbIS6cLBHwJVYRsIppy9V0qbIJUHoQ9apdjhP1WjgpSRTModRhzGvP+VYJLsqJE8eCRO2MmWBsuvY8Nm797PPFzd/Ps1+nt1dfri6PJ4d/rg6/353ebT0zqVef7u4PTm7Oj+anfxSPzY2rj9++Xf8O+cbtmqDv28OW72h+hy2XuUMt19Pb96eLnAp04B5OJJFN2UHPdqpN2qD2s7urmMSy0auFMoVI1cL5aqRVwvlVSOvFcqKljITrUdCqvXm8z8J9VwVKyVlyf/D/gcAAP//AAAAAHUHAAA=</custom-config><contact-list version="343521018"><buddy-lists><buddy-list id="1" name="我的好友"/><buddy-list id="2" name="华远"/><buddy-list id="3" name="华鹰"/><buddy-list id="4" name="家人"/><buddy-list id="5" name="工作"/><buddy-list id="6" name="冠发"/></buddy-lists><buddies><b i="415634986" u="tel:13405948417" n="" l="5" r="0" o="1" p="identity=1;"/><b i="416106697" u="sip:613571635@fetion.com.cn;p=594" n="老爸" l="4" f="0" r="1" o="0" p=""/><b i="418094803" u="sip:618096706@fetion.com.cn;p=961" n="冠通马鹏" l="6" f="0" r="1" o="0" p="identity=1;"/><b i="419197586" u="tel:13559602263" n="姐姐" l="4" r="1" o="0" p="identity=1;"/><b i="421286166" u="tel:13599416694" n="国通王珏" l="6" r="1" o="0" p="identity=1;"/><b i="421574142" u="sip:615079310@fetion.com.cn;p=1898" n="吴维" l="1" f="338490573" r="1" o="0" p=""/><b i="423212045" u="sip:699840355@fetion.com.cn;p=2270" n="林晓玲" l="3" f="0" r="1" o="0" p="identity=1;"/><b i="423349589" u="sip:853334717@fetion.com.cn;p=2351" n="陈钦风" l="5" f="0" r="0" o="0" p="identity=1;"/><b i="435225313" u="sip:712580847@fetion.com.cn;p=4402" n="江琼心" l="1" f="343501117" r="1" o="1" p="identity=1;"/><b i="437581648" u="sip:622384615@fetion.com.cn;p=5500" n="华远总仓" l="2" f="0" r="1" o="0" p="identity=0;phone=0;email=1;birthday=1;business=0;presence=1;contact=1;buddy=2;ivr=2;location=3;"/><b i="438748196" u="sip:574873774@fetion.com.cn;p=5951" n="" l="1" f="342963849" r="1" o="0" p="identity=1;"/><b i="438754784" u="sip:908505327@fetion.com.cn;p=5951" n="林圣如" l="6" f="342283750" r="1" o="0" p="identity=1;"/><b i="439587990" u="tel:15959522512" n="赖金龙" l="5" r="1" o="1" p="identity=1;"/><b i="442492403" u="sip:802972392@fetion.com.cn;p=7701" n="志超" l="1" f="0" r="1" o="1" p="identity=1;"/><b i="472185346" u="sip:657869401@fetion.com.cn;p=7034" n="陈铿" l="3" f="0" r="1" o="1" p="identity=1;"/><b i="746743433" u="sip:501558386@fetion.com.cn;p=16101" n="newMyself" l="1" f="342638303" r="1" o="0" p=""/><b i="756754145" u="sip:522705756@fetion.com.cn;p=10262" n="哥哥" l="4" f="327617670" r="1" o="0" p="identity=1;"/></buddies><chat-friends><c i="200570961" u="sip:722754670@fetion.com.cn;p=1697"/><c i="227596643" u="sip:651447427@fetion.com.cn;p=3706"/><c i="391371289" u="sip:761273525@fetion.com.cn;p=6910"/><c i="670839837" u="sip:933239675@fetion.com.cn;p=13081"/><c i="683143411" u="sip:945328767@fetion.com.cn;p=5185"/><c i="686623825" u="sip:949864550@fetion.com.cn;p=13090"/></chat-friends><blacklist><k i="200570961" u="sip:722754670@fetion.com.cn;p=1697" n=""/><k i="227596643" u="sip:651447427@fetion.com.cn;p=3706" n=""/><k i="300287763" u="sip:660015427@fetion.com.cn;p=3071" n=""/><k i="391371289" u="sip:761273525@fetion.com.cn;p=6910" n=""/><k i="443875001" u="sip:756725375@fetion.com.cn;p=9499" n=""/><k i="670839837" u="sip:933239675@fetion.com.cn;p=13081" n=""/></blacklist></contact-list><score value="7652" level="10" level-score="7038"/><services><service id="99"/></services><quotas><quota-limit><limit name="max-buddies" value="300"/><limit name="max-groupadmin-count" value="4"/><limit name="max-joingroup-count" value="20"/></quota-limit><quota-frequency><frequency name="send-sms" day-limit="600" day-count="40" month-limit="10000" month-count="478"/></quota-frequency></quotas><capability-list basic-caps="1ffff" contact-caps="ffffff" extended-caps="201fff"><contact carrier="CMCC" contact-caps="ffffff" /><contact carrier="CMHK" contact-caps="9ffc9f" /><contact carrier="CMPAK" contact-caps="857c08" /><contact carrier="HK.OTHER" contact-caps="0" /><contact carrier="" contact-caps="a57008" /><contact carrier="SGSH" contact-caps="857c08" /><contact carrier="SGST" contact-caps="857c08" /></capability-list></user-info><credentials kernel="91UcTAESd1IKEx01rUFGo+xy/EccKzxescHFlNn8tl+wePkigAcKjiBmXfJd8VSCrwh5kZuFlaUkHU71eUn+Aw0xVtXPq2yjsMDv9Ypc3W/7qnClo90fLVPlVvDUEEaaQWaHWEvylKYon953Vov7V4+jiz33GT/t5m4GFQ+mFfpaAMaLSjRfAdd1QT2iDvzM"><credential domain="fetion.com.cn" c="UzuMA4lyjHN1PhA2+4YY1rMataBx7GzzXr2DUqySsVYFJsTN17vDBkquQ7D70Lq0phQe9R+yDfpjy8qfkyw0hrsN8J8jylPFLy3Hp7L1VMqIjUU5/LtxD19DKgnufjyX+x2/KRcf8jPUxFmxtNh+PNj2X/xAeDonp+/JzKUXMGPYy5BAV3NPa3Rat2EMhoNR"/><credential domain="m161.com.cn" c="HbhS1v2HmSNUL7FYQyTuB9MdCgCwwd9jMN/MTGZzv8ZqHYJqWbWdkk0WOH5xVnF2uRHQP3qgpNc0xrQbtS0jSCt7/5GUN1sl7Lvenh6aXDGcd+7E8ED4O1MmKqPtfcVAf6+4GH0accXuBgeJtuvYJfuG/QKtCBUJ8eS4PI0B9Z8="/><credential domain="www.ikuwa.cn" c="7dIaetWlLPLp8sUatXjh/BNBBbBSnzn9C49arxgB9aL8XA7wjizT4jXLKDImvRRl98fvFEv9yHPt05gHf92vXKp/wK5DkvYfztryTXlQKonLWi/aanxjSJ2A+TbqgkEuHhBYnRY92szvG4fwEy02Zoi6B/tuI3et78TJLqRgWUY="/><credential domain="games.fetion.com.cn" c="yjclkW/bIjOctAyIHm/Ic3u+TBiHAdeSyTZqagQOAZMayvjCbhY0p6TrcAnqGvX8edSInaXgcSzUgzSiUfKp1DNQzPnBrvRi6Rz6r2zvc3jnMfj4E6Djt9lsc2eluYKVriye6o0Umt+oluuhVSAnyLEEUC0NPES750V7tmVflWqfd6k9zwARAEgm6SPWkBnH"/></credentials></results>
+===================================================================================
+
+
