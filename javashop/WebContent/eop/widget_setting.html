@@ -1,0 +1,48 @@
+<form id="widget_form" method="post" >
+<input type="hidden" name="id" id="id" value="${id }"  eop_type="widget_params">
+<input type="hidden" name="type" value="${type}" eop_type="widget_params"/> 
+
+<div id="widget_setting_con" >
+
+  <div id="wgt_setting_menu"> 
+  	<ul>
+  	
+  		<li>样式</li>
+  		<ul>
+  			<li id="border" class="active">边框</li>
+	  		<li id="template" >模板</li>
+	  		<li id="custom">自定义</a></li>
+	  		<ul class="hid">
+		  		<li id="block">区块</li>
+		  		<li id="title">标题</li>
+		  		<li id="content">内容</li>
+	  		</ul>
+  		</ul>
+  		<li id="params"><a href="javascript:" >参数</a></li>
+  	</ul> 
+  </div>
+  
+	<div id="style_setting">   
+	    <div id="wgt_preview">
+	   
+	    </div>
+	  	<div id="wgt_setting_content">
+	    </div>
+	</div>  
+	
+	<div id="params_setting" class="hid">
+	   
+	   
+		内容溢出：
+		    <select id="overflow" name="overflow"  eop_type="widget_params">
+		    <option  value="visible" selected>内容溢出时自动增高</option>
+              <option value="hidden">内容溢出时隐藏</option>
+              
+            </select>
+     	
+	  	${content }
+	</div>
+  
+</div>
+
+</form>

@@ -1,0 +1,42 @@
+<link rel="stylesheet" type="text/css" media="all" href="${staticserver}/js/common/jq-dateinput/ui.datepicker.css" title="win2k-cold-1" />
+<Script Language="JavaScript" type="text/JavaScript" src="${staticserver}/js/common/jq-dateinput/ui.datepicker.js"></Script>
+<Script Language="JavaScript" type="text/JavaScript" src="${staticserver}/js/common/jq-dateinput/DatePicker.js"></Script>
+
+<div class="input">
+	 <form method="post" <#if isEdit  >action="data!saveEdit.do"<#else>action="data!saveAdd.do"</#if> class="validate" name="theForm" id="theForm" >
+	  <input type="hidden" name="catid" value="${catid}"  />
+	  <input type="hidden" name="modelid" value="${modelid}" />
+	  
+	  <#if isEdit  ><input type="hidden" name="dataid" value="${dataid}"/></#if>
+	   <table cellspacing="1" cellpadding="3" width="100%" class="form-table">
+	   	  <tr>
+	       <th><label class="text">所属分类：</label></th>
+	       <td>
+			${cat.name}
+		   </td>
+	      </tr>
+	   <#list fieldList as field  >
+	     <tr>
+	       <th><label class="text">${field.china_name}：</label></th>
+	       <td>
+			${field.inputHtml}
+		   </td>
+	      </tr>
+	    </#list>  
+	 
+	   </table>
+	<div class="submitlist" align="center">
+	 <table>
+	 <tr><td >
+	  <input name="submit" type="submit"	  value=" 确    定   " class="submitBtn" />
+	   </td>
+	   </tr>
+	 </table>
+	</div>
+	 </form>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("form.validate").validate();
+});
+</script>

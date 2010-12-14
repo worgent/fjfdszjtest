@@ -1,0 +1,2 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script type="text/javascript" src="${staticserver}/js/common/jquery-1.3.2.js"></script><script type="text/javascript" src="${staticserver}/js/widget/EOP.js" ></script>

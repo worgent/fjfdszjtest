@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<product>
+	<apps>
+		<app id="shop"></app>
+	</apps>
+	<menus>
+		<menu text="商品" type="app" url="/shop/admin/goods!list.do"
+			selected="1" target="ajax">
+			<menu text="商品管理">
+				<menu text="商品列表" url="/shop/admin/goods!list.do" target="ajax" />
+				<menu text="添加商品" url="/shop/admin/goods!add.do" target="ajax" />
+			</menu>
+
+			<menu text="商品类别管理">
+				<menu text="类别列表" url="/shop/admin/cat!list.do" />
+				<menu text="添加类别" url="/shop/admin/cat!add.do" />
+			</menu>
+			<menu text="品牌管理">
+				<menu text="品牌列表" url="/shop/admin/brand!list.do" />
+				<menu text="添加品牌" url="/shop/admin/brand!add.do" />
+			</menu>
+			<menu text="类型管理">
+				<menu text="类型列表" url="/shop/admin/type!list.do" />
+				<menu text="添加类型" url="/shop/admin/type!step1.do" />
+			</menu>
+			<menu text="规格管理">
+				<menu text="规格列表" url="/shop/admin/spec!list.do" target="ajax" />
+				<menu text="添加规格" url="/shop/admin/spec!add.do" target="ajax" />
+			</menu>
+			<menu text="标签管理">
+				<menu text="标签列表" url="/shop/admin/tag!list.do" />
+				<menu text="添加标签" url="/shop/admin/tag!add.do" />
+			</menu>
+		</menu>
+
+		<menu text="订单" type="app" url="/shop/admin/order!list.do"
+			target="ajax">
+			<menu text="订单管理">
+				<menu text="订单列表" url="/shop/admin/order!list.do" target="ajax" />
+				<menu text="添加订单" url="/shop/admin/order!add.do" />
+			</menu>
+			<menu text="单据管理">
+				<menu text="收款单" url="/shop/admin/orderReport!paymentList.do" />
+				<menu text="退款单" url="/shop/admin/orderReport!refundList.do" />
+				<menu text="发货单" url="/shop/admin/orderReport!shippingList.do" />
+				<menu text="退货单" url="/shop/admin/orderReport!returnedList.do" />
+			</menu>
+			<menu text="快递单管理">
+				<menu text="快递单模板管理" url="/shop/admin/printTmpl!list.do" />
+				<menu text="发货信息管理" url="/shop/admin/dlyCenter!list.do" />
+			</menu>
+		</menu>
+
+		<menu text="会员" type="app" url="/shop/admin/member!memberlist.do">
+			<menu text="会员管理">
+				<menu text="会员列表" url="/shop/admin/member!memberlist.do" />
+				<menu text="会员等级" url="/shop/admin/member!list_lv.do" />
+			</menu>
+			<menu text="商品评论">
+				<menu text="商品评论列表" url="/shop/admin/comments!bglist.do?object_type=discuss" />
+			</menu>
+			<menu text="购买咨询">
+				<menu text="购买咨询列表" url="/shop/admin/comments!bglist.do?object_type=ask" />
+			</menu>
+			<menu text="商店留言">
+				<menu text="留言列表"
+					url="/shop/admin/comments!bglist.do?object_type=leavewords" />
+			</menu>
+		</menu>
+
+		<menu text="营销推广" type="app" url="/shop/admin/activities/index.jsp">
+			<menu text="促销活动">
+				<menu text="促销活动列表" url="/shop/admin/activity!list.do" />
+				<menu text="新增活动" url="/shop/admin/activity!add.do" />
+			</menu>
+			<menu text="优惠券">
+				<menu text="优惠券列表" url="/shop/admin/coupon!list.do" />
+				<menu text="积分兑换优惠券" url="/shop/admin/coupon!exlist.do" />
+			</menu>
+			<menu text="赠品兑换">
+				<menu text="赠品分类" url="/shop/admin/freeOfferCategory!list.do" />
+				<menu text="赠品列表" url="/shop/admin/freeOffer!list.do" />
+			</menu>
+			<menu text="广告管理">
+				<menu text="广告列表" url="/shop/admin/adv!list.do" />
+				<menu text="广告位置" url="/shop/admin/adColumn!list.do" />
+			</menu>
+			<menu text="捆绑销售">
+				<menu text="捆绑商品列表" url="/shop/admin/bind!bindlist.do" />
+			</menu>
+		</menu>
+
+		<menu text="设置" type="app" url="/admin/setting/setting!edit_input.do">
+			<menu text="网店设置">
+				<menu text="系统设置" url="/admin/setting/setting!edit_input.do" />
+
+			</menu>
+			<menu text="配送管理">
+				<menu text="配送方式" url="/shop/admin/dlyType!list.do" />
+				<menu text="地区管理" url="/shop/admin/region!list.do" />
+				<menu text="物流公司" url="/shop/admin/logi!list_logi.do" />
+			</menu>
+			<menu text="支付方式设置">
+				<menu text="支付方式" url="/shop/admin/payCfg!list.do" />
+			</menu>
+			<menu text="导入导出">
+				<menu text="导出" url="/core/admin/solution!toExport.do" />
+				<menu text="导入" url="/core/admin/solution!toImport.do" />
+			</menu>				
+		</menu>
+
+		<menu text="页面设置" type="app" url="/core/admin/user/siteTheme.do">
+			<menu text="主题管理" >
+				<menu text="站点前台主题" url="/core/admin/user/siteTheme.do" />
+				<menu text="站点后台主题" url="/core/admin/user/siteAdminTheme.do" />
+			</menu>		
+			<menu text="页面管理">
+				<menu text="文章管理" url="/shop/admin/articleCat!cat_list.do" />
+				<menu text="友情链接" url="/shop/admin/friendsLink!list.do" />
+				<menu text="导航栏管理" url="/shop/admin/siteMenu!list.do" />
+			</menu>
+		
+		</menu>
+
+		<menu text="统计报表" type="app" url="/shop/admin/statistics/index.jsp">
+			<menu text="销售统计">
+				<menu text="销售额总览" url="/shop/admin/statistics!monthamount.do" />
+				<menu text="销售量（额）排名" url="/shop/admin/rank.do" />
+				<menu text="用户购买量（额）排名" url="/shop/admin/rank!rankmember.do" />
+				<menu text="商品访问购买率" url="/shop/admin/rank!rankbuy.do" />
+				<menu text="销售指标分析" url="/shop/admin/rank!rankall.do" />
+			</menu>
+		</menu>
+
+	</menus>
+
+	<urls>
+		<url from="/index.jsp" to="/index.html" name="首页" point="1"></url>
+		<url from="/index.html" to="/index.html"  name="首页" point="1"></url>
+		<url from="/goods-(\d+).html" to="/default.html"  name="商品详情" point="2"></url>
+		<url from="/search-(.*).html" to="/default.html"  name="商品搜索" point="2"></url>
+		<url from="/compare.html" to="/default.html"  name="商品对比" point="1"></url>
+		<url from="/cart.html" to="/cart.html" name="购物车"  point="2"></url>
+		<url from="/member_(.*).html" to="/member.html" name="会员中心"  point="0"></url>
+		<url from="/article-(\d+).html" to="/article.html" name="文章详细"  point="0"></url>
+		<url from="/friendslink.html" to="/default.html"  name="友情链接"  point="0"></url>
+		<url from="/help-(\d+).html" to="/help.html"  name="帮助中心"  point="0"></url>
+		<url from="/brandDetail-(\d+).html" to="/default.html" name="品牌详细"  point="0"></url>
+		<url from="/brand.html" to="/default.html" name="品牌列表"  point="0"></url>
+		<url from="/package.html" to="/default.html" name="捆绑促销"  point="1"></url>
+		<url from="/guestbook.html" to="/default.html" name="网店留言"  point="1"></url>
+		<url from="/giftlist.html" to="/default.html" name="赠品列表"  point="0"></url>
+		<url from="/gift-(\d+).html" to="/default.html"  name="赠品详情"  point="0"></url>
+		<url from="/search.html" to="/default.html" name="高级搜索"  point="1"></url>
+		<url from="/articleList-(\d+).html" to="/articleList.html"  name="文章列表"  point="0"></url>
+	</urls>
+
+	<widgets>
+		<widget type="goods_list" name="商品列表"></widget>
+		<widget type="goods_cat" name="商品类别"></widget>
+		<widget type="shop_menu" name="导航菜单"></widget>
+		<widget type="shop_article" name="网店公告"></widget>
+		<widget type="goods_comments" name="评论/咨询/留言"></widget>
+		<widget type="goods_gallery" name="商品相册"></widget>
+		<widget type="goods_props" name="商品属性"></widget>
+		<widget type="goods_params" name="商品参数"></widget>
+		<widget type="goods_intro" name="商品描述"></widget>
+		<widget type="ad" name="广告"></widget>
+		<widget type="goods_complex" name="相关商品"></widget>
+		<widget type="partzone" name="单独显示区域"></widget>
+		<widget type="flashAdv" name="Flash幻灯"></widget>
+	</widgets>
+
+
+
+	<themes>
+		<theme id="mbs" name="默认模板" default="yes">
+			<border id="border1" name="默认样式"></border>
+			<border id="border2" name="站点公告"></border>
+			<border id="border3" name="热卖商品1"></border>
+			<border id="border4" name="商品分类"></border>
+			<border id="border5" name="边栏样式"></border>
+			<border id="border6" name="border6"></border>
+			<border id="border7" name="border7"></border>
+			<border id="border8" name="border8"></border>
+			<border id="border9" name="border9"></border>
+			<border id="hot" name="热卖商品2"></border>
+			<border id="recommend" name="精品推荐"></border>
+		</theme>
+		
+	</themes>
+
+</product>
