@@ -1,0 +1,19 @@
+<div class="swfnews">
+<script language='javascript'>
+var pics="${imgs!''}";
+var links="${urls!''}";
+var texts="${titles!''}";
+ var focus_width=${width};
+ var focus_height=${height};
+ var text_height=0;
+ var swf_height = focus_height+text_height;
+ 
+document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="GoLink" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="'+ focus_width +'" height="'+ swf_height +'">');
+document.write('<param name="allowScriptAccess" value="sameDomain"><param name="movie" value="${staticserver}/swf/slide.swf">');
+document.write('<param name="quality" value="high"><param name="bgcolor" value="#ffffff">');
+document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+document.write('<param name="FlashVars" value="pics='+pics+'&links='+links+'&texts='+texts+'&borderwidth='+focus_width+'&borderheight='+focus_height+'&textheight='+text_height+'">');
+document.write('<embed src="${staticserver}/swf/slide.swf" wmode="opaque" FlashVars="pics='+pics+'&links='+links+'&texts='+texts+'&borderwidth='+focus_width+'&borderheight='+focus_height+'&textheight='+text_height+'" menu="false" bgcolor="#ffffff" quality="high" width="'+ focus_width +'" height="'+ focus_height +'" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />');
+document.write('</object>');
+</script>			
+</div>

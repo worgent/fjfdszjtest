@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-autowire="byName" default-lazy-init="false">
+	
+	<bean id="eopInstallAction" class="com.enation.app.base.action.EopInstallAction" scope="prototype"></bean>
+	<bean id="baseInfoAction" class="com.enation.app.base.action.BaseInfoAction" scope="prototype"></bean>
+	<bean id="userDetailAction" class="com.enation.app.base.action.UserDetailAction" scope="prototype"></bean>
+	<bean id="userSiteAction" class="com.enation.app.base.action.UserSiteAction" scope="prototype"></bean>
+	<bean id="userAdminAction" class="com.enation.app.base.action.UserAdminAction" scope="prototype"></bean>
+	<bean id="siteThemeAction" class="com.enation.app.base.action.SiteThemeAction" scope="prototype"></bean>
+	<bean id="siteAdminThemeAction" class="com.enation.app.base.action.SiteAdminThemeAction" scope="prototype"></bean>
+	<bean id="accessAction" class="com.enation.app.base.action.AccessAction" scope="prototype"></bean>
+	
+	<bean id="registerAction" class="com.enation.app.saler.action.RegisterAction" scope="prototype"/>	
+	<bean id="productAction" class="com.enation.app.saler.action.ProductAction" scope="prototype"/>
+	<bean id="borderAction" class="com.enation.app.saler.action.BorderAction" scope="prototype" />
+	<bean id="uploadAction" class="com.enation.app.saler.action.UploadAction" scope="prototype" />
+	<bean id="ckEditorUploadAction" class="com.enation.app.base.action.CkEditorUploadAction" scope="prototype" />
+	<bean id="indexAction" class="com.enation.app.saler.action.IndexAction" scope="prototype" />
+	<bean id="recordInstallerAction" class="com.enation.app.saler.action.RecordInstallerAction" scope="prototype" />
+	<bean id="solutionAction" class="com.enation.app.saler.action.backend.SolutionAction" scope="prototype" />
+	<bean id="siteAction" class="com.enation.app.saler.action.backend.SiteAction" scope="prototype" />
+ 
+</beans>

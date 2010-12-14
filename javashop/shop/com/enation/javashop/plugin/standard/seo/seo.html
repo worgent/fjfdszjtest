@@ -1,0 +1,35 @@
+<div  tabid="tab_3"  style="display: none;" class="tab-panel">
+	<table class="form-table">
+		<tr>
+			<th>
+				商品页面标题：
+			</th>
+			<td>
+				<input type="text" name="goods.page_title" class="input_text" value="${goods.page_title!'' }"/>
+				(留空则默认显示商品名称)
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				META_KEYWORDS：
+			</th>
+			<td>
+				<textarea name="goods.meta_keywords"
+					style="width:250px;height:100px">${goods.meta_keywords!'' }</textarea>
+				(留空则默认继承基本设置中的KEYWORDS内容)
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				META_DESCRIPTION：
+			</th>
+			<td>
+				<textarea name="goods.meta_description"
+					style="width:250px;height:100px">${goods.meta_description!'' }</textarea>
+				(留空则默认继承基本设置中的DESCRIPTION内容)
+			</td>
+		</tr>
+	</table>
+</div>

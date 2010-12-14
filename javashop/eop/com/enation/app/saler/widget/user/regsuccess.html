@@ -1,0 +1,26 @@
+<style type="text/css">
+.register{height:auto;right:auto;position:relative;width:760px;margin:0 auto;}
+</style>
+<div class="index_bar">
+	<div class="successful_case register">
+		<div class="circular_top">
+			<div class="circular_top_left"></div>
+			<div class="circular_top_right"></div>
+		</div>
+		<h1>会员注册 - 成功</h1>
+		<div class="info">
+		恭喜您，注册成功！接下来您可以：
+		
+		<#if url?exists  >
+			<a href="${url}">安装您选择的应用</a>
+		<#else>
+		<ul>
+			<li>1. 查看并安装您所需要的<a href="solution.html">解决方案</a>。</li>
+		 
+		</ul>
+		</#if>
+		
+		</div>
+	</div>
+</div>
+

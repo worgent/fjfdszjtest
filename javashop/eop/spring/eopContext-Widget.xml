@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="false">
+	<bean id="user_reg" class="com.enation.app.saler.widget.user.RegisterWidget"></bean>
+	<bean id="user_login" class="com.enation.app.saler.widget.user.LoginWidget"></bean>
+	<bean id="user_logout" class="com.enation.app.saler.widget.user.LogoutWidget"></bean>
+	<bean id="user_bar" class="com.enation.app.saler.widget.user.UserBarWidget"></bean>
+	<bean id="product_install" class="com.enation.app.saler.widget.product.ProductInstallWidget"></bean>
+	<bean id="product_list" class="com.enation.app.saler.widget.product.ProductListWidget"></bean>
+	<bean id="product_detail" class="com.enation.app.saler.widget.product.ProductDetailWidget"></bean>
+	<bean id="sql_list" class="com.enation.app.base.widget.SqlListWidget"></bean>
+	<import resource="classpath:com/enation/eop/impl/ApplicationContext.xml"/>
+</beans>

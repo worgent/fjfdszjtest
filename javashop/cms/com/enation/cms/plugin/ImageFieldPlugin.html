@@ -1,0 +1,40 @@
+<div class="uploadWrapper${fieldname}" >
+<input type="button" value="上传" id="uploadBtn_${fieldname}" />
+<input type="hidden" name="${fieldname}" id="${fieldname}" />
+<div style="width:150px;height:150px;overflow:hidden">
+<img  id="img_${fieldname}" style="width:150px;height:150px;" src="images/transparent.gif"/>
+</div>
+<div id="uploadDlg_${fieldname}"></div>
+</div>
+<script>
+
+function uploadOk${fieldname}(data){
+	if(data.result==1){
+		 $("#${fieldname}").val(data.path);
+		 $("#img_${fieldname}").attr("src",data.path);
+		
+	}else{
+		alert(data.message);
+	}
+	Eop.Dialog.close("uploadDlg_${fieldname}");	
+	$("#uploadDlg_${fieldname}").empty();
+}
+
+
+
+
+$(function(){
+	Eop.Dialog.init({id:'uploadDlg_${fieldname}', width:500,height:280,title:'上传图片'});
+	$("#uploadBtn_${fieldname}").click(function(){
+		Eop.Dialog.open("uploadDlg_${fieldname}");
+		$("#uploadDlg_${fieldname}").load('${ctx}/eop/upload.${ext}?subFolder=cms',function(){
+			Eop.Upload.uploadOk = uploadOk${fieldname};
+		});
+		
+	});
+	<#if value?exists >
+		$("#${fieldname}").val('${value}');
+		$("#img_${fieldname}").attr('src','${value}');
+	</#if>
+})
+</script>

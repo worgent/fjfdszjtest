@@ -1,0 +1,114 @@
+<script type="text/javascript" src="js/jquery.pager.js"></script>
+<link href="css/Pager.css" rel="stylesheet" type="text/css" />
+<div>
+<h1 class="title">我的收藏</h1>
+<div id="mbc-my-fav" class="GoodsSearchWrap">
+<div id="goods_51" product="51" class="items-list">
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+	<tbody>
+		<#list favoriteList as favorite>
+		<tr>
+			<td width="110" class="goodpic"><a title="${favorite.name}"
+				href="goods-${favorite.goods_id}.html"
+				style="display: block; width: 110px; height: 80px;"><img
+				alt="${favorite.name}"
+				src="<@GoodsPic pic='${favorite.image_default}"' postfix='_thumbnail' />" /></a></td>
+			<td width="60%" class="goodinfo">
+			<h6><a title="${favorite.name}"
+				href="goods-${favorite.goods_id}.html">${favorite.name}</a></h6>
+			</td>
+			<td style="padding: 0pt 10px;">
+			<ul>
+				<li><span class="price1">${favorite.price?string.currency}</span></li>
+				<!--<li class="intro rank-5.000">Rank 5.000</li>-->
+			</ul>
+			</td>
+			<td style="white-space: nowrap;"><a title="商品对比"
+				onclick="try{show_compare.add_comare_goods('51','http://localhost/283','春款韩版卡其休闲上衣','6');}catch(e){form.submit();};return false;"
+				href="#" class="lnk">商品对比</a><br>
+			<a href="member_favorite.html?action=delete&favorite_id=${favorite.favorite_id}" class="lnk">删除</a><br>
+			<div class=" price_button">
+			<ul class="button">
+				<li style="z-index: 10;" class="addcart buy-select"><a
+					class="lnk">加入购物车</a>
+				<div style="display: none;" class="buy-select-list note">
+				<h3>请选择规格</h3>
+				<table width="100%">
+					<tbody>
+						<tr>
+							<td width="100">灰色、S</td>
+							<td><span class="fontcolorRed fontbold">￥128.00</span></td>
+							<td align="right" width="100" style="vertical-align: middle;"><a
+								class="btnbuy" rel="nofollow" title="加入购物车" target="_blank_cart"
+								product="262" buy="51"
+								href="http://localhost/?cart-51-262-addGoodsToCart.html"
+								type="g">购买</a></td>
+						</tr>
+						<tr>
+							<td width="100">灰色、M</td>
+							<td><span class="fontcolorRed fontbold">￥128.00</span></td>
+							<td align="right" width="100" style="vertical-align: middle;"><a
+								title="缺货登记" class="btnbuy" rel="nofollow"
+								href="http://localhost/?product-51-263-gnotify.html" type="g">缺货</a></td>
+						</tr>
+						<tr>
+							<td width="100">灰色、X</td>
+							<td><span class="fontcolorRed fontbold">￥128.00</span></td>
+							<td align="right" width="100" style="vertical-align: middle;"><a
+								class="btnbuy" rel="nofollow" title="加入购物车" target="_blank_cart"
+								product="264" buy="51"
+								href="http://localhost/?cart-51-264-addGoodsToCart.html"
+								type="g">购买</a></td>
+						</tr>
+						<tr>
+							<td width="100">灰色、XL</td>
+							<td><span class="fontcolorRed fontbold">￥128.00</span></td>
+							<td align="right" width="100" style="vertical-align: middle;"><a
+								class="btnbuy" rel="nofollow" title="加入购物车" target="_blank_cart"
+								product="265" buy="51"
+								href="http://localhost/?cart-51-265-addGoodsToCart.html"
+								type="g">购买</a></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				</li>
+				<li class="star-on" title="春款韩版卡其休闲上衣" star="51"><a
+					rel="nofollow" title="加入收藏" class="listact" onclick="return false;"
+					href="#">已加入收藏</a></li>
+				<li class="vdetail"><a title="春款韩版卡其休闲上衣" class="listact"
+					target="_blank" href="http://localhost/?product-51.html">查看详细</a></li>
+			</ul>
+			</div>
+			</td>
+		</tr>
+		</#list>
+	</tbody>
+</table>
+</div>
+</div>
+<div id="pager" ></div>
+<script>
+
+
+var Pager = {
+	init:function(){
+		var self = this;
+		var PC = 0;
+		PC = ${pageCount};
+		if(PC!=0){
+			$("#pager").pager({ pagerid:'pager',pagenumber: ${page}, pagecount: PC, buttonClickCallback: self.PageClick });
+		}
+	},
+
+	PageClick:function(pageclickednumber){
+		var self = this;
+		location.href="member_favorite.html?page="+pageclickednumber;
+	}
+}
+
+$(function(){
+	Pager.init();
+});
+</script>
+</div>

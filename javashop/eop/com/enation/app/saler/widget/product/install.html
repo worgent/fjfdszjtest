@@ -1,0 +1,106 @@
+<script type="text/javascript" src="jquery.timers.js"></script>
+<style>
+#installMsg{
+	height:400px;
+	color:#333333;
+	overflow-y:auto;
+}
+#installMsg span{
+ 	margin-top:5px;
+	clear:both;float: left; display: block;
+}
+</style>
+<script type="text/javascript">
+var Installer={
+	init:function(){
+		var self = this; 
+		$("#installform input.ok").click(function(){
+			$('#confirm').hide(); 
+			$('#installMsg').empty();
+			$('#installMsg').show(); 
+			 self.install();
+			 $('#installMsg').everyTime(500, 'install', function() {
+				//this.scrollTop=this.scrollHeight;
+				$(this).scrollTop(1500); 
+				self.getMessage();
+			 });
+		});
+ 
+		
+	},
+	install:function(){
+		var options = {
+				url : "widget?type=product_install&action=install&ajax=yes",
+				type : "POST",
+				dataType : 'json',
+				success : function(result) {
+					$('#installMsg').stopTime('install');
+					if(result.result==0){
+						var domain = $("#domain").val(); 
+				 		$("#installOk").append("<span style='color:red'>恭喜您安装成功完成!<span><br/>");
+				 		$("#installOk").append("<span ><a href='http://"+domain+".enationsoft.com' target='_blank'>点击此处查看站点前台</a><span><br/>");
+				 		$("#installOk").append("<span ><a href='http://"+domain+".enationsoft.com/admin/login?s=${endata}&type=sys' target='_blank'>点击此处进入管理</a><span>");
+				 		$("#installMsg").hide();
+				 		$("#installOk").show();
+					}else{
+						$("#installMsg").empty();
+						$("#installMsg").append("<span style='color:red;float:left'>"+result.message+"<a id='backLink' href='javascript:;'>点击返回</a><span><br/>");
+						$("#backLink").click(function(){
+							$('#confirm').show(); 
+							$('#installMsg').hide(); 							
+						});
+					}
+				},error:function(){
+					$('#installMsg').stopTime('install');
+					alert('安装发生意外错误:(');
+				}
+		};
+		
+		$("#installform").ajaxSubmit(options);	
+	},
+	getMessage:function(){
+		$.ajax({
+			url : "widget?type=product_install&action=getMsg&ajax=yes",
+			type : "POST",
+			dataType : 'html',
+			success : function(result) {
+				$("#installMsg").html(result);
+			}			
+		});
+	}
+}
+
+$(function(){
+	Installer.init();
+});
+</script>
+
+<form id="installform">
+<input type="hidden" name="productid" value="${product.productid}" />
+<div class="index_bar ah">
+	<div class="successful_case install">
+		<div class="circular_top">
+			<div class="circular_top_left"></div>
+			<div class="circular_top_right"></div>
+		</div>
+		<h1>安装确认 </h1>
+		<div class="info" id="confirm">
+			下面的步骤将会安装解决方案到您的站点中，请确认信息：
+			<ul>
+				<li>解决方案：${product.product_name}</li>
+				<li>访问网址：<input class="bigtext rm" type="text" id="domain" name="domain" value="${username}"></input><span class="lm">.enationsoft.com</span></li>
+				<!-- <li>附加选项：<input type="checkbox" checked="true"></input>安装示例数据</li> -->
+			</ul>
+			<div align="center">
+				<input type="button" class="ok" value="立即开通"></input>
+				<input type="button" class="cancel" value="看看再定"></input>
+			</div>
+		</div>
+		<div class="info" id="installMsg" style="display:none">
+		</div>
+		<div class="info" id="installOk" style="display:none">
+			 
+		</div>		
+	</div>
+</div>
+</form>

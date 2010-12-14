@@ -1,0 +1,167 @@
+<div id="spec_tab">
+<script type="text/javascript">var spec_imgs={};function getProduct(){return Product}function getPicNames(){return $("[name=picnames]")} var Product={gridTable:undefined,init:function(){this.gridTable=this.createEmptyTable();$("#body2").hide();var a=this;$("#specOpenBtn").click(function(){$("#body1").hide();$("#body2").show();$("#haveSpec").val(1);a.openSpecDialog()});$("#specCloseBtn").click(function(){$("#body2 table").replaceWith(a.gridTable);$("#body2").hide();$("#body1").show();$("#haveSpec").val(0)});Eop.Dialog.init({id:"specdlg",title:"\u89c4\u683c",width:"500px",height:"400px"});$("#productNode .delete").click(function(){a.deleteProRow($(this))}); if($("#haveSpec").val()=="0"){$("#body2").hide();$("#body1").show()}else{$("#body2").show();$("#body1").hide()}},openSpecDialog:function(){Eop.Dialog.open("specdlg");$("#spec_dialog").html("loding...");$("#spec_dialog").load(basePath+"goodsSpec.do?ajax=yes")},createEmptyTable:function(){var a=$("#body2 table").clone(),b="<tr>";b+='<th style="width: 200px;">\u8d27\u53f7</th>';b+='<th style="width: auto;" id="storeTh">\u5e93\u5b58</th>';b+='<th style="width: auto;">\u9500\u552e\u4ef7</th>';b+='<th style="width: auto;">\u6210\u672c\u4ef7</th>'; b+='<th style="width: auto;">\u91cd\u91cf</th>';b+='<th style="width: auto;">\u64cd\u4f5c</th>';b+="</tr>";a.find("thead").empty().append(b);a.find("tbody").empty();return a},createPros:function(a,b){var d=this;for(i in b)$("#storeTh").before("<th>"+b[i]+"</th>");var f=combinationAr(a);for(i in f){var e=f[i],c='<tr><td><input type="text" name="sns" size="15" autocomplete="off"></td>',h="",k="";for(j in e){var g=e[j];if(j!=0){h+=",";k+=","}h+=g.specvid;k+=g.specid;c+="<td>";c+=parseInt(g.spectype)== 0?"<div class='select-spec-unselect spec_selected'><span>"+g.specvalue+"</span></div>":'<div class="select-spec-unselect spec_selected"><center>'+('<img height="20" width="20" title="'+g.specvalue+'" alt="'+g.specvalue+'" src="'+g.specimage+'">')+"</center></div>";c+='<input type="hidden" name="specvalue_'+i+'" value="'+g.specvalue+'" />';c+="</td>"}c+="<td>";c+="<input type='hidden' name='specids' value='"+k+"' />";c+="<input type='hidden' name='specvids' value='"+h+"' />";c+='<input type="text" name="stores" size="4" autocomplete="off"> </td>'; c+='<td><input type="text" name="prices" size="8" autocomplete="off"></td>';c+='<td><input type="text" name="costs" size="8" autocomplete="off"></td>';c+='<td><input type="text" name="weights" size="10" autocomplete="off"></td>';c+='<td><a href="javascript:;" class="delete"></a></td>';c+="</tr>";e=$(c);$("#productNode").append(e);e.find("a.delete").click(function(){d.deleteProRow($(this))})}},deleteProRow:function(a){confirm("\u786e\u5b9a\u5220\u9664\u6b64\u8d27\u54c1\u5417\uff1f\u5220\u9664\u540e\u4e0d\u53ef\u6062\u590d")&& a.parents("tr").remove()}};$(function(){Product.init()});function putAr(a,b){for(var d=[],f=0;f<a.length;f++)d[f]=a[f];d[a.length]=b;return d}function combination(a,b){var d=[],f=0;if(!b){for(var e=0;e<a.length;e++){d[f]=[a[e]];f++}return d}for(e=0;e<a.length;e++)for(var c=0;c<b.length;c++){d[f]=a[e].constructor==Array?putAr(a[e],b[c]):[a[e],b[c]];f++}return d} function combinationAr(a){var b,d=0;if(a.length==1)return combination(a[0]);for(;d<a.length-1;){if(d==0)b=a[0];b=combination(b,a[d+1]);d++}return b};</script>
+<style>
+.select-spec-value {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 2px solid #FFFFFF;
+	display: block;
+}
+
+div.spec_selected {
+	width: 50px
+}
+
+.select-spec-unselect span,.select-spec-unselect img {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px dotted #3366CC;
+	color: #333333;
+	cursor: pointer;
+	display: block;
+	padding: 1px;
+	font-size: 14px;
+	text-align: center;
+	line-height: 150%;
+}
+
+.spec_selected span,.spec_selected img {
+	background: none repeat scroll 0 0 #FFFFCC;
+	border-style: solid;
+}
+</style>
+
+<input type="hidden" name="haveSpec" id="haveSpec" value="${goods.have_spec!0}" />
+<table id="body1" class="form-table">
+	<tbody>
+ 
+		<tr>
+			<th>销售价：</th>
+			<td><input type="text" maxlength="25" style="width: 60px;"
+				name="price" autocomplete="off"  dataType=float value="${(goods.price!0)?c}"></td>
+		</tr>
+		<tr>
+			<th>成本价：</th>
+			<td><input type="text" style="width: 60px;" maxlength="30"
+				name="cost" autocomplete="off" value="${(goods.cost!0)?c}"> <span class="notice_inline">前台不会显示，仅供后台使用。</span></td>
+		</tr>
+
+		<tr>
+			<th>货号：</th>
+			<td><input type="text" vtype="text" style="" maxlength="25"
+				name="bn" autocomplete="off"></td>
+		</tr>
+		<tr>
+			<th>重量：</th>
+			<td><input type="text" maxlength="25" style="width: 60px;"
+				name="weight" autocomplete="off" value="${(goods.weight!0)?c}">克(g)</td>
+		</tr>
+
+		<tr>
+			<th>库存：</th>
+			<td><input type="text" maxlength="25" style="width: 60px;"
+				name="store" autocomplete="off" value="${(goods.store!0)?c}"></td>
+		</tr>
+
+		<tr class="advui">
+			<th>规格：</th>
+			<td style="padding: 4px 0pt;">
+			<input type="button" id="specOpenBtn" value="开启规格" />
+			
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<div class="grid" id="body2">
+<input type="button" id="specCloseBtn" value="关闭规格" />
+<table cellspacing="0" cellpadding="0" border="0">
+	<thead id="productNodeTitle">
+		<tr>
+			<th style="width: 200px;">货号</th>
+			<th style="width: auto;" id="storeTh">库存</th>
+			<th style="width: auto;">销售价</th>
+			<th style="width: auto;">成本价</th>
+			<th style="width: auto;">重量</th>
+			<th style="width: auto;">操作</th>
+		</tr>
+
+	</thead>
+	<tbody id="productNode">
+	
+		<#if goods.have_spec?exists && goods.have_spec==1 && productList?exists  >
+		<#list productList as product>
+		<#assign specids=''>
+		<#assign specvids=''>
+		
+		
+		<tr>
+			<td><input type="text" size="15" name="sns" value="${product.sn}" autocomplete="off"></td>
+			
+			<#list product.specList as spec>
+				<#if product_index==0 ><script>$("#storeTh").before("<th>${spec.spec_value}</th>");</script></#if>
+
+				<#if spec_index!=0 >
+					<#assign specids=specids+','>
+					<#assign specvids=specvids+','>
+				</#if>
+				<#assign specids=specids+spec.spec_id>
+				<#assign specvids=specvids+spec.spec_value_id>		
+						
+				<#if spec.spec_type==1>
+				<td>
+				<div class="select-spec-unselect spec_selected">
+				<center><img height="20" width="20" src="${spec.spec_image}"
+					alt="${spec.spec_value}" title="${spec.spec_value}"></center>
+				</div>
+				<input type="hidden" name="specvalue_${product_index}" value="${spec.spec_value}" />
+				</td>
+				</#if>
+				
+				<#if spec.spec_type==0>
+				<td>
+				<div class="select-spec-unselect spec_selected"><span>${spec.spec_value}</span></div>
+				<input type="hidden" name="specvalue_${product_index}" value="${spec.spec_value}" />
+				</td>
+				</#if>
+				
+ 			</#list>
+			
+			<td>
+			
+			<input type="hidden" value="${specids}" name="specids">
+			<input type="hidden" value="${specvids}" name="specvids">
+			<input type="text" size="4" name="stores" autocomplete="off" value="${product.store}">
+			
+			</td>
+				
+			<td><input type="text" size="8" name="prices" value="${(product.price!0)?c}" autocomplete="off"></td>
+			<td><input type="text" size="8" name="costs" value="${(product.cost!0)?c}" autocomplete="off"></td>
+			<td><input type="text" size="10" name="weights" value="${(product.weight!0)?c}" autocomplete="off"></td>
+			<td><a class="delete" href="javascript:;"></a></td>
+		</tr>
+		</#list>
+		</#if>
+	</tbody>
+</table>
+<input type="hidden" name="spec_imgs" id="spec_imgs" /></div>
+
+<div id="specdlg">
+<div id="spec_dialog"></div>
+<div class="footContent" style="">
+<div style="width: 200px; height: 40px; margin: 0pt auto;"
+	class="mainFoot">
+<table style="margin: 0pt auto; width: auto;">
+	<tbody>
+		<tr>
+			<td><b class="save_create">
+			<button class="submitBtn">生成所有货品</button>
+			</b></td>
+
+		</tr>
+	</tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>

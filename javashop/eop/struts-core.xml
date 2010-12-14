@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="install" namespace="/install" extends="eop_default">
+		<action name="install" class="eopInstallAction">
+			<result name="step1">step1.jsp</result>
+			<result name="step2">step2.jsp</result>
+			<result name="step3">step3.jsp</result>
+			<result name="success">success.jsp</result>
+		</action>	
+	</package>
+	<package name="installer" namespace="/core/admin" extends="eop_default">
+	    <action name="installer" class="recordInstallerAction">
+			<result name="list">installer/list.jsp</result>
+		</action>
+	    <action name="solution" class="solutionAction">
+	    	<result name="add">solution/add.jsp</result>
+	    	<result name="edit">solution/edit.jsp</result>
+			<result name="export">solution/export.jsp</result>
+			<result name="import">solution/import.jsp</result>
+			<result name="list">solution/list.jsp</result>
+			<interceptor-ref name="defaultStack">
+        		<param name="fileUpload.maximumSize">10485760</param>
+        	</interceptor-ref>
+		</action>	
+	    <action name="site" class="siteAction">
+			<result name="list">site/list.jsp</result>
+			<result name="edit">site/edit.jsp</result>
+		</action>	
+		 <action name="access" class="accessAction">
+			<result name="list">access/list.jsp</result>
+			<result name="history">access/history.jsp</result>
+		</action>	
+	</package>
+ 
+	
+	<package name="user" namespace="/core/admin/user" extends="eop_default">
+
+		<action name="baseInfo" class="baseInfoAction">
+			<result name="input">baseinfo.jsp</result>
+			<interceptor-ref name="defaultStack">
+        		<param name="fileUpload.maximumSize">1048576</param>
+        	</interceptor-ref>
+		</action>
+		
+		<action name="userDetail" class="userDetailAction">
+			<result name="input">userdetail.jsp</result>
+		</action>
+		
+		<action name="userSite" class="userSiteAction">
+			<result name="success">usersite.jsp</result>
+			<result name="add">addUserSite.jsp</result>
+			<result name="edit">editUserSite.jsp</result>
+			<result name="adddomain">addDomain.jsp</result>
+			<result name="domainlist">domainlist.jsp</result>
+			
+		</action>
+		
+		<action name="userAdmin" class="userAdminAction">
+			<result name="success">useradmin.jsp</result>
+			<result name="add">addUserAdmin.jsp</result>
+			<result name="edit">editUserAdmin.jsp</result>
+			<result name="editPassword">editPassword.jsp</result>
+		</action>
+		<action name="siteTheme" class="siteThemeAction">
+			<result name="input">newtheme.jsp</result>
+			<result name="success">sitetheme.jsp</result>
+		</action>
+		<action name="siteAdminTheme" class="siteAdminThemeAction">
+			<result name="success">siteadmintheme.jsp</result>
+		</action>
+		
+	</package>
+ 
+</struts>

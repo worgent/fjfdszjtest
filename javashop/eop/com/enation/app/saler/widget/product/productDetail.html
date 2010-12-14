@@ -1,0 +1,30 @@
+		<table cellspacing="15" cellpadding="0">
+					<tr>
+						<td><img src="${product.preview }"></img></td>
+						<td valign="top">
+							<ul>
+								<li>名称：${product.product_name}</li>
+								<li>编号：1688</li>
+								<li>类型：展示/交易型</li>
+								<li>价格：0.00元</li>
+							</ul>
+							<div>
+								<#if isLogin>
+								<a href="install.html?action=confirm&productid=${product.productid}">立即开通</a>
+								<#else>
+								<a href="login.html?productid=${product.productid}">立即开通</a>
+								</#if>								
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						<div>
+							<h2>方案介绍</h2>
+							<span class="intr">具有适合茶叶公司电子商务网站的设计风格和页面布局，参考该行业典型网站，预设了适合茶叶公司电子商务网站的栏目和内容。模块化的网站软件构架，用户可以在现有成品网站的基础上加装其他功能模块；使用灵活的网页管理功能，可以自由添加和编辑网页；强大的鼠标拖曳排版功能，可以任意调整网站排版布局，灵活设置插件显示方式，网站管理维护更方便快捷。
+预装软件模块：基础模块,企业招聘模块,会员功能模块,网友点评模块,图片展示模块,新闻文章模块,网上购物模块
+预设栏目内容：详见演示网站</span>
+						</div>
+						</td>
+					</tr>
+				</table>

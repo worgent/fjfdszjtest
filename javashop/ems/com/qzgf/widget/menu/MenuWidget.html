@@ -1,0 +1,19 @@
+<#assign children=menuList />
+<#assign level=1 />
+<ul class="MenuList">
+<#include 'menu.html' />  
+</ul>
+<#if isDropDown=='on'> 
+<script type="text/javascript">
+$(function(){
+	$(".MenuList>li" ).hover(function(){
+		var pos = $(this).position();
+		$(this).find("ul").css("left",pos.left + "px").slideDown("fast");		 
+		$(this).find("ul").show();
+	},
+	function(){ 
+		$(this).find("ul").hide();
+	});
+});
+</script>
+</#if>

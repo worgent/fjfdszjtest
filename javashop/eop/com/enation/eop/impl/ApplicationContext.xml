@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="false">
+	
+	<bean id="widgetParamParser" class="com.enation.eop.impl.facade.widget.XmlWidgetParamParser"></bean>
+	<bean id="widgetParamUpdater" class="com.enation.eop.impl.facade.widget.XmlWidgetParamUpdater"></bean>	
+	<bean id="facadePagePaser" class="com.enation.eop.impl.facade.FacadePagePaser"></bean>
+	<bean id="facadePageUpdater" class="com.enation.eop.impl.facade.FacadePageUpdater"></bean>
+	<bean id="pageParamJsonGetter" class="com.enation.eop.impl.facade.PageParamJsonGetter"></bean>
+	<bean id="localWidgetCfgPaser" class="com.enation.eop.impl.facade.widget.config.LocalWidgetCfgHtmlPaser"></bean>
+	<bean id="parsePageService" class="com.enation.eop.impl.facade.ParsePageService"></bean>
+</beans>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	<bean id="ems_goods_cat"  class="com.qzgf.widget.goodscat.GoodsCat"  scope="prototype"></bean>
+	<bean id="ems_jqueryAdAdvance"  class="com.qzgf.widget.adv.jadadvance.JqueryAdAdvanceWidget"  scope="prototype"></bean>
+	<bean id="ems_goods_list"  class="com.qzgf.widget.goods.list.GoodsList"  scope="prototype"></bean>
+	<bean id="ems_shop_menu"  class="com.qzgf.widget.menu.MenuWidget"  scope="prototype"></bean>
+	<bean id="ems_partZone"  class="com.qzgf.widget.partzone.PartZoneWidget"  scope="prototype"></bean>
+	
+	
+	<bean id="ems_goodsDataProvider" class="com.qzgf.widget.goods.list.GoodsDataProvider"  parent="baseSupport"   scope="prototype" />
+</beans>

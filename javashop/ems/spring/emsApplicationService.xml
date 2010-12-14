@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	<bean id="emsgoodsCatManagerImpl" class="com.qzgf.core.service.impl.GoodsCatManager"  parent="baseSupport"/>
+	<bean id="emsgoodsCatManager" class="com.qzgf.core.service.impl.cache.GoodsCatCacheProxy"  >
+		<constructor-arg><ref bean="emsgoodsCatManagerImpl"/></constructor-arg>
+	</bean>
+	
+	<bean id="emsgoodsTypeManager" class="com.qzgf.core.service.impl.GoodsTypeManager"  parent="baseSupport"  />
+	<bean id="emsgoodsManager" class="com.qzgf.core.service.impl.GoodsManager"  parent="baseSupport" />
+	<bean id="emsbrandManager" class="com.qzgf.core.service.impl.BrandManager"   parent="baseSupport" />
+	
+
+		
+    <bean id="emssiteMenuManagerImpl" class="com.qzgf.core.service.impl.SiteMenuManager" parent="baseSupport"></bean>
+	<bean id="emssiteMenuManager" class="com.qzgf.core.service.impl.cache.SiteMenuCacheProxy" >
+		<constructor-arg><ref bean="emssiteMenuManagerImpl"/></constructor-arg>
+	</bean>
+	
+	
+    <bean id="emsarticleManager" class="com.qzgf.core.service.impl.ArticleManager" parent="baseSupport"></bean>
+</beans>

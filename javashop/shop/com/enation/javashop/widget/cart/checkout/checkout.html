@@ -1,0 +1,130 @@
+<script type="text/javascript" src="checkout.js"></script>
+<script type="text/javascript">
+$(function(){
+	CheckOut.init();
+});
+</script>
+<div id="log" class="CartWrap">
+<div class="CartNav clearfix">
+<div class="floatLeft"><img alt="购物流程--查看购物车"
+	src="${ctx}/resource/com/enation/javashop/widget/cart/images/cartnav-step3.gif"></div>
+<div class="floatRight"><img src="${ctx}/resource/com/enation/javashop/core/widget/cart/images/cartnav-cart.gif"></div>
+</div>
+<form   action="cart.html" method="post" id="checkoutform">
+<input type="hidden" name="action" value="createOrder" />
+<input type="hidden" name="step" value="checkout" />
+
+<div style="display: none;"><input type="checkForm"
+	vtype="checkForm" class="_x_ipt checkForm" autocomplete="off"></div>
+<div class="FormWrap">
+<h3>填写收货人信息</h3>
+<div id="receiver">
+<div class="division">
+<#include 'addressList.html' />
+</div>
+<div style="display:none;" id="checkout-recaddr" class="division">
+<#include 'newAddress.html' />
+</div>
+<div class="division">
+<#include 'date.html' />
+</div>
+</div>
+<h3>选择配送方式</h3>
+
+<div class="division">
+<div id="shipping" class="body">
+请选择收货地址
+</div>
+</div>
+
+<h3>选择支付方式
+</h3>
+<div class="division">
+<div id="payment" class="body">
+<#include 'paymentList.html' />
+</div>
+</div>
+
+</div>
+<div
+	style="background: none repeat scroll 0% 0% rgb(245, 244, 236); border: 1px solid rgb(229, 221, 199);"
+	class="FormWrap">
+<#if hasGoods >
+<#include 'goodsList.html' />
+</#if>
+
+<#if hasPgk>
+<#include 'pgkList.html' />
+</#if>
+<#if hasGift>
+<#include 'giftList.html' />
+</#if>
+
+<#include 'promotion.html' />
+
+</div>
+<div id="amountInfo">
+
+</div>
+<div class="CartBtn clearfix"><input type="hidden" value="true"
+	name="fromCart">
+<div class="span-auto"><input type="button" value="返回购物车"
+	onclick="history.back()" class="actbtn btn-return-checkout"></div>
+<div class="span-auto floatRight last"><input type="submit"
+	value="确认无误，下订单" class="actbtn btn-order"></div>
+</div>
+</form>
+<script>
+$(function(){
+	$("#checkoutform").validate();;
+	$("#address_city_id").hide();
+	$("#address_region_id").hide();
+	$("#address_province_id").empty();
+	$("<option value='-1'>请选择...</option>").appendTo($("#address_province_id"));
+	<#list provinceList as province>
+		$("<option value='${(province.region_id)?c}' >${province.local_name}</option>").appendTo($("#address_province_id"));
+	</#list>
+	
+	$("#address_province_id").change(function(){
+		$("#address_province").val($("#address_province_id option:selected").text());
+		$("#address_city_id").empty();
+		$("#address_city_id").hide();
+		$("#address_region_id").empty();
+		$("#address_region_id").hide();
+		$.ajax({
+			method:"get",
+			url:"shop/area!list_city.do?province_id=" + $("#address_province_id").attr("value"),
+			dataType:"html",
+			success:function(result){
+				$("#address_city_id").show();
+				$(result).appendTo($("#address_city_id"));
+			},
+			error:function(){
+				alert("异步失败");
+			}
+		});
+	});
+	$("#address_city_id").change(function(){
+		$("#address_city").val($("#address_city_id option:selected").text());
+		$("#address_region_id").empty();
+		$("#address_region_id").hide();
+		$.ajax({
+			method:"get",
+			url:"shop/area!list_region.do?city_id=" + $("#address_city_id").attr("value"),
+			dataType:"html",
+			success:function(result){
+				$("#address_region_id").show();
+				$(result).appendTo($("#address_region_id"));
+			},
+			error:function(){
+				alert("异步失败");
+			}
+		});
+	});
+	$("#address_region_id").change(function(){
+		$("#address_region").val($("#address_region_id option:selected").text());
+		$("#region_id").val($(this).val());
+		CheckOut.loadDlyType($(this).val());
+	});
+});
+</script>

@@ -1,0 +1,20 @@
+<div class="productwrapper">
+	<ul class="products">
+	<#list productList as product>
+		<li class="item">
+			<span class="name">${product.product_name }</span>
+			<div class="prw"><img src="${product.preview }"></img></div>
+			
+			<div class="btnwrapper">
+			<a class="probtn" href="http://${product.productid}.enationsoft.com" target="_blank">演示</a>
+			<#if isLogin>
+			<a  class="probtn" href="install.html?action=confirm&productid=${product.productid}">开通</a>
+			<#else>
+			<a  class="probtn" href="login.html?productid=${product.productid}">开通</a>
+			</#if>
+			<a  class="probtn" href="detail.html?productid=${product.productid}">详情</a>
+			</div>
+		</li>
+	</#list>
+	</ul>
+</div>

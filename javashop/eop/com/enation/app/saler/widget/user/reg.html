@@ -1,0 +1,132 @@
+<script type="text/javascript">
+$(function(){
+	$("#regform").validate();
+});
+function checkpwd( ){
+    
+	if( $("#repwd").val()==$("#pwd").val() ){
+		return true;
+	}
+	else{ 
+		return "密码不一致";
+	}
+}
+</script>
+<style type="text/css">
+.mt{
+	color:#223B8B;
+	font-weight:bold;
+	padding-left:15px;
+	padding-top:5px;
+}
+.regbox{padding-left:25px;text-align:left;}
+.reg{margin:10px;text-align:center;}
+.li{line-height:35px;}
+.li span{border:1px solid #F00;text-align:right;display:block;width:200px;float:left;font-size:14px;line-height:30px;margin-right:10px;}
+.ra{text-align:right;width:130px;}
+.register{height:auto;right:auto;position:relative;width:960px;}
+.tt{
+background-position:0 0;
+height:30px;
+line-height:30px;
+margin:20px 0;
+position:relative;
+text-align:left;
+text-indent:15px;
+color:#007BBB;
+font-size:14px;
+font-weight:bold;
+background-image:url(images/bg_x.gif);
+background-repeat:repeat-x;
+}
+.ml{margin-left:15px;}
+.ct{width:870px;margin:0 auto;}
+.verifyCode img{
+
+}
+</style>
+
+<form action="register.html?action=reg" method="post" id="regform" class="validate">
+	<#if productid?exists >
+	<input type="hidden" name="productid" value="${productid}">
+	</#if>
+	<div class="regbox">
+		<div class="tt">创建新账号</div>
+		<table cellspacing="10" cellpadding="0" class="tb">
+			<tr>
+				<td class="ra">会员名</td>
+				<td><input class="bigtext" type="text" name="username" dataType="string" required="true" ></input></td>
+			</tr>
+			<tr>
+				<td class="ra">密码</td>
+				<td><input class="bigtext" type="password" id="pwd" name="password" dataType="string" required="true"></input></td>
+			</tr>
+			<tr>
+				<td class="ra">确认密码</td>
+				<td><input class="bigtext" type="password" id="repwd" fun='checkpwd'></input></td>
+			</tr>
+		</table>
+	</div>
+	<div class="regbox">
+		<div class="tt">填写联系信息</div>
+		<table cellspacing="10" cellpadding="0" class="tb">
+			<tr>
+				<td class="ra">请选择用户类型</td>
+				<td><input type="radio" name="usertype" value="1" checked="true" >单位或公司</input>
+				    <input type="radio" name="usertype" value="0">个人用户</input>
+				 </td>
+			</tr>
+			<tr>
+				<td class="ra">电子邮件</td>
+				<td><input class="bigtext" type="text" name="email" dataType="email" required="true" ></input><span class="ml">重要！可用于找回密码</span></td>
+			</tr>
+			<tr>
+				<td class="ra">单位名称</td>
+				<td><input class="bigtext" type="text" name="company_name" dataType="string" required="true" ></input></td>
+			</tr>
+			<tr>
+				<td class="ra">联系人</td>
+				<td><input class="bigtext" type="text" name="linkman"></input></td>
+			</tr>
+			<tr>
+				<td class="ra">电话</td>
+				<td><input class="bigtext" type="text" name="tel"></input></td>
+			</tr>
+			<tr>
+				<td class="ra">手机</td>
+				<td><input class="bigtext" type="text" name="mobile"></input></td>
+			</tr>
+			<tr>
+				<td class="ra">QQ/MSN</td>
+				<td><input class="bigtext" type="text" name="qq"></input></td>
+			</tr>
+		</table>
+	</div>
+	<div class="regbox">
+		<div class="tt">服务条款及验证</div>
+		<table cellspacing="10" cellpadding="0" class="tb">
+			<tr>
+				<td class="ra">请输入验证码</td>
+				<td><input class="bigtext" type="text" name="verifyCode" dataType="string" required="true" ></input>
+				<span class="verifyCode"><img border="0" style="height:22px;left:150px;" id="VerifyCode" src="${ctx}/validcode?vtype=userreg"><a href="javascript:;">&nbsp;看不清楚?换个图片</a></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="ra">服务条款</td>
+				<td><input type="checkbox" name="licence" value="1" checked="checked"></input>我已阅读并接受“<a href="#">服务条款</a>”</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input class="btn lbtn" type=submit value="创建账号"></input></td>
+			</tr>
+		</table>
+	</div>
+</form>
+
+<script>
+$(function(){
+	$(".verifyCode a").click(function(){
+		$(".verifyCode img").attr("src","${ctx}/validcode?vtype=userreg&r="+new Date().getTime());
+	});	
+});
+</script>

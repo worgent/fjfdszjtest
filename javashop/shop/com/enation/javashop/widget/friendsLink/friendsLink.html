@@ -1,0 +1,13 @@
+<div class="ItemsWarp clearfix"><#list listLink as link>
+<div class="span-4 items">
+<dl>
+	<#if link.logo?exists>
+	<dd class="img textcenter"><a target="_blank" title="${link.name}"
+		href="${link.url}"><img src="${link.logo}"
+		style="margin-top: 40px;"></a></dd>
+	</#if>
+	<dd class="intro textcenter"><a target="_blank"
+		title="${link.url}" href="${link.url}"> ${link.name}</a></dd>
+</dl>
+</div>
+</#list></div>

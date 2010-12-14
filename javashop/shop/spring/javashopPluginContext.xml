@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	
+	<!-- 插件桩 -->
+	<bean id="goodsPluginBundle" class="com.enation.javashop.core.plugin.GoodsPluginBundle"></bean>
+	<bean id="settingPluginBundle" class="com.enation.app.setting.plugin.SettingPluginBundle"></bean>
+	<bean id="paymentPluginBundle" class="com.enation.javashop.core.plugin.PaymentPluginBundle"></bean>
+	<bean id="promotionPluginBundle" class="com.enation.javashop.core.plugin.PromotionPluginBundle"></bean>
+
+
+	<!--shopex式相册管理插件 -->
+	<bean id="shopexGallery" class="com.enation.javashop.plugin.standard.album.GalleryAdminPlugin"
+		lazy-init="false">
+
+		<property name="bundleList">
+			<list>
+				<ref bean="goodsPluginBundle" />
+				<ref bean="settingPluginBundle" />
+			</list>
+		</property>
+
+	</bean>
+
+
+	<!-- 商品类型插件 -->
+	<bean id="javaShopGoodsTypePlugin"
+		class="com.enation.javashop.plugin.standard.type.GoodsTypeAdminPlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="goodsPluginBundle" />
+			</list>
+		</property>
+	</bean>
+
+
+
+	<!-- 商品seo插件 -->
+	<bean id="goodsSeoPlugin" class="com.enation.javashop.plugin.standard.seo.GoodsSeoPlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="goodsPluginBundle" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 默认商品货号生成插件 -->
+	<bean id="defaultGoodsSnCreatePlugin"
+		class="com.enation.javashop.plugin.standard.sn.DefaultGoodsSnCreatePlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="goodsPluginBundle" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 商品标签插件 -->
+	<bean id="goodsTagPlugin" class="com.enation.javashop.plugin.standard.tag.GoodsTagPlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="goodsPluginBundle" />
+			</list>
+		</property>
+	</bean>
+
+	<!--
+		商品通用规格插件--> 
+	
+	<bean id="goodsSpecPlugin"
+		class="com.enation.javashop.plugin.standard.spec.GoodsSpecPlugin"
+		lazy-init="false"> <property name="bundleList"> <list> <ref
+		bean="goodsPluginBundle" /> </list> </property>
+	</bean>
+		
+		
+	<bean id="commentsSettingPlugin" class="com.enation.javashop.widget.comments.CommentsSettingPlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="settingPluginBundle" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 相关商品插件 -->
+	<bean id="goodsComplexPlugin" class="com.enation.javashop.plugin.standard.complex.GoodsComplexPlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="goodsPluginBundle" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 商品配件插件 -->
+	<bean id="goodsAdjunctPlugin" class="com.enation.javashop.plugin.standard.adjunct.GoodsAdjunctPlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="goodsPluginBundle" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 支付方式插件 -->
+	<bean id="tenpay_med"  class="com.enation.javashop.plugin.payment.tenpay.TenpayMedPlugin" lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="paymentPluginBundle" />
+			</list>
+		</property>	
+	</bean>
+	<bean id="alipay"  class="com.enation.javashop.plugin.payment.alipay.AlipayPlugin" lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="paymentPluginBundle" />
+			</list>
+		</property>	
+	</bean>
+	<bean id="offline"  class="com.enation.javashop.plugin.payment.offline.OfflinePlugin" lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="paymentPluginBundle" />
+			</list>
+		</property>	
+	</bean>	
+	<bean id="deposit"  class="com.enation.javashop.plugin.payment.deposit.DepositPlugin" lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="paymentPluginBundle" />
+			</list>
+		</property>	
+	</bean>		
+	<!-- 促销插件 -->
+	<bean id="enoughPriceGiveGiftPlugin"  class="com.enation.javashop.plugin.promotion.EnoughPriceGiveGiftPlugin" lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="promotionPluginBundle" />
+			</list>
+		</property>	
+	</bean>
+	<bean id="goodsDiscountPlugin"  class="com.enation.javashop.plugin.promotion.GoodsDiscountPlugin" lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="promotionPluginBundle" />
+			</list>
+		</property>	
+	</bean>	
+	<bean id="enoughPriceReducePrice"  class="com.enation.javashop.plugin.promotion.EnoughPriceReducePrice" lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="promotionPluginBundle" />
+			</list>
+		</property>	
+	</bean>	
+	<bean id="goodsTimesPointPlugin"  class="com.enation.javashop.plugin.promotion.GoodsTimesPointPlugin" lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="promotionPluginBundle" />
+			</list>
+		</property>	
+	</bean>		
+			
+
+</beans>

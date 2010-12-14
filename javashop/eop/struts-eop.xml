@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="eop_saler_default" extends="eop_default" namespace="/eop">
+ 
+		<action name="border" class="borderAction">
+			<result name="list">setting/borderlist.jsp</result>
+		</action>
+	
+		<action name="upload" class="uploadAction">
+			<interceptor-ref name="fileUploadStack"></interceptor-ref>
+			<result name="input">upload/upload.jsp</result>
+		</action>
+		<action name="ckuploader" class="ckEditorUploadAction">
+			<interceptor-ref name="fileUploadStack"></interceptor-ref>
+			<result name="success">upload/cksuccess.jsp</result>
+		</action>		
+		
+		<action name="recordInstaller" class="recordInstallerAction">
+		</action>
+	</package>
+	
+	<package name="demo" namespace="/eop/user" extends="eop_default">
+		<action name="register" class="registerAction">
+			<result name="success" >register_ok.jsp</result>
+		</action>
+		<action name="product" class="productAction">
+			<result name="success">product_list.jsp</result>
+			<result name="detail">product_detail.jsp</result>
+			<result name="reglog">reglog.jsp</result>
+			<result name="go">go.jsp</result>
+		</action>
+		
+	</package>
+	
+ 
+</struts>

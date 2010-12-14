@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="false">
+
+	<bean id="eopInstallManager" class="com.enation.app.base.service.EopInstallManager"></bean>
+	
+ 	<!-- 应用 -->
+ 	<bean id="shop" class="com.enation.javashop.core.service.impl.ShopApp"></bean>
+ 	<bean id="base" class="com.enation.app.base.service.BaseApp"></bean>
+ 	
+ 	<!-- 用户管理 -->
+	<bean id="userManager" class="com.enation.eop.impl.resource.UserManagerImpl"></bean>
+	<bean id="userDetailManager" class="com.enation.eop.impl.resource.UserDetailManagerImpl"></bean>
+	<bean id="adminUserManager" class="com.enation.eop.impl.resource.AdminUserManagerImpl"></bean>
+	
+	<bean id="siteManagerImpl" class="com.enation.eop.impl.resource.SiteManagerImpl"></bean>
+	<bean id="domainManager" class="com.enation.eop.impl.resource.DomainManagerImpl"></bean>
+	<bean id="appManagerImpl" class="com.enation.eop.impl.resource.AppManagerImpl"></bean>
+	
+	<!-- 资源管理 -->
+	<bean id="themeUriManagerImpl" class="com.enation.eop.impl.resource.ThemeUriManagerImpl"  parent="baseSupport" ></bean>
+	<bean id="menuManager" class="com.enation.eop.impl.resource.MenuManagerImpl"  parent="baseSupport" ></bean>
+	<bean id="widgetBundleManager" class="com.enation.eop.impl.resource.WidgetBundleManagerImpl"  parent="baseSupport" ></bean>
+	<bean id="themeManager" class="com.enation.eop.impl.resource.ThemeManagerImpl"  parent="baseSupport" ></bean>
+	<bean id="adminThemeManager" class="com.enation.eop.impl.resource.AdminThemeManagerImpl"  parent="baseSupport" ></bean>
+	<bean id="borderManager" class="com.enation.eop.impl.resource.BorderManagerImpl" parent="baseSupport" ></bean>
+	<bean id="accessRecorder" class="com.enation.eop.impl.resource.AccessRecorder" parent="baseSupport" ></bean>
+	<bean id="accessExporter" class="com.enation.eop.impl.resource.AccessExporter" parent="baseSupport" scope="prototype"></bean>
+	
+	<!-- 缓存代理-->
+	<bean id="themeUriManager" class="com.enation.eop.impl.resource.cache.ThemeUriCacheProxy" >
+		<constructor-arg>
+			<ref bean="themeUriManagerImpl"/>
+		</constructor-arg>
+	</bean>
+ 	<bean id="appManager" class="com.enation.eop.impl.resource.cache.AppCacheProxy" >
+ 		<constructor-arg>
+ 			<ref bean="appManagerImpl"/>
+ 		</constructor-arg>
+ 	</bean>
+ 	<bean id="siteManager" class="com.enation.eop.impl.resource.cache.SiteCacheProxy" >
+		<constructor-arg>
+ 			<ref bean="siteManagerImpl"/>
+ 		</constructor-arg> 		
+ 	</bean>
+ 	
+ 	
+ 	<!-- 产品安装-->
+	<bean id="profileLoader" class="com.enation.app.saler.service.impl.ProfileLoaderImpl" scope="prototype"></bean>
+	<bean id="adminThemeInfoFileLoader" class="com.enation.app.saler.service.impl.AdminThemeInfoLoaderImpl"  scope="prototype"></bean>
+	<bean id="menuInstaller" class="com.enation.app.saler.service.impl.MenuInstaller"  scope="prototype"></bean>
+	<bean id="appInstaller" class="com.enation.app.saler.service.impl.AppInstaller" scope="prototype">
+		<property name="apps">
+			<map>
+				<entry key="shop" value-ref="shop"></entry>
+				<entry key="base" value-ref="base"></entry>
+				<entry key="cms" value-ref="cms"></entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="adminThemeInstaller" class="com.enation.app.saler.service.impl.AdminThemeInstaller" scope="prototype"></bean>
+	<bean id="themeInstaller" class="com.enation.app.saler.service.impl.ThemeInstaller" scope="prototype"></bean>
+	<bean id="uriInstaller" class="com.enation.app.saler.service.impl.UriInstaller" scope="prototype"></bean>
+	<bean id="widgetInstaller" class="com.enation.app.saler.service.impl.WidgetInstaller" scope="prototype"></bean>
+	<bean id="borderInstaller" class="com.enation.app.saler.service.impl.BorderInstaller" scope="prototype"></bean>
+	<bean id="productService" class="com.enation.app.saler.service.impl.ProductServiceImpl" scope="prototype"></bean>
+	<bean id="exampleDataInstaller" class="com.enation.app.saler.service.impl.ExampleDataInstaller" scope="prototype"></bean>
+	<bean id="installerFactory" class="com.enation.app.saler.service.InstallerFactory" scope="prototype"></bean>
+ 	<bean id="installerManager" class="com.enation.app.saler.service.InstallerManager" scope="prototype"></bean>
+ 	<bean id="sqlExportService" class="com.enation.app.saler.service.impl.SqlExportService" scope="prototype"></bean>
+ 	<bean id="profileCreator" class="com.enation.app.saler.service.impl.ProfileCreator" scope="prototype"></bean>
+		
+</beans>

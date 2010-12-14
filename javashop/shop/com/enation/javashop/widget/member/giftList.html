@@ -1,0 +1,32 @@
+<h4>赠品</h4>
+<div class="division">
+<table cellspacing="0" cellpadding="3" width="100%"
+	class="liststyle data">
+	<colgroup class="span-auto"></colgroup>
+	<colgroup class="span-2"></colgroup>
+	<colgroup class="span-2"></colgroup>
+	<colgroup class="span-2 ColColorOrange"></colgroup>
+	<thead>
+		<tr>
+			<th>赠品名称</th>
+			<th>所需积分</th>
+			<th>数量</th>
+			<th>小计</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+	<#if giftList?exists >
+		<#list giftList as gift>
+		<tr>
+			<td>防紫外线尚酷太阳镜</td>
+			<td>500</td>
+			<td>1</td>
+			<td></td>
+		</tr>
+		</#list>
+    </#if>
+    				
+	</tbody>
+</table>
+</div>

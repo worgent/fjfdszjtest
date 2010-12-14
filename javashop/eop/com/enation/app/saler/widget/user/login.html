@@ -1,0 +1,94 @@
+	<form class="loginform" method="post" id="loginform">
+		<div class="input">
+			<label class="lb">用户名</label>
+			<input class="bigtext" type="text" id="username" name="username"></input>
+		</div>
+		<div class="input">
+			<label class="lb">密　码</label>
+			<input class="bigtext" type="password" id="password" name="password"></input>
+		</div>
+		<div class="input tips">
+			<input type="checkbox" />记住用户名
+			<a href="recoverpwd.jsp" style="padding-left:15px">忘记密码？点此尝试找回</a>
+		</div>			
+		<div class="input buttons">
+			<input class="btn" id="loginBtn" type="button" value="登　录"></input>
+			<a href="register.html<#if productid?exists>?productid=${productid}</#if>" class="btn lbtn">免费注册成为会员</a>
+		</div>				
+	</form>
+	<div id="userPanel" style="display:none">
+	</div>
+	
+<script>
+var Login={
+	init:function(){
+		var self=this;
+		<#if !isLogin >
+		
+		$("#loginBtn").click(function(){
+			self.login();
+		});
+		</#if>	
+
+		<#if isLogin >
+			<#if haveSite >
+			this.showHaveSitePanel('${url}');
+			<#else>
+			this.showNoSitePanel();
+			</#if>
+		</#if>
+	},
+	login:function(){
+		var self = this;
+		var options = {
+				url : "widget?type=user_login&action=login&ajax=yes",
+				type : "POST",
+				dataType : 'json',
+				success : function(result) {
+					<#if productid?exists >
+						if(result.result==2){
+							alert(result.message);
+						}else{
+						location.href="install.html?action=confirm&productid=${productid}";
+						}
+					<#else>
+					if(result.result==0){
+						 self.showHaveSitePanel(result.url);
+					}else if(result.result==1){
+					 	self.showNoSitePanel();
+					}else if(result.result==2){
+						alert(result.message);
+					}
+					</#if>
+				},
+				error:function(){
+					alert("出错了;(");
+					}
+		};
+		
+		$("#loginform").ajaxSubmit(options);			
+	},
+	showHaveSitePanel:function(url){
+		var username =$("#username").val();
+		$("#userPanel")
+		.append("<p>欢迎您"+username+"</p>")
+		.append("<p><a href='"+url+"' target='_blank'>管理您的站点</a></p>")
+		 .show();
+		 $("#loginform").hide();		
+	},
+	showNoSitePanel:function(){
+		 var username =$("#username").val();
+		 $("#userPanel")
+		 .append("<p>欢迎您"+username+"</p>")
+		 .append("<p>您还未使用任何解决方案</p>")
+		 .append("<p><a href='solution.html' >浏览为您提供解决方案</a></p>")
+		 .show();
+		 $("#loginform").hide();		
+	}
+};
+ 
+$(function(){
+	Login.init();
+});
+
+</script>

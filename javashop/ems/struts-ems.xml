@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+<!-- 后台action -->	
+	<package name="emsadmin" extends="admin" namespace="/shop/admin">
+	 	<action name="emsgoods" class="emsgoodsAction">
+		 	<result name="list">goods/goods_list.jsp</result>
+		 	<result name="edit_list">goods/goods_edit_list.jsp</result>
+		 	<result name="cat_tree" type="freemarker">cat/select.html</result>
+		 	<result name="bindlist">bind/bind_list.jsp</result>
+		 	<result name="trash_list">goods/goods_trash.jsp</result>
+		 	<result name="input">goods/goods_input.jsp</result>
+		</action>
+		
+		<action name="emstype" class="emstypeAction">
+		 	<result name="step1">type/type_add_step1.jsp</result>
+		 	<result name="list">type/type_list.jsp</result>
+		 	<result name="trash_list">type/type_trash.jsp</result>
+	 		<result name="add_props">type/type_props.jsp</result>
+	 		<result name="add_parms">type/type_params.jsp</result>
+	 		<result name="join_brand">type/type_brand.jsp</result>
+	 		<result name="edit">type/type_edit_step1.jsp</result>
+	 		<result name="props_input" type="freemarker">/com/enation/javashop/plugin/standard/type/props_input.html</result>
+	 		<result name="params_input" type="freemarker">/com/enation/javashop/plugin/standard/type/params_input.html</result>		 
+			<result name="brand_list" type="freemarker">/com/enation/javashop/plugin/standard/type/brand_input.html</result>	 				
+		</action>
+		
+		<action name="emscat" class="emscatAction">
+	 		<result name="cat_list" type="freemarker">cat/cat_list.html</result>
+	 		<result name="cat_add" type="freemarker">cat/cat_add.html</result>
+	 		<result name="cat_edit" type="freemarker">cat/cat_edit.html</result>
+	 		<interceptor-ref name="defaultStack">
+        		<param name="fileUpload.maximumSize">1048576</param>
+        	</interceptor-ref>
+		</action>	
+	</package>	
+</struts>
