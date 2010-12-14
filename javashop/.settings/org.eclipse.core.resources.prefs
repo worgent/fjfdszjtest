@@ -1,0 +1,10 @@
+#Thu Dec 09 16:55:30 CST 2010
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/web.xml=gbk
+encoding//eop/com/enation/app/saler/service/impl/ProfileLoaderImpl.java=gbk
+encoding//eop/com/enation/framework/gzip/GZIPResponseWrapper.java=gbk
+encoding//eop/eop.properties=UTF-8
+encoding//eop/log4j.properties=UTF-8
+encoding//shop/com/enation/javashop/city.sql=UTF-8
+encoding//shop/com/enation/javashop/core/listener/ShopSessionListener.java=gbk
+encoding//test/com/enation/SaasImport.java=gbk
