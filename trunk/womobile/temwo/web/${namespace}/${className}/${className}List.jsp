@@ -23,10 +23,11 @@
 	</head>
 	<body>
 <center>
-<s:form method='POST' name='form1' action="${actionBasePath}${classNameLower}.${actionExtension}"   id="form1" enctype="multipart/form-data">
+<!-- class="outStyle" onmouseover="this.className='overStyle'" onmouseout="this.className='outStyle'"  ${actionBasePath}$${classNameLower}.${actionExtension} -->
+<s:form method='POST' name='form1' action="${classNameLower}.${actionExtension}"  namespace="${actionBasePath}$"      id="form1" enctype="multipart/form-data">
    <table width="95%" height="190" cellspacing=0 cellpadding="0" border="0" class="tableex">
    <tr class="trex">
-   <td class="tdex"> 
+   <td class="tdex" height="50" style="vertical-align:middle;"> 
        <strong>${table.tableAlias}</strong>
    </td>
    </tr>
@@ -39,22 +40,22 @@
 					<#list table.columns as c>
 					<#if !c.htmlHidden>
 						<#if c.isDateTimeColumn>
-						<tr class="trex">
+						<tr class="trex" align="center">
 							<td class="tdex">${c.columnAlias}
-								 <s:textfield id="pbeg${c.sqlName}" name="search.pbeg${c.sqlName}" size="30" readonly="readonly" value="%{${classNameLower}.${c.sqlName}}"></s:textfield> 
+								 <s:textfield id="pbeg${c.sqlName}" name="search.pbeg${c.sqlName}" size="30" readonly="readonly" value="%{${classNameLower}.${c.sqlName}}" cssClass="editcss"></s:textfield> 
 								 <div id="pbeg${c.sqlName}Tip" style="display: inline"></div>
 							</td>
 						</tr>
-						<tr class="trex">
+						<tr class="trex" align="center">
 						<td class="tdex">${c.columnAlias}
-								 <s:textfield id="pend${c.sqlName}" name="search.pend${c.sqlName}" size="30" readonly="readonly" value="%{${classNameLower}.${c.sqlName}}"></s:textfield> 
+								 <s:textfield id="pend${c.sqlName}" name="search.pend${c.sqlName}" size="30" readonly="readonly" value="%{${classNameLower}.${c.sqlName}}" cssClass="editcss"></s:textfield> 
 								 <div id="pend${c.sqlName}Tip" style="display: inline"></div>
 						</td>
 						</tr>
 						<#else>
-						<tr class="trex">
+						<tr class="trex" align="center">
 							 <td class="tdex">${c.columnAlias}
-								 <s:textfield id="p${c.sqlName}" name="search.p${c.sqlName}" size="30" value="%{${classNameLower}.${c.sqlName}}"></s:textfield> 
+								 <s:textfield id="p${c.sqlName}" name="search.p${c.sqlName}" size="30" value="%{${classNameLower}.${c.sqlName}}" cssClass="editcss"></s:textfield> 
 								 <div id="p${c.sqlName}Tip" style="display: inline"></div>
 							</td>
 						</tr>
@@ -65,45 +66,26 @@
 						<td style="text-align: center;" class="tdex">
 							<s:hidden value="%{order.ID}" name="search.pid" id="pid"></s:hidden>
 							<input type="button" id="btnupdate" name="btnupdate"
-								onclick="javascript:search();" value="查询" alt="查询"
-								class="outStyle" onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:search();" value="查询" alt="查询"  class="btn"/>
 							<input type="button" id="btnadd" name="btnadd"
-								onclick="javascript:add();" value="新增" alt="新增" class="outStyle"
-								onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:add();" value="新增" alt="新增"  class="btn"/>
 							<input type="button" id="btnauth" name="btnauth"
-								onclick="javascript:promethod(2);" value="审批" alt="审批"
-								class="outStyle" onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:promethod(2);" value="审批" alt="审批"  class="btn" />
 							<input type="button" id="btnmodify" name="btnmodify"
-								onclick="javascript:promethod(1);;" value="修改" alt="修改"
-								class="outStyle" onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:promethod(1);;" value="修改" alt="修改"   class="btn"/>
 							<input type="button" id="btndel" name="btndel"
-								onclick="javascript:promethod(0);" value="删除" alt="删除" class="outStyle"
-								onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:promethod(0);" value="删除" alt="删除"   class="btn"/>
 							<input type="button" id="btnstop" name="btnstop"
-								onclick="javascript:promethod(3);" value="中止" alt="中止"
-								class="outStyle" onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:promethod(3);" value="中止" alt="中止"   class="btn"/>
 							<input type="button" id="btnarchive" name="btnarchive"
-								onclick="javascript:promethod(4);" value="归档" alt="归档"
-								class="outStyle" onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:promethod(4);" value="归档" alt="归档"  class="btn" />
 							<input type="button" id="btnprint" name="btnprint"
-								onclick="javascript:print();" value="打印" alt="打印"
-								class="outStyle" onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:print();" value="打印" alt="打印"  class="btn" />
 							<input type="button" id="btnimport" name="btnimport"
-								onclick="javascript:dbimport();" value="导入" alt="导入"
-								class="outStyle" onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:dbimport();" value="导入" alt="导入"  class="btn" />
 							<input type="button" id="btnoutport" name="btnoutport"
-								onclick="javascript:dboutport();" value="导出" alt="导出"
-								class="outStyle" onmouseover="this.className='overStyle'"
-								onmouseout="this.className='outStyle'" />
+								onclick="javascript:dboutport();" value="导出" alt="导出"  class="btn"/>
+						</td>
 					</tr>
 				</table>
 </s:form>
