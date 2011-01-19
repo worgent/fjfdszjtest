@@ -33,7 +33,7 @@
    </#list>
    <tr>
    <td align="center" colspan="3">
-      <input type="button" onclick="javascript:history.go(-1)" value="返回"/>
+      <input type="button" onclick="javascript:history.go(-1)" value="返回" class="btn" />
    </td>  
    </tr>
  </table>

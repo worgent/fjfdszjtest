@@ -68,9 +68,9 @@
 													<td colspan="3">
 													<s:hidden value="%{${classNameLower}.id}" name="search.pid" id="pid"></s:hidden>
       												<s:hidden value="%{action}" name="action" id="action"></s:hidden>
-													<input type="button" onclick="javascript:save()" value="保存" class="outStyle" onmouseover="this.className='overStyle'"  onmouseout="this.className='outStyle'" />
-													<input type="button" onclick="javascript:reset()" value="重置" class="outStyle" onmouseover="this.className='overStyle'"  onmouseout="this.className='outStyle'" />
-												    <input type="button" onclick="javascript:history.go(-1)" value="返回" class="outStyle" onmouseover="this.className='overStyle'"  onmouseout="this.className='outStyle'" />
+													<input type="button" onclick="javascript:save()" value="保存" class="btn"  />
+													<input type="button" onclick="javascript:reset()" value="重置" class="btn" />
+												    <input type="button" onclick="javascript:history.go(-1)" value="返回" class="btn"  />
 													</td>
 												</tr>
 											</table>
