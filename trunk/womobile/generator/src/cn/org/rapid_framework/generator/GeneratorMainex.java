@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
  * @email badqiu(a)gmail.com
  */
 
-public class GeneratorMain {
+public class GeneratorMainex {
 	/**
 	 * 请直接修改以下代码调用不同的方法以执行相关生成任务.
 	 */
