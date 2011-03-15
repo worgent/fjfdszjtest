@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 手机端
+	* @author dpl 
+-->
+<struts>
+	<package name="report" extends="default" namespace="/">
+	</package>
+	<!--include标签用于将Struts2应用模块化时引入其他配置文件-->
+    <!-- 考勤报表 -->
+	<include file="/com/qzgf/application/report/attendance/action/xwork-repattendance.xml"/>   
+    <!-- Add packages here -->
+
+</struts>

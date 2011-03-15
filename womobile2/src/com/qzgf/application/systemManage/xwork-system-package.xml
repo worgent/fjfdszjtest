@@ -1,0 +1,30 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<xwork>
+    <!-- lsr begin -->
+	<package name="SystemPackage" extends="default" namespace="/">
+		
+	</package>
+	<include
+		file="/com/qzgf/application/systemManage/login/action/xwork-Login.xml" /><!-- 系统登录模块 -->
+		
+	<include
+		file="/com/qzgf/application/systemManage/permission/action/xwork-permission.xml" /><!-- 权限管理模块 -->
+		
+	<include
+		file="/com/qzgf/application/systemManage/role/action/xwork-role.xml" /><!-- 角色管理模块 -->
+	
+	<include
+		file="/com/qzgf/application/systemManage/group/action/xwork-group.xml" /><!-- 用户组管理模块 -->
+ 
+ 	<include
+		file="/com/qzgf/application/systemManage/branch/action/xwork-branch.xml" /><!-- 机构管理模块 -->
+ 
+ 	<include
+		file="/com/qzgf/application/systemManage/user/action/xwork-user.xml" /><!-- 用户管理模块 -->
+		
+	<include
+		file="/com/qzgf/application/systemManage/dictionary/action/xwork-dictionary.xml" /><!-- 字典模块 -->
+</xwork>

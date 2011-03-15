@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	2009-12-17 注以上的utf-8需要改成gbk,不然加载会报错
+-->
+<sqlMap namespace="Tdailywork">	
+	<!-- 记录总数 -->
+	<select id="findTdailyworkCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			select count(1)
+			<![CDATA[ from  t_dailywork t where t.State>=0]]> 
+				   <isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptitle">t.title='$ptitle$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pdailyworktype">t.dailyworktype='$pdailyworktype$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pmissiongrade">t.missiongrade='$pmissiongrade$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pattachment">t.attachment='$pattachment$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptarget">t.target='$ptarget$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptargetvalue">t.targetvalue='$ptargetvalue$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pfeedbackpattern">t.feedbackpattern='$pfeedbackpattern$'</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pbegmakedatetime">t.makedatetime &gt;= cast(#pbegmakedatetime# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pendmakedatetime">t.makedatetime &lt;= cast(#pendmakedatetime# AS DATE)</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pmaker">t.maker='$pmaker$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="premark">t.remark='$premark$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pexecutors">t.executors='$pexecutors$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pstate">t.state='$pstate$'</isNotEmpty>
+			order by T.ID desc
+	</select>
+
+		
+	<!-- 查询记录，非分页 -->
+	<select id="findTdailywork" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id
+					,t.title
+					,t.dailyworktype,FB_GetParm_ById(t.dailyworktype,'dictionary') dailyworktypename
+					,t.missiongrade,FB_GetParm_ById(t.missiongrade,'dictionary') missiongradename
+					,t.attachment
+					,t.target
+					,t.targetvalue
+					,t.feedbackpattern,FB_GetParm_ById(t.feedbackpattern,'pattern') feedbackpatternname
+                   ,cast(t.makedatetime AS CHAR) makedatetime
+					,t.maker,FB_GetParm_ById(t.maker,'user') makername
+					,t.remark
+					,t.executors,'' executorsname
+					,t.state
+			<![CDATA[from  t_dailywork t where T.State>=0]]>
+				   <isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptitle">t.title='$ptitle$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pdailyworktype">t.dailyworktype='$pdailyworktype$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pmissiongrade">t.missiongrade='$pmissiongrade$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pattachment">t.attachment='$pattachment$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptarget">t.target='$ptarget$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptargetvalue">t.targetvalue='$ptargetvalue$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pfeedbackpattern">t.feedbackpattern='$pfeedbackpattern$'</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pbegmakedatetime">t.makedatetime &gt;= cast(#pbegmakedatetime# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pendmakedatetime">t.makedatetime &lt;= cast(#pendmakedatetime# AS DATE)</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pmaker">t.maker='$pmaker$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="premark">t.remark='$premark$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pexecutors">t.executors='$pexecutors$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pstate">t.state='$pstate$'</isNotEmpty>
+			order by  T.ID desc
+	</select>
+	
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findTdailyworkPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id
+					,t.title
+					,t.dailyworktype,FB_GetParm_ById(t.dailyworktype,'dictionary') dailyworktypename
+					,t.missiongrade,FB_GetParm_ById(t.missiongrade,'dictionary') missiongradename
+					,t.attachment
+					,t.target
+					,t.targetvalue
+					,t.feedbackpattern,FB_GetParm_ById(t.feedbackpattern,'pattern') feedbackpatternname
+                    ,cast(t.makedatetime AS CHAR) makedatetime
+					,t.maker,FB_GetParm_ById(t.maker,'user') makername
+					,t.remark
+					,t.executors
+					,t.state
+			<![CDATA[from  t_dailywork t where T.State>=0]]> 
+				   <isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptitle">t.title='$ptitle$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pdailyworktype">t.dailyworktype='$pdailyworktype$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pmissiongrade">t.missiongrade='$pmissiongrade$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pattachment">t.attachment='$pattachment$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptarget">t.target='$ptarget$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="ptargetvalue">t.targetvalue='$ptargetvalue$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pfeedbackpattern">t.feedbackpattern='$pfeedbackpattern$'</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pbegmakedatetime">t.makedatetime &gt;= cast(#pbegmakedatetime# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pendmakedatetime">t.makedatetime &lt;= cast(#pendmakedatetime# AS DATE)</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pmaker">t.maker='$pmaker$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="premark">t.remark='$premark$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pexecutors">t.executors='$pexecutors$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pstate">t.state='$pstate$'</isNotEmpty>
+			order by  T.ID desc
+			<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+		    </isNotEmpty>
+	</select>
+	
+	<!-- 增加记录 -->
+	<insert id="insertTdailywork"	parameterClass="java.util.HashMap" >
+		insert into t_dailywork
+				(id
+					    <isNotEmpty prepend="," property="ptitle">title</isNotEmpty>
+					    <isNotEmpty prepend="," property="pdailyworktype">dailyworktype</isNotEmpty>
+					    <isNotEmpty prepend="," property="pmissiongrade">missiongrade</isNotEmpty>
+					    <isNotEmpty prepend="," property="pattachment">attachment</isNotEmpty>
+					    <isNotEmpty prepend="," property="ptarget">target</isNotEmpty>
+					    <isNotEmpty prepend="," property="ptargetvalue">targetvalue</isNotEmpty>
+					    <isNotEmpty prepend="," property="pfeedbackpattern">feedbackpattern</isNotEmpty>
+					    <isNotEmpty prepend="," property="pmaker">maker</isNotEmpty>
+					    <isNotEmpty prepend="," property="premark">remark</isNotEmpty>
+					    <isNotEmpty prepend="," property="pexecutors">executors</isNotEmpty>
+				,State,makedatetime)
+				 values 
+				(
+				        <isNotEmpty prepend=" " property="pid">'$pid$'</isNotEmpty>
+				        <isEmpty prepend=" " property="pid">seqformat(@in_seq_name:='t_dailywork')	</isEmpty>
+						<isNotEmpty prepend="," property="ptitle">#ptitle#</isNotEmpty>
+						<isNotEmpty prepend="," property="pdailyworktype">#pdailyworktype#</isNotEmpty>
+						<isNotEmpty prepend="," property="pmissiongrade">#pmissiongrade#</isNotEmpty>
+						<isNotEmpty prepend="," property="pattachment">#pattachment#</isNotEmpty>
+						<isNotEmpty prepend="," property="ptarget">#ptarget#</isNotEmpty>
+						<isNotEmpty prepend="," property="ptargetvalue">#ptargetvalue#</isNotEmpty>
+						<isNotEmpty prepend="," property="pfeedbackpattern">#pfeedbackpattern#</isNotEmpty>
+						<isNotEmpty prepend="," property="pmaker">#pmaker#</isNotEmpty>
+						<isNotEmpty prepend="," property="premark">#premark#</isNotEmpty>
+						<isNotEmpty prepend="," property="pexecutors">#pexecutors#</isNotEmpty>
+		   		,0,now())
+              <selectKey resultClass="String" keyProperty="id" > 
+                select FB_GetSeqn('t_dailywork') as id
+              </selectKey>		   		
+    </insert>
+	<!-- 增加记录 -->
+	<insert id="insertTdailyworkexcute"	parameterClass="java.util.HashMap" >
+		insert into t_dailyworkexcute
+				(id
+					    <isNotEmpty prepend="," property="pid">pid</isNotEmpty>
+					    <isNotEmpty prepend="," property="pexecutorid">executorid</isNotEmpty>
+				)
+				 values 
+				(seqformat(@in_seq_name:='t_dailyworkexcute')	
+						<isNotEmpty prepend="," property="pid">#pid#</isNotEmpty>
+						<isNotEmpty prepend="," property="pexecutorid">#pexecutorid#</isNotEmpty>)
+    </insert>   
+     
+	<!--删除记录 -->
+	<delete id="deleteTdailyworkById" parameterClass="java.util.HashMap">
+    	update t_dailywork set State=-1
+    	where id=#pid#
+    </delete>
+	<!--删除记录 -->
+	<delete id="deleteTdailyworkexcuteById" parameterClass="java.util.HashMap">
+    	delete from t_dailyworkexcute where pid=#pid#
+    </delete>    
+    <!--删除记录 -->
+	<delete id="allproTdailyworkById" parameterClass="java.util.HashMap">
+    	update t_dailywork set state='$pstate$'
+    	where id in ($pid$) 
+    	<isNotEmpty prepend=" and " property="pexstate">state='$pexstate$'</isNotEmpty>
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateTdailyworkById" parameterClass="java.util.HashMap">
+		update t_dailywork t set t.id=t.id
+						 <isNotEmpty prepend="," property="ptitle">title=#ptitle#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pdailyworktype">dailyworktype=#pdailyworktype#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pmissiongrade">missiongrade=#pmissiongrade#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pattachment">attachment=#pattachment#</isNotEmpty>
+						 <isNotEmpty prepend="," property="ptarget">target=#ptarget#</isNotEmpty>
+						 <isNotEmpty prepend="," property="ptargetvalue">targetvalue=#ptargetvalue#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pfeedbackpattern">feedbackpattern=#pfeedbackpattern#</isNotEmpty>
+                       	 <isNotEmpty prepend="," property="pmakedatetime">makedatetime=cast(#pmakedatetime# AS DATETIME)</isNotEmpty>
+						 <isNotEmpty prepend="," property="pmaker">maker=#pmaker#</isNotEmpty>
+						 <isNotEmpty prepend="," property="premark">remark=#premark#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pexecutors">executors=#pexecutors#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pstate">state=#pstate#</isNotEmpty>
+		<![CDATA[where id=#pid# and t.State >=0]]>
+	</update>
+	
+	
+	<!-- 模板类别 -->
+	<select id="findpattern" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select id,PatternName name from T_Pattern where State=1 and PatternType=1
+			order by  id desc
+	</select>
+
+	<!-- 2010-11-25动态表头 -->
+	<!-- 表头 -->
+	<select id="findfeedhead" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.tablename,n.fieldname,n.fielddesc,n.fieldtype
+			from  t_pattern t left join t_patternd n on t.id=n.pid
+			<![CDATA[where T.State>=0 and t.patterntype='1' and n.state>=0]]>
+			<isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+			order by  n.fieldseqn
+	</select>
+	<!-- 数据 -->
+	<select id="findfeeddatecount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			select count(*)
+			from  $tablename$
+			<![CDATA[where state>=0]]> 
+			<isNotEmpty prepend=" and " property="pparentId">
+		        parentId='$pparentId$'
+		    </isNotEmpty>
+			<isNotEmpty prepend=" " property="START">
+	        limit $START$ , $END$
+		    </isNotEmpty>
+	</select>
+	<select id="findfeeddate" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select *
+			from  $tablename$
+			<![CDATA[where state>=0]]> 
+			<isNotEmpty prepend=" and " property="pparentId">
+		        parentId='$pparentId$'
+		    </isNotEmpty>
+			<isNotEmpty prepend=" " property="START">
+	        limit $START$ , $END$
+		    </isNotEmpty>
+	</select>
+	<!-- 修改反馈 -->
+	<update id="updateFeedbackById" parameterClass="java.util.HashMap">
+		update $tablename$ t set t.id=t.id
+		<isNotEmpty prepend="," property="preplyremark">stateRemark='$preplyremark$'</isNotEmpty>
+		<![CDATA[where t.id=#pid# and t.state >=0]]>
+	</update>
+</sqlMap>

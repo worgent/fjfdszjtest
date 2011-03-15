@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 机构管理模块 -->
+<sqlMap namespace="branch">
+  	<select id="findPermissions" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		 select distinct permissionId,permissionName,parentPermissionId,permissionResource,action,permissionorder  from
+            t_system_permission t  connect by prior
+         permissionid=parentpermissionid start with permissionid=0
+	</select>
+	
+	<!-- 查询下一级机构 -->
+	<select id="findSubBranchById" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		 select distinct branchId,branchName,parentBranchId,branchorder  from
+            t_system_branch where parentbranchid=#id# order by branchorder
+	</select>
+	
+	<select id="checkSubBranchById" parameterClass="java.lang.String" resultClass="java.lang.Integer"
+		remapResults="true">
+		 select count(*)  from  t_system_branch where parentbranchid=#id#
+	</select>
+	
+	<insert id="insertBranch" parameterClass="java.util.HashMap" >
+		insert into t_system_branch(branchId,parentBranchId,branchName,createId
+			,branchOrder
+		)values(
+			seqformat(@in_seq_name:='t_system_branch'),#perentBranchId#,#branchName#,#creator#
+			<isNotEmpty prepend="," property="branchOrder">
+				#branchOrder#
+			</isNotEmpty>
+			<isEmpty prepend="," property="branchOrder">
+				0
+			</isEmpty>
+		)
+    </insert>
+    
+    <!-- 根据Id删除机构 -->
+    <procedure id="deleteBranchById" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_delAllSubBranch(@branchId1:='$branchId$')}]]>
+    </procedure>
+</sqlMap>

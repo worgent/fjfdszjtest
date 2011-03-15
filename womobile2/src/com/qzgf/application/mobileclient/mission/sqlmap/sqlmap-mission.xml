@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="mission">
+     <!--日常工作-->
+     <select id="findDailywork" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		select a.Id,a.Title,cast(DATE_FORMAT(a.makedatetime,'%Y-%m-%d %H:%i:%s') as char(19)) as Makedatetime,a.Maker,FB_GetParm_ById(a.dailyworktype,'dictionary') as MissionType,a.dailyworktype as MissionTypeId,FB_GetParm_ById(a.MissionGrade,'dictionary') as MissionGrade,a.Attachment,a.Target,a.TargetValue,a.FeedbackPattern,
+		a.Remark,b.Executorid from <![CDATA[(select * from t_dailywork where state>=0)]]> a left join (select * from t_dailyworkexcute where executorid=#executorid# and status=0) 
+		b on a.id=b.pid
+     </select>
+	 <!--督办工作-->
+     <select id="findTomonitor" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		select a.Id,a.Title,cast(DATE_FORMAT(a.makedatetime,'%Y-%m-%d %H:%i:%s') as char(19)) as Makedatetime,a.Maker,FB_GetParm_ById(a.Tomonitortype,'dictionary') as MissionType,a.Tomonitortype as MissionTypeId,FB_GetParm_ById(a.MissionGrade,'dictionary') as MissionGrade,a.Attachment,a.Target,a.TargetValue,a.FeedbackPattern,
+		a.Remark,b.Executorid from <![CDATA[(select * from t_tomonitor where state>=0)]]> a left join (select * from t_tomonitorexcute where executorid=#executorid# and status=0) 
+		b on a.id=b.pid
+     </select>
+	 <!--事项申报-->
+     <select id="findDeclare" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		select a.Id,a.Title,cast(DATE_FORMAT(a.makedatetime,'%Y-%m-%d %H:%i:%s') as char(19)) as Makedatetime,a.Maker,FB_GetParm_ById(a.Declaretype,'dictionary') as MissionType,a.Declaretype as MissionTypeId,FB_GetParm_ById(a.MissionGrade,'dictionary') as MissionGrade,a.Attachment,a.Target,a.TargetValue,a.declarePattern as FeedbackPattern,
+		a.Remark,b.Executorid from <![CDATA[(select * from t_declare where state>=0)]]> a left join (select * from t_declareexcute where executorid=#executorid# and status=0) 
+		b on a.id=b.pid
+     </select>	 
+</sqlMap>

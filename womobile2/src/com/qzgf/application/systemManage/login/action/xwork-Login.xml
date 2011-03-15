@@ -1,0 +1,34 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 测试模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="backlogin" extends="default" namespace="/">
+		<!-- 登录 -->
+		<action name="backlogin" class="loginAction">
+			<result name="input">/login.jsp</result>
+			<result name="success" type="redirect">/main.do</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>			
+		</action>
+		<!-- 主框架 -->
+		<action name="main" class="mainAction">
+			<result name="success">/main.jsp</result>
+		</action>
+		<!-- 菜单树 -->
+		<action name="menuAction" class="menuAction">
+			<interceptor-ref name="userSessionInterceptorStack"></interceptor-ref>	
+			<result name="rolemenu" >/left.jsp</result>
+		</action>
+		
+		<action name="adminLogout" class="adminLogoutAction">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="redirect-action">
+				login
+			</result>
+		</action>
+	</package> 
+</xwork>

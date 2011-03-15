@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Login">
+	<resultMap id="UserInfoByIdResultMap"
+		class="com.qzgf.application.systemManage.login.dto.UserInfo">
+		<result property="id" column="ID" />
+		<result property="userId" column="USERID" />
+		<result property="userName" column="USERNAME" />
+		<result property="groupId" column="GROUPID" />
+		<result property="rePasswd" column="REPASSWD" />
+		<result property="passwd" column="PASSWD" />
+		<result property="branchId" column="BRANCHID" />
+	</resultMap>
+
+	<select id="findUserInfoByName" resultMap="UserInfoByIdResultMap"
+		parameterClass="java.lang.String" remapResults="true">
+		select id,userid,username,groupid,repasswd,passwd,branchId from
+		t_system_user where username = #userName#
+	</select>
+
+	<select id="findPermissions" parameterClass="java.lang.String"
+		resultClass="java.util.HashMap">
+		select m.* from t_system_permission m join(
+	    select distinct a.permissionid from t_system_rp a join (
+	    select roleId from t_system_grouprole where
+	    groupId=#groupId#) b on a.roleid=b.roleId
+	    )n on m.permissionid=n.permissionid
+	</select>
+
+	<procedure id="findMenuByUserID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_get_menu_tree(@userid1:='$userId$')}]]>
+    </procedure>
+</sqlMap>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="attendancerep">
+	<!-- 根据条件查询用户 -->
+	<select id="findUserCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from t_system_user
+	</select>
+	
+	<!-- 根据条件查询用户 -->
+	<select id="findUserPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select a.id,a.userId,a.groupId,b.groupName,c.branchName,a.userName,a.realName,a.mobilephone,a.workphone,a.passwd,a.state from t_system_user a left join t_system_group b 
+		on a.groupId=b.groupId left join t_system_branch c on a.branchId=c.branchId
+        <isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	<!-- 插入用户组 -->
+	<select id="attendancerep"	parameterClass="java.util.HashMap"  resultClass="java.util.HashMap">
+		select id,Latitude,Longitude,UserId,cast(DATE_FORMAT(Updatetime,'%Y-%m-%d %H:%i:%s') as char(19)) as Updatetime from t_attendance where userid=#pid#
+        <isNotEmpty prepend=" and " property="begindate"><![CDATA[updatetime>=cast(#begindate# AS DATE)]]></isNotEmpty>
+        <isNotEmpty prepend=" and " property="enddate"><![CDATA[updatetime<=date_add(cast(#enddate# AS DATE),INTERVAL 1 DAY)]]></isNotEmpty> 
+    </select>
+ 
+</sqlMap>

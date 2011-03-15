@@ -1,0 +1,26 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 自定义报表模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="customReport" extends="default" namespace="/">
+		<action name="customReport" class="customReportAction">
+			<interceptor-ref name="authInterceptorStack"></interceptor-ref>	
+			<result name="queryMark">/WEB-INF/BackModual/customReport/queryMark.jsp</result>
+			<result name="success">/WEB-INF/BackModual/customReport/main.jsp</result>
+			<result name="left">/WEB-INF/BackModual/customReport/listReport.jsp</result>
+			<result name="list">/WEB-INF/BackModual/customReport/listQuery.jsp</result>
+			<result name="export" type="dispatcher">
+			    <param name="location">
+			    /WEB-INF/BackModual/customReport/export.jsp
+			    </param>
+		    </result>
+			<result name="treemenu" type="freemarker">
+				<param name="location">/WEB-INF/BackModual/user/menuxml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>     

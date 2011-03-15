@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 手机端
+	* @author dpl 
+-->
+<struts>
+
+	<package name="client" extends="default" namespace="/">
+	</package>
+	<!--include标签用于将Struts2应用模块化时引入其他配置文件-->
+    <!-- 登录 -->
+	<include file="/com/qzgf/application/mobileclient/login/action/xwork-login.xml"/>
+    <!-- 任务 -->
+	<include file="/com/qzgf/application/mobileclient/mission/action/xwork-mission.xml"/>
+    <!-- 模板 -->
+	<include file="/com/qzgf/application/mobileclient/pattern/action/xwork-pattern.xml"/>
+    <!-- 反馈 -->
+	<include file="/com/qzgf/application/mobileclient/feedback/action/xwork-feedback.xml"/>
+    <!-- 定位 -->
+	<include file="/com/qzgf/application/mobileclient/attendance/action/xwork-attendance.xml"/>
+          
+    <!-- Add packages here -->
+
+</struts>

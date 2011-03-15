@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	自定义
+-->
+<sqlMap namespace="Custom">	
+	<!-- 增加记录 -->
+	<insert id="insertPattern"	parameterClass="java.util.HashMap" >
+		insert into t_pattern
+		(id,patternType,patternName,remark,maker,makeDatetime,state,events,tableName)
+		values 
+		(
+		#id#,#patternType#,#patternName#,#remark#,#maker#,now(),#state#,#events#,#tableName#		
+		)
+    </insert>
+    
+    <!-- 增加记录 -->
+	<insert id="insertPatternd"	parameterClass="java.util.HashMap" >
+		insert into t_patternd
+		(id,pid,fieldseqn,fielddesc,fieldname,fieldtype,fieldlength,remark,state,fieldenum)
+		values 
+		(
+		seqformat(@in_seq_name:='t_patternd'),#id#,#fieldseqn#,#fielddesc#,#fieldname#,#fieldtype#,#fieldlength#,#remark#,#fieldstate#,#fieldenum#		
+		)
+    </insert>
+    
+    <!-- 创建模板表,表名如：u_0001 -->
+    <statement id="createTable" parameterClass="java.util.HashMap">  
+	   CREATE TABLE $tableName$ (   
+	     `id` int(11) NOT NULL auto_increment, 
+		 `executorId` varchar(20) character set utf8 collate utf8_general_ci,
+		 `parentId` varchar(20) character set utf8 collate utf8_general_ci,
+		 `stateRemark` varchar(200) character set utf8 collate utf8_general_ci,
+		 `state`  smallint(6) default '1' ,  	       
+	     PRIMARY KEY  (`id`)   
+	   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;   
+	</statement> 
+	<statement id="addField" parameterClass="java.util.HashMap">  
+	   alter table $tableName$ 
+	   <isNotEmpty prepend=" " property="fieldname">
+	   add  $fieldname$ 
+	   </isNotEmpty>
+	    <isEqual prepend=" " property="fieldtype" compareValue="varchar">
+	    	varchar($fieldlength$) character set utf8 collate utf8_general_ci; 
+	    </isEqual>
+	    <isEqual prepend=" " property="fieldtype" compareValue="number">
+	    	varchar(20) character set utf8 collate utf8_general_ci default '0'; 
+	    </isEqual>	
+	    <isEqual prepend=" " property="fieldtype" compareValue="enum">
+	    	varchar(20) character set utf8 collate utf8_general_ci; 
+	    </isEqual>
+	    <isEqual prepend=" " property="fieldtype" compareValue="date">
+	    	date;
+	    </isEqual>
+	    <isEqual prepend=" " property="fieldtype" compareValue="photo">
+	    	varchar(200) character set utf8 collate utf8_general_ci; 
+	    </isEqual>
+	    <isEqual prepend=" " property="fieldtype" compareValue="position">
+	    	varchar(30) character set utf8 collate utf8_general_ci; 
+	    </isEqual>
+	    
+	</statement> 
+	
+	<!-- 模板主表主键获取 -->
+	<select id="createId" parameterClass="java.util.HashMap"   resultClass="string" remapResults="true">
+		select seqformat(@in_seq_name:='t_pattern');
+	</select>
+	
+	<!-- 获得模板的编号,创建表时前面需加u_ -->
+	<select id="createTableId" parameterClass="java.util.HashMap"   resultClass="string" remapResults="true">
+		select seqTableName();
+	</select>
+	
+	<!-- 
+		根据模板类别,查询该类别下所有的模板
+	-->
+	<select id="findPatternList" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		select id,PatternType,PatternName,Remark,cast(DATE_FORMAT(makedatetime,'%Y-%m-%d %H:%i:%s') as char(19)) as MakeDatetime,
+		State from t_pattern where 1=1
+		<isNotEmpty prepend=" " property="patternType">
+			<isEqual prepend=" " property="patternType" compareValue="0">
+	        </isEqual>
+	        <isEqual prepend="and" property="patternType" compareValue="1">
+	    	patternType = 1
+	        </isEqual>
+	        <isEqual prepend="and" property="patternType" compareValue="2">
+	    	patternType = 2
+	        </isEqual>
+	        <isEqual prepend="and" property="patternType" compareValue="3">
+	    	patternType = 3
+	        </isEqual>
+	        order by makedatetime desc
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 根据ID号，查询自定义信息 -->
+	<select id="findCustomById" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		select id,patternType,patternName,remark,cast(DATE_FORMAT(makedatetime,'%Y-%m-%d %H:%i:%s') as char(19)) as MakeDatetime,maker,events,tableName,
+		state from t_pattern 
+		<isNotEmpty prepend="where" property="id">
+			 id=#id#
+	    </isNotEmpty>
+	</select>
+	
+	 <!-- 
+	    删除自定义
+	 -->
+	 <parameterMap id="delCustomMap" class="java.util.HashMap" >
+		<parameter property="id" jdbcType="string" javaType="java.lang.String" mode="IN"/>
+		<parameter property="info" jdbcType="string" javaType="java.lang.String" mode="OUT"/>
+	 </parameterMap>
+	 <procedure id="delCustomById"  parameterMap="delCustomMap">
+    	<![CDATA[{ call pro_delPatternById(?,?)}]]> 
+     </procedure>
+     
+     <!-- 
+		查询系统定义且正启用的事件
+	-->
+	<select id="findEvents" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		select b.id,b.dictvalue from (select * from t_dictionary where sysdictid=2001) a left join (select * from t_dictionaryd where state=1)  b on a.id=b.pid
+	</select>
+	
+	<!-- 
+		查询自定义枚举类型
+	-->
+	<select id="findEnums" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		select id,name from t_dictionary where isSys=0
+	</select>
+	
+	<!-- 
+		查询自定义项
+	-->
+	<select id="findCustomItems" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		select id,fieldseqn,fielddesc,fieldname,fieldtype,fieldlength,remark,fieldenum,state 
+		from t_patternd where pid=#id#;
+	</select>
+	
+	<!-- 更新自定义 -->
+	<update id="updatePattern" parameterClass="java.util.HashMap">
+		update t_pattern set patternType=#patternType#,patternName=#patternName#,remark=#remark#,maker=#maker#,
+		makeDatetime=now(),state=#state#,events=#events#,tableName=#tableName# where id=#id#
+	</update>
+	
+	<!-- 删除自定义项 -->
+	<delete id="deletePatterndByFid" parameterClass="java.util.HashMap">
+		delete from t_patternd where pid=#id#
+	</delete>
+	
+	<!-- 
+		删除自定义表
+	  -->       
+	<delete id="deletePatterndTable" parameterClass="java.util.HashMap">
+		drop table if exists $tableName$
+	</delete>
+    
+</sqlMap>

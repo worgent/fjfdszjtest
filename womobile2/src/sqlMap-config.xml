@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "./sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- debug环境下，将其设为false. 正式运行时应设为true,启用缓存 -->
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		useStatementNamespaces="true" maxSessions="64" maxTransactions="15"
+		maxRequests="128" />
+	<!-- 非常简洁，将用到的sqlMap文件列到这儿就行了 -->
+	<!-- 公共 -->
+	<sqlMap resource="/sqlMap-common.xml" />
+
+	<!-- lsr begin -->
+	<!-- 系统管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/log/sqlmap/sqlmap-operatelog.xml"/><!-- 系统日志 -->
+
+	<!-- 权限管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/permission/sqlmap/sqlmap-permission.xml"/><!-- 权限管理 -->
+
+	<!-- 角色管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/role/sqlmap/sqlmap-role.xml"/><!-- 角色管理 -->
+
+	<!-- 用户组管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/group/sqlmap/sqlmap-group.xml"/><!-- 用户组管理 -->
+	
+	<!-- 用户管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/user/sqlmap/sqlmap-user.xml"/><!-- 用户 -->
+	
+	<!-- 机构管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/branch/sqlmap/sqlmap-branch.xml"/><!-- 机构 -->
+	
+	
+	<!-- 自定义管理 -->
+	<sqlMap resource="/com/qzgf/application/biz/custom/sqlmap/sqlmap-custom.xml"/><!-- 自定义 -->
+	
+	<!-- 自定义报表 -->
+	<sqlMap resource="/com/qzgf/application/biz/report/sqlmap/sqlmap-customReport.xml"/><!-- 自定义报表 -->
+	
+	<sqlMap resource="/com/qzgf/application/systemManage/dictionary/sqlmap/sqlmap-dictionary.xml"/><!-- 数据字典 -->
+
+	<sqlMap resource="/com/qzgf/application/systemManage/login/sqlmap/sqlmap-login.xml"/><!-- 系统日志 -->
+	<!-- lsr end -->
+
+	
+	<!--  日常工作-->
+	<sqlMap resource="/com/qzgf/application/work/dailywork/sqlmap/sqlmap-Tdailywork.xml"/>
+	<sqlMap resource="/com/qzgf/application/work/tomonitor/sqlmap/sqlmap-Ttomonitor.xml" />
+	<sqlMap resource="/com/qzgf/application/work/declare/sqlmap/sqlmap-Tdeclare.xml" />
+	<!-- 报表管理 -->
+	<sqlMap resource="/com/qzgf/application/report/reportpattern/sqlmap/sqlmap-Treportpattern.xml" />
+	
+	<!-- dpl begin -->
+	<sqlMap resource="/com/qzgf/application/mobileclient/mission/sqlmap/sqlmap-mission.xml"/><!-- 任务 -->
+    <sqlMap resource="/com/qzgf/application/mobileclient/pattern/sqlmap/sqlmap-pattern.xml"/><!-- 模板 -->
+	<sqlMap resource="/com/qzgf/application/mobileclient/feedback/sqlmap/sqlmap-feedback.xml"/><!-- 反馈 -->
+    <sqlMap resource="/com/qzgf/application/mobileclient/attendance/sqlmap/sqlmap-attendance.xml"/><!-- 定位 -->
+    <sqlMap resource="/com/qzgf/application/report/attendance/sqlmap/sqlmap-repattendance.xml"/><!-- 定位查询 -->
+	<!-- dpl end -->
+</sqlMapConfig>

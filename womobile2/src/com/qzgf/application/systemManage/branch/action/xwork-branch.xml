@@ -1,0 +1,24 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 机构管理模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="branch" extends="default" namespace="/">
+		<action name="branch" class="branchAction">
+			
+			<interceptor-ref name="userSessionInterceptorStack"></interceptor-ref>
+			 
+			<result name="list">/WEB-INF/BackModual/branch/branchList.jsp</result>
+			<result name="input">/WEB-INF/BackModual/branch/branchSet.jsp</result>
+			<result name="treemenu" type="freemarker">
+				<param name="location">/WEB-INF/BackModual/branch/menuxml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="menu">/WEB-INF/BackModual/branch/menu.jsp</result>
+			
+			<result name="success" type="redirect-action">branch?action=list</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>

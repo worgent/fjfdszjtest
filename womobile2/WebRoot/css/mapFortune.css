@@ -1,0 +1,134 @@
+@charset "utf-8";
+#f_bg {
+	font-family: Verdana, Tahoma, "宋体";
+	background-color: #FFFFFF;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+#f_tabs {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	text-align: center;
+	clear: right;
+	padding-top: 2px;
+	padding-left: 7px;
+}
+
+#f_maps {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	text-align: center;
+	clear: right;
+	padding-top: 2px;
+	padding-left: 7px;
+}
+
+#f_tabs ul {
+	display: inline;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#f_tabs li {
+	float: left;
+	list-style-type: none;
+}
+.f_tabClass1 {
+	font-weight: bolder;
+	background-color: #FAFAFA;
+	padding: 3px 7px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: #DDD8C4;
+	border-right-color: #DDD8C4;
+	border-left-color: #DDD8C4;
+	position: relative;
+	top: 0px;
+	list-style-type: none;
+}
+.f_tabClass2 {
+	font-weight: bolder;
+	background-color: #FFFFFF;
+	padding: 3px 7px 2px;
+	margin-top: 0px;
+	margin-right: 2px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: #CCCCCC;
+	border-right-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+	position: relative;
+	top: 0px;
+	list-style-type: none;
+}
+
+
+#f_main {
+	clear: both;
+	width: 100%;
+	margin-top: -1px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #FAFAFA;
+	border: 0px solid #CCCCCC;
+	padding: 0px;
+}
+#addfriend {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+	padding: 3px;
+	border: 1px dashed #CCCCCC;
+}
+.trClass {
+	background-color: #EBEBEB;
+}
+
+#friendlist {
+	font-family: Verdana, Tahoma, "宋体";
+	font-size: 9pt;
+}
+.trex { BACKGROUND: #FFFFFF;COLOR:#000000;padding:0px;}!important
+.trex { BACKGROUND: #FFFFFF;COLOR:#000000;display:inline;padding:0px;}
+.editcss {font-family:"宋体";height:18px; width:130px; border:solid 1px #cadcb2; font-size:12px; color:#000000;vertical-align:middle;}
+.selectcss {font-family:"宋体";height:20px; width:133px; border:solid 1px #cadcb2; font-size:12px; color:#000000;vertical-align:middle;}
+.tdex { font-size:12px; height:28px; line-height:120%; text-align:left;border-width:0px;
+	border-collapse: collapse;  
+	vertical-align:middle;
+	font-family: "宋体";
+	padding:0px;
+} !important
+.tdex { font-size:12px; height:32px; text-align:left;border-width:0px;
+	border-collapse: collapse;  
+	vertical-align:middle;
+	font-family: "宋体";
+	display:inline;
+	padding:0px;
+} 
+.btn{
+background-image: url(../images/btn.png);
+color:black;
+width:52px;
+height:24px;
+text-align:center;
+border:0;
+font-weight:bold;
+clear:both;
+cursor:pointer;
+margin:0 0 0 5px;
+}

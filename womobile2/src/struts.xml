@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="default" extends="struts-default,jasperreports-default">
+		<interceptors>
+			<interceptor name="mapParameter" class="com.qzgf.webutils.interceptor.MapParametersInterceptor"/>
+			<interceptor-stack name="mapParam">
+				<!-- 文件控件file -->
+				<interceptor-ref name="fileUpload" />
+				<!-- 处理search的处理 --> 
+				<interceptor-ref name="mapParameter" />
+			</interceptor-stack>
+			
+			<interceptor name="userLoginInterceptor"
+				class="com.qzgf.webutils.interceptor.UserLoginInterceptor">
+			</interceptor>
+			
+			<interceptor name="permissionInterceptor"
+				class="com.qzgf.webutils.interceptor.PermissionInterceptor">
+			</interceptor>
+			
+			<interceptor name="userSessionInterceptor"
+				class="com.qzgf.webutils.interceptor.UserSessionInterceptor">
+			</interceptor>
+			
+			<interceptor-stack name="userSessionInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			
+			<!-- 用户权限 -->        
+			<interceptor-stack name="authInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="userSessionInterceptor"></interceptor-ref>
+				<interceptor-ref name="permissionInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		
+		
+		<global-results>
+			<result name="intercepthtml">/WEB-INF/jsp/intercepthtml.jsp</result>
+			<result name="ajaxjson">/WEB-INF/jsp/ajaxjson.jsp</result>
+		</global-results>
+	</package>
+	<!-- 加载各模块的包 -->
+
+
+	<!-- 系统模块 -->
+	<include file="/com/qzgf/application/systemManage/xwork-system-package.xml"/>
+	<!-- 自定义 -->
+	<include file="/com/qzgf/application/biz/custom/action/xwork-custom.xml"/>
+	<!-- 报表自定义 -->
+	<include file="/com/qzgf/application/biz/report/action/xwork-customReport.xml"/>
+		
+	<!-- szj -->
+	<!-- ====================================系统管理=========================================== -->		
+	<!-- 用户登录|用户注册 -->
+	<include file="/com/qzgf/application/systemManage/frontlogin/action/xwork-login.xml" />
+
+	<!-- szj -->
+	<!-- ====================================工作项目=========================================== -->		
+	<!-- 用户登录|用户注册 -->
+	<include file="/com/qzgf/application/work/xwork-work-package.xml" />
+	
+	<!-- 用户登录|报表管理 com\qzgf\application\report\xwork-report-package.xml -->
+	<include file="/com/qzgf/application/report/xwork-report-package.xml" />
+
+	<!-- dpl begin -->
+    <include file="/com/qzgf/application/mobileclient/xwork-mobileclient-package.xml" />	
+	<!-- dpl end -->
+</struts>

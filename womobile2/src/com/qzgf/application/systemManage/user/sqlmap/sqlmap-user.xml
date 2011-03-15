@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 用户
+	* 2010-12-19
+	* @author lsr
+-->
+<sqlMap namespace="User">	
+	
+	<!-- 根据条件查询用户 -->
+	<select id="findUserCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(1) from t_system_user 
+		<isNotEmpty prepend="" property="allSubBranch">
+        	where branchId in($allSubBranch$)
+        </isNotEmpty>
+	</select>
+	
+	<!-- 根据条件查询用户 -->
+	<select id="findUserPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select a.id,a.userId,a.groupId,b.groupName,c.branchName,a.userName,a.passwd,a.state from t_system_user a left join t_system_group b 
+		on a.groupId=b.groupId left join t_system_branch c on a.branchId=c.branchId
+        <isNotEmpty prepend="" property="allSubBranch">
+        	where a.branchId in($allSubBranch$)
+        </isNotEmpty>
+        <isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 查询某一机构下面的所有子机构，包括本机构，用逗号分隔 -->
+    <select id="getAllSubBranch" parameterClass="java.util.HashMap" resultClass="java.lang.String">
+		 select fun_getSubBranch(#branchId#) as a
+	</select>
+	
+	<!-- 根据机构编号，查询机构名称 -->
+	<select id="findBranchNameByBranchId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		 select branchname from t_system_branch where branchId=#branchId#;
+	</select>
+	
+	    <!-- 根据Id查询向导锦囊 -->
+	<select id="findUserById" parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		select a.*,b.branchName from t_system_user a left join t_system_branch b on a.branchId=b.branchId where a.id=#id#
+	</select>	
+	
+	<!-- 新增用户 -->
+	<insert id="insertUser" parameterClass="java.util.HashMap" >
+		insert into t_system_user(
+		id,userId,groupId,userName,passwd,repasswd,zhicheng,duty,sex,creator,state,branchId
+		<isNotEmpty prepend="," property="realName">realName</isNotEmpty>
+		<isNotEmpty prepend="," property="mobilephone">mobilephone</isNotEmpty>
+		<isNotEmpty prepend="," property="workphone">workphone</isNotEmpty>
+		<isNotEmpty prepend="," property="email">email</isNotEmpty>
+		<isNotEmpty prepend="," property="birthday">birthday</isNotEmpty>
+		<isNotEmpty prepend="," property="address">address</isNotEmpty>
+		<isNotEmpty prepend="," property="postId">postId</isNotEmpty>
+		<isNotEmpty prepend="," property="accountBank">accountBank</isNotEmpty>
+		<isNotEmpty prepend="," property="accountId">accountId</isNotEmpty>
+		<isNotEmpty prepend="," property="remark">remark</isNotEmpty>
+		)values(
+		seqformat('t_system_user'),#userId#,#userGroup#,#userName#,#passwd#,#repasswd#,#zhicheng#,#duty#,
+		#sex#,#creator#,#state#,#branchId#
+		<isNotEmpty prepend="," property="realName">
+		#realName#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mobilephone">
+		#mobilephone#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="workphone">
+		#workphone#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="email">
+		#email#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="birthday">
+		#birthday#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="address">
+		#address#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="postId">
+		#postId#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="accountBank">
+		#accountBank#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="accountId">
+		#accountId#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="remark">
+		#remark#
+		</isNotEmpty>
+		)
+    </insert>
+    
+    <!-- 根据系统Id查询数据字典 -->
+	<select id="findDictionaryBySysId"
+		parameterClass="java.lang.String" resultClass="java.util.HashMap"
+		remapResults="true">
+		select a.* from t_dictionaryd a,t_dictionary b where a.pid=b.id and b.sysdictId=#sysId# order by a.id
+	</select>
+
+	
+	<!-- 根据ID删除某一用户 -->
+	<delete id="deleteUserById" parameterClass="java.util.HashMap">
+    	delete from t_system_user where Id=#id# and userName!='admini'
+    </delete>
+    
+	<!-- 更新用户 -->
+	<update id="updateUserById" parameterClass="java.util.HashMap">
+		update t_system_user
+		set userId=#userId#,groupId=#userGroup#,userName=#userName#,zhicheng=#zhicheng#,
+		duty=#duty#,sex=#sex#,creator=#creator#,state=#state#,branchId=#branchId#,
+		realName=#realName#,mobilephone=#mobilephone#,
+		workphone=#workphone#,email=#email#,
+		address=#address#,postId=#postId#,accountBank=#accountBank#,
+		accountId=#accountId#,remark=#remark#
+		<isNotEmpty prepend="," property="passwd">
+		passwd=#passwd#,repasswd=#repasswd#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="birthday">
+		birthday=#birthday#
+		</isNotEmpty>
+		<isEmpty prepend="," property="birthday">
+		birthday=null
+		</isEmpty>
+		<isNotEmpty prepend="," property="startTime">
+		startTime=#startTime#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="endTime">
+		endTime=#endTime#
+		</isNotEmpty>
+		<!-- 
+		<isNotEmpty prepend="," property="interval">
+		interval=#interval#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="uploadIDs">
+		uploadIDs=#uploadIDs#
+		</isNotEmpty>
+		 -->
+		where id=#id#
+	</update>
+
+
+	<!-- 更新用户 -->
+	<update id="updateCheckWorkById" parameterClass="java.util.HashMap">
+		update t_system_user
+		set branchId=#branchId#
+		<isNotEmpty prepend="," property="birthday">
+		birthday=#birthday#
+		</isNotEmpty>
+		<isEmpty prepend="," property="birthday">
+		birthday=null
+		</isEmpty>
+		<isNotEmpty prepend="," property="startTime">
+		startTime=#startTime#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="endTime">
+		endTime=#endTime#
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="," property="interval">
+		intervalVal=$interval$
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="uploadIDs">
+		uploadIDs=#uploadIDs#
+		</isNotEmpty>
+		where id=#id#
+	</update>
+
+	<!-- 查询商品记录 -->
+	<select id="findProductPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.*,rownum  from (select * from t_product  order by productId) a where rownum&lt;=10
+	</select>
+	
+	<!-- 查询某一产品的向导锦囊 -->
+	<select id="findGuideCoupPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.*,rownum  from (select * from t_product  order by productId) a where rownum&lt;=10
+	</select>	
+	
+	<!-- 创建向导锦囊ID -->
+    <select id="createCoupId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		 select seq_T_SELFCONFIG_COUP.nextval from dual
+	</select>
+	
+	<!-- 增加向导锦囊产品折扣信息 -->
+	<insert id="insertGuideDiscount" parameterClass="java.util.HashMap" >
+		insert into t_archives_guidediscount
+				(id,coupid,productid,discountinfo)values(		
+				hunt.seqformat('t_archives_guidediscount'),#coupId#,#productId#,#productDiscount#)
+    </insert>
+
+	<!-- 查询商品记录关联向导锦囊ID select a.discountinfo,b.productid,b.productname from t_archives_guidediscount a,t_product b 
+		where a.coupid=#id# and a.productid=b.productid-->
+	<select id="findProductByCoupId" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		
+		select a.discountinfo,b.productid,b.productname from t_archives_guidediscount a,t_product b 
+		where a.coupid='$id$' and a.productid=b.productid
+	</select>
+    
+    <!-- 查询下一级机构 -->
+	<select id="findSubBranchById" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		 select distinct branchId,branchName,parentBranchId,branchorder  from
+            t_system_branch where parentbranchid=#id# order by branchorder
+	</select>
+	
+	<!-- 查询用户可用组 -->
+	<select id="findGroups" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		 select distinct m.groupId,n.groupName from (
+select groupId from t_system_user where userId=#userId#
+union
+select groupId from t_system_group where createId=#userId#
+)m,t_system_group n where m.groupId=n.groupId 
+
+	</select>
+	
+	<!-- 获得机构树 -->
+    <procedure id="findBranchTreeByBranchID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_getBranchTree(@branchId1:='$branchId$')}]]>
+    </procedure>
+    <!-- begin 2011-01-19 -->
+    <!-- 获得机构树人员 -->
+    <procedure id="findSubBranchUserById" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_getBranchUserTree(@branchId1:='$branchId$')}]]>
+    </procedure>
+    
+    <!-- 获得机构树人员选中 -->
+    <select id="findSuperBranch" parameterClass="java.lang.String" resultClass="java.lang.String" remapResults="true">
+    	select Func_getAllSuperBranch(@branchId1:='$branchId$')
+    </select>
+    
+    <!-- 工作的执行人 -->
+	<select id="findworkexcute" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.executorid id,b.branchId brand from  t_dailyworkexcute a left outer join  t_system_user b  on a.executorid=b.id
+		<isNotEmpty prepend=" " property="pid">
+		where a.pid='$pid$'
+		</isNotEmpty>
+	</select>
+	
+	<!-- 督查执行人 -->
+	<select id="findtomonitorexcute" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.executorid id,b.branchId brand from  t_tomonitorexcute a left outer join  t_system_user b  on a.executorid=b.id
+		<isNotEmpty prepend=" " property="pid">
+		where a.pid='$pid$'
+		</isNotEmpty>
+	</select>
+	
+	
+	<!-- 事项审报 -->
+	<select id="finddeclareexcute" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select a.executorid id ,b.branchId brand from  t_declareexcute a left outer join  t_system_user b  on a.executorid=b.id
+		<isNotEmpty prepend=" " property="pid">
+		where a.pid='$pid$'
+		</isNotEmpty>
+	</select>
+    <!-- end 2011-01-19 -->
+      
+      
+    <!-- 获得机构树用于修改 -->
+    <procedure id="findBranchTreeForChangeByBranchID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_getBranchTreeForChange(@branchId1:='$branchId$')}]]>
+    </procedure>
+
+</sqlMap>

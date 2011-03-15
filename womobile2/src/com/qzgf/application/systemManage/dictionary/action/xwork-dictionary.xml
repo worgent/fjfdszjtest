@@ -1,0 +1,30 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 数据字典管理模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="Dictionary" extends="default" namespace="/">
+		<action name="dictionary" class="dictionaryAction">
+			<interceptor-ref name="authInterceptorStack"></interceptor-ref>	
+			<result name="queryMark">/WEB-INF/BackModual/customReport/queryMark.jsp</result>
+			<result name="success">/WEB-INF/BackModual/dictionary/main.jsp</result>
+			<result name="left">/WEB-INF/BackModual/dictionary/listDictionary.jsp</result>
+			<result name="list">/WEB-INF/BackModual/dictionary/listDictionaryd.jsp</result>
+			<result name="export" type="dispatcher">
+			    <param name="location">
+			    /WEB-INF/BackModual/customReport/export.jsp
+			    </param>
+		    </result>
+		    <result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="treemenu" type="freemarker">
+				<param name="location">/WEB-INF/BackModual/user/menuxml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>     

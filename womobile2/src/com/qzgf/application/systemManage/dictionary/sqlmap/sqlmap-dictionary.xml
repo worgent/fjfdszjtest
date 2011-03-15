@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 数据字典
+	* 2011-01-18
+	* @author lsr
+-->
+<sqlMap namespace="Dictionary">	
+	<!-- 查询所有的数据字典 -->
+	<select id="findDictionary" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * from t_dictionary order by isSys desc,sysdictId,id;
+	</select>
+
+	<insert id="insertDictionary" parameterClass="java.util.HashMap" >
+	  insert into t_dictionary(id,name,isSys,sysDictId)
+		values(
+			seqformat(@in_seq_name:='t_dictionary'),#newVal#,0,0
+		)
+    </insert>
+
+	<!-- 根据字典编号查询该字典名称 -->
+	<select id="findDictNameByDictId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		 select name from t_dictionary where id=#id#;
+	</select>
+	
+	<!-- 更新数据字典 -->
+	<update id="updateDictById" parameterClass="java.util.HashMap">
+		update t_dictionary
+		set name=#newVal#
+		where id=#dictId#
+	</update>
+	
+	<!-- 根据ID删除数据字典 -->
+	<delete id="deleteDictById" parameterClass="java.util.HashMap">
+    	delete from t_dictionary where Id=#dictId# and isSys!='1'
+    </delete>
+    
+	<!-- 根据ID删除数据字典子表 -->
+	<delete id="deleteDictionarydByPid" parameterClass="java.util.HashMap">
+    	delete from t_dictionaryd where pid=#dictId#
+    </delete>
+    
+    <!-- 查询数据字典的子表 -->
+	<select id="findDictionarydByDictId" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select * from t_dictionaryd where pid=#dictId# order by id
+	</select>
+	
+	<!-- 更新数据字典子表 -->
+	<update id="updateDictdById" parameterClass="java.util.HashMap">
+		update t_dictionaryd
+		set dictvalue=#newVal#,state=#state#
+		where id=#id#
+	</update>
+	
+	<!-- 数据字典子表添加新值 -->
+	<insert id="insertDictionaryd" parameterClass="java.util.HashMap" >
+	  insert into t_dictionaryd(id,pid,dictvalue,state)
+		values(
+			seqformat(@in_seq_name:='t_dictionaryd'),#dictId#,#newVal#,#state#
+		)
+    </insert>
+    
+    <!-- 根据ID删除数据字典子表 -->
+	<delete id="deleteDictionarydById" parameterClass="java.util.HashMap">
+    	delete from t_dictionaryd where Id=#id#
+    </delete>
+</sqlMap>
