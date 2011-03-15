@@ -1,0 +1,11 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<xwork>
+    <!-- lsr begin -->
+	<package name="ReportPackage" extends="default" namespace="/">
+	</package>
+    <include file="/com/qzgf/application/report/attendance/action/xwork-repattendance.xml" /><!--考勤查询管理-->		
+	<include file="/com/qzgf/application/report/reportpattern/action/xwork-Treportpattern.xml" /><!--报表管理-->	
+</xwork>

@@ -1,0 +1,13 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<xwork>
+    <!-- lsr begin -->
+	<package name="WorkPackage" extends="default" namespace="/">
+		
+	</package>
+	<include file="/com/qzgf/application/work/dailywork/action/xwork-Tdailywork.xml" /><!--日常工作 -->
+	<include file="/com/qzgf/application/work/declare/action/xwork-Tdeclare.xml" /><!--Tdeclare -->
+	<include file="/com/qzgf/application/work/tomonitor/action/xwork-Ttomonitor.xml" /><!--Ttomonitor -->	
+</xwork>

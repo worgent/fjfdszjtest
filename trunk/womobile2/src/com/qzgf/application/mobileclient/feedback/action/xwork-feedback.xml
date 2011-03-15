@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 任务管理
+	* @author dpl 
+-->
+<struts>
+	<package name="feedback" extends="client" namespace="/client">
+	    <!-- 用户信息管理 -->
+		<action name="feedback" class="feedbackAction">
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/jsondata.ftl</param>
+				<param name="contentType">text/plain</param>
+			</result>
+		</action>				
+	</package>
+</struts>

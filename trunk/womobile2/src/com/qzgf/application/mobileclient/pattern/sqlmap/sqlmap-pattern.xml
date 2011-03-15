@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="pattern">
+     <!--提取模板-->
+    <resultMap id="master" class="com.qzgf.application.mobileclient.pattern.dto.PatternInfo">
+        <result property="fieldName" column="fieldName" />
+        <result property="fieldDesc" column="fieldDesc"/>
+		<result property="fieldType" column="fieldType"/>
+		<result property="fieldLength" column="fieldLength"/>
+		<result property="fieldEnum" column="fieldEnum"/>
+        <result property="details"  column="fieldEnum" select="pattern.findDictbyId" />
+    </resultMap>
+	     <!-- Detail对象定义 -->
+    <resultMap id="detail" class="com.qzgf.application.mobileclient.pattern.dto.DictInfo">
+    	<result property="id" column="id"/>
+		<result property="dictValue" column="dictValue"/>
+    </resultMap>
+
+     <select id="findPattern" parameterClass="java.util.HashMap" resultMap="master" remapResults="true">
+		select b.fieldName,b.fieldDesc,b.fieldType,b.fieldLength,b.fieldEnum from 
+		(select * from t_pattern where PatternType=#patternType# and Id=#id#) a left join t_patternd b on a.id=b.pid 
+		order by b.FieldSeqn
+     </select>
+	 <select id="findDictbyId" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		select id,dictValue from t_dictionaryd where pId=#fieldEnum#
+	 </select>	
+	 
+</sqlMap>

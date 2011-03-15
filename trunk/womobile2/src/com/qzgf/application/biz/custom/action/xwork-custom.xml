@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 自定义模块
+	* @author lsr 
+-->
+<struts>
+	<package name="Custom" extends="default" namespace="/">
+	    <!-- 用户信息管理 -->
+		<action name="custom" class="customAction">
+		<interceptor-ref name="userSessionInterceptorStack"></interceptor-ref>	
+		    <!-- ==================后台管理人员审核========================= -->
+		    <!-- 列表信息 -->
+			<result name="index">/WEB-INF/BackModual/custom/newcustom.jsp</result>
+			<result name="list">/WEB-INF/BackModual/custom/customList.jsp</result>
+			<result name="editPage">/WEB-INF/BackModual/custom/customPageEdit.jsp</result>
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/login.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>	
+	</package>
+</struts>

@@ -1,0 +1,25 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 用户模块
+	* @author lsr 
+-->
+<xwork>
+	<package name="user" extends="default" namespace="/">
+		<action name="user" class="userAction">
+			<interceptor-ref name="authInterceptorStack"></interceptor-ref>	
+			<result name="userMark">/WEB-INF/BackModual/user/userMark.jsp</result>
+			<result name="success">/WEB-INF/BackModual/user/main.jsp</result>
+			<result name="left">/WEB-INF/BackModual/user/listBranch.jsp</result>
+			<result name="list">/WEB-INF/BackModual/user/listUser.jsp</result>
+			<result name="add">/WEB-INF/BackModual/user/addUser.jsp</result>
+			<result name="edit">/WEB-INF/BackModual/user/editUser.jsp</result>
+			<result name="checkwork">/WEB-INF/BackModual/user/checkwork.jsp</result>
+			<result name="user">/WEB-INF/BackModual/user/userFrame.jsp</result>
+			<result name="treemenu" type="freemarker">
+				<param name="location">/WEB-INF/BackModual/user/menuxml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />		
+		</action>
+	</package>
+</xwork>     

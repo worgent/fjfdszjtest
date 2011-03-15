@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 测试
+-->
+<struts>
+	<package name="Ttomonitor" extends="WorkPackage" namespace="/work">
+	    <!-- 取件地址 -->
+		<action name="ttomonitor" class="ttomonitorAction">
+		<interceptor-ref name="userSessionInterceptorStack"></interceptor-ref>	
+		    <!-- ==================基础档案|取件地址========================= -->
+		    <!-- 列表信息 -->
+			<result name="list">/WEB-INF/BackModual/work/Ttomonitor/TtomonitorList.jsp</result>
+			<!-- 具体列表信息 -->
+			<result name="listdetail">/WEB-INF/BackModual/work/Ttomonitor/TtomonitorListDetail.jsp</result>
+			<!-- 具体反馈列表信息 -->
+			<result name="feeddetail">/WEB-INF/BackModual/work/Ttomonitor/TtomonitorFeedDetail.jsp</result>
+			<!-- 查看 -->
+			<result name="view">/WEB-INF/BackModual/work/Ttomonitor/TtomonitorView.jsp</result>
+			<!-- 编辑 -->
+			<result name="edit">/WEB-INF/BackModual/work/Ttomonitor/TtomonitorEdit.jsp</result>
+
+			<!-- 新增 -->
+			<result name="new">/WEB-INF/BackModual/work/Ttomonitor/TtomonitorEdit.jsp</result>
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/login.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>			
+	</package>
+</struts>

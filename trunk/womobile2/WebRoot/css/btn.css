@@ -1,0 +1,87 @@
+.overStyle{
+background-image: url(../images/baocun.jpg);
+color:black;
+width:85px;
+height:36px;
+text-align:center;
+border:0;
+font-weight:bold;
+clear:both;
+cursor:pointer;
+margin:0 0 0 5px;
+}
+/*鼠标移出时调用的样式*/
+.outStyle{
+background-image:url(../images/baocun2.jpg);
+color:black;
+width:85px;
+height:36px;
+text-align:center;
+border:0;
+font-weight:bold;
+clear:both;
+cursor:pointer;
+margin:0 0 0 5px;
+}
+
+
+.overStyle2{
+background-image: url(../images/baocunex.jpg);
+color:black;
+width:60px;
+height:21px;
+text-align:center;
+border:0;
+font-size:8pt;	
+clear:both;
+cursor:pointer;
+margin:0 0 0 0px;
+}
+/*鼠标移出时调用的样式*/
+.outStyle2{
+background-image:url(../images/baocun2ex.jpg);
+color:black;
+width:60px;
+height:21px;
+text-align:center;
+border:0;
+font-size:8pt;	
+clear:both;
+cursor:pointer;
+margin:0 0 0 0px;
+}
+
+
+Body{ 
+scrollbar-3dlight-color: #F5F5F5;
+scrollbar-arrow-color: #666666;
+scrollbar-base-color: #999999;
+scrollbar-darkshadow-color: #999999;
+scrollbar-face-color: #DDDDDD;
+scrollbar-highlight-color: #999999;
+scrollbar-shadow-color: #F5F5F5;
+} 
+
+
+
+
+
+.frntable  { 
+	font-size: 9pt;	border-width : 0px;
+	border-color : gray;
+	border-style : solid; border-collapse:   collapse;   
+}
+
+.frntd { 
+	 FONT-SIZE: 12px; line-height: 150%; text-align:left;word-wrap : break-word ;border-width : 0px;
+	border-color : gray;
+	border-style : solid;
+	border-collapse: collapse;   
+}
+
+
+.frntr { 
+}
+
+
+

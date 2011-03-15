@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<decorators defaultdir="/decorators">
+    <excludes> 
+     <pattern>/adminFrame.jsp</pattern> 
+     <pattern>/ocxprint.jsp</pattern> 
+       <pattern>/copyRight.jsp</pattern> 
+      <pattern>/net/ocxprint.do*</pattern>
+      <pattern>/FCKeditor/*</pattern> 
+      <pattern>/ajaxjson.jsp*</pattern>
+      <pattern>/newsAdd.jsp*</pattern>
+      <pattern>*/news.do*</pattern>
+      <pattern>/js/*/*</pattern> 
+      <pattern>/js/datepicker/My97DatePicker.htm</pattern>        
+      <pattern>/frontlogin.do</pattern> 
+      <pattern>/backlogin.do</pattern>       
+      <pattern>/index.jsp</pattern> 
+      <pattern>/adminLeft.jsp</pattern> 
+      <pattern>/adminbottom.jsp</pattern>
+      <pattern>/menuAction.do*</pattern>
+	  <pattern>/left.jsp</pattern>	      
+      <pattern>/main.jsp</pattern>
+	  <pattern>/center.jsp</pattern> 
+      <pattern>/down.jsp</pattern> 
+      <pattern>/My97DatePicker/*</pattern>
+	</excludes>
+
+	<decorator name="frmcenter">
+		<pattern>/backlogin.do</pattern>
+	</decorator>
+
+    <decorator name="other" page="other.jsp">
+    	<pattern>*.*</pattern>
+    </decorator>
+
+</decorators>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap namespace="permission">
+  	<select id="findPermissions" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		 select distinct permissionId,permissionName,parentPermissionId,permissionResource,action,permissionorder  from
+            t_system_permission t  connect by prior
+         permissionid=parentpermissionid start with permissionid=0
+	</select>
+	
+	<select id="findSubPermissionById" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		 select distinct permissionId,permissionName,parentPermissionId,permissionResource,action,permissionorder  from
+            t_system_permission where parentpermissionid=#id# order by permissionorder
+	</select>
+	
+	<select id="checkSubPermissionById" parameterClass="java.lang.String" resultClass="java.lang.Integer"
+		remapResults="true">
+		 select count(*)  from  t_system_permission where parentpermissionid=#id#
+	</select>
+	
+	<insert id="insertPermission" parameterClass="java.util.HashMap" >
+		insert into t_system_permission(permissionId,parentPermissionId,permissionName,permissionResource,action,isMenu,createId
+			,permissionOrder
+		)values(
+			#permissionId#,#perentPermissionId#,#permissionName#,#resource#,#actionName#,#isMenu#,#userId#
+			<isNotEmpty prepend="," property="permissionOrder">
+				#permissionOrder#
+			</isNotEmpty>
+			<isEmpty prepend="," property="permissionOrder">
+				0
+			</isEmpty>
+		)
+    </insert>
+    
+    <insert id="insertPermissionForAdmin" parameterClass="java.util.HashMap" >
+		insert into t_system_rp(rolePermissionId,roleId,permissionId)values(
+			seqformat('t_system_rp'),'1',#permissionId#
+		)
+    </insert>
+    
+    <!-- 创建新ID -->
+    <select id="createNewId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		 select seqformat(@in_seq_name:='t_permission');
+	</select>
+    
+    <!-- 根据Id删除权限 -->
+    <procedure id="deleteRPById" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_delRPById(@permissionId1:='$permissionId$')}]]>
+    </procedure>
+    
+    <!-- 根据Id删除权限 -->
+    <procedure id="deletePermissionById" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_delAllSubPermission(@permissionId1:='$permissionId$')}]]>
+    </procedure>
+</sqlMap>

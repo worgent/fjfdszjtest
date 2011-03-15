@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<!-- 
+	* 注册用户登录
+	* @author lsr 
+-->
+<struts>
+    <!-- 扩展默认包 -->
+	<package name="frontlogin" extends="default" namespace="/">
+		<!--用户登录-->
+		<action name="frontlogin" class="frontloginAction">
+		    
+			<result name="success">
+			    <param name="location">/main.jsp</param>
+			</result>
+			<!-- 
+			 <result name="success">
+			    <param name="location">/adminFramenoframe.jsp</param>
+			</result>
+			 -->
+			<result name="adminbottom">
+			    <param name="location">/adminbottom.jsp</param>
+			</result>
+			<result name="login">
+				<param name="location">/login.jsp</param>
+			</result>
+			<result name="regedit">
+				<param name="location">/regedit.jsp</param>
+			</result>
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/login.jsp</result>
+			<!-- search的hashmap的拦截器 -->
+			<interceptor-ref name="mapParam"/>
+		</action>	
+		<!--用户登录-->
+		<action name="menu" class="frontloginAction" method="menu">
+		<interceptor-ref name="userSessionInterceptorStack"></interceptor-ref>	
+			<result name="menu">
+			    <param name="location">/left.jsp</param>
+			</result>
+			<!-- 返回删除 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- 出错 -->
+			<result name="error" type="dispatcher" >/login.jsp</result>
+			<!-- search的hashmap的拦截器 -->
+			<interceptor-ref name="mapParam"/>
+		</action>	
+	</package>
+</struts>

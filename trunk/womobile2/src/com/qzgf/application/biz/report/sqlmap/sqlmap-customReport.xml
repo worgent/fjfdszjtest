@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	* 自定义报表
+	* 2011-01-08
+	* @author lsr
+-->
+<sqlMap namespace="CustomReport">	
+	<!-- 查询自定义报表 -->
+	<select id="findCustomReport" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select a.*,b.patternType from t_reportPattern a,t_pattern b 
+        where a.state=1 and a.patternId=b.id  order by b.patternType,a.ID
+	</select>
+
+	<!-- 查询自定义报表 -->
+	<select id="findQueryField" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+        select a.* from t_patternd a ,t_reportPatternc b where 
+        a.id=b.patternId and a.state=1 and b.reportid=#reportId#
+        order by a.id
+	</select>
+	
+	<!-- 查询枚举类型 -->
+	<select id="findEnumList" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+        select id,dictvalue as val FROM t_dictionaryd where pid=#id#
+	</select>
+	
+	<!-- 查询报表结果字段集 -->
+	<select id="findReportResultFieldList" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+        select a.* from t_patternd a,(select id,patternId from t_reportpatternf where reportId=#reportId#
+        ) b where a.id=b.patternId order by b.id
+	</select>
+	
+	<!-- 查询所以主表的选择字段 -->
+	<select id="findMasterFields" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+       select fieldname from t_patternd where parentType=#parentType#
+	</select>
+	
+	<!-- 根据自定义报表ID查询模板信息 -->
+	<select id="findPatternField" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+        select * from t_pattern where id=(
+		select patternId from t_reportPattern where id=#reportId#
+		)
+	</select>
+	
+	<!-- 根据自定义报表ID是枚举型的字段 -->
+	<select id="findIsEnumFieldByReportId" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+       select a.* from t_patternd a,(select patternId from t_reportPattern where Id=#reportId#)b where   a.pid=b.patternId  and fieldtype='enum'
+	</select>
+	
+	<!-- 根据自定义报表ID是枚举型的字段 -->
+	<select id="findReportName" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+          select reportName from t_reportPattern where id=#reportId#
+	</select>
+
+</sqlMap>

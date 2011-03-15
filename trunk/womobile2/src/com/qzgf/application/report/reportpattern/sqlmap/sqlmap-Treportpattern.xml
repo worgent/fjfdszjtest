@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	2009-12-17 注以上的utf-8需要改成gbk,不然加载会报错
+-->
+<sqlMap namespace="Treportpattern">	
+	<!-- 记录总数 -->
+	<select id="findTreportpatternCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			select count(1)
+			 <![CDATA[from  t_reportpattern t where t.State>=0]]>
+				   <isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pPatternId">t.PatternId='$pPatternId$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pReportName">t.ReportName='$pReportName$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pState">t.State='$pState$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pRemark">t.Remark='$pRemark$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pMaker">t.Maker='$pMaker$'</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pbegMakeDateTime">t.MakeDateTime &gt;= cast(#pbegMakeDateTime# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pendMakeDateTime">t.MakeDateTime &lt;= cast(#pendMakeDateTime# AS DATE)</isNotEmpty>
+			order by T.ID desc
+	</select>
+
+		
+	<!-- 查询记录，非分页 -->
+	<select id="findTreportpattern" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id
+					,t.PatternId
+					,t.ReportName
+					,t.State
+					,t.Remark
+					,t.Maker,t.patterntype
+                   ,cast(DATE_FORMAT(t.makedatetime,'%Y-%m-%d %H:%i:%s') as char(19)) MakeDateTime
+			<![CDATA[from  t_reportpattern t where T.State>=0]]>
+				   <isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pPatternId">t.PatternId='$pPatternId$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pReportName">t.ReportName='$pReportName$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pState">t.State='$pState$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pRemark">t.Remark='$pRemark$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pMaker">t.Maker='$pMaker$'</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pbegMakeDateTime">t.MakeDateTime &gt;= cast(#pbegMakeDateTime# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pendMakeDateTime">t.MakeDateTime &lt;= cast(#pendMakeDateTime# AS DATE)</isNotEmpty>
+			order by  T.ID desc
+	</select>
+
+	<!-- 模板类别 -->
+	<select id="findpattern" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select id,PatternName name from T_Pattern where State=1 
+			<isNotEmpty prepend=" and " property="ppatterntype">patterntype='$ppatterntype$'</isNotEmpty>
+			order by  id desc
+	</select>
+	
+		
+	<!-- 查询记录 ，分页 oracle的分页机制不同-->
+	<select id="findTreportpatternPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id
+					,t.PatternId
+					,t.ReportName
+					,t.State
+					,t.Remark
+					,t.Maker,t.patterntype
+                   ,cast(DATE_FORMAT(t.makedatetime,'%Y-%m-%d %H:%i:%s') as char(19)) MakeDateTime
+			<![CDATA[from  t_reportpattern t where T.State>=0]]> 
+				  <isNotEmpty prepend=" and " property="pid">t.id='$pid$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pPatternId">t.PatternId='$pPatternId$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pReportName">t.ReportName='$pReportName$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pState">t.State='$pState$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pRemark">t.Remark='$pRemark$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pMaker">t.Maker='$pMaker$'</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pbegMakeDateTime">t.MakeDateTime &gt;= cast(#pbegMakeDateTime# AS DATE)</isNotEmpty>
+                   <isNotEmpty prepend=" and " property="pendMakeDateTime">t.MakeDateTime &lt;= cast(#pendMakeDateTime# AS DATE)</isNotEmpty>
+			order by  T.ID desc
+			<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+		    </isNotEmpty>
+	</select>
+	
+	<!-- 增加记录 -->
+	<insert id="insertTreportpattern"	parameterClass="java.util.HashMap" >
+		insert into t_reportpattern
+				(id 
+						<isNotEmpty prepend="," property="pPatternId">PatternId</isNotEmpty>
+					    <isNotEmpty prepend="," property="pReportName">ReportName</isNotEmpty>
+					    <isNotEmpty prepend="," property="pRemark">Remark</isNotEmpty>
+					    <isNotEmpty prepend="," property="pMaker">Maker</isNotEmpty>
+					    <isNotEmpty prepend="," property="ppatterntype">patterntype</isNotEmpty>
+				,State,MakeDatetime)
+				 values 
+				(<isNotEmpty prepend="" property="pid">#pid#</isNotEmpty>
+				 <isEmpty prepend="" property="pid">seqformat(@in_seq_name:='t_reportpattern')</isEmpty>
+						<isNotEmpty prepend="," property="pPatternId">#pPatternId#</isNotEmpty>
+						<isNotEmpty prepend="," property="pReportName">#pReportName#</isNotEmpty>
+						<isNotEmpty prepend="," property="pRemark">#pRemark#</isNotEmpty>
+						<isNotEmpty prepend="," property="pMaker">#pMaker#</isNotEmpty>
+						<isNotEmpty prepend="," property="ppatterntype">#ppatterntype#</isNotEmpty>
+		   		,'1',now())
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteTreportpatternById" parameterClass="java.util.HashMap">
+    	update t_reportpattern set State=-1
+    	where id=#pid#
+    </delete>
+    
+    <!--删除记录 -->
+	<delete id="allproTreportpatternById" parameterClass="java.util.HashMap">
+    	update t_reportpattern set state='$pstate$'
+    	where id in ($pid$)
+    	<isNotEmpty prepend=" and " property="pexstate">state='$pexstate$'</isNotEmpty>
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateTreportpatternById" parameterClass="java.util.HashMap">
+		update t_reportpattern t set t.id=t.id
+						 <isNotEmpty prepend="," property="pPatternId">PatternId=#pPatternId#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pReportName">ReportName=#pReportName#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pState">State=#pState#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pRemark">Remark=#pRemark#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pMaker">Maker=#pMaker#</isNotEmpty>
+                       	 <isNotEmpty prepend="," property="pMakeDateTime">MakeDateTime=cast(#pMakeDateTime# AS DATETIME)</isNotEmpty>
+                       	 <isNotEmpty prepend="," property="ppatterntype">patterntype=#ppatterntype#</isNotEmpty>
+		where id=#pid# and t.State &lt;&gt; '0'
+	</update>
+	
+	
+	
+	<!-- 扩展信息处理 查询条件 -->
+	<select id="findTreportpatterncall" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+				select * from
+				(
+				 select  id, fielddesc name,fielddesc from t_patternd where pid='$pPatternId$' 
+				union
+				 select  id, fielddesc name,fielddesc from t_patternd where ParentType='$ppatterntype$'
+				) a
+				where a.id not in(select b.PatternId from  t_reportpatternc b where b.PatternId=a.id  
+				 <isNotEmpty prepend=" and " property="pReportId">b.ReportId='$pReportId$'</isNotEmpty>
+				)
+			  order by a.fielddesc
+	</select>
+	<select id="findTreportpatternc" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			  select a.PatternId id,b.fielddesc name from t_reportpatternc a left outer join t_patternd b on a.PatternId=b.id 
+			  where 1=1
+			  <isNotEmpty prepend=" and " property="pReportId">a.ReportId='$pReportId$'</isNotEmpty>
+			   order by b.fielddesc
+	</select>
+	<!-- 扩展信息处理 表头 -->
+	<select id="findTreportpatternfall" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			 	select * from
+				(
+				 select  id, fielddesc name,fielddesc from t_patternd where pid='$pPatternId$' 
+				union
+				 select  id, fielddesc name,fielddesc from t_patternd where ParentType='$ppatterntype$'
+				) a
+			    where a.id not in(select b.PatternId from  t_reportpatternf b where b.PatternId=a.id 
+				 <isNotEmpty prepend=" and " property="pReportId">b.ReportId='$pReportId$'</isNotEmpty>
+				)
+			 order by a.fielddesc	
+	</select>
+	<select id="findTreportpatternf" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			 select a.PatternId id,b.fielddesc name from t_reportpatternf a left outer join t_patternd b on a.PatternId=b.id 
+			 where 1=1
+			 <isNotEmpty prepend=" and " property="pReportId">a.ReportId='$pReportId$'</isNotEmpty>
+			 order by b.fielddesc	
+	</select>
+	
+	<!-- 扩展信息处理 查询条件-->
+	<insert id="insertTreportpatternc"	parameterClass="java.util.HashMap" >
+		insert into t_reportpatternc
+				(id 
+					    <isNotEmpty prepend="," property="pReportId">ReportId</isNotEmpty>
+					    <isNotEmpty prepend="," property="pPatternId">PatternId</isNotEmpty>
+				)
+				 values 
+				(seqformat(@in_seq_name:='t_reportpatternc')	
+						<isNotEmpty prepend="," property="pReportId">#pReportId#</isNotEmpty>
+						<isNotEmpty prepend="," property="pPatternId">#pPatternId#</isNotEmpty>
+				)
+    </insert>
+   <!--删除记录 -->
+	<delete id="deleteTreportpatternc" parameterClass="java.util.HashMap">
+    	delete from  t_reportpatternc  
+    	where ReportId=#pReportId#
+    </delete> 
+    <!-- 扩展信息处理 查询条件-->
+	<insert id="insertTreportpatternf"	parameterClass="java.util.HashMap" >
+		insert into t_reportpatternf
+				(id 
+					    <isNotEmpty prepend="," property="pReportId">ReportId</isNotEmpty>
+					    <isNotEmpty prepend="," property="pPatternId">PatternId</isNotEmpty>
+				)
+				 values 
+				(seqformat(@in_seq_name:='t_reportpatternf')	
+						<isNotEmpty prepend="," property="pReportId">#pReportId#</isNotEmpty>
+						<isNotEmpty prepend="," property="pPatternId">#pPatternId#</isNotEmpty>
+				)
+    </insert>
+    <!--删除记录 -->
+	<delete id="deleteTreportpatternf" parameterClass="java.util.HashMap">
+    	delete from  t_reportpatternf  
+    	where ReportId=#pReportId#
+    </delete> 
+</sqlMap>
