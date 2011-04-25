@@ -1,0 +1,24 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 人员档案
+	* @author lsr 
+-->
+<xwork>
+	<package name="FirstManage" extends="SystemManagePackage" namespace="/system/firstPage">
+		<action name="FirstPage" class="firstPageAction">
+			<!-- 进入人员添加页面 -->
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/firstpage/firstPagelist.jsp</param>
+			</result>
+			<result name="firstMan" type="dispatcher">
+			   <param name="location">/WEB-INF/pages/application/systemManage/firstpage/firstPageManage.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			
+			<interceptor-ref name="mapParam" />
+		</action>
+	</package>
+</xwork>

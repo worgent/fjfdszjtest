@@ -1,0 +1,432 @@
+<PUBLIC:COMPONENT
+牋牋lightWeight?=爐rue
+>
+
+<PUBLIC:DEFAULTS
+牋牋contentEditable?=爁alse
+牋牋tabStop?=爐rue
+/>
+
+<PUBLIC:attach event="ondocumentready" onevent="initElement()" />
+<PUBLIC:attach event="onmouseover" onevent="elementOnMouseOver()" />
+<PUBLIC:attach event="onmouseout" onevent="elementOnMouseOut()" />
+<PUBLIC:attach event="onclick" onevent="elementOnClick()" />
+<PUBLIC:attach event="onselectstart" onevent="elementOnSelect()" />
+<PUBLIC:attach event="oncontextmenu" onevent="elementOnContextMenu()" />
+<PUBLIC:attach event="ondetach" onevent="cleanupElement()" />
+
+
+
+<PUBLIC:method   name="showMenu" />
+<PUBLIC:method   name="hideMenu" />
+<PUBLIC:method   name="setMenuEnabled" />
+<PUBLIC:method   name="setMenuItem" />
+<PUBLIC:method   name="getMenuItem" />
+
+<PUBLIC:property name="menuState" value />
+<PUBLIC:property name="subMenuState" value />
+<PUBLIC:property name="currentMenuItem" value />
+
+<script language="jscript">
+
+// ----------------------------------------------------
+// xpWidgets: xpMenu
+//                                                     
+// Copyright ?2002-2004 Stedy Software and Systems     
+// Please see http://www.stedy.com for terms of use.   
+// ----------------------------------------------------
+
+var currentMenuItem = null ;
+var currentSubMenu = null ;
+var menuShadowArray = new Array(null, null, null, null) ;
+
+function initElement() {
+	
+/*---------------------------------------*/
+
+
+/*---------------------------------------*/
+	element.menuState = makeBooleanOfAttribute("menuState") ;
+	element.subMenuState = makeBooleanOfAttribute("subMenuState") ;
+	for (var i = 0; i < element.children[1].children.length; i++) {
+		var childElement = element.children[1].children[i] ;
+		if (childElement.className != "xpMenuSeperator") {
+			if (!isElementEnabled(childElement)) {
+				showDisabled(childElement) ;
+			}
+		}
+	}
+
+	childElement = null ;
+}
+
+function cleanupElement() {
+}
+
+function elementOnMouseOver() {
+	var el = getRealItem(window.event.srcElement) ;
+	if (el.className == "xpMenuItem") {
+		if (isElementEnabled(el)) {
+			if (element.subMenuState) {
+				if (currentSubMenu != null) {
+					currentSubMenu.hideMenu() ;
+					currentSubMenu = null ;
+					showNormal(currentMenuItem) ;
+					currentMenuItem = null ;
+					element.subMenuState = false ;
+				}
+			}
+			subMenuName = getElementSubMenu(el) ;
+			if (subMenuName != "") { 
+				showSubMenu(el) ;
+				window.document.attachEvent("onclick", hideMenu) ;
+				//window.frames["MainFrm"].document.attachEvent("onclick", hideMenu) ;
+				
+			}
+			//alert(1);
+			showOver(el) ;
+		}
+	}
+}
+
+function elementOnMouseOut() {
+	var el = getRealItem(window.event.srcElement) ;
+	if (el != null) {
+		var toEl = getRealItem(window.event.toElement) ;
+		if (el.className == "xpMenuItemOver") {
+			if (toEl != currentMenuItem && el == currentMenuItem) {
+				if (isElementEnabled(el)) {
+					if (element.subMenuState) {
+						if (toEl.className == "xpMenuItem") {
+							toEl = toEl.parentElement.parentElement ;
+						}
+						if (toEl != currentSubMenu) {
+							if (currentSubMenu != null) {
+								currentSubMenu.hideMenu() ;
+								currentSubMenu = null ;
+								showNormal(currentMenuItem) ;
+								currentMenuItem = null ;
+								element.subMenuState = false ;
+							}
+						}
+						else {
+							return ;
+						}
+					}
+					showNormal(el) ;
+				}
+			}
+		}
+	}
+}
+
+function elementOnClick() {
+	var el = getRealItem(window.event.srcElement) ;
+	if (el.className == "xpMenuItemDisabled") {
+		with (window.event) {
+			cancelBubble = true ;
+			returnValue = false ;
+		}
+	}
+}
+
+function elementOnSelect() {
+	with (window.event) {
+		cancelBubble = true ;
+		returnValue = false ;
+	}
+	return false ;
+}
+
+function elementOnContextMenu() {
+	with (window.event) {
+		cancelBubble = true ;
+		returnValue = false ;
+	}
+	return false ;
+}
+
+function getRealItem(el) {
+	if (el != null) {
+		if (el.tagName.toLowerCase() == "img") {
+			return el.parentElement.parentElement ;
+		}
+		if (el.tagName.toLowerCase() == "b") {
+			el = el.parentElement ;
+		}
+		switch (el.className) {
+			case "xpMenuVerticalSpacerLeft":
+				return el.parentElement ;
+				break ;
+			case "xpMenuImage":
+				return el.parentElement ;
+				break ;
+			case "xpMenuCaption":
+				return el.parentElement ;
+				break ;
+			case "xpMenuMore":
+				return el.parentElement ;
+				break ;
+			case "xpMenuNoMore":
+				return el.parentElement ;
+				break ;
+			case "xpMenuVerticalSpacerRight":
+				return el.parentElement ;
+				break ;
+			default:
+				return el ;
+				break ;
+		}
+	}
+	else {
+		return el ;
+	}
+}
+
+function isElementEnabled(el) {
+	if (el.enabled == null) {
+		return true ;
+	}
+	el.enabled = (((el.enabled).toLowerCase() == "true") || el.enabled == "1") ;
+	return (el.enabled) ;
+}
+
+function getElementSubMenu(el) {
+	if (el.subMenu == null) {
+		return "" ;
+	}
+	return el.subMenu ;
+}
+
+function showNormal(el) {
+	el.className = "xpMenuItem" ;
+	currentMenuItem = null ;
+}
+
+function showOver(el) {
+	el.className = "xpMenuItemOver" ;
+	currentMenuItem = el ;
+}
+
+function showDisabled(el) {
+	with (el) {
+		if (className == "xpMenuItemDisabled") {
+			return ;
+		}
+		className = "xpMenuItemDisabled" ;
+		onbeforecut = onclick ;
+		onclick = null ;
+	}
+}
+
+function showEnabled(el) {
+	with (el) {
+		if (className == "xpMenuItem") {
+			return ;
+		}
+		className = "xpMenuItem" ;
+		onclick = onbeforecut ;
+		onbeforecut = null ;
+	}
+}
+
+function setMenuEnabled(elName, blnState) {
+	var el = window.document.getElementById(elName) ;
+	if (el != null) {
+		switch (blnState) {
+			case true:
+				showEnabled(el) ;
+				break ;
+			case false:
+				showDisabled(el) ;
+				break ;
+		}
+	}
+}
+
+function showMenuShadow(el, x, y) {
+	showFrame(el);
+}
+
+function hideMenuShadow() {
+	hideFrame(element);
+}
+
+function showMenu(x, y, w) {
+	
+	with (element.style) {
+		left = x ;
+		top = y ;
+		try {
+			if (w != 0) {
+				with (element.children(0).children(0).children(0).children(0).style) {
+					display = "" ;
+					width = w ;
+					top = element.offsetTop - y - 1 ;
+					left = element.offsetLeft - x ;
+				}
+			}
+			else {
+				with (element.children(0).children(0).children(0).children(0).style) {
+					width = 0 ;
+				}
+			}
+		}
+		catch(e) {
+		
+		}
+		showMenuShadow(element, x, y) ;
+		visibility = "visible" ;
+	}
+	element.menuState = true ;
+}
+
+function hideMenu() {
+	if (element.subMenuState) {
+		if (currentSubMenu != null) {
+			currentSubMenu.hideMenu() ;
+			currentSubMenu = null ;
+		}	
+		if (currentMenuItem != null) {
+			showNormal(currentMenuItem) ;
+			currentMenuItem = null ;
+		}
+		element.subMenuState = false ;
+	}
+	
+	hideMenuShadow() ;
+	if (element.className != "xpMainMenu")
+		element.style.visibility = "hidden" ;
+	element.menuState = false ;
+}
+
+/*********************************************************************************
+ * 增加动态加载菜单功能
+ * 在鼠标移到某个子菜单项上，如果该菜单项含有下级菜单标志，那么先判断当前页面里是否
+ * 已经加载过该节点菜单，如果页面里没有就从服务里加载该节点菜单到客户端页面里。
+ * @ chenf 2005-09-22 山东-济南                                                   
+/**********************************************************************************/
+function isLoaded(subMenu){
+	if(subMenu!=null && subMenu!="" && window.document.getElementById(subMenu)==null){
+		return false;
+	}
+	return true;
+}
+
+function showSubMenu(el) {
+	
+	if(!isLoaded(el.subMenu)){
+		window.document.getElementById("MenuDiv").loadMenu(el,element,el.subMenu,false);
+		currentSubMenu = window.document.getElementById(el.subMenu) ;
+		if(currentSubMenu != null){
+			currentSubMenu.style.zIndex = element.style.zIndex + 5 ;
+			element.subMenuState = true ;
+		}
+	}else{
+		currentSubMenu = window.document.getElementById(el.subMenu) ;
+		if (currentSubMenu != null) {
+			with (element) {
+				var x = offsetLeft + offsetWidth - 1 ;
+				var y = offsetTop + el.offsetTop ;
+			}
+			currentSubMenu.showMenu(x, y, 0) ;
+			currentSubMenu.style.zIndex = element.style.zIndex + 5 ;
+			element.subMenuState = true ;
+		}
+	}
+}
+
+function setMenuItem(el) {
+	currentMenuItem = el ;
+}
+
+function getMenuItem() {
+	return currentMenuItem ;
+}
+
+function makeBooleanOfAttribute(attName) {
+	a = element.getAttribute(attName) ;
+	if (typeof(a) == "boolean") {
+		return a ;
+	}
+	else if (a == null) {
+		a = false ;
+	}
+	else if (typeof(a) == "string") {
+		a = a.toLowerCase() ;
+		a = (a == "true" || a == "1" || a == "yes") ;
+	}
+	else {
+		a = new Boolean(a) ;
+	}
+	return a ;
+}
+
+
+//---------------------------------------------------------------------
+/***
+ * chenf 20050922 修改，避免菜单被下拉框等破坏
+ **/
+function showFrame(el){
+	if(el==null)
+		return;
+	//从页面上获取垫层
+	var shim = getShim(el);
+	//如果所获取的垫层不存在，则创建
+	if(shim==null)
+		shim=createMenuShim(el);
+	if(shim==null)
+		return;
+	with(shim.style){
+		visibility = "visible";
+		left = el.offsetLeft;
+		top = el.offsetTop;
+		width = el.offsetWidth;
+		height = el.offsetHeight;
+		position="absolute";
+		display = "block";
+	}
+}
+
+function hideFrame(el){
+
+	if(el==null)
+		return;
+	var shim = getShim(el);
+	if(shim==null)
+		return;
+	shim.style.display = "none";
+}
+//为菜单创建一个垫层
+function createMenuShim(el)
+{
+	if (el==null) 
+		return null;
+	var shim = document.createElement("<iframe scrolling='no' frameborder='0'"+
+				      "style='position:absolute; top:0px;"+
+				      "left:0px; display:none'></iframe>"); 
+	shim.name = getShimId(el);
+	shim.id =  getShimId(el);
+	if (el.offsetParent==null || el.offsetParent.id=="") {
+		window.document.body.appendChild(shim);
+	}else {
+		el.offsetParent.appendChild(shim); 
+	}
+
+	return shim;
+}
+//生成一个垫层id
+function getShimId(el){
+	return "Shim_"+el.id;
+}
+//通过菜单ID来获取垫层
+function getShim(el)
+{
+    return window.document.getElementById(getShimId(el));
+}
+
+//-----------------------------------------------------------------------
+
+</script>
+
+</PUBLIC:COMPONENT>

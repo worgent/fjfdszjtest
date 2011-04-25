@@ -1,0 +1,122 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 打印模块(客户信息)
+	* @author lsr
+-->
+<xwork>
+	<package name="clientmsg" extends="netprint" namespace="/netprint/clientmsg">
+		<!-- 收件人 -->
+		<action name="recclientmsg" class="clientmsgAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/recclientmsg/recclientmsglist.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+			    <param name="location">/WEB-INF/pages/application/netprint/recclientmsg/editrecclientmsg.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+			    <param name="location">/WEB-INF/pages/application/netprint/recclientmsg/editrecclientmsg.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/recclientmsg/viewrecclientmsg.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<!-- EMS邮件调用收件人信息 -->
+			<result name="exsearch" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/recclientmsg/exrecclientmsglist.jsp</param>
+			</result>
+			
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+		<!-- 寄件人 -->
+		<action name="sendclientmsg" class="clientmsgAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/sendclientmsg/sendclientmsglist.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+			    <param name="location">/WEB-INF/pages/application/netprint/sendclientmsg/editsendclientmsg.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+			    <param name="location">/WEB-INF/pages/application/netprint/sendclientmsg/editsendclientmsg.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/sendclientmsg/viewsendclientmsg.jsp</param>
+			</result>
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			
+			<!-- EMS邮件调用寄件人信息 -->
+			<result name="exsearch" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/sendclientmsg/exsendclientmsglist.jsp</param>
+			</result>
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+		
+		<!-- ajax省份的处理 -->
+		<action name="ajaxProvince" class="clientmsgAction" method="ajaxProvince">
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		<!-- ajax地市的处理 -->
+		<action name="ajaxCity" class="clientmsgAction" method="ajaxCity">
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>	
+		<!-- ajax区县的处理 -->
+		<action name="ajaxCounty" class="clientmsgAction" method="ajaxCounty">
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		<!-- ajax客户信息2009-11-03 -->
+		<action name="ajaxClientMsg" class="clientmsgAction" method="ajaxClientMsg">
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>		
+	</package>
+</xwork>

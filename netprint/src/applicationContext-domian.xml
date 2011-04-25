@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="baseSqlMapDAO" class="com.qzgf.IbatisDaoTools.BaseSqlMapDAOImpl" singleton="false">
+		<description>数据库基础操作工具包</description>
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+
+	<bean id="methodAthur" class="com.qzgf.utils.interceptor.MethodBeforeAdvice">
+		<description>方法权限认证</description>
+		<property name="authoritiesMethods">
+			<ref bean="authoritiesMethods" />
+		</property>
+	</bean>
+	<bean id="managerSecurity" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="methodAthur" />
+		</property>
+		<property name="patterns">
+			<list>
+				<value>.*insert.*</value>
+				<value>.*find.*</value>
+				<value>.*update.*</value>
+				<value>.*delete.*</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="logger" class="com.qzgf.utils.interceptor.LoggingInterceptor">
+		<description>日志拦截器</description>
+		<property name="baseSqlMapDAO">
+			<ref bean="baseSqlMapDAO" />
+		</property>
+	</bean>
+	<bean id="loggerAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="logger" />
+		</property>
+		<property name="patterns">
+			<list>
+				<value>.*insert.*</value>
+				<!-- value>.*find.*</value-->
+				<value>.*update.*</value>
+				<value>.*delete.*</value>
+			</list>
+		</property>
+	</bean>
+	<!-- ====================================系统相关bean请配置在此下=========================================== -->
+	<!-- 管理登录 -->
+	<bean id="loginTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.login.domain.LoginFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="loginFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.login.domain.LoginFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="loginTargetProxy" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 管理人员 -->
+	<bean id="managerTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.manager.domain.ManagerFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="managerFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.manager.domain.ManagerFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="managerTargetProxy" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 系统菜单 -->
+	<bean id="menuTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.menu.domain.MenuFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="menuFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.menu.domain.MenuFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="menuTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 系统角色 -->
+	<bean id="roleTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.role.domain.RoleFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	            <property name="authoritiesPages" ref="authoritiesPages" />
+	            <property name="authoritiesMethods" ref="authoritiesMethods" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="roleFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.role.domain.RoleFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="roleTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 系统日志 -->
+	<bean id="logTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.systemManage.log.domain.LogFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="logFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.systemManage.log.domain.LogFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="logTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 首页资讯-->
+	<bean id="firstPageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="com.qzgf.application.systemManage.firstpage.domain.FirstPageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="firstPageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="com.qzgf.application.systemManage.firstpage.domain.FirstPageFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="firstPageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- 首页资讯 end-->
+	<!--==================================================档案模块======================================================  -->
+	<!-- 机构档案 -->
+	<bean id="organManageTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.baseArchives.OrganManage.domain.OrganManageFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="organManageFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.baseArchives.OrganManage.domain.OrganManageFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="organManageTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!--  Excel上传-->
+	<bean id="uploadExcelTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.baseArchives.UploadExcel.domain.UploadExcelFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="uploadExcelFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.baseArchives.UploadExcel.domain.UploadExcelFacade" />
+		<property name="interceptorNames">
+			<list>
+				
+				<idref local="uploadExcelTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 封发局管理Excel上传-->
+	<bean id="mailTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean
+				class="com.qzgf.application.baseArchives.Mailfee.domain.MailfeeFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="mailfeeFacade"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+			value="com.qzgf.application.baseArchives.Mailfee.domain.MailfeeFacade" />
+		<property name="interceptorNames">
+			<list>
+			    <idref local="loggerAdvisor" />
+				<idref local="mailTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- ==================================网上打单系统================================= -->	
+	<!-- 客户信息 -->
+	<bean id="clientmsgTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="com.qzgf.application.netprint.clientmsg.domain.ClientmsgFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="clientmsgFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="com.qzgf.application.netprint.clientmsg.domain.ClientmsgFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="clientmsgTargetProxy" />
+			</list>
+		</property>
+	</bean>
+	<!-- EMS格式打印 -->
+	<bean id="emsmailTargetProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="com.qzgf.application.netprint.emsmail.domain.EmsmailFacadeImpl">
+				<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="emsmailFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces" value="com.qzgf.application.netprint.emsmail.domain.EmsmailFacade" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="loggerAdvisor" />
+				<idref local="managerSecurity" />
+				<idref local="emsmailTargetProxy" />
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,6 @@
+<input type="hidden" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($parameters.value)" #parse("/template/simple/scripting-events.vm")>
+<script>
+	fm2.add(new Ext.form.HtmlEditor({
+		applyTo : '$!webwork.htmlEncode($parameters.name)'
+	}));
+</script>

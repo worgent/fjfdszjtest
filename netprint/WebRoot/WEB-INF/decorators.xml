@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="gb2312"?>
+<decorators defaultdir="/decorators">
+    <excludes>
+        <pattern>/*</pattern>
+        <pattern>/resources/*</pattern>
+        <pattern>/ocxprint.jsp</pattern>
+    </excludes>
+    <decorator name="print" page="print.jsp">
+        <pattern>/ocxprint.shtml</pattern>
+    </decorator>
+    <decorator name="login" page="login.jsp">
+        <pattern>/login.jsp</pattern>
+    </decorator>
+    <decorator name="main" page="main.jsp">
+        <pattern>/main.shtml</pattern>
+    </decorator>
+    <decorator name="loadMenu" page="xml.jsp">
+        <pattern>/system/loadMenu.shtml</pattern>
+    </decorator>
+    <decorator name="xml" page="xml.jsp">
+    	<pattern>*xml*.*</pattern>
+    </decorator>
+    <decorator name="tab" page="tabpage.jsp">
+    	<pattern>*tab*.*</pattern>
+    </decorator>
+    <decorator name="portal" page="portal.jsp">
+    	<pattern>/html/*.*</pattern>
+    </decorator>
+    <decorator name="other" page="other.jsp">
+    	<pattern>*.*</pattern>
+    </decorator>
+    <decorator name="js" page="js.jsp">
+    	<pattern>*js*.*</pattern>
+    </decorator>
+</decorators>

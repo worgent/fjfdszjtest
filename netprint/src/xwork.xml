@@ -1,0 +1,52 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+	<include file="webwork-default.xml"></include>
+
+	<package name="default" extends="webwork-default">
+		<!-- 新增打印的处理类型exjasper -->	
+		<result-types>
+			<result-type name="exjasper" class="com.qzgf.webutils.interceptor.JasperReportsResult"/>
+		</result-types>
+
+	    <!-- HashMap的拦截器如search的处理  -->
+		<interceptors>
+			<interceptor name="mapParameter" class="com.qzgf.webutils.interceptor.MapParametersInterceptor"/>
+			<interceptor-stack name="mapParam">
+				<interceptor-ref name="mapParameter" />
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 主页面，全局最顶层框架页 -->
+		<action name="main" class="com.opensymphony.xwork.ActionSupport">
+	        <result name="success">/WEB-INF/pages/application/main.jsp</result>
+	    </action>
+	    
+	    <!-- 首页面 -->
+	    <action name="homepage" class="com.opensymphony.xwork.ActionSupport">
+	        <result name="success">/WEB-INF/pages/application/homepage.jsp</result>
+	    </action>
+	    
+	    <!-- 打印 -->
+	    <action name="ocxprint"  class="emsmailAction">
+	        <!-- 通过base64中转打印 -->
+			<result name="ocxprint" type="dispatcher" >
+				<param name="location">/ocxprint.jsp</param>
+			</result>
+			<!-- 请求web后打印 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/printxml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<interceptor-ref name="mapParam" />
+	    </action>
+	</package>
+	<!-- 共用下拉框模块 -->
+	<include file="/com/qzgf/application/common/action/xwork-select.xml"/>	
+	<!-- 系统管理模块 -->
+	<include file="/com/qzgf/application/systemManage/xwork-systemManage-package.xml"/>
+	<!-- 基本档案模块 -->
+	<include file="/com/qzgf/application/baseArchives/xwork-baseArchives-package.xml"/>
+	<!-- 网上打印 -->
+	<include file="/com/qzgf/application/netprint/xwork-netprint-package.xml"/>
+</xwork>

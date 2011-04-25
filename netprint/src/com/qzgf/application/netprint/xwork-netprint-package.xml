@@ -1,0 +1,12 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	网上打单系统
+-->
+<xwork>
+	<package name="netprint" extends="default" namespace="/netprint">
+	</package>
+	<!-- 打印模块 -->
+	<include file="/com/qzgf/application/netprint/emsmail/action/xwork-emsmail.xml" />
+	<!-- 客户信息 -->
+	<include file="/com/qzgf/application/netprint/clientmsg/action/xwork-clientmsg.xml" />
+</xwork>

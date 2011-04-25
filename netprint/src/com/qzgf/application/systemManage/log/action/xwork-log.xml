@@ -1,0 +1,13 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+	<package name="Log" extends="SystemManagePackage" namespace="/system/log">
+	
+		<action name="log" class="logAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/systemManage/log/loglist.jsp</param>
+			</result>			
+			<interceptor-ref name="mapParam" />
+		</action>	
+	</package>
+</xwork>

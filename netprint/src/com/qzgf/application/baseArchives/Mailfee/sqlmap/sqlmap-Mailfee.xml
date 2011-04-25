@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="TdMailfeearea">	
+	<!-- 记录总数 -->
+	<select id="findTdMailfeeareaCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+			select count(1)
+			 from  td_mailfeearea t where 1=1
+				   <isNotEmpty prepend=" and " property="pprovince_name">t.province_name='$pprovince_name$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pcity_name">t.city_name='$pcity_name$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pcounty_name">t.county_name='$pcounty_name$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="psend_office">t.send_office='$psend_office$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pemail_fee">t.email_fee='$pemail_fee$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pmail_feearea">t.mail_feearea='$pmail_feearea$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pbelong_city">t.belong_city='$pbelong_city$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="paddressname">t.addressname='$paddressname$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="precpost">t.recpost='$precpost$'</isNotEmpty>
+			order by T.ID desc
+	</select>
+
+	
+	<!-- 查询记录 分页 oracle的分页机制不同-->
+	<select id="findTdMailfeeareaPage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+			select t.id
+					,t.province_name
+					,t.city_name
+					,t.county_name
+					,t.send_office
+					,t.email_fee
+					,t.mail_feearea
+					,t.belong_city
+					,t.addressname
+					,t.recpost
+			from  td_mailfeearea t where 1=1
+				   <isNotEmpty prepend=" and " property="pprovince_name">t.province_name='$pprovince_name$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pcity_name">t.city_name='$pcity_name$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pcounty_name">t.county_name='$pcounty_name$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="psend_office">t.send_office='$psend_office$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pemail_fee">t.email_fee='$pemail_fee$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pmail_feearea">t.mail_feearea='$pmail_feearea$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="pbelong_city">t.belong_city='$pbelong_city$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="paddressname">t.addressname='$paddressname$'</isNotEmpty>
+				   <isNotEmpty prepend=" and " property="precpost">t.recpost='$precpost$'</isNotEmpty>
+			order by  T.ID desc
+			<isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+		    </isNotEmpty>
+	</select>
+	
+	<!-- 增加记录 -->
+	<insert id="insertTdMailfeearea"	parameterClass="java.util.HashMap" >
+		insert into td_mailfeearea
+				(id
+					    <isNotEmpty prepend="," property="pprovince_name">province_name</isNotEmpty>
+					    <isNotEmpty prepend="," property="pcity_name">city_name</isNotEmpty>
+					    <isNotEmpty prepend="," property="pcounty_name">county_name</isNotEmpty>
+					    <isNotEmpty prepend="," property="psend_office">send_office</isNotEmpty>
+					    <isNotEmpty prepend="," property="pemail_fee">email_fee</isNotEmpty>
+					    <isNotEmpty prepend="," property="pmail_feearea">mail_feearea</isNotEmpty>
+					    <isNotEmpty prepend="," property="pbelong_city">belong_city</isNotEmpty>
+					    <isNotEmpty prepend="," property="paddressname">addressname</isNotEmpty>
+					    <isNotEmpty prepend="," property="precpost">recpost</isNotEmpty>
+				)
+				 values 
+				(pb_get_sequences(@in_seq_name := 'td_mailfeearea')
+						<isNotEmpty prepend="," property="pprovince_name">#pprovince_name#</isNotEmpty>
+						<isNotEmpty prepend="," property="pcity_name">#pcity_name#</isNotEmpty>
+						<isNotEmpty prepend="," property="pcounty_name">#pcounty_name#</isNotEmpty>
+						<isNotEmpty prepend="," property="psend_office">#psend_office#</isNotEmpty>
+						<isNotEmpty prepend="," property="pemail_fee">#pemail_fee#</isNotEmpty>
+						<isNotEmpty prepend="," property="pmail_feearea">#pmail_feearea#</isNotEmpty>
+						<isNotEmpty prepend="," property="pbelong_city">#pbelong_city#</isNotEmpty>
+						<isNotEmpty prepend="," property="paddressname">#paddressname#</isNotEmpty>
+						<isNotEmpty prepend="," property="precpost">#precpost#</isNotEmpty>
+		   		)
+    </insert>
+    
+	<!--删除记录 -->
+	<delete id="deleteTdMailfeeareaById" parameterClass="java.util.HashMap">
+    	delete from td_mailfeearea where id=#pid#
+    </delete>
+    
+    <!--删除记录 -->
+	<delete id="allproTdMailfeeareaById" parameterClass="java.util.HashMap">
+    	delete from td_mailfeearea where id in ($pid$) 
+    	<isNotEmpty prepend=" and " property="pexstate">state='$pexstate$'</isNotEmpty>
+    </delete>
+    
+    
+    <!--删除全部,excel导入专用 -->
+	<delete id="delallproTdMailfeeareaById" parameterClass="java.util.HashMap">
+    	delete from td_mailfeearea
+    </delete>
+    
+	<!-- 修改记录 -->
+	<update id="updateTdMailfeeareaById" parameterClass="java.util.HashMap">
+		update td_mailfeearea t set t.id=t.id
+						 <isNotEmpty prepend="," property="pprovince_name">province_name=#pprovince_name#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pcity_name">city_name=#pcity_name#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pcounty_name">county_name=#pcounty_name#</isNotEmpty>
+						 <isNotEmpty prepend="," property="psend_office">send_office=#psend_office#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pemail_fee">email_fee=#pemail_fee#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pmail_feearea">mail_feearea=#pmail_feearea#</isNotEmpty>
+						 <isNotEmpty prepend="," property="pbelong_city">belong_city=#pbelong_city#</isNotEmpty>
+						 <isNotEmpty prepend="," property="paddressname">addressname=#paddressname#</isNotEmpty>
+						 <isNotEmpty prepend="," property="precpost">recpost=#precpost#</isNotEmpty>
+		where id=#pid#
+	</update>
+</sqlMap>

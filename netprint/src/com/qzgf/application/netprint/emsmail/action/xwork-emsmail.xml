@@ -1,0 +1,59 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	* 打印模块(emsmail)
+	* @author lsr
+-->
+<xwork>
+	<package name="emsmail" extends="netprint"	namespace="/netprint/emsmail">
+		<action name="emsmail" class="emsmailAction">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/emsmail/emsmaillist.jsp</param>
+			</result>
+			<result name="edit" type="dispatcher">
+			    <param name="location">/WEB-INF/pages/application/netprint/emsmail/editemsmail.jsp</param>
+			</result>
+			<result name="new" type="dispatcher">
+			    <param name="location">/WEB-INF/pages/application/netprint/emsmail/editemsmail.jsp</param>
+			</result>
+			<result name="view" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/emsmail/viewemsmail.jsp</param>
+			</result>
+			<!-- 处理扩展的打印组件处理原类型jasper,新增exjasper直接打印处理  -->
+			<result name="report"  type="exjasper" >
+		        <param name="location">/WEB-INF/pages/application/netprint/emsmail/emsmail.jasper</param>
+		        <param name="dataSource">emsmailList</param>
+		        <param name="format">PDF</param>
+		    </result>
+		    <!-- applet调用打印 -->
+			<result name="printapplet" type="dispatcher">
+				<param name="location">/printer.jsp</param>
+			</result>
+			<!-- ie自带的打印 -->
+			<result name="pageprint" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/emsmail/emsmailprint.jsp</param>
+			</result>
+			<!-- ocx打印 redirect -->
+			<result name="ocxprint" type="dispatcher" >
+				<param name="location">/ocxprint.jsp</param>
+			</result>					    
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/pages/application/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="error" type="dispatcher" >/error.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="mapParam" />
+		</action>
+		
+		
+		<action name="emsmailupload" class="emsmailAction" method="upload">
+			<result name="search" type="dispatcher">
+				<param name="location">/WEB-INF/pages/application/netprint/upload/upload.jsp</param>
+			</result>
+			<result name="error" type="dispatcher" >/error444.jsp</result>
+			<result name="success" type="dispatcher">/success.jsp</result>
+			<interceptor-ref name="fileUploadStack"/> 
+			<interceptor-ref name="mapParam" />
+		</action>	
+	</package>
+</xwork>

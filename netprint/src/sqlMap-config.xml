@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "./sql-map-config-2.dtd">
+<sqlMapConfig>
+
+	<!-- debug环境下，将其设为false. 正式运行时应设为true,启用缓存 -->
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		useStatementNamespaces="true" maxSessions="64" maxTransactions="15"
+		maxRequests="128" />
+
+	<!-- 非常简洁，将用到的sqlMap文件列到这儿就行了 -->
+	<!-- 公共 -->
+	<sqlMap resource="/sqlMap-common.xml" />
+    <!-- 系统管理 -->	
+	<sqlMap resource="/com/qzgf/application/systemManage/log/sqlmap/sqlmap-operatelog.xml"/><!-- 系统日志 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/menu/sqlmap/sqlmap-menu.xml"/><!-- 菜单管理 -->	
+	<sqlMap resource="/com/qzgf/application/systemManage/manager/sqlmap/sqlmap-manager.xml"/><!-- 系统管理员 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/role/sqlmap/sqlmap-roleinfo.xml"/><!-- 角色信息管理 -->
+	<sqlMap resource="/com/qzgf/application/systemManage/firstpage/sqlmap/sqlmap-FirstPage.xml" /><!-- 首页资讯 -->
+    <!-- 基础数据 -->
+	<sqlMap resource="/com/qzgf/application/baseArchives/OrganManage/sqlmap/sqlmap-organManage.xml"/><!-- 机构管理 -->
+	<sqlMap resource="/com/qzgf/application/baseArchives/UploadExcel/sqlmap/sqlmap-UploadExcel.xml" /><!-- excel -->
+	<sqlMap resource="/com/qzgf/application/baseArchives/Mailfee/sqlmap/sqlmap-Mailfee.xml" />
+     <!-- ==================================网上打单系统================================= -->
+	 <!-- 客户信息 -->
+     <sqlMap resource="/com/qzgf/application/netprint/clientmsg/sqlmap/sqlmap-clientmsg.xml" /><!-- 客户信息(寄件人,收件人) -->
+	 <!-- EMS格式打印 -->
+     <sqlMap resource="/com/qzgf/application/netprint/emsmail/sqlmap/sqlmap-emsmail.xml" /><!-- EMS邮件信息 -->
+</sqlMapConfig>

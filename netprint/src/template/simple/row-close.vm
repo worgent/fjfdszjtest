@@ -1,0 +1,9 @@
+ </tr>
+#if ($stack.getContext().get("statusAttr").index == 0)
+	</thead>
+#else 
+	#if ($stack.getContext().get("statusAttr").isLast())
+		</tbody>
+		
+	#end
+#end

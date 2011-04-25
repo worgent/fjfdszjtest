@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="OrganManage">
+	<!-- 
+		查询机构部门树,查询下级
+	-->
+	<select id="findOrganTree" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select id,deptno,deptname from td_deptment where parentid=#pparentid#
+	</select>
+		
+	<!-- 
+		查询本身机构信息,包括父结点信息
+	-->
+	<select id="findOrganManage" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select a.id,a.deptno,a.deptname,a.parentid,a.linkman,a.linkmantel,ifnull(b.deptname,'') as parentname
+		from td_deptment a left join td_deptment b on a.parentid=b.id 
+		where a.id=#pid#
+	</select>
+	<!-- 
+		添加机构部门信息
+	-->
+	<insert id="insertOrganManage" parameterClass="java.util.HashMap">
+		insert into td_deptment(id
+		<isNotEmpty prepend="," property="pdeptno">deptno</isNotEmpty>
+		<isNotEmpty prepend="," property="pdeptname">deptname</isNotEmpty>
+		<isNotEmpty prepend="," property="pparentid">parentid</isNotEmpty>
+		<isNotEmpty prepend="," property="plinkman">linkman</isNotEmpty>
+		<isNotEmpty prepend="," property="plinkmantel">linkmantel</isNotEmpty>
+		)values(pb_get_sequences(@in_seq_name := 'deptment_id')
+		<isNotEmpty prepend="," property="pdeptno">#pdeptno#</isNotEmpty>
+		<isNotEmpty prepend="," property="pdeptname">#pdeptname#</isNotEmpty>
+		<isNotEmpty prepend="," property="pparentid">#pparentid#</isNotEmpty>
+		<isNotEmpty prepend="," property="plinkman">#plinkman#</isNotEmpty>
+		<isNotEmpty prepend="," property="plinkmantel">#plinkmantel#</isNotEmpty>
+		)
+	</insert>
+	
+	<!-- 
+		更新机构部门信息
+	-->
+	<update id="updateOrganManage"	parameterClass="java.util.HashMap">
+		update td_deptment set id=#pid#
+		<isNotEmpty prepend="," property="pdeptno">deptno=#pdeptno#</isNotEmpty>
+		<isNotEmpty prepend="," property="pdeptname">deptname=#pdeptname#</isNotEmpty>
+		<isNotEmpty prepend="," property="pparentid">parentid=#pparentid#</isNotEmpty>
+		<isNotEmpty prepend="," property="plinkman">linkman=#plinkman#</isNotEmpty>
+		<isNotEmpty prepend="," property="plinkmantel">linkmantel=#plinkmantel#</isNotEmpty>
+		where id=#pid#
+	</update>
+	
+	<!-- 
+		删除机构部门信息
+	  -->
+	<delete id="deleteOrganManage" parameterClass="java.util.HashMap">
+		delete from  td_deptment where id=#pid#
+	</delete>	
+	<!-- 查询与要删除的机构相关的记录 -->
+	<procedure  id="findOrganXgCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select func_getJgXgNum(@jgid:=#pid#)
+	</procedure>
+	
+	
+	
+	<!-- 调用存储过程,有返回值作为输出参数
+		<parameterMap class="java.util.HashMap" id="Map_getAllSubDept"> 
+		<parameter property="mresult"  javaType="java.lang.String" jdbcType="VARCHAR" mode="IN"/>    
+	    <parameter property="parentkey"  javaType="java.lang.String" jdbcType="VARCHAR" mode="IN"/>   
+	    </parameterMap>
+	    	<procedure id="Proc_getAllSubDept" parameterMap="Map_getAllSubDept">   
+				{call Proc_getAllSubDept(?,?)}
+	</procedure>
+	  <procedure id="ExProc_getAllSubDept"  parameterClass="java.util.HashMap" resultClass="java.lang.String" remapResults="true">   
+		select func_getProvalue(@pid:='$parentkey$')
+	</procedure>
+	 -->
+	
+	
+
+
+	
+	<!-- 查询该机构部门的下级所拥有的租赁合同数 -->
+	<select id="findOrganBargainCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+		select count(*) from zlhtb where JG_ID=#JG_ID#
+	</select>
+</sqlMap>

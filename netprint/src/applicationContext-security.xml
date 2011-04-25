@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="securityFilter" class="com.qzgf.webutils.filter.SecurityFilter">
+		<description>
+			过滤类,通过web.xml里的targetBean来指定
+			errorPage 指定如果出错没有权限时去的页面,如果不指定这个参数的话将抛出一个异常
+			noSessionPage 无会话或会话过期时跳转的页面,一般重新返回到登录页面
+		</description>
+		<property name="errorPage" value="/error.jsp" />
+		<property name="noSessionPage" value="/nologin.jsp" />
+		<property name="authoritiesPages" ref="authoritiesPages" />
+	</bean>
+	<bean id="jdbcAuthenticationDao" class="com.qzgf.security.dao.jdbc.JdbcDaoImpl">
+		<description> 用于读取页面与角色的jdbcDAO,传递一个dataSource和一个读取数据的sql </description>
+		<property name="dataSource" ref="dataSource" />
+		<property name="authoritiesByPageIdQuery">
+			<value>
+				<!-- select url,role_id 
+				  from td_menu_info m,tf_role_menu rm 
+				 where m.menu_id = rm.menu_id 
+				   and m.url is not null 
+				 order by url
+				 因为系统角色被删除之后就不能让该角色增加到缓存中-->
+				 select url, rm.role_id
+				  from td_menu_info m, tf_role_menu rm, td_role_info ri
+				 where m.menu_id = rm.menu_id
+				   and rm.role_id = ri.role_id
+				   and ri.role_state = 1
+				   and m.url is not null
+				 order by url
+			</value>
+		</property>
+		<property name="authoritiesByMethodQuery">
+			<value>
+				<!-- select method, role_id
+				  from td_menu_info m, tf_role_menu rm
+				 where m.menu_id = rm.menu_id
+				   and m.method is not null
+				 order by method-->
+				 select method, rm.role_id
+				  from td_menu_info m, tf_role_menu rm, td_role_info ri
+				 where m.menu_id = rm.menu_id
+				   and rm.role_id = ri.role_id
+				   and ri.role_state = 1
+				   and m.method is not null
+				 order by method
+			</value> 
+		</property>
+	</bean>
+	
+	<bean id="authoritiesPages" class="com.qzgf.security.AuthoritiesPages">
+		<description>
+			配置需要权限判断的url和默认通过的url，可以是两种方式：
+			1、通过dao从数据库里读取配置
+			2、通过authoritiesPageList属性来设置
+		</description>
+		<property name="daoImpl" ref="jdbcAuthenticationDao" />
+		<!-- property name="authoritiesPageList">
+			<value>
+				/index.jsp=admini,test
+				/test.shtml=admini
+				/main.shtml=admini
+			</value>
+		</property-->
+		<property name="notSessionPageList">
+			<value>
+				/login.jsp
+				/system/login.shtml
+				/image.jsp 
+				/tagTest.jsp
+				/system/manage/register.shtml
+				/ocxprint.shtml
+			</value>
+		</property>
+	</bean>
+	<bean id="authoritiesMethods" class="com.qzgf.security.AuthoritiesMethods">
+		<description>
+			配置需要权限判断的方法
+		</description>
+		<property name="daoImpl" ref="jdbcAuthenticationDao" />
+	</bean>
+</beans>
