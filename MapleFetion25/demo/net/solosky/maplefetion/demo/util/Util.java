@@ -58,6 +58,52 @@ public class Util {
 		return null;
 	}
 	
+	public static String getResultEx(String urlStr, String content) {
+		URL url = null;
+		HttpURLConnection connection = null;
+
+		try {
+			//设置将要取值的url地址相关参数
+			url = new URL(urlStr);
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			//connection.setRequestMethod("POST");
+			//connection.setRequestMethod("GET");  GET POST HEAD OPTIONS PUT DELETE TRACE 
+			connection.setRequestMethod("GET");
+			
+			connection.setUseCaches(false);
+			connection.connect();
+			
+			
+			//写入传入参数post
+			/*
+			DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+			out.writeBytes(content);
+			out.flush();
+			out.close();
+			*/
+			
+			//得到传出的数据,反馈信息
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection
+					.getInputStream(), "gb2312"));
+			StringBuffer buffer = new StringBuffer();
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				buffer.append(line);
+			}
+			reader.close();
+			return buffer.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
+		return null;
+	}
+	
 	
 	public static String dispatch(String line)
 	{
@@ -76,19 +122,41 @@ public class Util {
 					 result=getResult(ip,"");
 					 result=result.substring(result.indexOf(sid)+30,result.indexOf(sid)+1905);
 		
+				}else if(cmd[0].equals("weather1")){
+					 ip="http://tianqi.yoyv.com/sight/16789.html";//http://www.weather.com.cn/static/html/article/trip/tls_101230308.shtml
+					 sid="mod_weather";
+					 result=getResultEx(ip,"");
+					 //<div class=\"forecastBox\" id=\"forecastID\">(全部)   <div class="weatherYubao" id="weatherYubao2">(3天)
+					 //result="福鼎天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
+					 //http://tianqi.2345.com/jingdian/60401_tls.htm
+					 //<div class="detailmid">
+					 result="太姥山"+result.substring(result.lastIndexOf("今日"),result.indexOf("<!--google_ad_client"));
+				}else if(cmd[0].equals("weather2")){
+					 ip="http://tianqi.yoyv.com/city/205.html";
+					 sid="mod_weather";
+					 result=getResultEx(ip,"");
+					 result="泉州"+result.substring(result.lastIndexOf("今日"),result.indexOf("<!--google_ad_client"));
+					 //result="泉州天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
+			    // IP查询
+				}else if(cmd[0].equals("wapsohu")){
+					 ip="http://221.179.173.143/news/tt/?nid=3236&uID=aqidHPNkiHklAAAA";//
+					 result=getResult(ip,""); 
+					 //System.out.println(result);
+					 result="搜狐WAP"+result.substring(result.indexOf("【时政头条】"),result.indexOf("【图片新闻】"));
+				//新闻	 
 				}else if(cmd[0].equals("weatherex")){
 					 ip="http://www.weather.com.cn/html/trip_fc/101010300.shtml";
 					 sid="mod_weather";
 					 result=getResult(ip,"");
 					 //<div class=\"forecastBox\" id=\"forecastID\">(全部)   <div class="weatherYubao" id="weatherYubao2">(3天)
 					 result="太姥山天气"+result.substring(result.lastIndexOf("<div class=\"box_contentl\">"),result.indexOf("<body></html>"));
-				}else if(cmd[0].equals("weather1")){
+				}else if(cmd[0].equals("weatherbk1")){
 					 ip="http://113.108.239.105/weather/101230308.shtml";//http://www.weather.com.cn/static/html/article/trip/tls_101230308.shtml
 					 sid="mod_weather";
 					 result=getResult(ip,"");
 					 //<div class=\"forecastBox\" id=\"forecastID\">(全部)   <div class="weatherYubao" id="weatherYubao2">(3天)
-					 result="福鼎天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
-		
+					 //result="福鼎天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
+					 result="福鼎天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!--day 7-->"));
 				}else if(cmd[0].equals("weather1ex")){
 					 ip="http://travel.mipang.com/weather/17353";
 					 sid="mod_weather";
@@ -96,11 +164,12 @@ public class Util {
 					 //<div class=\"forecastBox\" id=\"forecastID\">(全部)   <div class="weatherYubao" id="weatherYubao2">(3天)
 					 result="太姥山天气"+result.substring(result.lastIndexOf("<!--day 2-->"),result.indexOf("<div class=\"forecastBox\" id=\"forecastID\">"));
 		
-				}else if(cmd[0].equals("weather2")){
+				}else if(cmd[0].equals("weatherbk2")){
 					 ip="http://113.108.239.105/weather/101230501.shtml";
 					 sid="mod_weather";
 					 result=getResult(ip,"");
-					 result="泉州天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
+					 result="泉州天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!--day 7-->"));
+					 //result="泉州天气"+result.substring(result.lastIndexOf("<!--day 1-->"),result.indexOf("<!-- Live start-->"));
 			    // IP查询
 				}else if(cmd[0].equals("weather2ex")){
 					 ip="http://travel.mipang.com/weather/2609";
@@ -138,12 +207,6 @@ public class Util {
 					 ip="http://wap.baidu.com/news?tn=bdwcn&word=todaynews&pn=0&ssid=0&from=0&bd_page_type=1&uid=frontui_1267709930_1452&pu=pd@4,sz@176_208,uc@0";
 					 result=getResult(ip,""); 
 					 result="百度WAP"+result.substring(result.indexOf("【今日焦点】"),result.indexOf("【分类推荐】"));
-				}else if(cmd[0].equals("wapsohu")){
-					 ip="http://221.179.173.143/news/tt/?nid=3236&uID=aqidHPNkiHklAAAA";//
-					 result=getResult(ip,""); 
-					 //System.out.println(result);
-					 result="搜狐WAP"+result.substring(result.indexOf("【时政头条】"),result.indexOf("【图片新闻】"));
-				//新闻	 
 				}else if(cmd[0].equals("wapsohubk")){
 					 ip="http://wap.sohu.com/news/?nid=3237";//http://wap.sohu.com/news/?uID=aqidHPNkiHklAAAA
 					 result=getResult(ip,""); 
