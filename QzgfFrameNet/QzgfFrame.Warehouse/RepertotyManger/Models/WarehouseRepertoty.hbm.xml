@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Warehouse.RepertotyManger.Models" assembly="QzgfFrame.Warehouse">
+	<class name="QzgfFrame.Warehouse.RepertotyManger.Models.WarehouseRepertoty,QzgfFrame.Warehouse" table="tab_repertoty">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="Address" type="String" name="Address"   length="50"/>
+    <property column="Tel" type="String" name="Tel" length="15"/>
+    <property column="Remark" type="String" name="Remark" length="200" />
+    <property column="CompanyId" type="String" name="CompanyId" length="20"/>
+    <property column="DistrictId" type="String" name="DistrictId" length="20"/>
+    <property column="MUserId" type="String" name="MUserId" length="256" />
+    <property column="RepertotyNo" type="String" name="RepertotyNo" length="20"/>
+    <property column="RepertotyName" type="String" name="RepertotyName" length="20"/>
+	</class>
+</hibernate-mapping>

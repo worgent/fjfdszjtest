@@ -1,0 +1,89 @@
+<!--
+	 /********************************************
+	 * 文件名称：demo.htm
+	 * 功能描述：高级组合查询控件用例
+	 * 创建日期：2008-07-18
+	 * @author：codeslave
+	 *********************************************/
+-->
+<html>
+<head>
+<title>高级组合查询控件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link type="text/css" rel="stylesheet" href="highquery/style.css" />
+<script type="text/javascript" src="highquery/highquery.js"></script>
+<script type="text/javascript">
+<!--
+
+// 测试用
+function show()
+{
+	txtAliasC.value = "";
+	txtFieldC.value = "";
+	txtAliasS.value = "";
+	txtFieldS.value = "";
+	var arrReturn = interpreter();
+	txtAliasC.value = arrReturn[0];
+	txtFieldC.value = arrReturn[1];
+	txtAliasS.value = arrReturn[2];
+	txtFieldS.value = arrReturn[3];
+}
+
+// 选择类别
+function choiceCategory()
+{
+	var config = "scrollbars=no;status=no;dialogLeft="+300+"px;dialogTop="+200+"px;dialogWidth="+170+"px;dialogHeight="+130+"px";
+	return window.showModalDialog("choicelist.htm", null, config); // 必须返回值(由编号和描述组成的数组)
+}
+
+//-->
+</script>
+</head>
+<body>
+<script type="text/javascript">
+<!--
+
+// 业务字典(同一组的code必须相同)
+DictList.add(new Dict('StateCode', '状态', '启用', '1'));
+DictList.add(new Dict('StateCode', '状态', '停用', '2'));
+DictList.add(new Dict('LevelCode', '级别', '重要', 'L1'));
+DictList.add(new Dict('LevelCode', '级别', '普通', 'L2'));
+
+// 字段信息
+FieldList.add(new Field('Table1.No', '表1.编号', 'number', '10', '', ''));
+FieldList.add(new Field('Table2.Name', '表2.名称', 'varchar', '100', '', ''));
+FieldList.add(new Field('Date_Type', '日期', 'date', '19', '', ''));
+FieldList.add(new Field('DateTime_Type', '日期时间', 'datetime', '19', '', ''));
+FieldList.add(new Field('Remark', '备注', 'varchar', '500', '', ''));
+FieldList.add(new Field('Category', '类别', 'varchar', '1', '', 'choiceCategory')); // 必须实现choiceCategory这个方法
+FieldList.add(new Field('State', '状态', 'varchar', '1', 'StateCode', '')); // 业务字典必须写上对应的业务字典Code,如StateCode
+FieldList.add(new Field('Level', '级别', 'varchar', '2', 'LevelCode', ''));
+FieldList.add(new Field('', '请选择一个字段', '', '0', '', '')); // 空白，必须是最后加入
+
+// 初始化
+initHighQuery();
+
+//-->
+</script>
+<br>
+<input type="button" class="HQ_BUTTON" onClick="show();" value="查看生成文本">
+<table border="0">
+<tr>
+<td>条件别名形式：</td>
+<td>排序别名形式：</td>
+</tr>
+<tr>
+<td><textarea class="HQ_TEXTAREA" id="txtAliasC" rows="3" cols="50"></textarea></td>
+<td><textarea class="HQ_TEXTAREA" id="txtAliasS" rows="3" cols="50"></textarea></td>
+</tr>
+<tr>
+<td>条件字段名形式：</td>
+<td>排序字段名形式：</td>
+</tr>
+<tr>
+<td><textarea class="HQ_TEXTAREA" id="txtFieldC" rows="3" cols="50"></textarea></td>
+<td><textarea class="HQ_TEXTAREA" id="txtFieldS" rows="3" cols="50"></textarea></td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Supplies.CommunityManagerManger.Models.SuppliesCommunityManager
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/addmethod.js" type="text/javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Supplies/CommunityManager.js" type="text/javascript"></script> 
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Edit", "CommunityManager", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                <td class="Right_font" width="15%">人员姓名：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" width="25%">
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "dd-text", style = "width:138px;", validate = "{required:true,minlength:2,maxlength:20,isFullName:true}" })
+                    </td>
+                    <td class="Right_font" width="15%">联系方式：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.LinkTel, new { maxlength = "13", @class = "dd-text", style = "width:138px;", validate = "{required:true,minlength:7,maxlength:13,number: true}" })
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td class="Right_font">身份证号：<span class="l-verify-star">*</span></td>
+                     
+                      <td class="Left_font" style="width:40%"  colspan="3">
+                    <table style="width:100%"><tr><td>   
+                    <input type="hidden" id="terimFlag" value="0"/>    
+                     @Html.TextBoxFor(m => m.IDCardNumber, new { maxlength = "18", @class = "dd-text", style = "width:138px;", validate = "{required:true,minlength:15,maxlength:18,isIdCardNo:true}", onblur = "getIdCardNo(this.value);" })
+                     </td><td id="showTerim" style="width:75%; text-align:left; color:red"></td>
+                   </tr></table>
+                   </td>
+                </tr> 
+                
+                 <tr>
+                    <td class="Right_font">所属县市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @Html.DropDownList("DistrictId", (SelectList)ViewData["district"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                    <td class="Right_font">维护单位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @Html.DropDownList("CompanyId", (SelectList)ViewData["company"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                </tr> 
+                 <tr>                 
+                    <td class="Right_font">营业部：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                     <input type="text" id="SaleDepartmentName" name="SaleDepartmentName" validate = "{required:true,minlength:1,maxlength:30}" />
+                    @Html.HiddenFor(m => m.SaleDepartmentId)
+                    </td>
+                </tr> 
+                 <tr>
+                 <td class="Right_font">入职时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.EntryDate, new { @class = "dd-text", style = "width:138px;", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td>
+                    <td class="Right_font">离职时间 ：</td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.QuitDate, new { @class = "dd-text", style = "width:138px;", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                   </td> 
+                    
+                </tr> 
+                <tr>                   
+                    <td class="Right_font">兼职/专职 ：<span class="l-verify-star">*</span></td>                     
+                    <td class="Left_font">
+                     @Html.DropDownListFor(model => model.IsFullTime, ViewData["isFullTime"] as IEnumerable<SelectListItem>, new { style = "width:135px", ltype = "select" })
+                   
+                    </td> 
+                   <td class="Right_font">在职/离职：<span class="l-verify-star">*</span></td>                     
+                    <td class="Left_font" >
+                     @Html.DropDownListFor(model => model.IsInService, ViewData["isInService"] as IEnumerable<SelectListItem>, new { style = "width:135px", ltype = "select" })
+                    
+                    </td> 
+                </tr> </tbody>
+</table>  
+ 
+    </div> 
+    }
+    
+</body>
+</html>

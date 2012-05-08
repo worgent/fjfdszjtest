@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.GroupClieManger.Models" assembly="QzgfFrame.Resources">
+  <class name="QzgfFrame.Resources.GroupClieManger.Models.ResourceClieGrid,QzgfFrame.Resources" table="tab_clie_grid">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String" length="20">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="GridId" type="String" name="GridId" length="20" />
+    <property column="ClieId" type="String" name="ClieId" length="20" />
+    <property column="DelFlag" type="short" name="DelFlag"  />
+  </class>
+</hibernate-mapping>

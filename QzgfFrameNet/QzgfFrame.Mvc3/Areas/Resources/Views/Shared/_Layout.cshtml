@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>欢迎使用 ligerUI 权限管理系统</title> 
+    <link href="@Url.Content("~/Lib/ligerUI/skins/Silvery/css/ligerui-all.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Lib/ligerUI/skins/ligerui-icons.css")" rel="stylesheet" type="text/css" />            
+    <link href="@Url.Content("~/Content/Lib/css/autoSearchText.css")" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Lib/tab/tabcontent.css")" />
+    <script type="text/javascript" src="@Url.Content("~/Lib/tab/tabcontent.js")"></script>
+    
+    <script src="@Url.Content("~/Lib/jquery/jquery-1.5.2.min.js")" type="text/javascript"></script>
+     
+    <script src="@Url.Content("~/Lib/ligerUI/js/ligerui.all.js")" type="text/javascript"></script> 
+    <script src="@Url.Content("~/Lib/jquery/jquery.form.js")" type="text/javascript"></script>
+    <!--因验证仅在edit页面使用不是通用的，所以屏蔽-->
+    <script src="@Url.Content("~/Lib/jquery-validation/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Lib/jquery-validation/jquery.metadata.js")" type="text/javascript"></script>  
+    <script src="@Url.Content("~/Lib/jquery-validation/messages_cn.js")" type="text/javascript"></script> 
+    <!--补充的数据验证--> 
+    <script src="@Url.Content("~/Lib/jquery-validation/addmethod.js")"  type="text/javascript"></script> 
+    <script src="@Url.Content("~/Lib/MyDatePicker/WdatePicker.js")" type="text/javascript"></script>
+     
+    <script src="@Url.Content("~/Content/Lib/js/common.js")" type="text/javascript"></script> 
+    <!--列显示需求转换的-->
+    <script src="@Url.Content("~/Content/Lib/js/convert.js")" type="text/javascript"></script>
+    <!--页面样式-->
+    <link href="@Url.Content("~/Content/Lib/css/EditStyle.css")"  rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div>
+        <section id="main">
+            @RenderBody()
+        </section>
+        <footer>
+        </footer>
+    </div>
+</body>
+</html>

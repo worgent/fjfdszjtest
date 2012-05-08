@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.OneSevenZeroManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.OneSevenZeroManger.Models.ResourceOneSevenZero,QzgfFrame.Resources" table="yd_170data">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String" length="20">
+      <generator class="assigned"/>
+    </id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="JobNo" type="String" name="JobNo"  length="8" />
+    <property column="CityCountryNo" type="String" name="CityCountryNo" length="50" />
+    <property column="EnsureGrade" type="String" name="EnsureGrade" length="50" />
+    <property column="ClientGrade" type="String" name="ClientGrade" length="50"/>
+    <property column="ImportLevel" type="String" name="ImportLevel" length="50"/>
+    <property column="ManagerTel" type="String" name="ManagerTel" length="50" />
+    <property column="Name" type="String" name="Name" length="50" />
+    <property column="IsFlyOver" type="char" name="IsFlyOver" length="2" />
+    <property column="IntendMoney" type="String" name="IntendMoney" length="50" />
+    <property column="ExpressRemark" type="String" name="ExpressRemark" length="500" />
+    <property column="OperationType" type="char" name="OperationType" length="50" />
+    <property column="ApplyMan" type="String" name="ApplyMan" length="50" />
+    <property column="ApplyTel" type="String" name="ApplyTel" length="50"/>
+    <property column="ApplyFax" type="String" name="ApplyFax" length="50" />
+    <property column="ClientType" type="String" name="ClientType" length="50"/>
+    <property column="CommunicateAddress" type="String" name="CommunicateAddress" length="500" />
+    <property column="GroupId" type="String" name="GroupId" length="50"/>
+    <property column="ClientCompanyName" type="String" name="ClientCompanyName" length="100" />
+    <property column="CityCounty" type="String" name="CityCounty" length="50" />
+    <property column="ProjectexPository" type="String" name="ProjectexPository" length="500" />
+    <property column="CompleteTime13" type="DateTime" name="CompleteTime13" />
+    <property column="CompleteTime14" type="DateTime" name="CompleteTime14" />
+    <property column="CompleteTime15" type="DateTime" name="CompleteTime15" />
+    <property column="CompleteTime16" type="DateTime" name="CompleteTime16" />
+    <property column="WanEquipment" type="String" name="WanEquipment" length="100" />
+    <property column="WanEquipmentPort" type="String" name="WanEquipmentPort" length="50"/>
+    <property column="Bandwidth" type="String" name="Bandwidth" length="50"/>
+    <property column="CircuitNo" type="String" name="CircuitNo" length="50" />
+
+    <property column="TransfersEquipment" type="String" name="TransfersEquipment" length="100" />
+    <property column="TransfersEquipmentPort" type="String" name="TransfersEquipmentPort" length="50" />
+    <property column="CoreInformation" type="String" name="CoreInformation" length="500"/>
+    <property column="OrgNetMode" type="String" name="OrgNetMode" length="50"/>
+    <property column="VLAN" type="String" name="VLAN"   length="50"/>
+    
+    <property column="WanSwitchEquipment" type="String" name="WanSwitchEquipment"   length="100"/>
+    <property column="WanSwitchEquipmentPort" type="String" name="WanSwitchEquipmentPort"   length="50"/>
+
+
+    <property column="Basestation" type="String" name="Basestation"   length="100"/>
+    <property column="ClientIp" type="String" name="ClientIp"   length="50"/>
+    <property column="ClientGateway" type="String" name="ClientGateway"   length="50"/>
+    <property column="ClientSubnetMask" type="String" name="ClientSubnetMask"   length="50"/>
+    <property column="AccessToTheBasestation" type="String" name="AccessToTheBasestation"   length="100"/>
+    <property column="NoResource" type="String" name="NoResource"   length="500"/>
+    <property column="WanBossFactoryMode" type="String" name="WanBossFactoryMode"   length="100"/>
+    <property column="UserFirstFactory" type="String" name="UserFirstFactory"   length="100"/>
+    <property column="UserFirstMode" type="String" name="UserFirstMode"   length="100"/>
+    <property column="UserSencodeFactory" type="String" name="UserSencodeFactory"   length="100"/>
+    <property column="UserSencodeMode" type="String" name="UserSencodeMode"   length="100"/>
+    <property column="UserThirdFactory" type="String" name="UserThirdFactory"   length="100"/>
+    <property column="UserThirdMode" type="String" name="UserThirdMode"   length="100"/>
+    <property column="UserFourFactory" type="String" name="UserFourFactory"   length="100"/>
+    <property column="UserFourMode" type="String" name="UserFourMode"   length="100"/>
+    <property column="UserFiveFactory" type="String" name="UserFiveFactory"   length="100"/>
+    <property column="UserFiveMode" type="String" name="UserFiveMode"   length="100"/>
+    <property column="BasestationFirstFactory" type="String" name="BasestationFirstFactory"   length="100"/>
+    <property column="BasestationFirstMode" type="String" name="BasestationFirstMode"   length="100"/>
+    <property column="BasestationSencodeFactory" type="String" name="BasestationSencodeFactory"   length="100"/>
+    <property column="BasestationSencodeMode" type="String" name="BasestationSencodeMode"   length="100"/>
+    <property column="GroupinNet" type="String" name="GroupinNet"   length="100"/>
+    <property column="MaintenanceCompany" type="String" name="MaintenanceCompany"   length="100"/>
+    <property column="IsIntegrateBeforeHand" type="char" name="IsIntegrateBeforeHand"   length="2"/>
+    <property column="IsLinePipeBefordHand" type="char" name="IsLinePipeBefordHand"   length="2"/>
+    <property column="IsIntegrateIndue" type="char" name="IsIntegrateIndue"   length="2"/>
+    <property column="IsLinePipeIndue" type="char" name="IsLinePipeIndue"   length="2"/>
+    <property column="State" type="String" name="State"   length="2"/>
+	</class>
+</hibernate-mapping>

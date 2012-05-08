@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Archives.CityManger.Models.ArchiveCity
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //var CurID =  <%=CurID %>;
+        var Validator = null;
+        $(function () {
+            $.metadata.setType("attr", "validate");
+            $("#form1").ligerForm();
+            deafultValidate($("#form1"));
+            Validator = $("#form1").validate();
+        });
+
+        function f_success() {
+            $(document).ready(function () {
+                $.ligerDialog.confirm("是否继续编辑", "保存成功", function (ok) {
+                    $.ligerDialog.closeWaitting();
+                    parent.window.frames["mainframe"].f_reload();
+                    if (!ok) {
+                        parent.window.frames["mainframe"].f_closeWindow();
+                    }
+                });
+            });
+        }
+        function f_error(message) {
+            $(document).ready(function () {
+                $.ligerDialog.error(message);
+            });
+        }
+        function f_save() {
+            alert("say hello");
+
+            //if(!Validator.form()) return;
+            $.ligerDialog.waitting("正在保存中...");
+            //提交数据
+            document.forms[0].submit();
+        } 
+    </script>
+    <style type="text/css">
+        .edittable .editcellmessage,.edittable .editcellverify,.edittable .editcell{ padding:4px;line-height:23px;}
+        .edittable .editcellmessage{ padding-left:20px;} 
+        body { font-size:12px; background:white;}
+         
+    </style>
+</head>
+<body style=" padding:4px;">
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td align="right" class="editcellmessage">城市名称</td>
+                    <td align="right" class="editcellverify"><div class="l-verify-star">*</div></td>
+                    <td align="left" class="editcell">
+                    @Html.TextBoxFor(m => m.CityName)
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">城市编码：</td>
+                    <td align="right" class="editcellverify"><div class="l-verify-star">*</div></td>
+                    <td align="left" class="editcell">
+                    @Html.TextBoxFor(m => m.CityCode)
+                    </td> 
+                </tr> 
+                <!--
+                <tr>
+                    <input type="submit" value="Register" />
+                </tr>                
+                 -->
+            </tbody>
+        </table>
+    </div> 
+    }
+    
+</body>
+</html>

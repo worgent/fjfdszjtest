@@ -1,0 +1,188 @@
+﻿
+    <script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager = null;
+        var activeDialog = null;
+        var frameId = GetUrlParam('_menuid');
+        var saveFrameId = "qzgfframe" + GetUrlParam('_menuid');
+        function f_openWindow(url, title, width, height, btnname) {
+            if (btnname == null) {
+                var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+                };
+            }
+            else {
+                var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: btnname, onclick: function (item, dialog) {
+                dialog.frame.f_save(saveFrameId);
+            }
+            },
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+                };
+            }
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+        function f_closeWindow(reload) {
+            activeDialog && activeDialog.close();
+            reload && f_reload();
+        }
+        function f_btnClick(item) {
+            switch (item.id) {
+                case "add":
+                    f_add();
+                    break;
+                case "modify":
+                    f_modify();
+                    break;
+                case "delete":
+                    f_delete();
+                    break;
+                case "loadfile":
+                    f_loadfile();
+                    break;
+                case "button":
+                    f_button();
+                    break;
+                case "search":
+                    f_search();
+                    break;
+                case "excelout":
+                    f_excelout();
+                    break;
+                default:
+                    $.ligerDialog.alert('暂未实现!');
+                    break;    
+            }
+        }
+        function f_search() {
+            f_openWindow('/Resources/EquipFault/search/?frameid=' + frameId, '查询模块', 700, 250, '查询');
+        }
+        //导出excel
+        function f_excelout() {
+            f_openWindow('/Resources/EquipFault/excelout/?frameid=' + frameId, '查询导出模块', 700, 250, '导出Excel');
+            //window.location.href = "/Resources/Vehicle/GetExcelOut";
+        }
+        function f_button() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+            var id = rowsdata[0].ID;
+            f_openWindow('system/ButtonList.aspx?CurID=' + id, '菜单操作管理', 600, 350);
+        }
+        function f_loadfile() {
+            f_openWindow('/Resources/EquipFault/LoadFile/?frameid=' + frameId, '自助终端故障信息导入', 800, 350);
+        } 
+        function f_add() {
+           // f_openWindow('/Resources/EquipFault/edit/0', '添加菜单', 600, 350);
+            window.location.href = "/Resources/EquipFault/add/?id=0&frameid=" + frameId;
+        }
+        function f_modify() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (rowsdata.length != 1) {
+                $.ligerDialog.alert('请选择一行记录!');
+                return;
+            }
+            var id = rowsdata[0].Id;
+            //system/MenuEdit.aspx?CurID=' + id
+            window.location.href = "/Resources/EquipFault/modify/?id=" + id + "&frameid=" + frameId;
+            //f_openWindow('/Resources/EquipFault/edit/' + id, '修改菜单', 600, 350);
+        }
+        function f_delete() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            $.ligerDialog.confirm("是否确认删除?", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在删除中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                     $.ajax({
+                         type: "Post",
+                         cache: false,
+                        url: "/Resources/EquipFault/DeleteFalse/",
+                        data: "id=" + idStr,
+                        error: function () {
+                            $.ligerDialog.error("删除失败!<BR>");
+                            $.ligerDialog.closeWaitting();
+                        },
+                        success: function (data) {
+                            if (data.Type) {
+                                $.ligerDialog.success("删除成功");
+                            }
+                            else {
+                                $.ligerDialog.error("删除失败!<BR>" + data.Message);
+                            }
+                            $.ligerDialog.closeWaitting();
+                            f_reload();
+                        }
+                    });
+                } else {
+                    return;
+                }
+            });
+        }
+        $(function () {
+
+            f_setToolbar();
+            f_setGrid();
+        });
+        function f_setToolbar() {
+            SetButtons($("#toolbar"), "/system/menu/GetButton?menuid=20111018004212940642");
+        }
+        function f_setGrid() {
+            var fId = GetUrlParam('_menuid');
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '操作', isAllowHide: false,
+                    render: function (row) {
+                        var html = '<a href="#" onclick="parent.window.f_addTab(\'' + row.Id + '\',\'' + row.UseNetName + '\',\'/Resources/EquipFault/Display/?frameid=' + fId + '&id=' + row.Id + '\')">查看</a>';
+                        return html;
+                    }
+                },
+                { display: '网点名称', name: 'UseNetName', align: 'left', width: 180, minWidth: 60 },
+                { display: '所属区县', name: 'DistrictName', align: 'left', width: 180, minWidth: 60 },
+                { display: '维护单位', name: 'CompanyName', align: 'left', width: 180, minWidth: 60 },
+                { display: '终端ID', name: 'TermiId', align: 'left', width: 180, minWidth: 60 },
+                { display: '设备厂家', name: 'FactoryName', align: 'left', width: 180, minWidth: 60 },
+                { display: '故障申告日期', name: 'BreakDownDate',  align: 'left', width: 130, minWidth: 60 },
+                { display: '故障申告时间', name: 'BreakDownTime', align: 'left', width: 180, minWidth: 60 },
+                { display: '排障人员', name: 'TroubleShooter', align: 'left', width: 180, minWidth: 60 },
+                { display: '故障处理时长', name: 'HandleTime', align: 'left', width: 180, minWidth: 60 },
+                { display: '是否替换设备', name: 'IsReplace', type: 'bool', func: 'Whether', align: 'left', width: 180, minWidth: 60 }
+                
+                ], dataAction: 'server',
+                url: "/Resources/EquipFault/gridpager", sortName: 'id', sortOrder: 'desc',
+                width: '99%', height: '100%', pageSize: 30,
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+    </script>
+    <form id="form1" runat="server">
+    <div id="topmenu"></div>
+    <div id="toolbar"></div>
+    <div id="searchbar"></div>
+    <div id="maingrid"></div>
+    </form>

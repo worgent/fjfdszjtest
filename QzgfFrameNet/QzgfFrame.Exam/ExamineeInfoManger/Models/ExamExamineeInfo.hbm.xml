@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Exam.ExamineeInfoManger.Models" assembly="QzgfFrame.Exam">
+	<class name="QzgfFrame.Exam.ExamineeInfoManger.Models.ExamExamineeInfo,QzgfFrame.Exam" table="TAB_EXAMINEE_INFO">
+
+		<!-- Primary Key(s) -->
+		<id name="ID" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="FULLNAME" type="String" name="FullName" length="20" not-null="true" />
+    <property column="LOGINNAME" type="String" name="LoginName" length="20" not-null="true" />
+    <property column="PASSWORD" type="String" name="PassWord" length="256" not-null="true" />
+    <property column="SEX" type="short" name="Sex" not-null="true" />
+    <property column="IDCardNumber" type="String" name="IDCardNumber" length="18" not-null="true"/>
+    <property column="MobileNumber" type="String" name="MobileNumber" length="15" />
+    <property column="DIPLOMAID" type="String" name="DiplomaID" length="256" />
+    <property column="BIRTHDATE" type="DateTime" name="BirthDate"  not-null="true"/>
+    <property column="EXAMTYPEID" type="String" name="ExamTypeID" length="20"/>
+    <property column="REMARK" type="String" name="Remark" length="256"/>
+  </class>
+</hibernate-mapping>

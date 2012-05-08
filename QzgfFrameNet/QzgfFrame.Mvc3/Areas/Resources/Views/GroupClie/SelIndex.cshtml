@@ -1,0 +1,75 @@
+﻿<script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager = null;
+        var activeDialog = null;
+
+        function f_find() {
+            gridsearch = " and main.ClieName like '%"+$("#cliename").val()+"%'";
+            if (!gridManager) return;
+            gridManager.setOptions(
+                { parms: [{ name: 'gridsearch', value: gridsearch}] }
+             );
+            gridManager.loadData(true);
+        }
+        $(function () {            
+            f_setGrid();
+        });
+        function f_setGrid() {
+            var state = "";
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '集团客户编号', name: 'ClieNo', align: 'left', width: 130, minWidth: 60 },
+                { display: '集团客户名称', name: 'ClieName', align: 'left', width: 180, minWidth: 60 },
+                { display: '所在城市', name: 'CityName', align: 'left', width: 180, minWidth: 60 },
+                { display: '所在区县', name: 'DistrictName', align: 'left', width: 180, minWidth: 60 },
+                { display: '维护单位', name: 'CompanyName', align: 'left', width: 180, minWidth: 60 },
+                { display: '所属网格', name: 'GridName', align: 'left', width: 180, minWidth: 60 },
+                { display: '客户服务等级', name: 'ScaleGradeName', align: 'left', width: 180, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Resources/GroupClie/gridpager", sortName: 'Id',
+                width: '100%', pageSize: 10,height:'100%',
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+        function f_getdata() {
+            var manager = $("#maingrid").ligerGetGridManager();
+            //manager.getData();
+            var rowsdata = gridManager.getCheckedRows();
+            var strlen = rowsdata.length + parseInt($("#selLen").val());
+            
+           if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return null;
+            }
+            var ary = new Array();
+            //var idStr = "";
+            $(rowsdata).each(function (i, item) {
+                var clie = new Object();
+                clie["ID"] = this.Id;
+                clie["ClieNo"] = this.ClieNo;
+                clie["ClieName"] = this.ClieName;
+                ary.push(clie);
+            });
+            return ary;
+        }
+    </script>
+    <style>
+    #searchbar{margin:0px auto; width:100%; background:#F3F8F9;border-left: 1px solid #B6D3E0;border-bottom: 1px solid #B6D3E0;  border-right: 1px solid #B6D3E0; height:auto; line-height:auto;}
+    </style>
+    <form id="form1" runat="server">
+    <div id="searchbar">
+    <table width="100%"><tr><td width="100%">
+    客户名称：<input type="text" id="cliename" name="cliename"/>
+    <input type="button" value="查询" id="Button1" onclick="f_find()" class="sel_btn" /> </td></tr></table>
+    </div>
+    <div id="maingrid"></div> 
+    <input type="hidden" id="selmodel" value="@ViewData["model"]" />
+    <input type="hidden" id="selLen" value="@ViewData["strlen"]" />
+    </form>

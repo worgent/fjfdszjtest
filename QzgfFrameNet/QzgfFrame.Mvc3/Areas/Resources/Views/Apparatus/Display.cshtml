@@ -1,0 +1,109 @@
+﻿@model QzgfFrame.Resources.ApparatusManger.Models.ResourceApparatus
+@{
+    
+    ViewBag.Title = "Register";
+}   
+@using (Html.BeginForm("Edit", "Apparatus", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font" width="10%">二维码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.HiddenFor(m => m.Id)
+                    @Model.TwoDimensionalCode 
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    </td>
+                    <td class="Right_font">所属地市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["city"]
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Right_font">所属县区：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["district"]
+                    </td> 
+                    <td class="Right_font">所属公司：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["company"]
+                   </td>
+                </tr> 
+                
+                <tr>
+                    <td class="Right_font">所属驻点：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["stagnation"]
+                    </td>
+                    <td class="Right_font">所属网格：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font"> 
+                    @ViewData["grid"]                     
+                    </td> 
+                </tr> 
+                 <tr>
+                    <td class="Right_font">维护专业：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["maintainSpecialty"]
+                     </td>
+                    <td class="Right_font">序列号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.SeqNo 
+                   
+                    </td> 
+                </tr>
+                <tr>
+                    
+                    <td class="Right_font">用 途：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    @ViewData["use"]
+                       </td>
+                    <td class="Right_font">状 态：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["meterState"]
+                     </td>
+                </tr>  
+                 <tr>
+                    <td class="Right_font">仪表厂商：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" colspan="3">
+                    
+                    @Model.ManuFacturer 
+                    </td> 
+                   
+                </tr> 
+                 <tr>
+                 
+                    <td class="Right_font">仪表名称：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.MeterName 
+                    </td>
+                    <td class="Right_font">仪表型号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    @Model.MeterModel 
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Model.Remark 
+                    </td> 
+</tr></tbody>
+</table>  
+ 
+    </div> 
+    }

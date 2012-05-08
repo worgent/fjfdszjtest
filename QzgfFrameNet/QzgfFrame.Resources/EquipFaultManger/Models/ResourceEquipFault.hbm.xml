@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.EquipFaultManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.EquipFaultManger.Models.ResourceEquipFault,QzgfFrame.Resources" table="tab_equip_fault">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20" >
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <property column="NoticeDateTime" type="DateTime" name="NoticeDateTime"  not-null="true"/>	
+    <property column="ReachDatetime" type="DateTime" name="ReachDatetime"  />
+    <property column="SolveDatetime" type="DateTime" name="SolveDatetime"  /> 
+		<property column="HandleTime" type="String"  length="8" name="HandleTime" />
+    <property column="TroubleShooter" type="String" name="TroubleShooter" length="30" not-null="true"/>
+    <property column="Description" type="String" name="Description" length="256"/>
+		<property column="HandleProcess" type="String" name="HandleProcess" length="256" /> 
+		<property column="HandleResult" type="String" name="HandleResult" length="256" />
+		<property column="IsReplace" type="short" name="IsReplace"  not-null="true"/>
+		<property column="Remark" type="String" name="Remark" length="256" />
+		<property column="ComponentId" type="String" name="ComponentId" length="20" not-null="true"/> 
+		<property column="BreakdownTypeId" type="String" name="BreakdownTypeId" length="20" not-null="true"/>
+		<property column="SelfHelpEquipId" type="String" name="SelfHelpEquipId" length="20" />
+    <property column="ClieTel" type="String" name="ClieTel" length="15" not-null="true"/>
+    <property column="UseNetNo" type="String" name="UseNetNo" length="7" />
+    <property column="UseNetName" type="String" name="UseNetName" length="50" not-null="true"/>
+    <property column="TermiId" type="String" name="TermiId" length="20" not-null="true"/>
+    <property column="DistrictId" type="String" name="DistrictId" length="20" not-null="true"/>
+    <property column="FactoryId" type="String" name="FactoryId" length="20" not-null="true"/>
+    <property column="EquipModelName" type="String" name="EquipModelName" length="100" not-null="true"/>
+    <property column="CompanyId" type="String" name="CompanyId" length="20" not-null="true"/>
+    <property column="State" type="short" name="State"  />
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  not-null="true"/>
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate"  not-null="true"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+  </class>
+</hibernate-mapping>

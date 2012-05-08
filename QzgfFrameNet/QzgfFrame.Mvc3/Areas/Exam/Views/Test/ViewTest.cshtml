@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Exam.TestManger.Models.TestContent
+@{
+    
+    ViewBag.Title = "Register";
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="../../../../Content/Lib/css/Exam/ViewTest.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/plugins/ligerLayout.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/test.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //debugger;
+    </script> 
+</head>
+<body>
+    <div>
+        <!--------头部部分-------->
+        <div id="top" class="top">
+            <div id="testname" class="testname">
+                <span class="testnametxt">@Model.ExamTestContent.Name</span></div>
+            <div id="testpoints" class="testpoints">
+                <table class="testpoints_table">
+                    <tr>
+                        <td class="testpoints_table_td">
+                            试卷总分：@Model.ExamTestContent.Points
+                        </td>
+                        <td class="testpoints_table_td">
+                            试卷类型：@Model.TestType
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!--------头部部分-------->
+        <!--------试题预览部分-------->
+        <div id="preview" class="papers">
+            @{var l = 1;}
+            @foreach (var n in Model.TestSubjectsType as IList<QzgfFrame.Exam.TestSubjectTypeManger.Models.TestSubjectType>)
+            {
+                var previewtype = "previewtype" + l;
+                <ul id="@previewtype">
+                    <li class="li_tt">@n.ExamTestSubjectType.TypeName</li>
+                    @{var h = 1;}
+                    @{foreach (var m in n.TestSubjects as IList<QzgfFrame.Exam.TestSubjectManger.Models.ExamTestSubject>)
+                      {
+                          var previewsubject = "previewsubject" + h;
+                          var MultipleAnswerName = "MultipleAnswerName" + h;
+                          var JudgesAnswerName = "JudgesAnswerName" + h;
+                          var judgesTrue = "judgesTrue" + h;
+                          var judgesFalse = "judgesFalse" + h;  
+                        <li id="@previewsubject" class="li_bc">
+                            <table>
+                                <tr>
+                                    <td class="td_Qnumber" valign="top">@m.OrderNo．
+                                    </td>
+                                    <td>@n.SubjectContents[h - 1].ExamSubContent.Content <span style="color: Red">(@m.Score
+                                        分)</span>
+                                    </td>
+                                </tr>
+                                @{var type = n.SubjectContents[h - 1].SubjectType;
+                                  var g = 1; var testSignItemn = "";
+                                  switch (type)
+                                  {
+                                      case "选择题":
+                                          var Multiples = n.SubjectContents[h - 1].MultipleSubject as IList<QzgfFrame.Exam.MultipleSubjectManger.Models.ExamMultipleSubject>;
+                                          var multiplesAnswer = "";
+                                          foreach (var o in Multiples)
+                                          {
+                                              var multiplesOrderNo = "subjectOrderNo" + g;
+                                              var MultipleAnswerID = "MultipleAnswerID" + g;
+                                              testSignItemn = "testSignItemn" + g; var No = "";
+                                    <tr id='@testSignItemn'>
+                                        <td>
+                                            <input name='@multiplesOrderNo' type='hidden' id='@multiplesOrderNo' value="@o.OrderNo"  />
+                                        </td>
+                                        @{switch (@o.OrderNo)
+                                          {
+                                              case "1": { No = "A："; break; }
+                                              case "2": { No = "B："; break; }
+                                              case "3": { No = "C："; break; }
+                                              case "4": { No = "D："; break; }
+                                              case "5": { No = "E："; break; }
+                                              case "6": { No = "F："; break; }
+                                              case "7": { No = "G："; break; }
+                                              case "8": { No = "H："; break; }
+                                              case "9": { No = "I："; break; }
+                                              case "10": { No = "J："; break; }
+                                              case "11": { No = "K："; break; }
+                                              case "12": { No = "L："; break; }
+                                              case "13": { No = "M："; break; }
+                                              case "14": { No = "N："; break; }
+                                              case "15": { No = "O："; break; }
+                                              case "16": { No = "P："; break; }
+                                              case "17": { No = "Q："; break; }
+                                              case "18": { No = "R："; break; }
+                                          }
+                                        }
+                                        <td>@No<input name='@MultipleAnswerName'  id='@MultipleAnswerID'  type="radio" />@o.MultipleContent
+                                        </td>
+                                    </tr>
+                                                                                                                    if (o.Answer == true)
+                                                                                                                    {
+                                                                                                                        multiplesAnswer = o.OrderNo;
+                                                                                                                        switch (multiplesAnswer)
+                                                                                                                        {
+                                                                                                                            case "1": { multiplesAnswer = "A"; break; }
+                                                                                                                            case "2": { multiplesAnswer = "B"; break; }
+                                                                                                                            case "3": { multiplesAnswer = "C"; break; }
+                                                                                                                            case "4": { multiplesAnswer = "D"; break; }
+                                                                                                                            case "5": { multiplesAnswer = "E"; break; }
+                                                                                                                            case "6": { multiplesAnswer = "F"; break; }
+                                                                                                                            case "7": { multiplesAnswer = "G"; break; }
+                                                                                                                            case "8": { multiplesAnswer = "H"; break; }
+                                                                                                                            case "9": { multiplesAnswer = "I"; break; }
+                                                                                                                            case "10": { multiplesAnswer = "J"; break; }
+                                                                                                                            case "11": { multiplesAnswer = "K"; break; }
+                                                                                                                            case "12": { multiplesAnswer = "L"; break; }
+                                                                                                                            case "13": { multiplesAnswer = "M"; break; }
+                                                                                                                            case "14": { multiplesAnswer = "N"; break; }
+                                                                                                                            case "15": { multiplesAnswer = "O"; break; }
+                                                                                                                            case "16": { multiplesAnswer = "P"; break; }
+                                                                                                                            case "17": { multiplesAnswer = "Q"; break; }
+                                                                                                                            case "18": { multiplesAnswer = "R"; break; }
+                                                                                                                        }
+                                                                                                                    }
+
+                                                                                                                    g++;
+                                          }
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td>
+                                            <div>
+                                                参考答案：<span style="color: Red">@multiplesAnswer</span></div>
+                                        </td>
+                                    </tr>
+                                                                         break;
+                                      case "填空题":
+                                                                         var FillBlanks = n.SubjectContents[h - 1].FillBlanksSubject as IList<QzgfFrame.Exam.FillBlanksSubjectManger.Models.ExamFillBlanksSubject>;
+                                                                         foreach (var o in FillBlanks)
+                                                                         {
+                                                                             var fillblanksOrderNo = "subjectOrderNo" + g; var fillblanksAnswer = "fillblanksAnswer" + g;
+                                                                             testSignItemn = "testSignItemn" + g;
+                                    <tr id='@testSignItemn'>
+                                        <td>
+                                            <input name='@fillblanksOrderNo' type='hidden' id='@fillblanksOrderNo' value="@o.OrderNo"  />
+                                        </td>
+                                        <td>
+                                            (@o.OrderNo)．<input name='@fillblanksAnswer' id='@fillblanksAnswer' type='text' size='50'/>
+                                        </td>
+                                    </tr>
+                                                                                        g++;
+                                                                         }
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td>
+                                            <div>
+                                                @{foreach (var o in FillBlanks)
+                                                  {
+                                                    <div class="fillanswer">
+                                                        (@o.OrderNo)．参考答案：<span style="color: Red">@o.Answer</span></div>
+                                                  }
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                  break;
+                                      case "判断题":
+                                                  var Judges = n.SubjectContents[h - 1].JudgeSubject as IList<QzgfFrame.Exam.JudgeSubjectManger.Models.ExamJudgeSubject>;
+                                                  var judgesAnswer = "";
+
+                                                  foreach (var o in Judges)
+                                                  {
+                                                      testSignItemn = "testSignItemn" + g;
+                                    <tr id='@testSignItemn'>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td>
+                                            <input name='@JudgesAnswerName'  id='@judgesTrue'  type="radio"  />正确<input  name='@JudgesAnswerName'  id='@judgesFalse'  type="radio"  />错误
+                                        </td>
+                                    </tr>
+                                                                                                                                                  if (o.Answer == true) { judgesAnswer = "正确"; }
+                                                                                                                                                  else { judgesAnswer = "错误"; }
+                                                                                                                                                  g++;
+                                                  }
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td>
+                                            <div>
+                                                参考答案: <span style="color: Red">@judgesAnswer</span></div>
+                                        </td>
+                                    </tr>
+                                                                          break;
+                                  }
+                                }
+                            </table>
+                        </li>
+                                  h++;
+                      }
+                    }
+                </ul>
+                      l++;
+            }
+        </div>
+        <!--------试题预览部分-------->
+    </div>
+</body>
+</html>

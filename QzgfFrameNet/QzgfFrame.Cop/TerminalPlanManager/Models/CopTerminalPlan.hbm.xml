@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Cop.TerminalPlanManager.Models" assembly="QzgfFrame.Cop">
+  <class name="QzgfFrame.Cop.TerminalPlanManager.Models.CopTerminalPlan,QzgfFrame.Cop" table="tab_cop_terminalplan">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="SelfHelpEquipId" type="String" name="SelfHelpEquipId" length="50" />
+    <property column="StartTerminalTime" type="String" name="StartTerminalTime" length="50"/>
+    <property column="NextTerminalTime" type="String" name="NextTerminalTime" length="50"/>
+    <property column="TerminalTimeId" type="String" name="TerminalTimeId" length="50" />
+    <property column="TerminalTime" type="String" name="TerminalTime" length="50" />
+    <property column="IsDelete" type="int" name="IsDelete" not-null="true"/>
+    <property column="CreationTime" type="DateTime" name="CreationTime"/>
+    <property column="DeleteTime" type="DateTime" name="DeleteTime"/>
+  </class>
+</hibernate-mapping>

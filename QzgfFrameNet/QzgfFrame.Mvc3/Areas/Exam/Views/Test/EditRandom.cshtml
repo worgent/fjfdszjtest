@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Exam.GetSubjectManger.Models.GetSubject
+@{   
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Lib/css/autoSearchText.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/plugins/ligerLayout.js" type="text/javascript"></script>  
+    <script src="../../../../Lib/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script> 
+    <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/test.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Exam/EditRandom.js" type="text/javascript"></script>  
+
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("EditRandom", "Test", FormMethod.Post, new {name = "newForm", id = "newForm" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+       <div style=" width:45%">
+       @Html.HiddenFor(m => m.CreatorID)
+           <table cellpadding="0" border="0" cellspacing="0"class="edittable">
+             <tr>
+               <td class="Right_font" style=" width:23%" >所属分类：</td>
+               <td class="Left_font" style=" width:auto">@Html.DropDownListFor(m => m.CourseTypeID, (SelectList)ViewBag.selcourseType)</td>
+             </tr>
+           </table>
+           <table border="0" cellpadding="2" cellspacing="1" id="subjectFrame" class="com_tab">
+                 <tr class="hno">
+                    <td style="width:5%">顺序：</td>
+                    <td style="width:15%">题型名称：</td>
+                    <td style="width:25%">题型数量：</td>
+                    <td style="width:25%">每小题分值：</td>
+                    <td style="width:30%"><div align='center'><input type="button" name="Submit" value="新增选项" onclick="AddGetSubjectRow()" /></div></td> 
+                 </tr>
+                    @{var j = 1;}
+                    @foreach (var n in Model.ExamGetSubject as IList<QzgfFrame.Exam.GetSubjectManger.Models.ExamGetSubject>)
+                    {
+                        var OrderNo = "OrderNo" + j; var SubjectTypeName = "SubjectTypeName" + j; var SubjectTypeNumber = "SubjectTypeNumber" + j;
+                        var SubjectTypeScore = "SubjectTypeScore" + j; var SignItemn = "SignItem" + j;
+         
+                 <tr id='@SignItemn' class="bno">
+                        <td><input size='5' name='@OrderNo' type='text' id='@OrderNo' value='@n.OrderNo' readonly="readonly"/></td>
+                        <td><select id='SubjectTypeName' name='SubjectTypeName'><option>选择题</option><option>填空题</option><option>判断题</option></select></td>
+                        <td><input name='@SubjectTypeNumber' id='@SubjectTypeNumber' type='text'value="@n.SubjectTypeNumber" onkeyup="f_onkeyup('@n.OrderNo','2')"/></td>     
+                        <td><input name='@SubjectTypeScore' id='@SubjectTypeScore' type='text' value="@n.SubjectTypeScore" onkeyup="f_onkeyup('@n.OrderNo','3')"/></td>                         
+                        
+                        @if (Model.ExamGetSubject.Count > 1)
+                        {
+                            <td><div align='center'><a href='javascript:;' id='Del' onclick="DeleteGetSubjectRow('@SignItemn')">删除</a></div></td>
+                        }
+                        else
+                        {
+                            <td><div align='center'></div> </td>
+                            
+                        }                        
+                 </tr>
+                        j++;
+                    }
+           </table>
+                 <input name='txtTRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+                 @Html.HiddenFor(m => m.getsubjects)
+           <table width="100%">
+             <tr>
+               <td style="width:21%"></td>
+               <td><input type="submit" value="提 交" id="Button1" class="l-button l-button-submit" /> 
+                   <input type="button" value="返 回" class="l-button l-button-test" onclick="f_windowclose()"/>
+               </td>
+             </tr>
+           </table>                
+
+       </div> 
+}
+    
+</body>
+</html>

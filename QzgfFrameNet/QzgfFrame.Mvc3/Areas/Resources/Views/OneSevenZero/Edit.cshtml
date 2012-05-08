@@ -1,0 +1,605 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+@model QzgfFrame.Resources.OneSevenZeroManger.Models.OneSevenZeroLine
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/OneSevenZero.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Lib/css/autoSearchText.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../lib/jquery-validation/addmethod.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Resources/OneSevenZeroLine.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.autoSearchText.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //var CurID =  <%=CurID %>;
+        var Validator = null;
+        var FactoryList = null;
+        var EquipModelList = null;
+        $(function () {
+            $('#uploadfile').MultiFile({
+                list: '#filelist'
+            });
+            f_changebiztype();
+            f_changemode();
+            $("#Line_DediLine_BizTypeId").change(function () {
+                f_changebiztype();
+            });
+            $("#Line_DediLine_NetWorkingModeId").change(function () {
+                f_changemode();
+            });
+            var options = {
+                dataType: 'json',
+                beforeSubmit: showRequest,
+                error: showError,
+                success: showResponse
+            };
+            $('#newForm').ajaxForm(options);
+            $.getJSON('/Archives/EquipModel/GetDropDownList/', { Rnd: Math.random() }, function (data) {
+                FactoryList = eval("(" + data.Rows[0] + ")");
+                EquipModelList = eval("(" + data.Rows[1] + ")");
+            });
+            //验证
+            $.metadata.setType("attr", "validate");
+            $("#newForm").ligerForm();
+            deafultValidate($("#newForm"));
+            Validator = $("#newForm").validate();
+        });
+        function f_changebiztype() {
+            var selBizType = $("#Line_DediLine_BizTypeId").find("option:selected").text();
+            var number = document.getElementById("number");
+            var numberhead = document.getElementById("numberhead");
+            if (selBizType == "IMS专线") {
+                number.style.display = "block";
+                numberhead.style.display = "block";
+            }
+            else {                
+                number.style.display = "none";
+                numberhead.style.display = "none";
+            }
+        }
+        function f_changemode() {
+            var selmode = $("#Line_DediLine_NetWorkingModeId").find("option:selected").text();
+            var bizcomroom = document.getElementById("bizcomroom");
+            var citynet = document.getElementById("citynet");
+            var aciytnett = document.getElementById("aciytnett");
+            var zstation = document.getElementById("zstation");
+            var ddf = document.getElementById("ddf");
+            if (selmode == "MSTP" || selmode == "MSAP") {
+                bizcomroom.style.display = "none";
+                citynet.style.display = "block";
+                aciytnett.style.display = "block";
+                zstation.style.display = "block";
+                ddf.style.display = "none";
+            }
+            if (selmode == "协转") {
+                bizcomroom.style.display = "none";
+                citynet.style.display = "block";
+                aciytnett.style.display = "block";
+                zstation.style.display = "block";
+                ddf.style.display = "block";
+            }
+            if (selmode == "PON") {
+                bizcomroom.style.display = "block";
+                citynet.style.display = "block";
+                aciytnett.style.display = "none";
+                zstation.style.display = "none";
+                ddf.style.display = "none";
+            }
+            if (selmode == "裸纤") {
+                bizcomroom.style.display = "none";
+                citynet.style.display = "none";
+                aciytnett.style.display = "none";
+                zstation.style.display = "none";
+                ddf.style.display = "none";
+            }
+        }
+        function showRequest(formData, jqForm, options) {
+            if (!Validator.form()) return false;
+            var selBizType = $("#Line_DediLine_BizTypeId").find("option:selected").text();
+            $("#Line_forces").val(JSON2.stringify(GetCoreRow()));
+            $("#Line_delArys").val(delary);
+            $("#Line_equips").val(JSON2.stringify(GetEquipRow()));
+            if (selBizType == "IMS专线") {
+                $("#Line_numbers").val(JSON2.stringify(GetNumberRow()));
+            }
+            $.ligerDialog.waitting("正在保存中...");
+            return true;
+        }
+        function showError(data) {
+            $.ligerDialog.error(data.Message, function () {
+            }); 
+        }
+        function showResponse(data, status) {
+            if (data.Type) {
+                //$.ligerDialog.success(data.Message);
+                $.ligerDialog.success('保存成功!', function () {
+                    window.location.href = "/Resources/OneSevenZero/";
+                }); 
+            }
+            else {
+                $.ligerDialog.closeWaitting();
+                $.ligerDialog.error(data.Message, function () {
+                }); 
+            }
+        }
+
+        /*加载数据设备型号信息*/
+        function getData(val) {
+            var arrData = new Array();
+            if (val != "") {
+                $.ajax({
+                    type: "post",
+                    async: false, //控制同步
+                    url: "/Archives/EquipModel/GetEquipModel/",
+                    data: "list=" + val,
+                    dataType: "json",
+                    cache: false,
+                    success: function (data) {
+                        var strdata = data.Data;
+                        for (var i = 0; i < strdata.length; i++) {
+                            var objData = new Object();
+                            var strid = [];
+                            var strval = val.toLowerCase();
+                            var strmodelName = (strdata[i].modelName).toLowerCase();
+                            if (strmodelName.indexOf(strval) >= 0) {
+                                strid.push(strdata[i].Id); 
+                                strid.push(strdata[i].typeId);
+                                strid.push(strdata[i].factoryId);
+                                objData["id"] = strid;
+                                objData["Code"] = strdata[i].modelName;
+                                arrData.push(objData);
+                            }
+                        }
+                    },
+                    Error: function (err) {
+                        $.ligerDialog.error(err, function () {
+                        }); 
+                    }
+                });
+            }
+            return arrData;
+        }
+
+        function f_windowclose() {
+            window.location.href = "/Resources/OneSevenZero/";
+        } 
+    </script>
+</head>
+<body style=" padding:1px;">
+<div id="autoSearch"><ul class="menu_v"></ul></div>
+<div>
+<table width="100%"  class="out_div"><tr>
+<td style=" margin-top:0px; padding-top:0px;top:0px; vertical-align:top;width:500px;">
+    <table cellspacing="1" cellpadding="0" width="100%" style="border:solid #93c7e3 1px;"  align="center">
+            <tbody>
+            <tr><td colspan="4">
+             <table border="0" cellspacing="1" cellpadding="1" bgcolor="#b1ccd1"  width="100%" >
+              <tbody>
+              <tr>
+                <td class="tit" colspan="4"  align="center">客户单位信息</td></tr>
+              <tr>
+              
+                <td class="Right_font" bgcolor="#ffffff" width="15%"  align="left">集团编码</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.GroupId</td>
+                <td class="Right_font" bgcolor="#ffffff" width="15%" align="left">客户单位名称</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff" align="left">@Model.OneSevenZero.ClientCompanyName </td></tr>
+             
+            <tr>
+                <td class="Right_font" bgcolor="#ffffff" width="15%"  align="left">通信地址</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff" colspan="4" align="left">@Model.OneSevenZero.CommunicateAddress</td></tr>
+              <tr>
+                <td class="Right_font" bgcolor="#ffffff" width="15%"  align="left">重要级别</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.ImportLevel</td>
+                <td class="Right_font" bgcolor="#ffffff" width="15%"  align="left">客户星级</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff" align="left">@Model.OneSevenZero.ClientGrade</td></tr>
+                
+              <tr>
+                <td class="Right_font" bgcolor="#ffffff" width="15%"  align="left">业务保障等级</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.EnsureGrade</td>
+                <td class="Right_font" bgcolor="#ffffff" width="15%"  align="left">业务类型</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.OperationType</td></tr>
+            
+              <tr>
+                <td class="Right_font" bgcolor="#ffffff" width="25%"  align="left">客户经理姓名</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff" align="left">@Model.OneSevenZero.Name</td>
+                <td class="Right_font" bgcolor="#ffffff" width="25%"  align="left">客户经理联系电话</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff" align="left">@Model.OneSevenZero.ManagerTel</td></tr>
+             </tbody>
+    </table>
+    </td></tr>
+    <tr ><td class="tit" align="center" colspan="4">IP信息</td></tr>
+     <tr><td colspan="4">
+     <table border="0" cellspacing="0" cellpadding="1" width="100%" ><tr>
+     <td class="Right_font" bgcolor="#eff7fc" align="right" width="10%">VLAN号</td>
+  <td align="left" style="PADDING-LEFT: 10px"  class="Left_font"> @Model.OneSevenZero.VLAN</td>
+   <td class="Right_font" bgcolor="#eff7fc" align="right" width="15%"> 网关地址</td>
+   <td align="left" style="PADDING-LEFT: 10px"  class="Left_font"> @Model.OneSevenZero.ClientGateway</td>
+   </tr><tr>
+   <td class="Right_font" bgcolor="#eff7fc" align="right" width="15%"> 客户IP地址 </td> 
+   <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">  @Model.OneSevenZero.ClientIp</td>
+   <td class="Right_font" bgcolor="#eff7fc" align="right" width="15%"> 子网掩码</td> 
+   <td align="left" style="PADDING-LEFT: 10px"  class="Left_font"> @Model.OneSevenZero.ClientSubnetMask
+    </td></tr></table>
+    </td></tr> 
+    <tr><td colspan="4">
+             <table border="0" cellspacing="1" cellpadding="1" bgcolor="#b1ccd1"  width="100%" >
+              <tr>
+                <td class="tit" colspan="4"  align="center">【竣工验收通过，县市专线建设管理员提交维护文档】</td></tr>   
+        <tr>
+                <td class="Right_font" width="25%"  align="left">城域网传输设备（或A端传输设备）</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.WanEquipment</td>
+                <td class="Right_font"  width="25%"  align="left">城域网传输设备端口（或A端传输设备端口）</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.WanEquipmentPort</td></tr>
+         <tr>
+                <td class="Right_font" width="25%"  align="left">带宽</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.Bandwidth</td>
+                <td class="Right_font"  width="25%"  align="left">电路编号</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.CircuitNo</td></tr>
+         <tr>
+                <td class="Right_font" width="25%"  align="left">基站端传输设备</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.TransfersEquipment</td>
+                <td class="Right_font"  width="25%"  align="left">基站端传输设备端口</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.TransfersEquipmentPort</td></tr>
+        <tr>
+                <td class="Right_font" width="25%"  align="left">纤芯资料</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff" colspan="4" align="left">@Model.OneSevenZero.CoreInformation</td></tr>
+        <tr>
+                <td class="Right_font" width="25%"  align="left">组网方式</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.OrgNetMode</td>
+                <td class="Right_font"  width="25%"  align="left">接入基站</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.AccessToTheBasestation</td></tr>
+    <tr>
+                <td class="Right_font" width="25%"  align="left">城域网BOSS专线汇聚设备厂家及型号</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff" colspan="4" align="left">@Model.OneSevenZero.WanBossFactoryMode</td></tr>
+     <tr><td colspan="4"  class="ltab">
+     <table width="100%"  ><tr width="100%" class="hno"><td  >用户端设备厂家</td><td >用户端设备型号</td>
+     </tr>
+     @{ if (Model.OneSevenZero.UserFirstFactory != null && @Model.OneSevenZero.UserFirstMode != null)
+        {
+     <tr><td>@Model.OneSevenZero.UserFirstFactory</td><td>@Model.OneSevenZero.UserFirstMode</td></tr>
+        }
+        if (Model.OneSevenZero.UserSencodeFactory != null && @Model.OneSevenZero.UserSencodeMode != null)
+        {
+     <tr><td>@Model.OneSevenZero.UserSencodeFactory</td><td>@Model.OneSevenZero.UserSencodeMode</td></tr>
+        }
+         if (Model.OneSevenZero.UserThirdFactory != null && @Model.OneSevenZero.UserThirdMode != null)
+        {
+     <tr><td>@Model.OneSevenZero.UserThirdFactory</td><td>@Model.OneSevenZero.UserThirdMode</td></tr>
+        }
+         if (Model.OneSevenZero.UserFourFactory != null && @Model.OneSevenZero.UserFourMode != null)
+        {
+     <tr><td>@Model.OneSevenZero.UserFourFactory</td><td>@Model.OneSevenZero.UserFourMode</td></tr>
+        }
+         if (Model.OneSevenZero.UserFiveFactory != null && @Model.OneSevenZero.UserFiveMode != null)
+        {
+     <tr><td>@Model.OneSevenZero.UserFiveFactory</td><td>@Model.OneSevenZero.UserFiveMode</td></tr>
+        }
+     <tr width="100%" class="hno"><td  >基站端专线接入设备厂家</td><td  >基站端专线接入设备型号</td>
+     </tr>
+         if (Model.OneSevenZero.BasestationFirstFactory != null && @Model.OneSevenZero.BasestationFirstMode != null)
+         {
+     <tr><td>@Model.OneSevenZero.BasestationFirstFactory</td><td>@Model.OneSevenZero.BasestationFirstMode</td></tr>
+         }
+         if (Model.OneSevenZero.BasestationSencodeFactory != null && @Model.OneSevenZero.BasestationSencodeMode != null)
+         {
+     <tr><td>@Model.OneSevenZero.BasestationSencodeFactory</td><td>@Model.OneSevenZero.BasestationSencodeMode</td></tr>
+         }}
+         </table> 
+     
+     </td></tr>
+     <tr>
+                <td class="Right_font" width="25%"  align="left">集团客户所属网格</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.GroupinNet</td>
+                <td class="Right_font"  width="25%"  align="left">维护单位</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.MaintenanceCompany</td></tr>
+     <tr>
+                <td class="Right_font" width="25%"  align="left">是否完成综维预移交</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.IsIntegrateBeforeHand</td>
+                <td class="Right_font"  width="25%"  align="left">是否完成综维正式移交</td>
+                <td style="PADDING-LEFT: 10px" class="Left_font" bgcolor="#ffffff"  align="left">@Model.OneSevenZero.IsIntegrateIndue</td></tr>
+       
+    </table></td></tr>
+            </tbody>
+        </table>
+
+</td>
+<td style="width: 17px; height: 100%" class="out_div_M">
+                &nbsp;
+            </td>
+<td style=" margin-top:0px; padding-top:0px;top:0px; vertical-align:top;width:auto;">
+@using (Html.BeginForm("EditOneSevenZero", "DedicateLine", FormMethod.Post, new { enctype = "multipart/form-data", name = "newForm", id = "newForm" }))
+{
+    <table cellspacing="1" cellpadding="0" border="0" width="100%" style="border:solid #93c7e3 1px;"  align="center">
+           <tr><td colspan="4">
+  <table  cellspacing="1" cellpadding="1" border="0" width="100%" bgcolor="#b1ccd1">
+  <tr>
+    <td class="ywtit" colspan="2" align="right">
+    业务类型:</td><td class="ywtit" colspan="2" align="left">@Html.DropDownList("Line.DediLine.BizTypeId", (SelectList)ViewData["selbiztype"], new { ltype = "select" }) </td></tr>
+    <tr>
+    <td colspan="4" align="center"><font color="red"> @ViewData["displyMsg"]  </font> </td></tr>
+    <tr>          
+    <td class="Right_font"  align="right"  width="15%" >集团编号</td>
+    <td style="PADDING-LEFT: 10px"  class="Left_font"> @Html.TextBoxFor(m => m.Line.ClieNo, new { size = "20", maxlength = "15", ltype = "text", validate = "{required:true,minlength:1,maxlength:15}" })</td>
+    <td class="Right_font" bgcolor="#eff7fc" align="right"  width="15%" >集团名称 <span class="l-verify-star">*</span></td>
+    <td colspan="3" style="PADDING-LEFT: 10px" class="Left_font"> @Html.TextBoxFor(m => m.Line.ClieName, new { size = "30", ltype = "text", validate = "{required:true,minlength:1,maxlength:100}" })
+    @Html.HiddenFor(m => m.Line.DediLine.Id)
+    @Html.HiddenFor(m => m.OneSevenZero.Id)
+    @Html.HiddenFor(m => m.Line.DediLine.State)
+    @Html.HiddenFor(m => m.Line.DediLine.ClieId) </td>
+    </tr>
+    <tr>
+    <td class="Right_font" bgcolor="#eff7fc" align="right"  width="15%" >组网方式 <span class="l-verify-star">*</span></td>
+    <td colspan="3" style="PADDING-LEFT: 10px"  class="Left_font"> @Html.DropDownList("Line.DediLine.NetWorkingModeId", (SelectList)ViewData["selnetwork"], new { ltype = "select" }) </td>
+    </tr>
+    
+    <tr>
+    <td class="Right_font" bgcolor="#eff7fc" align="right">业务保障等级 <span class="l-verify-star">*</span></td>
+    <td style="PADDING-LEFT: 10px" class="Left_font"> @Html.DropDownList("Line.DediLine.BizAssuranLeveId", (SelectList)ViewData["selbizassuran"], new { ltype = "select" }) </td>
+    <td class="Right_font" bgcolor="#eff7fc" align="right">实际带宽 <span class="l-verify-star">*</span> </td>
+    <td class="Left_font"><table style="width:100%"><tr> <td > @Html.TextBoxFor(m => m.Line.DediLine.ActualBandwidth, new { ltype = "text", validate = "{required:true,minlength:1,maxlength:2,number: true}" })</td>
+    <td style="width:60%; text-align:left;">M</td></tr></table>
+    </td>
+    </tr>
+    </table>
+    </td></tr>
+    
+    <tr ><td class="tit" align="center" colspan="4">IP信息</td></tr>
+     <tr><td colspan="4">
+     <table border="0" cellspacing="0" cellpadding="1" width="100%" ><tr>
+     <td class="Right_font" bgcolor="#eff7fc" align="right" width="10%">VLAN号 <span class="l-verify-star">*</span></td>
+  <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">  @Html.TextBoxFor(m => m.Line.DediLine.VLANNumber, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:20}" })</td>
+   <td class="Right_font" bgcolor="#eff7fc" align="right" width="15%"> 网关地址 <span class="l-verify-star">*</span></td>
+   <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">   @Html.TextBoxFor(m => m.Line.DediLine.GateWay, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:20,isIP:true}" })</td>
+   </tr><tr>
+   <td class="Right_font" bgcolor="#eff7fc" align="right" width="15%"> 客户IP地址 <span class="l-verify-star">*</span></td> 
+   <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">   @Html.TextBoxFor(m => m.Line.DediLine.IP, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:20,isIP:true}" })</td>
+   <td class="Right_font" bgcolor="#eff7fc" align="right" width="15%"> 子网掩码 <span class="l-verify-star">*</span></td> 
+   <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">    @Html.TextBoxFor(m => m.Line.DediLine.SubnetMask, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:20,isIP:true}" })
+    </td></tr></table>
+    </td></tr>
+    <tr id="zstation" style="width:100%"><td colspan="4">
+    <table border="0" cellspacing="0" cellpadding="1" width="100%" >
+    <tr><td class="tit" align="center"  colspan="4" width="800px;">基站端传输（Z端）</td></tr>
+    <tr>
+<td class="Right_font" bgcolor="#eff7fc" align="right"  width="15%"> 接入基站名称<span class="l-verify-star">*</span> </td> 
+  <td align="left" style="PADDING-LEFT: 10px"  class="Left_font"> @Html.TextBoxFor(m => m.Line.DediLine.StationName, new { ltype = "text", validate = "{required:true,minlength:1,maxlength:20}" })</td> 
+    <td class="Right_font" bgcolor="#eff7fc" align="right"  width="20%"> 基站传输设备及端口<span class="l-verify-star">*</span> </td>  
+   <td align="left" style="PADDING-LEFT: 10px" class="Left_font"> @Html.TextBoxFor(m => m.Line.DediLine.StationTEquipAndPort, new { ltype = "text", validate = "{required:true,minlength:1,maxlength:80}" })</td> 
+  </tr>
+<tr> 
+<td class="Right_font" bgcolor="#eff7fc" align="right">  电路编号<span class="l-verify-star">*</span></td>  
+   <td align="left" colspan="3" style="PADDING-LEFT: 10px"  class="Left_font"> @Html.TextBoxFor(m => m.Line.DediLine.CircuitNumber, new { ltype = "text", validate = "{required:true,minlength:1,maxlength:40}" })</td> 
+</tr>
+</table>
+    </td></tr>
+     <tr id="aciytnett"><td colspan="4" width="100%">
+    <table border="0" cellspacing="0" cellpadding="1" width="100%">
+    <tr><td class="tit" align="center"  colspan="4" width="800px;">城域网传输（A端）</td></tr>
+    <tr><td class="Right_font" bgcolor="#eff7fc" align="right" width="15%">机房传输设备</td>
+    <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">@Html.TextBoxFor(m => m.Line.DediLine.ComputRoomtTEquip, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:50}" })</td>
+    <td class="Right_font" bgcolor="#eff7fc" align="right">端口</td>
+    <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">@Html.TextBoxFor(m => m.Line.DediLine.ComputRoomtTEquipPort, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:40}" })</td></tr>
+    </table></td></tr>
+    <tr id="citynet" ><td colspan="4"><table width="100%">
+    <tr><td class="tit" align="center" colspan="4" width="800px;">城域网交换机</td></tr>
+    <tr><td class="Right_font" bgcolor="#eff7fc" align="right" width="15%">城域网接入交换机</td>
+    <td align="left" style="PADDING-LEFT: 10px" class="Left_font">@Html.TextBoxFor(m => m.Line.DediLine.CityNetSwitch, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:50}" })</td>
+    <td class="Right_font" bgcolor="#eff7fc" align="right">端口</td>
+    <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">@Html.TextBoxFor(m => m.Line.DediLine.CityNetSwitchPort, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:40}" })</td>
+    </tr>
+    </table></td></tr>
+    <tr id="bizcomroom"><td colspan="4" width="100%">
+    <table border="0" cellspacing="0" cellpadding="1" width="100%">
+    <tr><td class="tit" align="center" colspan="6" width="100%">接入全业务机房</td></tr>
+    <tr>
+    <td class="Right_font" bgcolor="#eff7fc" align="right">接入全业务机房名称<span class="l-verify-star">*</span> </td> 
+   <td align="left" style="PADDING-LEFT: 10px"  class="Left_font"> @Html.TextBoxFor(m => m.Line.DediLine.BizComputRoomName, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:20}" })</td>
+   <td class="Right_font" bgcolor="#eff7fc" align="right">  OLT设备及端口<span class="l-verify-star">*</span></td> 
+   <td align="left" style="PADDING-LEFT: 10px"  class="Left_font"> @Html.TextBoxFor(m => m.Line.DediLine.OLTEquipAPort, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:50}" })</td>
+   <td class="Right_font" bgcolor="#eff7fc" align="right">  LOID  </td>
+  <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">  @Html.TextBoxFor(m => m.Line.DediLine.LOID, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:40}" })</td>
+</tr></table>
+    </td></tr>
+    
+    <tr><td class="tit" align="center" colspan="4">纤芯</td></tr>
+    <tr><td width="100%" bgcolor="#ffffff" colspan="4">
+  <table width="100%" border="0" cellpadding="2" cellspacing="1" id="SignFrame" >
+@{var i = 0;}
+ @foreach (var fc in Model.Line.FiberCores as IList<QzgfFrame.Resources.FiberCoreManger.Models.ResourceFiberCore>)
+ {
+     var SeqNo = "SeqNo" + i; var BaseStationName = "BaseStationName" + i; var ODUStation = "SeqNo" + i;
+     var Core = "Core" + i; var SignItem = "SignItem" + i;
+     if (i == 0)
+     {
+              <tr id="trHeader">
+                <td  ><input name='@SeqNo' type='hidden' value="0"   /></td>
+                <td >从<input name='@BaseStationName'  type='text' size='20' value='@fc.BaseStationName'/>&nbsp;跳纤点</td>
+                <td  ><input name='@ODUStation' type='text' size='20' value='@fc.ODUStation'/></td>
+                <td >---&nbsp;<input name='@Core' type='text' size='20' value='@fc.Core'/></td>
+                <td  align="center" ><input type="button" name="Submit" value="添加跳纤点" onclick="AddSignRow()" /></td>
+              </tr>
+     }
+
+     else if (i == Model.Line.FiberCores.Count - 1)
+     {
+              <tr >
+                <td  ><input name='SeqNo' type='hidden' id='SeqNow' value='' /></td>
+                 <td  ><input name='BaseStationName' id='BaseStationNamew' type='hidden' value='@fc.BaseStationName' />至客户端</td>
+                  <td  ><input name='ODUStation' id='ODUStationw' type='text' size='20' value='@fc.ODUStation'/></td>
+                <td >---&nbsp;<input name='Core' id='Corew' type='text' size='20' value='@fc.Core'/></td>
+
+                <td  align="center" > &nbsp;</td>
+              </tr>
+     }
+     else
+     {
+         <tr id='@SignItem'>
+                <td  ><input name='@SeqNo' type='hidden'  value='@fc.SeqNo'  /></td>
+                <td >经<input name='@BaseStationName'  type='text' size='20' value='@fc.BaseStationName'/>&nbsp;基站</td>
+                <td  ><input name='@ODUStation' type='text' size='20' value='@fc.ODUStation'/></td>
+                <td >---&nbsp;<input name='@Core'  type='text' size='20' value='@fc.Core'/></td>
+                <td  align="center" ><div align='center' style='width:40px'><a href='javascript:;' onclick="DeleteSignRow('@SignItem')">删除</a></div></td>
+              </tr>
+     }
+     i++;
+ }
+ @{i = i - 1;}
+        </table>
+        <input name='txtTRLastIndex' type='hidden' id='txtTRLastIndex' value="@i" />
+         @Html.HiddenFor(m => m.Line.forces)
+    </td></tr>    
+    <tr id="numberhead"><td class="tit" align="center" colspan="4">码号资源</td></tr>
+    <tr id="number"><td colspan="4">
+    <table width="100%" border="0" cellpadding="2" cellspacing="1" id="numberFrame">
+<tr >
+               <td style="width:0"></td>
+                <td  bgcolor="#eff7fc"> 号码<span class="l-verify-star">*</span></td>
+                <td  bgcolor="#eff7fc" >用户名<span class="l-verify-star">*</span></td>
+                <td  bgcolor="#eff7fc">密码<span class="l-verify-star">*</span></td>
+                <td  align="center"  bgcolor="#eff7fc"><input type="button" name="Submit" value="添加号码" onclick="AddRow()" /></td>
+                <td style="width:0"></td>
+              </tr>
+@{var j = 0;}
+ @foreach (var n in Model.Line.NumberGroups as IList<QzgfFrame.Resources.NumberGroupManger.Models.ResourceNumberGroup>)
+ {
+     var OrderNo = "OrderNo" + j; var TelNumber = "TelNumber" + j; var UserName = "UserName" + j;
+     var PassWord = "PassWord" + j; var SignItemn = "SignNumberItem" + j;
+             <tr id='@SignItemn'>
+                <td  ><input name='@OrderNo' type='hidden' id='@OrderNo' value="@n.OrderNo"  /></td>
+                <td ><input name='@TelNumber' id='@TelNumber' type='text' size='12' value="@n.TelNumber"/></td>
+                <td  ><input name='@UserName' id='@UserName' type='text' size='20' value="@n.UserName"/></td>
+                <td ><input name='@PassWord' id='@PassWord' type='text' size='10' value="@n.PassWord"/></td>
+                <td ><div align='center' style='width:40px'><a href='javascript:;' onclick="DeleteRow('@SignItemn')">删除</a></div></td>
+              </tr>                                                                                                  j++;
+ }
+        </table>
+        <input name='TRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+         @Html.HiddenFor(m => m.Line.numbers)
+    </td></tr>
+
+    <tr><td class="tit" align="center" colspan="4">上传资料</td></tr>
+    <tr><td width="100%"  class="Left_font" colspan="4">
+   <table><tr><td class="tab_msg">
+ <input type="file" id="T7"   name="uploadfiles" accept="doc|docx|rar|zip"/>
+ <div id="T7-list" style="border:#999 solid 1px; padding-left:10px;">
+ <table id="FileFrame">
+ @{var k = 0; if (Model.Line.OtherInfos != null)
+   {
+       foreach (var info in Model.Line.OtherInfos as IList<QzgfFrame.Resources.OtherInfoManger.Models.ResourceOtherInfo>)
+       {
+           var SignItemF = "SignItem" + k; var Id = "Id" + k; 
+ <tr id='@SignItemF'><td  ><input name='@Id' type='hidden' value="@info.Id"   /></td>
+ <td><a class="MultiFile-remove" href="#T7_wrap"  onclick="javascript:DeleteFileRow('@SignItemF');">x</a></td>
+ <td class="MultiFile-title">@info.InfoFileName</td></tr>
+                        k++;
+       }
+   }
+}
+</table>
+ @Html.HiddenFor(m => m.Line.delArys)
+ 
+<script type="text/javascript" language="javascript">
+    $(function () { // wait for document to load 
+        $('#T7').MultiFile({
+            list: '#T7-list'
+        });
+    });
+</script>
+  </div>
+  </td></tr></table>
+    </td></tr>
+    <tr id="ddf"><td  colspan="4"><table width="100%" >
+    <tr><td class="tit" align="center" colspan="4">DDF架传输侧位置</td></tr>
+    <tr><td class="Right_font" align="right">机房传输设备</td>
+    <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">@Html.TextBoxFor(m => m.Line.DediLine.DDFT)</td>
+    <td class="Right_font" bgcolor="#eff7fc" align="right">DDF架设备侧位置</td>
+    <td align="left" style="PADDING-LEFT: 10px"  class="Left_font">@Html.TextBoxFor(m => m.Line.DediLine.DDFE)</td></tr>
+  </table></td></tr>
+    
+    <tr><td colspan="4">
+    <table border="0" width="100%">
+<tr>
+<td  class="Right_font" align="right" >接入日期：<span class="l-verify-star">*</span></td>
+<td align="left" style="PADDING-LEFT: 10px"  class="Left_font" colspan="3">@Html.TextBoxFor(m => m.Line.DediLine.StartDateTime, new { ltype = "text", validate = "{required:true}", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })</td>
+</tr>
+<tr>
+<td  class="Right_font" align="right">是否接入本地网管：</td>
+<td align="left" style="PADDING-LEFT: 10px"  class="Left_font">
+@{
+                                                                      var selFalgT = false; var selFalgF = false;
+                                                                      if (Model.Line.DediLine.IsAccessLocalNet == 1)
+                                                                      {
+                                                                          selFalgT = true;
+                                                                          selFalgF = false;
+                                                                      }
+                                                                      else
+                                                                      {
+                                                                          selFalgT = false;
+                                                                          selFalgF = true;
+                                                                      }
+}
+    @Html.RadioButton("DediLine.IsAccessLocalNet", "1", selFalgT)是
+    @Html.RadioButton("DediLine.IsAccessLocalNet", "0", selFalgF)否
+</td>
+<td  class="Right_font" align="right">是否接入省网管监控：</td>
+<td align="left" style="PADDING-LEFT: 10px; "  class="Left_font">
+@{
+var selPFalgT = false; var selPFalgF = false;
+if (Model.Line.DediLine.IsAccessProviNet == 1)
+{
+    selPFalgT = true;
+    selPFalgF = false;
+}
+else
+{
+    selPFalgT = false;
+    selPFalgF = true;
+}
+}
+@Html.RadioButton("DediLine.IsAccessProviNet", "1", selPFalgT)是
+@Html.RadioButton("DediLine.IsAccessProviNet", "0", selPFalgF)否
+</td>
+</tr>
+<tr>
+<td  class="ltab" align="right" colspan="4" >
+<table width="100%" border="0" cellpadding="2" cellspacing="1" id="equipFrame">
+<tr class="hno">
+               <td >设备厂家<span class="l-verify-star">*</span></td>
+                <td >设备型号<span class="l-verify-star">*</span></td>
+                <td  align="center"><input type="button" name="Submit" value="添加设备" onclick="AddEquipRow()" /></td>
+               <td style="width:0"></td>
+              </tr>
+  </table>
+        <input name='TREqipIndex' type='hidden' id='TREqipIndex' value="0" />
+        @Html.HiddenFor(m => m.Line.equips)
+</td>
+</tr>
+<tr>
+<td  class="Right_font" align="right">备注</td><td align="left" style="PADDING-LEFT: 10px"  class="Left_font" colspan="3" >@Html.TextAreaFor(m => m.Line.DediLine.Remark, new { Multiline = true, size = "80", style = "width:100%" })</td>
+</tr>
+<tr><td  colspan="2" align="right">
+ <input type="submit" value="确 定"  id="subtn" width="100px"  class="l-button l-button-test" /></td><td colspan="2" align="left" style="padding-left:10px;"><input  type="button"   value= "返 回 "   onclick="javascript:f_windowclose();"  class="l-button l-button-test" /> 
+</td></tr>
+</table>  
+</td></tr>
+</table>
+}
+</td></tr>
+</table>
+</div>     
+</body>
+</html>

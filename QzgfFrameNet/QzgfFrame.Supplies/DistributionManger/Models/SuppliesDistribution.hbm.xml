@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Supplies.DistributionManger.Models" assembly="QzgfFrame.Supplies">
+	<class name="QzgfFrame.Supplies.DistributionManger.Models.SuppliesDistribution,QzgfFrame.Supplies" table="tab_distribution">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String"  length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <property column="Num" type="int" name="Num" />
+    <property column="DistributionUser" type="String" length="30" name="DistributionUser"  />
+    <property column="CreateDatetime" type="DateTime" name="CreateDatetime"  />
+    <property column="CityId" type="String" name="CityId"   length="20"/>
+    <property column="CompanyId" type="String" name="CompanyId"   length="20"/>
+    <property column="DistrictId" type="String" name="DistrictId"   length="20"/>
+    <property column="DCompanyId" type="String" name="DCompanyId"   length="20"/>
+    <property column="SaleDepartmentId" type="String" name="SaleDepartmentId"   length="20"/>
+    <property column="Remark" type="String" name="Remark"   length="200"/>
+    <property column="State" type="String" name="State"  length="2"/>
+    <property column="Reason" type="String" name="Reason"   length="256"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  not-null="true"/>
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate"  not-null="true"/>
+	</class>
+</hibernate-mapping>

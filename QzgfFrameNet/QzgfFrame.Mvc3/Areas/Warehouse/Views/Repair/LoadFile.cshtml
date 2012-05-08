@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>LoadFile</title>
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+    <script>
+        function btn_onclick(n) {
+            $("#btnFlag").val(n);
+            var options = {
+                dataType: 'json',
+                beforeSubmit: showRequest,
+                error: showError,
+                success: showResponse
+            };
+            $('#myform').ajaxSubmit(options);
+        }
+
+        function showRequest(formData, jqForm, options) {
+            return true;
+        }
+        function showError(data) {
+            alert('error');
+        }
+        function showResponse(data, status) {
+            if (data.Type == "true")
+                alert("成功导入!!");
+            else
+                alert(data.Message);
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+<form action="/DedicateLine/UploadFile" method="post" id="myform" enctype="multipart/form-data">
+    <div id="showmsg"></div>
+    <table>
+    <tr><td>
+    请上传文件: 
+     <input type="file" id="T7"   name="uploadfiles" size="60"  accept="xls|xlsx"/>
+     </td></tr>
+   <tr><td align="center"> <input type="button" value="导入" onclick="btn_onclick(1)"/><input type="button" value="验证数据" onclick="btn_onclick(0)"/></td></tr>
+    </table>
+</form>
+    </div>
+</body>
+</html>

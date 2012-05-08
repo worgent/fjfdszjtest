@@ -1,0 +1,140 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Mvc3", "QzgfFrame.Mvc3\QzgfFrame.Mvc3.csproj", "{3DD278BE-C6E5-4FDA-876F-8B2B42CEA63A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B4AAF668-7A9C-4560-B975-0B5B49AB328C} = {B4AAF668-7A9C-4560-B975-0B5B49AB328C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Mvc3.Tests", "QzgfFrame.Mvc3.Tests\QzgfFrame.Mvc3.Tests.csproj", "{774EE0B7-5E3A-4318-9699-E0CC31778AD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.System", "QzgfFrame.System\QzgfFrame.System.csproj", "{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Utility", "QzgfFrame.Utility\QzgfFrame.Utility.csproj", "{FC01A832-1EF9-447D-8169-06678E0E0BE6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{7FD7250E-7BD5-4CC9-B166-B4FA78A5C9EE}"
+	ProjectSection(SolutionItems) = preProject
+		lib\Antlr3.Runtime.dll = lib\Antlr3.Runtime.dll
+		lib\Aspose.Cells.dll = lib\Aspose.Cells.dll
+		lib\Castle.Core.dll = lib\Castle.Core.dll
+		lib\Common.Logging.dll = lib\Common.Logging.dll
+		lib\Common.Logging.Log4Net.dll = lib\Common.Logging.Log4Net.dll
+		lib\Elmah.dll = lib\Elmah.dll
+		lib\Iesi.Collections.dll = lib\Iesi.Collections.dll
+		lib\Interop.Excel.dll = lib\Interop.Excel.dll
+		lib\log4net.dll = lib\log4net.dll
+		lib\Microsoft.Office.Interop.Word.dll = lib\Microsoft.Office.Interop.Word.dll
+		lib\Microsoft.Practices.EnterpriseLibrary.Common.dll = lib\Microsoft.Practices.EnterpriseLibrary.Common.dll
+		lib\Microsoft.Practices.EnterpriseLibrary.Data.dll = lib\Microsoft.Practices.EnterpriseLibrary.Data.dll
+		lib\Microsoft.Practices.ObjectBuilder2.dll = lib\Microsoft.Practices.ObjectBuilder2.dll
+		lib\Microsoft.Practices.Unity.dll = lib\Microsoft.Practices.Unity.dll
+		lib\Microsoft.Vbe.Interop.dll = lib\Microsoft.Vbe.Interop.dll
+		lib\Newtonsoft.Json.dll = lib\Newtonsoft.Json.dll
+		lib\NHibernate.ByteCode.Castle.dll = lib\NHibernate.ByteCode.Castle.dll
+		lib\NHibernate.dll = lib\NHibernate.dll
+		lib\OFFICE.DLL = lib\OFFICE.DLL
+		lib\Quartz.dll = lib\Quartz.dll
+		lib\Spring.Aop.dll = lib\Spring.Aop.dll
+		lib\Spring.Core.dll = lib\Spring.Core.dll
+		lib\Spring.Data.dll = lib\Spring.Data.dll
+		lib\Spring.Data.NHibernate30.dll = lib\Spring.Data.NHibernate30.dll
+		lib\Spring.Scheduling.Quartz.dll = lib\Spring.Scheduling.Quartz.dll
+		lib\Spring.Services.dll = lib\Spring.Services.dll
+		lib\Spring.Web.dll = lib\Spring.Web.dll
+		lib\Spring.Web.Extensions.dll = lib\Spring.Web.Extensions.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Webservice", "QzgfFrame.Webservice\QzgfFrame.Webservice.csproj", "{18208E25-8635-4B0F-ADA8-83FAFAA68C81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Webserviceclient", "QzgfFrame.Webserviceclient\QzgfFrame.Webserviceclient.csproj", "{A696B008-B7BE-4C83-B560-83EBBF9612D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Controllers", "QzgfFrame.Controllers\QzgfFrame.Controllers.csproj", "{7A2D1EC2-BFD6-47F5-86E7-B1FFF81A15A2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B4AAF668-7A9C-4560-B975-0B5B49AB328C} = {B4AAF668-7A9C-4560-B975-0B5B49AB328C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Resources", "QzgfFrame.Resources\QzgfFrame.Resources.csproj", "{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Archives", "QzgfFrame.Archives\QzgfFrame.Archives.csproj", "{19437E73-E436-4D2F-9D84-916F5FDA9951}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Cop", "QzgfFrame.Cop\QzgfFrame.Cop.csproj", "{2FC78458-0A51-4731-800B-C434603DE174}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Warehouse", "QzgfFrame.Warehouse\QzgfFrame.Warehouse.csproj", "{0E31FA2D-FB85-4DE6-B8E1-A8C1B513548F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Exam", "QzgfFrame.Exam\QzgfFrame.Exam.csproj", "{B4AAF668-7A9C-4560-B975-0B5B49AB328C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Supervision", "QzgfFrame.Supervision\QzgfFrame.Supervision.csproj", "{E8B9EF99-3B8A-4616-904B-819E463BF5DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QzgfFrame.Supplies", "QzgfFrame.Supplies\QzgfFrame.Supplies.csproj", "{58BD1D52-758B-4F21-8868-34B518378CBD}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DD278BE-C6E5-4FDA-876F-8B2B42CEA63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DD278BE-C6E5-4FDA-876F-8B2B42CEA63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DD278BE-C6E5-4FDA-876F-8B2B42CEA63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DD278BE-C6E5-4FDA-876F-8B2B42CEA63A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774EE0B7-5E3A-4318-9699-E0CC31778AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774EE0B7-5E3A-4318-9699-E0CC31778AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774EE0B7-5E3A-4318-9699-E0CC31778AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774EE0B7-5E3A-4318-9699-E0CC31778AD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC01A832-1EF9-447D-8169-06678E0E0BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC01A832-1EF9-447D-8169-06678E0E0BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC01A832-1EF9-447D-8169-06678E0E0BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC01A832-1EF9-447D-8169-06678E0E0BE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18208E25-8635-4B0F-ADA8-83FAFAA68C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18208E25-8635-4B0F-ADA8-83FAFAA68C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18208E25-8635-4B0F-ADA8-83FAFAA68C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18208E25-8635-4B0F-ADA8-83FAFAA68C81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A696B008-B7BE-4C83-B560-83EBBF9612D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A696B008-B7BE-4C83-B560-83EBBF9612D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A696B008-B7BE-4C83-B560-83EBBF9612D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A696B008-B7BE-4C83-B560-83EBBF9612D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A2D1EC2-BFD6-47F5-86E7-B1FFF81A15A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A2D1EC2-BFD6-47F5-86E7-B1FFF81A15A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A2D1EC2-BFD6-47F5-86E7-B1FFF81A15A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A2D1EC2-BFD6-47F5-86E7-B1FFF81A15A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19437E73-E436-4D2F-9D84-916F5FDA9951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19437E73-E436-4D2F-9D84-916F5FDA9951}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19437E73-E436-4D2F-9D84-916F5FDA9951}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19437E73-E436-4D2F-9D84-916F5FDA9951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC78458-0A51-4731-800B-C434603DE174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC78458-0A51-4731-800B-C434603DE174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC78458-0A51-4731-800B-C434603DE174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC78458-0A51-4731-800B-C434603DE174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E31FA2D-FB85-4DE6-B8E1-A8C1B513548F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E31FA2D-FB85-4DE6-B8E1-A8C1B513548F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E31FA2D-FB85-4DE6-B8E1-A8C1B513548F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E31FA2D-FB85-4DE6-B8E1-A8C1B513548F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4AAF668-7A9C-4560-B975-0B5B49AB328C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4AAF668-7A9C-4560-B975-0B5B49AB328C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4AAF668-7A9C-4560-B975-0B5B49AB328C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4AAF668-7A9C-4560-B975-0B5B49AB328C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8B9EF99-3B8A-4616-904B-819E463BF5DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B9EF99-3B8A-4616-904B-819E463BF5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8B9EF99-3B8A-4616-904B-819E463BF5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B9EF99-3B8A-4616-904B-819E463BF5DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58BD1D52-758B-4F21-8868-34B518378CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58BD1D52-758B-4F21-8868-34B518378CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58BD1D52-758B-4F21-8868-34B518378CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58BD1D52-758B-4F21-8868-34B518378CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

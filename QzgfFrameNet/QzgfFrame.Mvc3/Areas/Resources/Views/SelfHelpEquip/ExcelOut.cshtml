@@ -1,0 +1,39 @@
+﻿<!--高级查询专用-->
+<head>
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/Lib/highquery/style.css")"/>
+<script src="@Url.Content("~/Lib/highquery/highquery.js")" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+<!--
+    $.getJSON('/Archives/District/GetSearchCombobox/', { Rnd: Math.random() }, function (companydata) {
+        for (var j = 0; j < companydata.length; j++) {
+            DictList.add(new Dict('SelDistrict', '区县', companydata[j].text, companydata[j].id));
+        }
+    });
+
+    DictList.add(new Dict('StateCode', '在线', '在线', '0'));
+    DictList.add(new Dict('StateCode', '退网', '退网', '1'));
+    // 字段信息
+    FieldList.add(new Field('main.TermiId', '终端ID号', 'varchar', '8', '', ''));
+    FieldList.add(new Field('main.State', '状态', 'varchar', '2', 'StateCode', ''));
+    FieldList.add(new Field('main.UseNetNo', '网点编号', 'varchar', '7', '', ''));
+    FieldList.add(new Field('main.UseNetName', '网点名称', 'varchar', '100', '', ''));
+    FieldList.add(new Field('main.DistrictId', '所属区县', 'varchar', '20', 'SelDistrict', ''));
+    FieldList.add(new Field('', '请选择一个字段', '', '0', '', '')); // 空白，必须是最后加入
+    // 初始化
+    initHighQuery();
+
+    //查询信息
+    function f_save(frameid) {
+
+        var arrReturn = interpreter();
+        //提交数据
+        var gridsearch = "";
+        if (arrReturn[1] != "") {
+            gridsearch = " and " + arrReturn[1];
+        }
+        window.location.href = "/Resources/selfHelpEquip/GetExcelOut/?gridsearch=" + escape(gridsearch);    
+    } 
+//-->
+</script>
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />

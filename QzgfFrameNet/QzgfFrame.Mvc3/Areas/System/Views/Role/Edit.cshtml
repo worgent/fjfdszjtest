@@ -1,0 +1,85 @@
+﻿@model QzgfFrame.System.RoleManger.Models.SystemRole
+@*
+多模型关连
+model Tuple< QzgfFrame.System.MenuManger.Models.SystemMenu, QzgfFrame.System.RoleManger.Models.SystemRole>
+@Html.TextBoxFor(m=>m.Item1.Pic)
+@Html.TextBoxFor(m=>m.Item2.Rolename)
+*@
+@{
+    ViewBag.Title = "Register";
+}
+@using (Html.BeginForm("edit", "Role", FormMethod.Post, new { name = "form1", id = "form1" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        角色名称：<span class="l-verify-star">*</span>
+                    </td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.Rolename, new { validate = "{required:true,minlength:1}", ltype = "text" })
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        备注：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                        @Html.TextAreaFor(m => m.Remark, new { ltype = "text" })
+                    </td>
+                </tr>
+                <!--
+                 <tr>
+                    <td align="right" class="editcellmessage">时间</td>
+                    <td align="right" class="editcellverify"><div class="l-verify-star">*</div></td>
+                    <td align="left" class="editcell">
+                    @*
+                    @Html.EditorFor(m => m.Createdate)
+                    *@
+                     
+                    </td> 
+                </tr>
+                -->
+            </tbody>
+        </table>
+    </div> 
+}
+<script src="@Url.Content("~/Lib/jquery-validation/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Lib/jquery-validation/messages_cn.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Lib/jquery-validation/jquery.metadata.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    //var CurID =  <%=CurID %>;
+    var Validator = null;
+    $(function () {
+        //$("#Createdate").ligerDateEditor({ showTime: true, format: "yyyy-MM-dd hh:mm" });
+        //处理下拉框 
+        $("#form1").ligerForm();
+        $.metadata.setType("attr", "validate");
+        deafultValidate($("#form1"));
+        Validator = $("#form1").validate();
+    });
+
+    //操作成功提示
+    function f_success(id) {
+        $.ligerDialog.success("保存成功", "提示", function () {
+            $.ligerDialog.closeWaitting();
+            parent.window.frames[id].f_reload();
+        });
+    }
+    //操作失败提示
+    function f_error(message) {
+        $.ligerDialog.closeWaitting();
+        $.ligerDialog.error(message);
+    }
+    function f_save(frameid) {
+        if (!Validator.form()) return;
+        $.ligerDialog.waitting("正在保存中...");
+        //提交数据
+        var now = $('#form1');
+        var path = now[0].action; //参数
+        var formdata = now.serialize(); //参数
+        f_submit(path, formdata, frameid);
+    } 
+</script>

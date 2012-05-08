@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.CompanyManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.CompanyManger.Models.ArchiveCompany,QzgfFrame.Archives" table="tab_company">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="CompanyName" type="String" name="CompanyName" length="30" not-null="true" />
+    <property column="FullName" type="String" name="FullName" length="100" />
+		<property column="IsMaintain" type="short" name="IsMaintain"   not-null="true"/>
+
+	</class>
+</hibernate-mapping>

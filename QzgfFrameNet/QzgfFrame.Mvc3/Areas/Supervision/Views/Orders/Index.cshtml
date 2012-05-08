@@ -1,0 +1,205 @@
+﻿    <!--我的工单列表-->
+    <script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager0 = null;
+        var gridManager1 = null;
+        var gridManager2 = null;
+        var gridManager3 = null;
+        var gridManager4 = null;
+        var activeDialog = null;
+        //该功能选项菜单id
+        var frameId = GetUrlParam('_menuid');
+
+        function f_openWindow(url, title, width, height) {
+            var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+                { text: '保存', onclick: function (item, dialog) {
+                        dialog.frame.f_save(); //f_save调用的是弹出框调用页的方法
+                        dialog.close(); //关闭添加窗口
+                        f_reload(); //刷新数据
+                    }
+                },
+                { text: '关闭', onclick: function (item, dialog) {
+                        dialog.close();
+                    }
+                }
+            ], isResize: true, timeParmName: 'a'
+            };
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+
+        //回单弹出框
+        function f_openBackWindow(url, title, width, height) {
+            var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            ], isResize: true, timeParmName: 'a'
+            };
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+
+
+        function f_closeWindow(reload) {
+            activeDialog && activeDialog.close();
+            reload && f_reload();
+        }
+
+        //接单
+        function f_Order(id) {
+            f_openWindow('/Supervision/Orders/Order/' + id, '接单', 600, 350);
+        }
+        //回单
+        function f_Back(id) {
+            f_openBackWindow('/Supervision/Orders/Back/' + id, '回单', 600, 350);
+        }
+        //查看
+        function f_Detailed(id) {
+            f_openWindow('/Supervision/Orders/Detailed/' + id, '查看', 600, 350);
+        }
+        //重新回单
+        function f_ReBack(id) {
+            f_openWindow('/Supervision/Orders/ReBack/' + id, '重新回单', 600, 350);
+        }
+
+        //初始化列表
+        $(function () {
+            f_setGrid();
+        });
+
+        //设置列表
+        function f_setGrid() {
+
+            //未接工单
+            gridManager0 = $("#maingrid0").ligerGrid({
+                columns: [
+                { display: '操作', name: 'Operating', align: 'center', width: 90, minWidth: 60 },
+                { display: '工单号', name: 'Id', align: 'left', width: 150, minWidth: 60 },
+                { display: '工单主题', name: 'SendTitle', align: 'left', width: 130, minWidth: 60 },
+                { display: '工单内容', name: 'SendContent', align: 'left', width: 130, minWidth: 60 },
+                { display: '派单时间', name: 'DispatchTime', align: 'left', width: 130, minWidth: 60 },
+                { display: '派遣单位', name: 'SendUnitName', align: 'left', width: 130, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Supervision/Orders/GridPager", sortName: 'id',
+                width: '99%', height: '100%', pageSize: 30,
+                heightDiff: -9,
+                parms: [{ name: "gridsearch", value: "Status='0'"}],
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+
+            //已接工单
+            gridManager1 = $("#maingrid1").ligerGrid({
+                columns: [
+                { display: '操作', name: 'Operating', align: 'center', width: 90, minWidth: 60 },
+                { display: '工单号', name: 'Id', align: 'left', width: 150, minWidth: 60 },
+                { display: '工单主题', name: 'SendTitle', align: 'left', width: 130, minWidth: 60 },
+                { display: '工单内容', name: 'SendContent', align: 'left', width: 130, minWidth: 60 },
+                { display: '派单时间', name: 'DispatchTime', align: 'left', width: 130, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Supervision/Orders/GridPager", sortName: 'id',
+                width: '99%', height: '100%', pageSize: 30,
+                heightDiff: -9,
+                parms: [{ name: "gridsearch", value: "Status='1'"}],
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+
+            //已回工单
+            gridManager2 = $("#maingrid2").ligerGrid({
+                columns: [
+                { display: '操作', name: 'Operating', align: 'center', width: 90, minWidth: 60 },
+                { display: '工单号', name: 'Id', align: 'left', width: 150, minWidth: 60 },
+                { display: '工单主题', name: 'SendTitle', align: 'left', width: 130, minWidth: 60 },
+                { display: '工单内容', name: 'SendContent', align: 'left', width: 130, minWidth: 60 },
+                { display: '派单时间', name: 'DispatchTime', align: 'left', width: 130, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Supervision/Orders/GridPager", sortName: 'id',
+                width: '99%', height: '100%', pageSize: 30,
+                heightDiff: -9,
+                parms: [{ name: "gridsearch", value: "Status='2'"}],
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+
+            //通过工单
+            gridManager3 = $("#maingrid3").ligerGrid({
+                columns: [
+                { display: '操作', name: 'Operating', align: 'center', width: 90, minWidth: 60 },
+                { display: '工单号', name: 'Id', align: 'left', width: 150, minWidth: 60 },
+                { display: '工单主题', name: 'SendTitle', align: 'left', width: 130, minWidth: 60 },
+                { display: '工单内容', name: 'SendContent', align: 'left', width: 130, minWidth: 60 },
+                { display: '派单时间', name: 'DispatchTime', align: 'left', width: 130, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Supervision/Orders/GridPager", sortName: 'id',
+                width: '99%', height: '100%', pageSize: 30,
+                heightDiff: -9,
+                parms: [{ name: "gridsearch", value: "Status='3'"}],
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+
+            //返回工单
+            gridManager4 = $("#maingrid4").ligerGrid({
+                columns: [
+                { display: '操作', name: 'Operating', align: 'center', width: 90, minWidth: 60 },
+                { display: '工单号', name: 'Id', align: 'left', width: 150, minWidth: 60 },
+                { display: '工单主题', name: 'SendTitle', align: 'left', width: 130, minWidth: 60 },
+                { display: '工单内容', name: 'SendContent', align: 'left', width: 130, minWidth: 60 },
+                { display: '派单时间', name: 'DispatchTime', align: 'left', width: 130, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Supervision/Orders/GridPager", sortName: 'id',
+                width: '99%', height: '100%', pageSize: 30,
+                heightDiff: -9,
+                parms: [{ name: "gridsearch", value: "Status='4'"}],
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+
+        }
+        function f_reload() {
+            gridManager0 && gridManager0.loadData(true);
+            gridManager1 && gridManager1.loadData(true);
+            gridManager2 && gridManager2.loadData(true);
+            gridManager3 && gridManager3.loadData(true);
+            gridManager4 && gridManager4.loadData(true);
+        }
+    </script>
+<form id="form1" runat="server">
+
+    <ul id="countrytabs" class="shadetabs">
+        <li><a href="#" rel="country0" class="selected">未接工单</a></li>
+        <li><a href="#" rel="country1">已接工单</a></li>
+        <li><a href="#" rel="country2">已回工单</a></li>
+        <li><a href="#" rel="country3">通过工单</a></li>
+        <li><a href="#" rel="country4">返回工单</a></li>
+    </ul>
+
+    <div style="border:1px solid gray; margin-bottom: 1em; padding: 10px">
+        <div id="country0" class="tabcontent" style="width:800px">
+            <div id="maingrid0"></div>
+        </div>
+        <div id="country1" class="tabcontent" style="width:800px">
+            <div id="maingrid1"></div>
+        </div>
+        <div id="country2" class="tabcontent" style="width:800px">
+            <div id="maingrid2"></div>
+        </div>
+        <div id="country3" class="tabcontent" style="width:800px">
+            <div id="maingrid3"></div>
+        </div>
+        <div id="country4" class="tabcontent" style="width:800px">
+            <div id="maingrid4"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var countries = new ddtabcontent("countrytabs")
+        countries.setpersist(true)
+        countries.setselectedClassTarget("link") //"link" or "linkparent"
+        countries.init()
+    </script>
+
+</form>
+</body>

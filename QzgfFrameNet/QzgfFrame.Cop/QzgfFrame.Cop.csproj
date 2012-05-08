@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2FC78458-0A51-4731-800B-C434603DE174}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QzgfFrame.Cop</RootNamespace>
+    <AssemblyName>QzgfFrame.Cop</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\Microsoft.Vbe.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OFFICE, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\OFFICE.DLL</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CycTimeManager\Domain\CycTimeFacade.cs" />
+    <Compile Include="CycTimeManager\Domain\CycTimeFacadeImpl.cs" />
+    <Compile Include="CycTimeManager\Models\CopCycTime.cs" />
+    <Compile Include="EnrolManager\Domain\EnrolFacade.cs" />
+    <Compile Include="EnrolManager\Domain\EnrolFacadeImpl.cs" />
+    <Compile Include="EnrolManager\Models\CopEnrol.cs" />
+    <Compile Include="EnrolManager\Models\Enrol.cs" />
+    <Compile Include="EnrolManager\Models\EquipmentData.cs" />
+    <Compile Include="PlanManager\Domain\PlanFacade.cs" />
+    <Compile Include="PlanManager\Domain\PlanFacadeImpl.cs" />
+    <Compile Include="PlanManager\Models\CopPlan.cs" />
+    <Compile Include="PlanManager\Models\Plan.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TerminalEnrolManager\Domain\TerminalEnrolFacade.cs" />
+    <Compile Include="TerminalEnrolManager\Domain\TerminalEnrolFacadeImpl.cs" />
+    <Compile Include="TerminalEnrolManager\Models\CopTerminalEnrol.cs" />
+    <Compile Include="TerminalEnrolManager\Models\TerminalEnrol.cs" />
+    <Compile Include="TerminalPlanManager\Domain\TerminalPlanFacade.cs" />
+    <Compile Include="TerminalPlanManager\Domain\TerminalPlanFacadeImpl.cs" />
+    <Compile Include="TerminalPlanManager\Models\CopTerminalPlan.cs" />
+    <Compile Include="TerminalPlanManager\Models\TerminalPlan.cs" />
+    <Compile Include="TerminalTimeManager\Domain\TerminalTimeFacade.cs" />
+    <Compile Include="TerminalTimeManager\Domain\TerminalTimeFacadeImpl.cs" />
+    <Compile Include="TerminalTimeManager\Models\CopTerminalTime.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CycTimeManager\Models\CopCycTime.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QzgfFrame.Archives\QzgfFrame.Archives.csproj">
+      <Project>{19437E73-E436-4D2F-9D84-916F5FDA9951}</Project>
+      <Name>QzgfFrame.Archives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Resources\QzgfFrame.Resources.csproj">
+      <Project>{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}</Project>
+      <Name>QzgfFrame.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.System\QzgfFrame.System.csproj">
+      <Project>{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}</Project>
+      <Name>QzgfFrame.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Utility\QzgfFrame.Utility.csproj">
+      <Project>{FC01A832-1EF9-447D-8169-06678E0E0BE6}</Project>
+      <Name>QzgfFrame.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EnrolManager\Models\CopEnrol.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PlanManager\Models\CopPlan.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TerminalEnrolManager\Models\CopTerminalEnrol.hbm.xml" />
+    <EmbeddedResource Include="TerminalPlanManager\Models\CopTerminalPlan.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TerminalTimeManager\Models\CopTerminalTime.hbm.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

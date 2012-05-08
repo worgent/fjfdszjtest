@@ -1,0 +1,276 @@
+﻿    .top
+        {
+            width: 100%;
+            height: 75px;
+            background: url(../../../../Content/Lib/images/index/qq.png) repeat-x;
+            border-bottom: 1px solid #aed3fd;
+        }
+        .testname
+        {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            margin-bottom: 5px;
+            padding-top: 5px;
+        }
+        .testnametxt
+        {
+            width: 200px;
+            line-height: 23px;
+            height: auto;
+            text-align: center;
+            font-size: 24px;
+          
+        }
+        .testpoints
+        {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .testpoints_table
+        {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .testpoints_table_td
+        {
+            padding-right: 7px;
+        }
+        
+        .testsubmit
+        {
+            width: 100%;
+            height: 25px;
+            padding-top:3px;
+            padding-bottom: 3px;
+            background-color: #deefff;
+        }
+        
+        .l-button-submit, .l-button-test
+        {
+            width: 80px;
+            height: auto;
+            float: left;
+            margin-left: 5px;
+        }
+        
+        .testcontent
+        {
+            width: 100%;
+            height: 80%;
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: #aed3fd;
+            position: absolute;
+            top: 105px;
+            bottom: 0;
+            background-color: #fff;
+
+        }
+        .testcontent table
+        {
+            width: 100%;
+        }
+        .testsubjecttype
+        {
+            width: 180px;
+            height: 100%;
+        }
+        .table
+        {
+            width: 100%;
+            height: 100%;
+            text-align: left;
+        }
+        .table .td
+        {
+            border-right: 1px solid #ccc;
+            width:180px
+        }
+        .addtestsubjecttype
+        {
+            height: 35px;
+            border-bottom:1px solid #ccc;
+            background-color: #f2f7fa;
+        }
+        
+        .l-button-add
+        {
+            width: auto;
+            height: 32px;
+            float: left;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            color: #4b6d88;
+            background-color:transparent;
+            padding-top:10px;           
+            margin-left:5px
+        }
+        .l-add_questions
+        {
+            width: auto;
+            height: 32px;
+            float: left;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            color: #4b6d88;
+            background-color:transparent;
+            padding-top:10px;           
+            margin-left:5px
+        }
+        .testsubjecttype_tr
+        {
+            line-height: 23px;
+            background-color: #F4F4F4;
+        }
+        .testsubjecttype_tr td
+        {
+            border-bottom: 1px solid #c0c0c0;
+        }
+        .testsubjecttype_tr td div
+        {
+            margin-right:8px;
+        }
+        .typename
+        {
+            height: 23px;
+            font-size: 15px;
+            background-color: #F4F4F4;
+            border-top-width: 0px;
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+            border-left-width: 0px;
+            width: 130px;
+        }
+        .typename input
+        {
+            height: 23px;
+            font-size: 15px;
+            background-color: #F4F4F4;
+            border-top-width: 0px;
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+            border-left-width: 0px;
+            width: 130px;
+            }
+        .testsubject
+        {
+            height: 100%;
+            width: 280px;
+        }
+        .testsubject table
+        {
+            width: 100%;
+        }
+        .testsubject_papers
+        {
+            width: 95%;
+            float: left;
+        }
+        .papers
+        {
+            float: left;
+            height: auto;
+            width: 100%;
+        }
+        .papers ul
+        {
+        }
+        .papers ul li
+        {
+        }
+        .papers ul .li_tt
+        {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 35px;
+            border-bottom: 1px solid #000;
+            width:99%; margin:0 auto
+        }
+        .papers ul .li_bc
+        {
+            width:99%;
+            margin:0 auto;
+            border-bottom:1px  dashed  #cacaca;
+            padding-bottom:8px
+        }
+        .papers ul .li_bc table
+        {
+            width: 99%;
+            line-height: 28px;
+            margin: 0 auto;
+        }
+        .td_Qnumber
+        {
+            width: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align:right
+        }
+        
+        .td_Hidden
+        {
+            width: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align:right
+        }
+
+        .questions_number
+        {
+            width: 20px;
+            color: #140b88;
+            float: left;
+            text-indent:5px;
+        }
+        .questions_input
+        {
+            width: 165px;
+            height: 23px;
+            font-size: 15px;
+            border-top-width: 0px;
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+            border-left-width: 0px;
+            background-color: #f5f5f5;
+        }
+        .questions_fraction
+        {
+            border:1px solid #ccc;
+            width:25px;
+            text-align:center;
+            background-color: #ffffff;
+            color: red;
+        }
+        .stem
+        {
+            background: url(../../../../Content/Lib/images/index/t3.png) repeat-x;
+            height: 26px;
+            border-bottom: 1px solid #d6d6d6;
+            font-weight: bold;
+            text-align: left;          
+        }
+        .testsubject_tt
+        {
+            height: 26px;
+            font-size: 14px;
+            text-align:left
+        }
+        .subjectPoints_tt
+        {
+           text-align:left;
+           width:70px;
+        }
+        .subjectSignItem
+        {
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #c0c0c0;
+        }
+        .subjectSignItem div
+        {
+            margin-right: 10px;
+        }

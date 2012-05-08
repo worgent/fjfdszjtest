@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.MenuManger.Models" assembly="QzgfFrame.System">
+  <class name="QzgfFrame.System.MenuManger.Models.SystemMenu,QzgfFrame.System" table="SYSTEM_MENU">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String" length="20">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="NAME" type="String" name="Name" length="256" />
+    <property column="PIC" type="String" name="Pic" length="256" />
+    <property column="URL" type="String" name="Url" length="256" />
+    <property column="ORDERNO" type="String" name="Orderno" length="10" />
+    <property column="FATHER" type="String" length="20" name="Father" />
+    <property column="ISMENU" type="String" name="Ismenu" length="1"/>
+    <property column="PERMISSIONSFLAG" type="String" name="Permissionsflag" length="100" />
+    <!-- 
+        <property name="IsmenuName" type="String" update="false" insert="false"/>
+        <property name="FatherName" type="String" update="false" insert="false"/>
+         -->
+  </class>
+</hibernate-mapping>

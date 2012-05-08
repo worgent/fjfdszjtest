@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Cop.TerminalEnrolManager.Models" assembly="QzgfFrame.Cop">
+  <class name="QzgfFrame.Cop.TerminalEnrolManager.Models.CopTerminalEnrol,QzgfFrame.Cop" table="tab_cop_terminalenrol">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="TerminalEnrolTime" type="DateTime" name="TerminalEnrolTime" not-null="true"/>
+    <property column="Unit" type="String" name="Unit" length="50" />
+    <property column="Contact" type="String" name="Contact" length="50" />
+    <property column="TerminalPlanId" type="String" name="TerminalPlanId" length="50" />
+    <property column="Phone" type="String" name="Phone" length="50" />
+    <property column="Personnel" type="String" name="Personnel" length="50" />
+
+    <!--维护项目选择-->
+    <property column="OperatingStatus" type="String" name="OperatingStatus" length="10" />
+    <property column="HandlingClean" type="String" name="HandlingClean" length="10" />
+    <property column="PaperWarehouseClean" type="String" name="PaperWarehouseClean" length="10" />
+    <property column="ThermalHeadFilmClean" type="String" name="ThermalHeadFilmClean" length="10" />
+    <!--易损零件检测与更换-->
+    <property column="ListOfPrinters" type="String" name="ListOfPrinters" length="10" />
+    <property column="InvoicePrinter" type="String" name="InvoicePrinter" length="10" />
+    <property column="KnowTheCoin" type="String" name="KnowTheCoin" length="10" />
+    <property column="UPSPowerSupply" type="String" name="UPSPowerSupply" length="10" />
+    <property column="MetalKeypad" type="String" name="MetalKeypad" length="50" />
+    
+    <property column="TrainingAndExchange" type="String" name="TrainingAndExchange" length="500" />
+    <property column="PersonnelId" type="String" name="PersonnelId" length="50" />
+    <property column="MaintenanceTime" type="DateTime" name="MaintenanceTime"  not-null="true"/>
+    <property column="ServiceSatisfaction" type="String" name="ServiceSatisfaction" length="10" />
+    <property column="IsDelete" type="int" name="IsDelete" not-null="true"/>
+    <property column="CreationTime" type="DateTime" name="CreationTime"/>
+    <property column="DeleteTime" type="DateTime" name="DeleteTime"/>
+    
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,128 @@
+﻿@model QzgfFrame.Cop.TerminalEnrolManager.Models.TerminalEnrol
+@{
+    
+    ViewBag.Title = "Register";
+}       
+    <script src="@Url.Content("~/lib/json2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Lib/jquery/jquery.autoSearchText.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/lib/js/Cop/TerminalEnrol.js")" type="text/javascript"></script>
+@using (Html.BeginForm("Edit", "TerminalEnrol", FormMethod.Post, new { enctype = "multipart/form-data", name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.CopTerminalEnrol.Id)
+    @Html.HiddenFor(m => m.CopTerminalEnrol.TerminalPlanId)
+    @Html.HiddenFor(m => m.CopTerminalEnrol.TerminalEnrolTime)
+    @Html.HiddenFor(m => m.CopTerminalEnrol.PersonnelId)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+    <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+        <tr>  
+            <td class="Right_font"> 自助终端: <span style="color:Red">*</span></td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.SelfHelpEquip, new { @readonly = "readonly", @class = "notEditable" })
+            </td>
+            <td class="Right_font"> 网点类型: <span style="color:Red">*</span></td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.OutletsType, new { @readonly = "readonly", @class = "notEditable" })
+            </td>
+            <td class="Right_font">巡检周期: </td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.TerminalTime, new { @readonly = "readonly", @class = "notEditable" })
+            </td>
+        </tr>
+        <tr>
+            <td class="Right_font"> 使用单位: <span style="color:Red">*</span></td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CopTerminalEnrol.Unit)
+            </td>
+            <td class="Right_font">联系人: <span style="color:Red">*</span></td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CopTerminalEnrol.Contact, new { maxlength = "20", ltype = "text", validate = "{required:true,minlength:1,maxlength:20,isFullName:true}" })
+            </td>
+            <td class="Right_font">联系电话:<span style="color:Red">*</span></td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CopTerminalEnrol.Phone, new { maxlength = "11", ltype = "text", validate = "{required:true,isMobile:true}" }) 
+            </td>
+        </tr>
+    </table>
+<ul class="ulcss">
+
+<li>
+    <fieldset id="hjli">
+        <legend>现场保养情况记录：</legend>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tr>
+                <td class="Right_font">运行状态调校:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopTerminalEnrol.OperatingStatus, "正常", new { @checked = "checked" })正常
+                    @Html.RadioButtonFor(m => m.CopTerminalEnrol.OperatingStatus, "不正常")不正常
+                </td>
+                <td class="Right_font">处理清洁:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopTerminalEnrol.HandlingClean, "干净", new { @checked = "checked" })干净
+                    @Html.RadioButtonFor(m => m.CopTerminalEnrol.HandlingClean, "不干净")不干净
+                </td>
+            </tr>
+            <tr>
+                <td class="Right_font">纸仓内清洁:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopTerminalEnrol.PaperWarehouseClean, "整齐", new { @checked = "checked" })整齐
+                    @Html.RadioButtonFor(m => m.CopTerminalEnrol.PaperWarehouseClean, "一般")一般
+                </td>
+                <td class="Right_font">热敏头片清洁:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopTerminalEnrol.ThermalHeadFilmClean, "干净", new { @checked = "checked" })干净
+                    @Html.RadioButtonFor(m => m.CopTerminalEnrol.ThermalHeadFilmClean, "不干净")不干净
+                </td>
+            </tr>
+            <tr>
+                <td class="Right_font">
+                    营业员培训与交流：
+                </td>
+                <td class="Left_font" colspan="3">
+                    @Html.TextAreaFor(m => m.CopTerminalEnrol.TrainingAndExchange,10,80,null)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+
+<script type="text/javascript" language="javascript">
+    $(function () { // wait for document to load 
+        $('#T7').MultiFile({
+            list: '#T7-list'
+        });
+    });
+</script>
+</ul>
+
+<table cellpadding="0" border="0" cellspacing="0" class="edittable">
+    <tr>
+        <td class="Right_font">维护人员:<span style="color:Red">*</span></td>
+        <td class="Left_font">
+            @Html.TextBoxFor(m => m.CopTerminalEnrol.Personnel, new { maxlength = "20", ltype = "text", validate = "{required:true,minlength:1,maxlength:20,isFullName:true}" })
+        </td>
+        <td class="Right_font">完成保养时间:<span style="color:Red">*</span></td>
+        <td class="Left_font">
+            @Html.TextBoxFor(m => m.CopTerminalEnrol.MaintenanceTime, new { ltype = "text", validate = "{required:true}", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+        </td>
+    </tr>
+    <tr>
+        <td class="Right_font">服务满意度:</td>
+        <td class="Left_font" colspan="3">
+            @Html.RadioButtonFor(m => m.CopTerminalEnrol.ServiceSatisfaction, "非常满意", new { @checked = "checked" })非常满意
+            @Html.RadioButtonFor(m => m.CopTerminalEnrol.ServiceSatisfaction, "满意")满意
+            @Html.RadioButtonFor(m => m.CopTerminalEnrol.ServiceSatisfaction, "比较满意")比较满意
+            @Html.RadioButtonFor(m => m.CopTerminalEnrol.ServiceSatisfaction, "服务一般")服务一般
+            @Html.RadioButtonFor(m => m.CopTerminalEnrol.ServiceSatisfaction, "服务较差")服务较差
+        </td>
+    </tr>
+    <tr>
+        <td style="width:45%"></td>
+        <td>
+            <input type="submit" value="提 交" name="subsubmit"  id="subsubmit" size="40" class="l-button l-button-submit" style=" float:left"/>
+            <input type="button" value="返 回" onclick="javascript:history.back()" class="l-button l-button-test"style=" float:left"/>
+        </td>
+    </tr>
+</table>    
+    </div>
+}

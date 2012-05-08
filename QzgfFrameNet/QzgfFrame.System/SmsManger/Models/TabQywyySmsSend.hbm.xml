@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.SmsManger.Models" assembly="QzgfFrame.System">
+	<class name="QzgfFrame.System.SmsManger.Models.TabQywyySmsSend,QzgfFrame.System" table="TAB_QYWYY_SMS_SEND">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="SEND_QYDM" type="String" name="SendQydm" not-null="true" length="12" />
+		<property column="MSISDN" type="Decimal" name="Msisdn" not-null="true" />
+		<property column="SEND_MSG" type="String" name="SendMsg" not-null="true" length="512" />
+		<property column="SEND_DATE" type="DateTime" name="SendDate" not-null="true" />
+		<property column="SRC" type="String" name="Src" not-null="true" length="20" />
+		<property column="SEND_MK" type="Decimal" name="SendMk" />
+		
+	</class>
+</hibernate-mapping>

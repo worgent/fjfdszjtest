@@ -1,0 +1,44 @@
+﻿ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Archives.DistrictManger.Models.ArchiveDistrict
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    
+<script type="text/javascript">
+ var data = [];
+ var manager = null;
+ $(function () {
+     manager=$("#tree1").ligerTree({
+         url: '/archives/district/getfather/' + $("#ParentId").val(),
+         checkbox: false,topParentIDValue: -1, idFieldName: 'id', parentIDFieldName: 'pid'
+     });
+     manager.collapseAll();
+ });
+ function f_getdata() {
+     var note = manager.getSelected();
+     var ary = new Array();
+     var strobj = new Object();
+     strobj["id"] = note.data.id;
+     strobj["text"] = note.data.text;
+     ary.push(strobj);
+     return ary;
+ }
+    //
+     
+    </script>
+</head>
+<body><form>
+<div style="width:335px; height:600px; margin:10px; float:left; border:1px solid #ccc; overflow:auto;  ">
+    <ul id="tree1"></ul>
+    <input type="hidden" value="@ViewData["pid"]" id="ParentId"/>
+</div> </form>
+</body>
+</html>

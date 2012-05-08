@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Warehouse.IODetailManger.Models" assembly="QzgfFrame.Warehouse">
+	<class name="QzgfFrame.Warehouse.IODetailManger.Models.WarehouseIODetail,QzgfFrame.Warehouse" table="tab_iodetail">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="EquipModelName" type="String" name="EquipModelName" length="30" />
+    <property column="Num" type="int" name="Num"/>
+    <property column="EquipModelId" type="String" name="EquipModelId" length="20" />
+    <property column="EquipTypeId" type="String" name="EquipTypeId" length="20" />
+    <property column="FactoryId" type="String" name="FactoryId" length="20" />
+    <property column="StockTypeId" type="String" name="StockTypeId" length="20" />
+    <property column="EquipState" type="String" name="EquipState" length="2" />
+    <property column="UnitName" type="String" name="UnitName" length="20" />
+    <property column="State" type="String" name="State" length="2"/>
+    <property column="Remark" type="String" name="Remark" length="200" />
+    <property column="IOListId" type="String" name="IOListId" length="20" />
+    <property column="ReNum" type="int" name="ReNum"/>
+    <property column="ReIOListId" type="String" name="ReIOListId" length="20" />
+    <property column="ReIODetailId" type="String" name="ReIODetailId" length="20" />
+    <!--领用字段-->
+    <property column="IsArrival" type="String" name="IsArrival"   length="2"/>
+    <property column="ArrivalNum" type="int" name="ArrivalNum" />
+	</class>
+</hibernate-mapping>

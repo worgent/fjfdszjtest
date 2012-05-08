@@ -1,0 +1,262 @@
+﻿
+    <script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager = null;
+        var activeDialog = null;
+        var frameId = GetUrlParam('_menuid');
+        var saveFrameId = "qzgfframe" + GetUrlParam('_menuid');
+        function f_openWindow(url, title, width, height, btnname) {
+            if (btnname == null) {
+                var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+                };
+}
+else {
+    var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: '查询', onclick: function (item, dialog) {
+                dialog.frame.f_save(saveFrameId);
+                f_reload(); //刷新数据
+            }
+            },
+            { text: "导出查询", onclick: function (item, dialog) {
+                dialog.frame.f_excelout(saveFrameId);
+                f_reload(); //刷新数据
+            }
+            },
+            { text: "全部导出", onclick: function (item, dialog) {
+                dialog.frame.f_excelallout(saveFrameId);
+                f_reload(); //刷新数据
+            }
+            },
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+    };
+}
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+        function f_closeWindow(reload) {
+            activeDialog && activeDialog.close();
+            reload && f_reload();
+        }
+        function f_btnClick(item) {
+            switch (item.id) {
+                case "add":
+                    f_add();
+                    break;
+                case "modify":
+                    f_modify();
+                    break;
+                case "delete":
+                    f_delete();
+                    break;
+                case "loadfile":
+                    f_loadfile();
+                    break;
+                case "quit":
+                    f_quit();
+                    break;
+                case "button":
+                    f_button();
+                    break;
+                case "search":
+                    f_search();
+                    break;
+                case "excelout":
+                    f_excelout();
+                    break;
+                default:
+                    $.ligerDialog.alert('暂未实现!');
+                    break;    
+            }
+        }
+        function f_search() {
+            var bizId = $("#bizTypeId").val();
+            f_openWindow('/Resources/DedicateLine/search/?bizId=' + bizId + '&frameid=' + frameId, '查询模块', 700, 250, '查询');
+        }
+        //导出excel
+        function f_excelout() {
+            var bizId = $("#bizTypeId").val();
+            f_openWindow('/Resources/DedicateLine/excelout/?BizType=IMS&bizId=' + bizId + '&frameid=' + frameId, '查询导出模块', 800, 250, '查询导出');
+        }
+        function f_button() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+            var id = rowsdata[0].ID;
+            f_openWindow('system/ButtonList.aspx?CurID=' + id, '菜单操作管理', 600, 350);
+        }
+        function f_loadfile() {
+            f_openWindow('/Resources/DedicateLine/IMSLoadFile/?frameid=' + frameId, 'IMS专线信息导入', 800, 350);
+        }
+        function f_add() {
+            // window.location.href = "/Resources/DedicateLine?id=" + id;
+            //f_openWindow('/Resources/DedicateLine/edit/0', '添加菜单', 600, 350);
+            window.location.href = "/Resources/DedicateLine/Add/?BizType=IMS&id=0&frameid=" + frameId;
+        }
+        function f_modify() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (rowsdata.length != 1) {
+                $.ligerDialog.alert('请选择一行记录!');
+                return;
+            }
+            var id = rowsdata[0].DediLine.Id;
+            window.location.href = "/Resources/DedicateLine/Modify/?BizType=IMS&id=" + id + "&frameid=" + frameId;
+        }
+        function f_quit() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+            $.ligerDialog.confirm("是否确认退网?", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在退网中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.DediLine.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                    $.ajax({
+                        type: "Post",
+                        cache: false,
+                        url: "/Resources/DedicateLine/quit/",
+                        data: "editFlag=IMS&id=" + idStr,
+                        error: function () {
+                            $.ligerDialog.error("退网失败!<BR>");
+                            $.ligerDialog.closeWaitting();
+                        },
+                        success: function (data) {
+                            if (data.Type) {
+                                $.ligerDialog.success("退网成功");
+                            }
+                            else {
+                                $.ligerDialog.error("退网失败!<BR>" + data.Message);
+                            }
+                            $.ligerDialog.closeWaitting();
+                            f_reload();
+                        }
+                    });
+                } else {
+                    return;
+                }
+            });
+
+        }
+        function f_delete() {
+            var rowsdata = gridManager.getCheckedRows();
+
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            $.ligerDialog.confirm("是否确认删除?", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在删除中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.DediLine.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                    $.ajax({
+                        type: "Post",
+                        cache: false,
+                        url: "/Resources/DedicateLine/DeleteFalse/",
+                        data: "editFlag=IMS&id=" + idStr,
+                        error: function () {
+                            $.ligerDialog.error("删除失败!<BR>");
+                            $.ligerDialog.closeWaitting();
+                        },
+                        success: function (data) {
+                            if (data.Type) {
+                                $.ligerDialog.success(data.Message);
+                            }
+                            else {
+                                $.ligerDialog.error("删除失败!<BR>" + data.Message);
+                            }
+                            $.ligerDialog.closeWaitting();
+                            f_reload();
+                        }
+                    });
+                } else {
+                    return;
+                }
+            });
+
+        }
+        $(function () {
+
+            f_setToolbar();
+            f_setGrid();
+        });
+        function f_setToolbar() {
+            SetButtons($("#toolbar"), "/system/menu/GetButton?menuid=20110929162456755201");
+        }
+        function f_setGrid() {
+            var fId = GetUrlParam('_menuid');
+            var bizId = $("#bizTypeId").val();
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '操作', isAllowHide: false,
+                    render: function (row) {
+                        var html = '<a href="#" onclick="parent.window.f_addTab(\'' + row.Id + '\',\'' + row.ClieName + '\',\'/Resources/DedicateLine/Display/?BizType=IMS&frameid=' + fId + '&id=' + row.Id + '\')">查看</a>';
+                        return html;
+                    }
+                },
+                { display: '状态', name: 'State', align: 'left', width: 70, minWidth: 60 },
+                { display: '客户编号', name: 'ClieNo', align: 'left', width: 180, minWidth: 60 },
+                { display: '客户名称', name: 'ClieName', align: 'left', width: 250, minWidth: 60 },
+                { display: '业务类型', name: 'BizTypeName', align: 'left', width: 130, minWidth: 60 },
+                { display: '业务保障等级', name: 'AssuranLeveName', align: 'left', width: 80, minWidth: 60 },
+                { display: '组网方式', name: 'NetWorkingMode', align: 'left', width: 180, minWidth: 60 },
+                { display: 'IP', name: 'DediLine', type: 'object', value: 'IP', align: 'left', width: 80, minWidth: 60 },
+                { display: 'VLAN号', name: 'DediLine', type: 'object', value: 'VLANNumber', align: 'left', width: 70, minWidth: 60 },
+                { display: '实际带宽', name: 'DediLine', type: 'object', value: 'ActualBandwidth', align: 'left', width: 80, minWidth: 60 },
+                { display: '是否接入本地网管', isAllowHide: false,
+                    render: function (row) {
+                        var html = row.IsAccessLocalNet != "1" ? "否" : "是";
+                        return html;
+                    }
+                },
+                { display: '是否接入省网管', isAllowHide: false,
+                    render: function (row) {
+                        var html = row.IsAccessProviNet != "1" ? "否" : "是";
+                        return html;
+                    }
+                },
+                { display: '专线编号', name: 'ProductNo', align: 'left', width: 320, minWidth: 60 },
+                { display: '创建时间', name: 'createdate', type: 'date', align: 'left', width: 80, minWidth: 60 },
+                { display: '修改时间', name: 'updatedate', align: 'left', width: 80, minWidth: 60 },
+                { display: '修改用户', name: 'DediLine', type: 'object', value: 'UpdateUserName', align: 'left', width: 80, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Resources/DedicateLine/gridpager", sortName: 'Id',
+                parms: [{ name: "gridsearch", value: " and main.BizTypeId='" + bizId+"'"}],
+                width: '99%', height: '100%', pageSize: 30, sortOrder: 'desc',
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+    </script>
+    <form id="form1" runat="server">
+    <input type="hidden" id="bizTypeId" value="@ViewData["bizTypeId"]" />
+    <input type="hidden" id="bizTypeName" value="@ViewData["bizTypeName"] " />
+    <div id="topmenu"></div>
+    <div id="toolbar"></div>
+    <div id="searchbar"></div>
+    <div id="maingrid"></div>
+    </form>

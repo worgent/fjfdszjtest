@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script> 
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script> 
+    <script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager = null;
+        var gridsearch = "";
+        function f_find() {
+            gridsearch = " and (main.SaleDepartmentId='' or main.SaleDepartmentId  is null )";
+            if ($("#typename").val() != "") {
+                gridsearch += " and ast.SuppliesTypeName like '%" + $("#typename").val() + "%'";
+            }
+            if (!gridManager) return;
+            gridManager.setOptions(
+                { parms: [{ name: 'gridsearch', value: gridsearch}] }
+             );
+            gridManager.loadData(true);
+        }
+        //选中的耗材信息
+        function f_isCheckedTid(rowdata) {
+            var strtid = $("#tids").val().split(",");
+            for (i = 0; i < strtid.length; i++) {
+                if (rowdata.EquipModelId == strtid[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        $(function () {
+            f_setGrid();           
+        });
+        function f_setGrid() {
+            var state = "";
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '设备型号', name: 'EquipModelName', align: 'left', width: 230, minWidth: 60 },
+                { display: '设备名称', name: 'EquipTypeName', align: 'center', width: 180, minWidth: 60 },
+                { display: '所属厂家', name: 'FactoryName', align: 'center', width: 180, minWidth: 60 },
+                { display: '单位', name: 'UnitName', align: 'center', width: 180, minWidth: 60 },
+                { display: '数量', name: 'Num', align: 'left', width: 180, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Warehouse/Stock/GridSelPager",
+                sortName: 'Id',
+                sortOrder: 'desc',
+                parms: [{ name: "gridsearch", value: gridsearch}],
+                width: '100%', pageSize: 10, height: '100%',
+                checkbox: true, isChecked: f_isCheckedTid,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+        function f_getdata() {
+            var manager = $("#maingrid").ligerGetGridManager();
+            //manager.getData();
+            var rowsdata = gridManager.getCheckedRows();
+            var strlen = rowsdata.length + parseInt($("#selLen").val());
+
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return null;
+            }
+            var ary = new Array();
+            $(rowsdata).each(function (i, item) {
+                var equipModel = new Object();
+                equipModel["EquipModelId"] = this.EquipModelId;
+                equipModel["EquipModelName"] = this.EquipModelName;
+                equipModel["EquipTypeName"] = this.EquipTypeName;
+                equipModel["EquipTypeId"] = this.EquipTypeId;
+                equipModel["FactoryId"] = this.FactoryId;
+                equipModel["FactoryName"] = this.FactoryName;
+                equipModel["UnitName"] = this.UnitName;
+                equipModel["EquipState"] = this.State;
+                equipModel["MaxNum"] = this.Num;
+                ary.push(equipModel);
+            });
+            return ary;
+        }
+    </script>
+     <style type="text/css">
+    #searchbar{margin:0px auto; width:100%; background:#F3F8F9;border-left: 1px solid #B6D3E0;border-bottom: 1px solid #B6D3E0;  border-right: 1px solid #B6D3E0; height:auto; line-height:auto;}
+    </style>
+</head>
+<body style="padding:0px"> 
+    <form id="form1" runat="server">
+    
+    <div id="searchbar">
+    <table width="100%"><tr><td width="100%" style="font-family:宋体; font-size:14px; height:23px;">
+   设备型号名称：<input type="text" id="typename" name="typename"/>
+    <input type="button" value="查询" id="Button1" onclick="f_find()" style="width:40px;height:18px;" class="sel_btn" /> </td></tr></table>
+    </div>
+    <div id="maingrid"></div> 
+    <input type="hidden" id="cityid" value="@ViewData["cityid"]" />
+    <input type="hidden" id="companyid" value="@ViewData["companyid"]" />
+    <input type="hidden" id="dids" value="@ViewData["dids"]" />
+    <input type="hidden" id="cids" value="@ViewData["cids"]" />
+    <input type="hidden" id="tids" value="@ViewData["tids"]" />
+    </form>
+</body>
+</html>

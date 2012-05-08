@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Cop.PlanManager.Models" assembly="QzgfFrame.Cop">
+  <class name="QzgfFrame.Cop.PlanManager.Models.CopPlan,QzgfFrame.Cop" table="tab_cop_plan">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="DedicateLineId" type="String" name="DedicateLineId" length="50" />
+    <property column="StartCycTime" type="String" name="StartCycTime" length="50"/>
+    <property column="NextCycTime" type="String" name="NextCycTime" length="50"/>
+    <property column="CycTimeId" type="String" name="CycTimeId" length="50" />
+    <property column="CycTime" type="String" name="CycTime" length="10" />
+    <property column="IsDelete" type="int" name="IsDelete" not-null="true"/>
+    <property column="CreateUserId" type="String" name="CreateUserId" length="50" />
+    <property column="CreationTime" type="DateTime" name="CreationTime"/>
+    <property column="DeleteTime" type="DateTime" name="DeleteTime"/>
+  </class>
+</hibernate-mapping>

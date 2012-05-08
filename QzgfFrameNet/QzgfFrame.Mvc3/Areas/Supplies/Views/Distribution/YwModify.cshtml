@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Supplies.DistributionManger.Models.Distribution
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Lib/css/autoSearchText.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/addmethod.js" type="text/javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Supplies/RegisterLine.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Supplies/DistributionModify.js" type="text/javascript"></script> 
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("YwModify", "Distribution", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+    <table width="100%"><tr class="Header"><td style="width:45%"></td>
+<td><input type="submit" value="提 交" id="Button1" class="l-button l-button-submit" /> 
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+   
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody> 
+            <tr id="showReason" style="display:none"> <td class="Right_White_font">退回理由：<span class="l-verify-star">*</span></td>                     
+                    <td class="Left_font" colspan="3">
+                    @Model.suppliesDistribution.Reason
+                    </td> 
+            </tr>
+                <tr>
+                   <td class="Right_White_font">发货所属县市：<span class="l-verify-star">*</span></td>                     
+                    <td class="Left_font">
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    @Html.HiddenFor(m => m.suppliesDistribution.Id) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.State) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.CreateDatetime) 
+                    @Html.TextBoxFor(m => m.suppliesDistribution.DistrictName, new { @class = "disable-dd-text", style = "width:138px;", @readonly = "readonly", validate = "{required:true,minlength:1,maxlength:40}" }) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.CityId)   
+                    </td> 
+                    <td class="Right_White_font">发货单位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                      @Html.TextBoxFor(m => m.suppliesDistribution.CompanyName, new { @class = "disable-dd-text", style = "width:138px;", @readonly = "readonly", validate = "{required:true,minlength:1,maxlength:40}" }) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.CompanyId)  
+                    <input type="hidden" id="TypeFlag" value="YW" />
+                    </td>  
+                </tr>
+
+                 <tr>
+                   <td class="Right_White_font">营业部：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" colspan="3">
+                     @Html.HiddenFor(m => m.suppliesDistribution.DistrictId)  
+                      @Html.HiddenFor(m => m.suppliesDistribution.DCompanyId)  
+                      @Html.TextBoxFor(m => m.suppliesDistribution.SaleDepartmentName, new { @class = "disable-dd-text", style = "width:138px;", @readonly = "readonly", validate = "{required:true,minlength:1,maxlength:40}" }) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.SaleDepartmentId)  
+                     </td> 
+                </tr>  
+                 <tr>
+                    <td colspan="4" width="100%" align="center" class="Left_Bottom">
+                    <table width="100%" ><tr width="100%" ><td width="100%" >
+                    <table width="100%" border="0" cellpadding="2" cellspacing="1" id="SuppliesFrame" class="com_tab">
+<tr class="hno">
+                 <td  align="center"><input type="button" style="width:100px;" class="sel_btn"  name="Submit" value="添加耗材" onclick="f_addh()" /></td>
+              <td > 耗材类型</td>
+                <td  >耗材单位</td>
+                <td  >数量</td>
+                <td ></td>
+              </tr>
+@{var j = 0;}
+ @foreach (var mplist in Model.stMapLists as IList<QzgfFrame.Supplies.DistributionManger.Models.STMapList>)
+ {
+     var n = mplist.sddetail;
+    // ViewData["Component"] = new SelectList(Model.Components, "Id", "ComponentName",n.ComponentId);
+
+     var SuppliesTypeId = "SuppliesTypeId" + j; var Num = "Num" + j; var UnitName = "UnitName" + j;
+     var SuppliesTypeName = "SuppliesTypeName" + j; var seqno = j + 1; var NumFlag = "NumFlag" + j;
+     var SignSuppliesItem = "SignSuppliesItem" + j; var OrderNo = "OrderNo" + j;
+     var MaxNum = "MaxNum" + j; 
+     
+             <tr id='@SignSuppliesItem' class="bno">
+                <td ><div align='center' style='width:40px'><a href='javascript:;' onclick="DelSuppliesRow('@SignSuppliesItem')">删除</a></div></td>
+            <td class="sno"> <input name='@SuppliesTypeId' type="hidden" id='@SuppliesTypeId' value='@n.SuppliesTypeId' />
+                <input name='@SuppliesTypeName' type='text'  id='@SuppliesTypeName' size='40' value='@n.SuppliesTypeName'   class = 'disable-dd-text'  readonly='readonly' /></td>
+                <td  ><input name='@UnitName' id='@UnitName' type='text'  size='20' value="@n.UnitName"   readonly='readonly' /></td>
+                <td  ><input name='@Num' id='@Num' type='text' size='20' value="@n.Num"  onkeyup="GetCount(@j)" /><input name='@MaxNum' type="hidden" id='@MaxNum' value='@mplist.maxNum' /><input name='@NumFlag' type="hidden" id='@NumFlag' value='@n.Num' /></td>
+                 <td style="width:0"><input name='@OrderNo' type='hidden' id='@OrderNo' value='@seqno' /></td>
+              </tr>
+                                                                                       j++;
+ }
+        </table>
+        <input name='TRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+                    @Html.HiddenFor(m => m.distributionDetails)
+                    </td></tr>
+                    <tr ><td  align="left" style=" background-color:#fff;"><span class="l-verify-star" id="displyMsg" ></span></td></tr>
+               
+                    </table>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_White_font">操作员：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.suppliesDistribution.DistributionUser, new { @readonly = "readonly", @class = "disable-dd-text", style = "width:138px;" })
+                    </td> 
+                    <td class="Right_White_font">合计：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    <input type="text" id="Count" name="suppliesDistribution.Num" value="@Model.suppliesDistribution.Num" class = "disable-dd-text" style = "width:138px;"   readonly = "readonly" />
+                    </td> 
+                </tr>
+                 <tr>
+                    <td class="Right_White_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Html.TextAreaFor(m => m.suppliesDistribution.Remark, new { Multiline = true, size = "70", style = "width:100%", validate = "{required:false,minlength:0,maxlength:100}" })
+                    </td> 
+</tr></tbody>
+</table>  
+<table width="100%"><tr class="Header"><td style="width:45%"></td>
+<td><input type="submit" value="提 交" id="Button1" class="l-button l-button-submit" /> 
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+   
+    </div> 
+    }
+    
+</body>
+</html>

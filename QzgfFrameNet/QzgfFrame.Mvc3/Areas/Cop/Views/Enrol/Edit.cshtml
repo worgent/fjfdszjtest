@@ -1,0 +1,520 @@
+﻿@model QzgfFrame.Cop.EnrolManager.Models.Enrol
+@{
+    
+    ViewBag.Title = "Register";
+}       
+    <script src="@Url.Content("~/lib/json2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Lib/jquery/jquery.autoSearchText.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/lib/js/Cop/Enrol.js")" type="text/javascript"></script>
+@using (Html.BeginForm("Edit", "Enrol", FormMethod.Post, new { enctype = "multipart/form-data", name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.CopEnrol.Id)
+    @Html.HiddenFor(m => m.CopPlanId)
+    @Html.HiddenFor(m => m.CopEnrol.CopPlanId)
+    @Html.HiddenFor(m => m.CopEnrol.CycEnrolTime)
+    @Html.HiddenFor(m => m.CopEnrol.PersonnelId)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+<div style=" top:0;width:100%; ">
+    <table border="0" width="100%" class="edittable" cellspacing="0" align="center">
+        <tr>  
+            <td class="Right_font"> 专线类型: </td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.BizType, new { @readonly = "readonly", @class = "notEditable" })
+            </td>
+            <td class="Right_font">业务保障等级: </td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.BizAssuranLeve, new { @readonly = "readonly", @class = "notEditable" })
+            </td>
+            <td class="Right_font">巡检周期: </td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CycTime, new { @readonly = "readonly", @class = "notEditable" })
+            </td>
+        </tr>
+        <tr>
+            <td class="Right_font">接入局端:</td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CopEnrol.ConnectPort, new { @readonly = "readonly", @class = "notEditable" }) 
+            </td>
+            <td class="Right_font">接入基站:</td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CopEnrol.ConnectStation, new { @readonly = "readonly", @class = "notEditable" }) 
+            </td>
+            <td  class="Right_font">维护人员:<span style="color:Red">*</span></td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CopEnrol.Personnel, new { maxlength = "50", ltype = "text", validate = "{required:true,minlength:1,maxlength:20,isFullName:true}" })
+            </td>
+        </tr>
+        <tr>
+            <td class="Right_font">集团客户: </td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.GroupName, new { @readonly = "readonly", @class = "notEditable" })
+            </td>
+            <td class="Right_font">客户联系人: </td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CopEnrol.Linkman, new { @readonly = "readonly", @class = "notEditable" })
+            </td>
+            <td class="Right_font">联系电话: </td>
+            <td class="Left_font">
+                @Html.TextBoxFor(m => m.CopEnrol.Phone, new { @readonly = "readonly", @class = "notEditable" })
+
+            </td>
+        </tr>
+        <tr>
+            <td  class="Right_font">详细地址:</td>
+            <td class="Left_font" colspan="5">
+                @Html.TextBoxFor(m => m.CopEnrol.Address, new { @readonly = "readonly", @class = "notEditable"})
+            </td>
+        </tr>
+        <tr>
+        </tr>
+    </table>
+<ul class="ulcss">
+
+<li>
+    <fieldset id="hjli">
+        <legend>环境：</legend>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tr>
+                <td class="Right_font">温度:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.Temperature, "正常", new { @checked = "checked" })正常
+                    @Html.RadioButtonFor(m => m.CopEnrol.Temperature, "不正常")不正常
+                </td>
+                <td class="Right_font">湿度:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.Humidity, "正常", new { @checked = "checked" })正常
+                    @Html.RadioButtonFor(m => m.CopEnrol.Humidity, "不正常")不正常
+                </td>
+                <td class="Right_font">光电缆布放:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.OpticalCableLaying, "整齐", new { @checked = "checked" })整齐
+                    @Html.RadioButtonFor(m => m.CopEnrol.OpticalCableLaying, "一般")一般
+                    @Html.RadioButtonFor(m => m.CopEnrol.OpticalCableLaying, "凌乱")凌乱
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+
+<li>
+    <fieldset id="bqli">
+        <legend>标签：</legend>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tr>
+                <td class="Right_font">设备标签:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.DeviceLabel, "完好", new { @checked = "checked" })完好
+                    @Html.RadioButtonFor(m => m.CopEnrol.DeviceLabel, "需修改")需修改
+                    @Html.RadioButtonFor(m => m.CopEnrol.DeviceLabel, "破损")破损
+                    @Html.RadioButtonFor(m => m.CopEnrol.DeviceLabel, "无标签")无标签
+                </td>
+                <td class="Right_font">电源标签:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.PowerLabel, "完好", new { @checked = "checked" })完好
+                    @Html.RadioButtonFor(m => m.CopEnrol.PowerLabel, "需修改")需修改
+                    @Html.RadioButtonFor(m => m.CopEnrol.PowerLabel, "破损")破损
+                    @Html.RadioButtonFor(m => m.CopEnrol.PowerLabel, "无标签")无标签
+                </td>
+            </tr>
+            <tr>
+                <td class="Right_font">光缆标签:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.FiberOpticCableLabel, "完好", new { @checked = "checked" })完好
+                    @Html.RadioButtonFor(m => m.CopEnrol.FiberOpticCableLabel, "需修改")需修改
+                    @Html.RadioButtonFor(m => m.CopEnrol.FiberOpticCableLabel, "破损")破损
+                    @Html.RadioButtonFor(m => m.CopEnrol.FiberOpticCableLabel, "无标签")无标签
+                </td>
+                <td class="Right_font">电路标签:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.CircuitLabel, "完好", new { @checked = "checked" })完好
+                    @Html.RadioButtonFor(m => m.CopEnrol.CircuitLabel, "需修改")需修改
+                    @Html.RadioButtonFor(m => m.CopEnrol.CircuitLabel, "破损")破损
+                    @Html.RadioButtonFor(m => m.CopEnrol.CircuitLabel, "无标签")无标签
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+
+<li>
+    <fieldset id="hjli">
+        <legend>电源：</legend>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tr>
+                <td class="Right_font">UPS告警:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.UPSAlarms, "无告警", new { @checked = "checked" })无告警
+                    @Html.RadioButtonFor(m => m.CopEnrol.UPSAlarms, "一般")一般
+                    @Html.RadioButtonFor(m => m.CopEnrol.UPSAlarms, "重要")重要
+                    @Html.RadioButtonFor(m => m.CopEnrol.UPSAlarms, "紧急")紧急
+                </td>
+                <td class="Right_font">直流电压:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.DCVoltage, "正常", new { @checked = "checked" })正常
+                    @Html.RadioButtonFor(m => m.CopEnrol.DCVoltage, "不正常")不正常
+                </td>
+                <td class="Right_font">交流电压:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.ACVoltage, "正常", new { @checked = "checked" })正常
+                    @Html.RadioButtonFor(m => m.CopEnrol.ACVoltage, "不正常")不正常
+                </td>
+            </tr>
+            <tr>
+                <td class="Right_font">整流器/逆变器告警:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.InverterAlarm, "无告警", new { @checked = "checked" })无告警
+                    @Html.RadioButtonFor(m => m.CopEnrol.InverterAlarm, "一般")一般
+                    @Html.RadioButtonFor(m => m.CopEnrol.InverterAlarm, "重要")重要
+                    @Html.RadioButtonFor(m => m.CopEnrol.InverterAlarm, "紧急")紧急
+                </td>
+                <td class="Right_font">零地电压:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.ZeroToVoltage, "正常", new { @checked = "checked" })正常
+                    @Html.RadioButtonFor(m => m.CopEnrol.ZeroToVoltage, "不正常")不正常
+                </td>
+                <td class="Right_font">设备接地:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.EquipmentGrounding, "正常", new { @checked = "checked" })正常
+                    @Html.RadioButtonFor(m => m.CopEnrol.EquipmentGrounding, "不正常")不正常
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+
+<li>
+    <fieldset>
+        <legend>线路检查</legend>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tr>
+                <td class="Right_font">连接情况:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.ConnectCircs, "良好", new { @checked = "checked" })良好
+                    @Html.RadioButtonFor(m => m.CopEnrol.ConnectCircs, "一般")一般
+                    @Html.RadioButtonFor(m => m.CopEnrol.ConnectCircs, "差")差
+                </td>
+                <td class="Right_font">绑扎情况是否正常:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsColligationCircsInGear, "是", new { @checked = "checked" })是
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsColligationCircsInGear, "否")否
+                </td>
+            </tr>
+            <tr>
+                <td class="Right_font">电源线路检查:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.ElectricalLineCheck, "一月", new { @checked = "checked" })一月
+                    @Html.RadioButtonFor(m => m.CopEnrol.ElectricalLineCheck, "半年")半年
+                    @Html.RadioButtonFor(m => m.CopEnrol.ElectricalLineCheck, "一年")一年
+                </td>
+                <td class="Right_font">线路是否杂乱:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.Lineclutter, "是", new { @checked = "checked" })是
+                    @Html.RadioButtonFor(m => m.CopEnrol.Lineclutter, "否")否
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+
+<li>
+    <fieldset id="zstation">
+        <legend>设备检查：</legend>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tr>
+                <td class="Right_font">是否有隐患存在:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsHiddenTroubleBe, "是", new { @checked = "checked" })是
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsHiddenTroubleBe, "否")否
+                </td>
+                <td class="Right_font">设备运行状态检查:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.EquipmentRunStateCheck, "正常", new { @checked = "checked" })正常
+                    @Html.RadioButtonFor(m => m.CopEnrol.EquipmentRunStateCheck, "故障")故障
+                    @Html.RadioButtonFor(m => m.CopEnrol.EquipmentRunStateCheck, "维修")维修
+                </td>
+                <td class="Right_font">是否除尘:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsDustCatcher, "是", new { @checked = "checked" })是
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsDustCatcher, "否")否
+                </td>
+                <td class="Right_font">标签情况:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.LabelCircs, "是", new { @checked = "checked" })是
+                    @Html.RadioButtonFor(m => m.CopEnrol.LabelCircs, "否")否
+                </td>
+            </tr>
+            <tr>
+                <td class="Right_font">设备接地是否正常:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsEquipmentEarth, "是", new { @checked = "checked" })是
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsEquipmentEarth, "否")否
+                </td>
+                <td class="Right_font">是否环境隐患存在:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsEnvironmentalHazardsExist, "是", new { @checked = "checked" })是
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsEnvironmentalHazardsExist, "否")否
+                </td>
+                <td class="Right_font">尾纤标签:</td>
+                <td class="Left_font" colspan="3">
+                    @Html.RadioButtonFor(m => m.CopEnrol.EmpennageLabel, "完好", new { @checked = "checked" })完好
+                    @Html.RadioButtonFor(m => m.CopEnrol.EmpennageLabel, "需修改")需修改
+                    @Html.RadioButtonFor(m => m.CopEnrol.EmpennageLabel, "破损")破损
+                    @Html.RadioButtonFor(m => m.CopEnrol.EmpennageLabel, "无标签")无标签
+                </td>
+            </tr>
+            <tr>
+                <td class="Right_font">端口资料:</td>
+                <td class="Left_font">
+                    @Html.TextBoxFor(m => m.CopEnrol.PortData)
+                </td>
+                <td class="Right_font">环境隐患内容:</td>
+                <td class="Left_font" colspan="5">
+                    @Html.TextAreaFor(m => m.CopEnrol.Entironmentcontent, 3, 50, null)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+
+<li>
+    <fieldset id="wlce">
+        <legend>网络测试：</legend>
+        <table border="1" width="100%" class="edittable" cellspacing="0" align="center">
+            <tr>
+                <td colspan="12">ping 网关100个包100个字节:</td>
+            </tr>
+            <tr>
+                <td class="Right_font" style="width:80px">最小延时:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.GatewayMinimumDelay, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">ms</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="Right_font" style="width:80px">最大延时:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.GatewayMaximumDelay, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">ms</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="Right_font" style="width:80px">平均延时:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.GatewayAverageDelay, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">ms</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="Right_font" style="width:80px">掉包率:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.GatewaySubstitutionRate, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">%</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="12">ping DNS 100个包100个字节:</td>
+            </tr>
+            <tr>
+                <td class="Right_font" style="width:80px">最小延时:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.DnsMinimumDelay, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">ms</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="Right_font" style="width:80px">最大延时:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.DnsMaximumDelay, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">ms</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="Right_font" style="width:80px">平均延时:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.DnsAverageDelay, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">ms</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="Right_font" style="width:80px">掉包率:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.DnsSubstitutionRate, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">%</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="Right_font" style="width:80px">网速测试:</td>
+                <td class="Left_font" colspan="5">
+                    @Html.TextBoxFor(m => m.CopEnrol.NetworkSpeedTest)
+                </td>
+                <td class="Right_font" style="width:80px">下载测试:</td>
+                <td class="Left_font" colspan="5">
+                    @Html.TextBoxFor(m => m.CopEnrol.DownloadTest)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+
+<li>
+    <fieldset id="gprstest">
+        <legend>GPRS专网登陆测试：</legend>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tr>
+                <td class="Right_font">是否正常登入:</td>
+                <td class="Left_font">
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsNormalLogin, "是", new { @checked = "checked" })是
+                    @Html.RadioButtonFor(m => m.CopEnrol.IsNormalLogin, "否")否
+                </td>
+                <td class="Right_font">平均延时:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.TheAverageDelay, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">ms</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="Right_font">掉包率:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.SubstitutionRate, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">%</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+
+<li>
+    <fieldset id="imszx">
+        <legend>IMS专线/VOIP专线：</legend>
+        <table  cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tr>
+                <td class="Right_font">电话拨测:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.PhoneCallTesting, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">ms</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="Right_font">传真拨测:</td>
+                <td class="Left_font">
+                    <table style="width:100%">
+                        <tr> 
+                            <td >  
+                                @Html.TextBoxFor(m => m.CopEnrol.FaxCallTesting, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:3,number: true}" })
+                            </td>
+                            <td style="width:85%; text-align:left;">%</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</li>
+<script type="text/javascript" language="javascript">
+    $(function () { // wait for document to load 
+        $('#T7').MultiFile({
+            list: '#T7-list'
+        });
+    });
+</script>
+</ul>
+
+<table cellpadding="0" border="0" cellspacing="0" class="edittable">
+    <tr>
+        <td class="Right_font">存在问题:</td>
+        <td class="Left_font">
+            @Html.TextAreaFor(m => m.CopEnrol.Problems, 3, 50, null)
+        </td>
+    </tr>
+    <tr>
+        <td class="Right_font">上次问题解决情况:</td>
+        <td class="Left_font">
+            @Html.TextAreaFor(m => m.CopEnrol.LastProblemSolvingSituations, 3, 50, null)
+        </td>
+    </tr>
+    <tr>
+        <td class="Right_font">附件:</td>
+        <td class="Left_font">
+            @if (Model.CopEnrol != null)
+            {
+                if (Model.CopEnrol.AttachmentName != "" && Model.CopEnrol.AttachmentName != null)
+                {
+                    var delUrl = "DeleteFile/" + Model.CopEnrol.Id;
+                    var fileName = Model.CopEnrol.AttachmentName;
+                    var wenz = "(下载文件:右击'另存为')";
+                    <a href="@ViewData["fileUrl"]">@fileName</a>    
+                    @Html.ActionLink("删除", delUrl, "Enrol");@wenz;
+                    @Html.HiddenFor(m => m.CopEnrol.AttachmentName)
+                    @Html.HiddenFor(m => m.CopEnrol.NewAttachmentName)
+                }
+                else
+                {
+                    <input type="file" id="CopAttachment1" name="CopAttachment1" />
+                }
+            }
+            else
+            {
+                <input type="file" id="CopAttachment2" name="CopAttachment2" />
+            }
+        </td>
+    </tr>
+    <tr>
+        <td style="width:45%"></td>
+        <td>
+            <input type="submit" value="提 交" name="subsubmit"  id="subsubmit" size="40" class="l-button l-button-submit" style=" float:left"/>
+            <input type="button" value="返 回" onclick="javascript:history.back()" class="l-button l-button-test"style=" float:left"/>
+        </td>
+    </tr>
+</table>    
+    </div>
+}

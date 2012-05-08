@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.VehicleManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.VehicleManger.Models.ResourceVehicle,QzgfFrame.Resources" table="tab_vehicle">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String"  length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="TwoDimensionalCode" type="String" name="TwoDimensionalCode" length="50"  />
+    <property column="FullName" type="String" name="FullName" length="30" />
+    <property column="LinkTel" type="String" name="LinkTel" length="15" />
+    <property column="LicensePlateNumber" type="String" name="LicensePlateNumber" length="30" not-null="true"/>
+    <property column="StartDatetime" type="DateTime" name="StartDatetime" not-null="true"/>
+    <property column="UseMileage" type="int" name="UseMileage" not-null="true"/>
+    <property column="DrivingLicenseNo" type="String" name="DrivingLicenseNo" length="30" not-null="true"/>
+    <property column="EngineNo" type="String" name="EngineNo" length="30" not-null="true"/>
+    <property column="AnnualInspectTime" type="DateTime" name="AnnualInspectTime" not-null="true"/>
+    <property column="ManuFacturer" type="String" name="ManuFacturer" length="50"/>
+    <property column="ModelSpecification" type="String" name="ModelSpecification" length="50"/>
+    <property column="Displacement" type="String" name="Displacement" length="50"/>
+    <property column="Remark" type="String" name="Remark"   length="200"/>
+    <property column="StagnationId" type="String" name="StagnationId" length="20" />
+    <property column="MaintainSpecialtyId" type="String" name="MaintainSpecialtyId" length="20" not-null="true"/>
+    <property column="VehicleNatureId" type="String" name="VehicleNatureId" length="20" not-null="true"/>
+    <property column="UseId" type="String" name="UseId" length="20" not-null="true"/>
+    <property column="CompanyId" type="String" name="CompanyId"   length="20" />
+    <property column="CityId" type="String" name="CityId"   length="20" not-null="true"/>
+    <property column="DistrictId" type="String" name="DistrictId"   length="20" />
+    <property column="GridId" type="String" name="GridId"   length="20"  />
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  not-null="true"/>
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate"  not-null="true"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+	</class>
+</hibernate-mapping>

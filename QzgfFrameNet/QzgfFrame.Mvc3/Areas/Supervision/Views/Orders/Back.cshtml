@@ -1,0 +1,113 @@
+﻿@model QzgfFrame.Supervision.OrdersManager.Models.Order
+@{
+    
+    ViewBag.Title = "回单";
+}       
+    <script type="text/javascript">
+        var Validator = null;
+        var SysSecond;
+        var InterValObj;
+
+        $(function () {
+            $("#newForm").ligerForm();
+            deafultValidate($("#newForm"));
+            var options = {
+                dataType: 'json',      //期望服务器的的回应的类型。null、"xml"、"script"或者"json"其中之一。
+                beforeSubmit: showRequest, //提交成功时执行
+                error: showError, //提交错误时执行
+                success: showResponse//后台返回后执行
+            };
+            $('#newForm').ajaxForm(options);
+
+            $.metadata.setType("attr", "validate");
+        });
+
+        //提交成功时的数据
+        function showRequest(formData, jqForm, options) {
+            $.ligerDialog.waitting("正在保存中...");
+            return true;
+        }
+
+        //提交出错返回信息
+        function showError(data) {
+            alert("showError " + data.Message);
+        }
+
+        //提交成功后跳转
+        function showResponse(data, status) {
+            if (data.Type) {
+                $.ligerDialog.success(data.Message);
+                window.location.href = "/Supervision/Orders/Index"; //提交后，页面跳转的地址
+            }
+            else {
+                $.ligerDialog.closeWaitting();
+                alert(data.Message);
+            }
+        }
+
+    </script>
+@using (Html.BeginForm("Back", "Orders", FormMethod.Post, new { enctype = "multipart/form-data", name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.OrderId)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td align="right" class="editcellmessage">派遣工单主题:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.SupervisionSend.SendTitle, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">派遣工单内容:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextAreaFor(m => m.SupervisionSend.SendContent, 3, 25, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">接单时限:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.SupervisionSend.LimitOrders, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">回单时限:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.SupervisionSend.LimitBack, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">审核工单人员姓名:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.AuditStaff, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">接单超时次数:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.OrdersOvertimeNum, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">回单超时次数:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.BackOvertimeNum, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">回单附件:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        <input type="file" id="BackAttachment" name="BackAttachment" />
+                    </td> 
+                </tr> 
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="提 交" name="subsubmit"  id="subsubmit"/>
+                        <input type="button" value="返 回" onclick="javascript:history.back()"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+    }

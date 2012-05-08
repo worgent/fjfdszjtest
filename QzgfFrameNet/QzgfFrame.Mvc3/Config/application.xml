@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+    <description>数据库共用配置文件</description>
+    <object type="Spring.Objects.Factory.Config.PropertyPlaceholderConfigurer, Spring.Core">
+        <property name="ConfigSections" value="databaseSettings,hbmSettings"/>
+    </object>
+    <!--oracle   OracleClient-2.0 (ms)   OracleODP-2.0(oracle)
+    <db:provider id="DbProvider"  provider="OracleODP-2.0"
+             connectionString="Data Source=${db.datasource};User Id=${db.user};Password=${db.password};"/>
+     -->
+    <!--oracle OracleClient-2.0 (ms)   OracleODP-2.0(oracle)   
+  <db:provider id="DbProvider"  provider="System.Data.OracleClient"
+           connectionString="User ID=qywpt;Password=qywpt;Data Source=ORCL;"/>
+  <db:provider id="DbProvider"  provider="System.Data.OracleClient"
+               connectionString="User ID=nhibernate;Password=nhibernate;Data Source=serverorcl;"/>
+ 
+  <db:provider id="DbProvider"  provider="System.Data.OracleClient"
+               connectionString="User ID=nhibernate;Password=nhibernate;Data Source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521)) )(CONNECT_DATA =(SERVICE_NAME = orcl)) );"/>
+   -->
+
+  <!--mysql  
+  <db:provider id="DbProvider"  provider="MySql-5.0"
+                  connectionString="Data Source=localhost;User Id=root;Password=123@123;database=NHibernateDemo"/>
+               connectionString="User ID=qywpt;Password=qywpt;Data Source=ORCL;"/>
+-->
+    
+    <!--mysql  -->
+    <db:provider id="DbProvider"  provider="MySql-5.0"
+                    connectionString="Data Source=localhost;User Id=root;Password=123@123;database=NHibernateDemo"/>
+
+    <!--SessionFactory对象，其中包括一些比较重要的属性 -->
+    <object id="NHibernateSessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate30">
+        <property name="DbProvider" ref="DbProvider"/>
+        <property name="MappingAssemblies" value="${hbm.mappingassemblies}"/>
+        <!--
+         <property name="mappingResources" value="F:\vs\QzgfFrame\QzgfFrame.System\RoleManger\Models\SystemRole.hbm.xml"/>       
+        -->
+
+        <property name="HibernateProperties">
+            <dictionary>
+                <entry key="hibernate.connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+
+              <!--mysql  -->
+<entry key="dialect" value="NHibernate.Dialect.MySQLDialect"/>
+<entry key="hibernate.connection.driver_class" value="NHibernate.Driver.MySqlDataDriver"/>
+
+              <!--oracle NHibernate.Dialect.Oracle10gDialect
+				      NHibernate.Driver.OracleClientDriver(ms)
+				      NHibernate.Driver.OracleDataClientDriver(oracle)  
+                <entry key="dialect" value="NHibernate.Dialect.Oracle10gDialect"/>
+                <entry key="connection.driver_class" value="NHibernate.Driver.OracleClientDriver"/>
+                -->
+                <entry key="use_outer_join" value="true"/>
+                <entry key="show_sql" value="false"/>
+                <entry key="hbm2ddl.auto" value="update"/>
+                <entry key="adonet.batch_size" value="10"/>
+                <entry key="command_timeout" value="60"/>
+                <entry key="cache.use_second_level_cache" value="true"/>
+                <entry key="cache.use_query_cache" value="false"/>
+                <entry key="query.substitutions" value="true 1, false 0, yes 'Y', no 'N"/>
+                <entry key="proxyfactory.factory_class" value="NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle"/>
+            </dictionary>
+        </property>
+        <property name="ExposeTransactionAwareSessionFactory" value="true" />
+    </object>
+    <!-- spring默认自带的ADO处理,在datebasePager中使用-->
+    <object id="AdoTemplate" type="Spring.Data.Core.AdoTemplate, Spring.Data">
+        <property name="DbProvider" ref="DbProvider"/>
+        <property name="DataReaderWrapperType" value="Spring.Data.Support.NullMappingDataReader, Spring.Data"/>
+    </object>
+
+
+    <!--将id为NHibernateSessionFactory的对象注入到HibernateTemplate中,代码要以这个方式为主操作数据库-->
+    <object id="HibernateTemplate" type="Spring.Data.NHibernate.Generic.HibernateTemplate">
+        <property name="SessionFactory" ref="NHibernateSessionFactory" />
+        <property name="TemplateFlushMode" value="Auto" />
+        <property name="CacheQueries" value="true" />
+    </object>
+
+    <!--事务管理器-->
+    <object id="transactionManager"
+          type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate30">
+        <property name="DbProvider" ref="DbProvider"/>
+        <property name="SessionFactory" ref="NHibernateSessionFactory"/>
+    </object>
+
+    <!--事务拦截器-->
+    <object id="transactionInterceptor" type="Spring.Transaction.Interceptor.TransactionInterceptor, Spring.Data">
+        <property name="TransactionManager" ref="transactionManager"/>
+        <property name="TransactionAttributeSource">
+            <object type="Spring.Transaction.Interceptor.AttributesTransactionAttributeSource, Spring.Data"/>
+        </property>
+    </object>
+
+    <!--
+      我们在前几篇学过AOP拦截和事务代理。Spring.NET为NHibernate
+      提供的事务代理是TransactionProxyFactoryObject。我们将改类的Target熟悉注入业务处理层的类，这样Spring.NET会为该类包装上事务。
+      PROPAGATION_REQUIRED:支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。
+      PROPAGATION_SUPPORTS:支持当前事务，如果当前没有事务，就以非事务方式执行。
+      PROPAGATION_MANDATORY:支持当前事务，如果当前没有事务，就抛出异常。
+      PROPAGATION_REQUIRES_NEW:新建事务，如果当前存在事务，把当前事务挂起。
+      PROPAGATION_NOT_SUPPORTED:以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+      PROPAGATION_NEVER:以非事务方式执行，如果当前存在事务，则抛出异常。
+      PROPAGATION_NESTED:如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与PROPAGATION_REQUIRED类似的操作。
+   -->
+    <object id="BaseTransactionManager"  type="Spring.Transaction.Interceptor.TransactionProxyFactoryObject, Spring.Data" abstract="true">
+        <property name="PlatformTransactionManager" ref="transactionManager"/>
+        <property name="TransactionAttributes">
+            <name-values>
+                <add key="Save*" value="PROPAGATION_REQUIRED"/>
+                <add key="Set*" value="PROPAGATION_REQUIRED"/>
+                <add key="Finish*" value="PROPAGATION_REQUIRED"/>
+                <add key="Update*" value="PROPAGATION_REQUIRED"/>
+                <add key="Delete*" value="PROPAGATION_REQUIRED"/>
+                <add key="Quit*" value="PROPAGATION_REQUIRED"/>
+                <add key="Add*" value="PROPAGATION_REQUIRED"/>
+                <add key="Get*" value="PROPAGATION_SUPPORTS,readOnly"/>
+                <add key="Find*" value="PROPAGATION_SUPPORTS,readOnly"/>
+                <add key="Load*" value="PROPAGATION_SUPPORTS,readOnly"/>
+                <add key="*" value="PROPAGATION_REQUIRED"/>
+            </name-values>
+        </property>
+    </object>
+
+    <!--主页设置-->
+    <object id="homeController" parent="baseController" type="QzgfFrame.Mvc3.Controllers.HomeController, QzgfFrame.Mvc3" singleton="false">
+        <property name="userFacade" ref="userFacade"/>
+    </object>
+
+    <!--基类页面-->
+    <object id="baseController" type="QzgfFrame.Controllers.CommonSupport.BaseController, QzgfFrame.Controllers" singleton="false">
+        <property name="currentUser" ref="currentUser"/>
+        <property name="currentExaminee" ref="currentExaminee"/>
+    </object>
+</objects>

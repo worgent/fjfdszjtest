@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Warehouse.InventoryDetailManger.Models" assembly="QzgfFrame.Warehouse">
+	<class name="QzgfFrame.Warehouse.InventoryDetailManger.Models.WarehouseInventoryDetail,QzgfFrame.Warehouse" table="tab_inventory_detail">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="EquipName" type="String" name="EquipName" length="30" />
+    <property column="UnitId" type="String" name="UnitId" length="20" />
+    <property column="EquipModelId" type="String" name="EquipModelId" length="20" />
+    <property column="FactoryId" type="String" name="FactoryId" length="20" />
+    <property column="Use" type="String" name="Use" length="80" />
+    <property column="CurrentNum" type="int" name="CurrentNum"/>
+    <property column="LastWeekNum" type="int" name="LastWeekNum"/>
+    <property column="INum" type="int" name="INum" />
+    <property column="ONum" type="int" name="ONum"/>
+    <property column="RepairNum" type="int" name="RepairNum" />
+    <property column="ReturnNum" type="int" name="ReturnNum" />
+    <property column="ScrapNum" type="int" name="ScrapNum" />
+
+    <property column="DifferCurrentNum" type="int" name="DifferCurrentNum"/>
+    <property column="DifferLastWeekNum" type="int" name="DifferLastWeekNum"/>
+    <property column="DifferINum" type="int" name="DifferINum" />
+    <property column="DifferONum" type="int" name="DifferONum"/>
+    <property column="DifferRepairNum" type="int" name="DifferRepairNum" />
+    <property column="DifferReturnNum" type="int" name="DifferReturnNum" />
+    <property column="DifferScrapNum" type="int" name="DifferScrapNum" />
+	</class>
+</hibernate-mapping>

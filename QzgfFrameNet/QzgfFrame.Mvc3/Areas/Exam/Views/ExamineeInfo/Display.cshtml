@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Exam.ExamineeInfoManger.Models.ExamineeInfo 
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Edit", "Personnel", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.ExamExamineeInfo.ID)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font" width="15%">考试类型：<span class="l-verify-star">*</span></td>                    
+                    <td class="Left_font">
+                     @Model.ExamType
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Right_font" width="15%" >考生姓名：<span class="l-verify-star">*</span></td>                   
+                    <td class="Left_font">
+                    @Model.ExamExamineeInfo.FullName 
+                    </td>
+
+                    <td class="Right_font" width="15%">性 别：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.Sex
+                    </td> 
+                </tr>
+                 <tr>
+                   <td class="Right_font" width="15%">
+                        考试登录名：<span class="l-verify-star">*</span>
+                    </td>
+                    <td class="Left_font">
+                       @Model.ExamExamineeInfo.LoginName
+                    </td>
+                     <td class="Right_font" width="15%">身份证号：<span class="l-verify-star">*</span></td>                   
+                    <td class="Left_font">
+                       @Model.ExamExamineeInfo.IDCardNumber
+                    </td> 
+                </tr> 
+                
+                <tr>
+                   <td class="Right_font" width="15%">
+                        密码：<span class="l-verify-star">*</span>
+                    </td>
+                    <td class="Left_font">
+                    </td>
+                    <td class="Right_font" width="15%">手机号码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @Model.ExamExamineeInfo.MobileNumber
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font" width="15%">学历文凭：<span class="l-verify-star">*</span></td>                  
+                    <td class="Left_font">
+                    @Model.Diploma
+                    </td> 
+                                     
+                    <td class="Right_font" width="15%">出生日期：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     @Model.ExamExamineeInfo.BirthDate
+                    </td>
+                </tr>               
+                <tr>
+                    <td class="Right_font" width="15%">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Model.ExamExamineeInfo.Remark 
+                    </td> 
+                </tr>
+</tbody>
+</table>  
+<table width="100%"><tr><td style="width:45%"></td>
+<td>
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:window.location.href = '/Exam/ExamineeInfo/'"/></td></tr></table>                  
+   
+    </div> 
+    }
+    
+</body>
+</html>

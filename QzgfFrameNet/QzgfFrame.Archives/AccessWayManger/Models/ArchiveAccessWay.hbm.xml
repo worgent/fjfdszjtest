@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.AccessWayManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.AccessWayManger.Models.ArchiveAccessWay,QzgfFrame.Archives" table="tab_access_way">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="AccessWayName" type="String" name="AccessWayName" length="10" not-null="true"/>
+
+	</class>
+</hibernate-mapping>

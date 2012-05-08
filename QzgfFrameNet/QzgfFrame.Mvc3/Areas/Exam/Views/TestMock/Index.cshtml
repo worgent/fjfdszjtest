@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+     <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-common.css" rel="stylesheet" type="text/css" /> 
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-dialog.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-grid.css" rel="stylesheet"  type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-form.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.3.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        //debugger; //调试时使用
+        var gridManager = null;
+        var activeDialog = null;
+
+        var userID = "";
+        var role = "";   //0表示出卷人  1表示考生
+        function f_openWindow(url, title, width, height) {
+            var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: '保存', onclick: function (item, dialog) {
+                dialog.frame.f_save("qzgfframe" + GetUrlParam('_menuid'));
+            }
+            },
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+            };
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+        function f_closeWindow(reload) {
+            activeDialog && activeDialog.close();
+            reload && f_reload();
+        }
+        function f_btnClick(item) {
+            switch (item.id) {
+                case "add":
+                    f_add();
+                    break;
+                case "modify":
+                    f_modify();
+                    break;
+                case "delete":
+                    f_delete();
+                    break;
+                case "usestart":
+                    f_usestate("1");
+                    break;
+                case "usestop":
+                    f_usestate("2");
+                    break;
+                default:
+                    $.ligerDialog.alert('暂未实现!');
+                    break;
+            }
+        }
+        function f_button() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+            var id = rowsdata[0].ID;
+            f_openWindow('system/ButtonList.aspx?CurID=' + id, '菜单操作管理', 600, 350);
+        }
+        function f_modify() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (rowsdata.length!=1) {
+                $.ligerDialog.alert('请选择一行记录!');
+                return;
+            }
+            var id = rowsdata[0].ExamTestMock.ID;
+            f_openWindow('/Exam/TestMock/Modify/?id=' + id, '编辑考试模拟设置', 800, 350);
+        }
+        function f_add() {
+
+        }
+        function f_delete() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            for (i = 0; i < rowsdata.length; i++) {
+                //如果考卷已经被考过了，那么不可删除
+                for (i = 0; i < rowsdata.length; i++) {
+                    if (rowsdata[i].ExamTestMock.IsDelete == false) {
+                        if (rowsdata.length == 1)
+                            $.ligerDialog.alert('该模拟卷已经考过，删除操作无法进行。');
+                        else
+                            $.ligerDialog.alert('删除的列表中存在已经考过的模拟卷，删除操作无法进行。');
+                        return;
+                    }
+                }
+            }
+
+            $.ligerDialog.confirm("是否确认删除?", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在删除中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.ExamTestMock.ID;
+                        if (i < rowsdata.length - 1) {
+                            idStr += ",";
+                        }
+                    });
+                    $.getJSON('/Exam/TestMock/Delete/' + idStr, { Rnd: Math.random() }, function (data) {
+                        if (data.Type) {
+                            $.ligerDialog.success("删除成功");
+                        }
+                        else {
+                            $.ligerDialog.error("删除失败!<BR>" + data.Message);
+                        }
+                        $.ligerDialog.closeWaitting();
+                        f_reload();
+                    });
+                } else {
+                    return;
+                }
+            });
+           
+        }
+        $(function () {
+            userID = $("#UserID").val();
+            role = $("#Role").val();
+
+            if (role == "0") {
+                f_setCreateToolbar();
+                f_setCreateGrid();
+            }
+            else if (role == "1") {
+                f_setExamineeToolbar();
+                f_setExamineeGrid();
+            }
+        });
+        //出卷者工具栏
+        function f_setCreateToolbar() {
+            SetButtons($("#toolbar"), "/system/menu/GetButton?menuid=20111215094233704567");
+        }
+        //考生工具栏
+        function f_setExamineeToolbar() {
+            SetButtons($("#toolbar"), "/system/menu/GetButton?menuid=20111115094646198234");
+        }
+        //出卷者Grid
+        function f_setCreateGrid() {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '试卷名称', name: 'TestName', align: 'left', width: 400, minWidth: 300 },
+                { display: '考试时长', name: 'TimeLength', align: 'left', width: 80, minWidth: 60 },
+                { display: '创建时间', name: 'CreateTime', type: 'date', align: 'left', width: 120, minWidth: 90 },
+                { display: '预览', name: 'ViewTestUrl', align: 'left', width: 70, minWidth: 50 }
+                ], dataAction: 'server',
+                // url: "../../Service/BillListData.ashx?Action=GetGridView&gridviewname=system_menu", sortName: 'id',
+                url: "/Exam/TestMock/gridpager", sortName: 'id',
+                width: '99%', height: '100%', pageSize: 15,
+                checkbox: true,
+                heightDiff: -9,
+                parms: [{ name: "gridsearch", value: userID + "," + role}],
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+
+        //考生Grid
+        function f_setExamineeGrid() {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '操作', name: 'MockUrl', align: 'left', width: 120, minWidth: 100 },
+                { display: '试卷名称', name: 'TestName', align: 'left', width: 400, minWidth: 300 },
+                { display: '考试时长', name: 'TimeLength', align: 'left', width: 80, minWidth: 60 },
+                { display: '创建时间', name: 'CreateTime', type: 'date', align: 'left', width: 120, minWidth: 90 }
+                ], dataAction: 'server',
+                // url: "../../Service/BillListData.ashx?Action=GetGridView&gridviewname=system_menu", sortName: 'id',
+                url: "/Exam/TestMock/gridpager", sortName: 'id',
+                width: '99%', height: '100%', pageSize: 15,
+                checkbox: true,
+                heightDiff: -9,
+                parms: [{ name: "gridsearch", value: userID + "," + role}],
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+    </script>
+    <style type="text/css"> 
+        #maingrid{ margin:0 auto;}
+        #toolbar{margin:2px auto;width:99%; background:#F3F8F9;border: 1px solid #B6D3E0; height:30px; line-height:30px;}
+        #toolbar .l-toolbar-item{ margin-top:4px;}
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="topmenu"></div>
+    <div id="toolbar"></div>
+    <div id="searchbar"></div>
+    <div id="maingrid"></div>
+    <input id="UserID" type="hidden" value="@ViewBag.UserID"/>
+    <input id="Role" type="hidden" value="@ViewBag.Role"/>
+    </form>
+</body>
+</html>

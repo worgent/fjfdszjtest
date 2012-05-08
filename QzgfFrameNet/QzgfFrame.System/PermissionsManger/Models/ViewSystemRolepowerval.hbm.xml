@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"  default-lazy="false" namespace="QzgfFrame.System.PermissionsManger.Models" assembly="QzgfFrame.System">
+	<class name="QzgfFrame.System.PermissionsManger.Models.ViewSystemRolepowerval" table="VIEW_SYSTEM_ROLEPOWERVAL">
+        <composite-id name="CompositeId" class="QzgfFrame.System.PermissionsManger.Models.CompositeId">
+            <key-property column="ID" type="String" name="Id"  length="20" />
+            <key-property column="ROLEID" type="String" name="Roleid" length="20" />
+        </composite-id>
+        <property column="MENUID" type="String" name="Menuid" length="20" />
+        <property column="MENUNAME" type="String" name="Menuname" length="100" />
+        <property column="FIELDCODE" type="String" name="Fieldcode" length="50" />
+        <property column="FIELDNAME" type="String" name="Fieldname" length="100" />
+        <property column="TABLECODE" type="String" name="Tablecode" length="50" />
+        <property column="TABLENAME" type="String" name="Tablename" length="100" />
+        <property column="POWERVAL" type="Int32" name="Powerval" />
+	</class>
+</hibernate-mapping>

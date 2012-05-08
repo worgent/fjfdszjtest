@@ -1,0 +1,83 @@
+﻿@model QzgfFrame.Cop.CycTimeManager.Models.CopCycTime
+@{
+    
+    ViewBag.Title = "Register";
+}       
+@using (Html.BeginForm("Edit", "CycTime", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m=>m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font">巡检周期：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                        <table style="width:100%">
+                            <tr> 
+                                <td >  
+                                    @Html.TextBoxFor(m => m.CycTime, new { ltype = "text", validate = "{required:true,number: true}" })
+                                </td>
+                                <td style="width:85%; text-align:left;">月</td>
+                            </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </tbody>
+        </table>
+    </div> 
+}
+<script type="text/javascript">
+    //var CurID =  <%=CurID %>;
+    var Validator = null;
+    $(function () {
+        $.metadata.setType("attr", "validate");
+        $("#form1").ligerForm();
+        deafultValidate($("#form1"));
+        Validator = $("#form1").validate();
+    });
+
+    function f_success() {
+        $(document).ready(function () {
+            $.ligerDialog.confirm("是否继续编辑", "保存成功", function (ok) {
+                $.ligerDialog.closeWaitting();
+                parent.window.frames["mainframe"].f_reload();
+                if (!ok) {
+                    parent.window.frames["mainframe"].f_closeWindow();
+                }
+            });
+        });
+    }
+    function f_error(message) {
+        $(document).ready(function () {
+            $.ligerDialog.error(message);
+        });
+    }
+    function f_save() {
+        $.ligerDialog.waitting("正在保存中...");
+        document.forms[0].submit();
+    }
+
+    $(function () {
+        $.metadata.setType("attr", "validate");
+        var v = $("form").validate({
+            debug: true,
+            errorPlacement: function (lable, element) {
+                if (element.hasClass("l-textarea")) element.ligerTip({ content: lable.html(), appendIdTo: lable });
+                else if (element.hasClass("l-text-field")) element.parent().ligerTip({ content: lable.html(), appendIdTo: lable });
+                else lable.appendTo(element.parents("td:first").next("td"));
+            },
+            success: function (lable) {
+                lable.ligerHideTip();
+            },
+            submitHandler: function () {
+                $("form .l-text,.l-textarea").ligerHideTip();
+                alert("Submitted!")
+            }
+        });
+        $("form").ligerForm();
+        $(".l-button-test").click(function () {
+            alert(v.element($("#txtName")));
+        });
+    }); 
+</script>

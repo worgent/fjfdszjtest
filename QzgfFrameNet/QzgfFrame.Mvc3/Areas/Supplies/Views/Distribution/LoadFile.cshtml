@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>LoadFile</title>
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+    <script>
+        function showRequest(formData, jqForm, options) {
+            return true;
+        }
+        function showError(data) {
+            alert('error');
+        }
+        function showResponse(data, status) {
+            if (data.Type == "true")
+                alert("成功导入!!");
+            else
+                alert(data.Message);
+        }
+
+        function btn_onclick(n) {
+            $("#btnFlag").val(n);
+            var options = {
+                dataType: 'json',
+                beforeSubmit: showRequest,
+                error: showError,
+                success: showResponse
+            };
+            $('#myform').ajaxSubmit(options);
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+<form action="/CommunityManager/UploadFile" method="post" id="myform" enctype="multipart/form-data">
+<table cellpadding="0" border="0" cellspacing="0"  class="importtable">
+<tr><td  class="import_font">
+    请上传文件： 
+     <input type="file" id="T7"   name="uploadfiles" size="60"  accept="xls|xlsx"/>
+     <input type="hidden" id="btnFlag"   name="btnFlag" value="0" />
+     </td></tr>
+   <tr><td  class="import_center_font"> <input type="button" value="导入" onclick="btn_onclick(1)"/><input type="button" value="验证数据" onclick="btn_onclick(0)"/></td></tr>
+   <tr><td  ><table cellpadding="0" border="0" cellspacing="0"  style=" color:Red;width:100%;">
+   <tr><td class="import_tit">处理信息</td></tr>
+    <tr><td class="import_font">请按照EXCEL模版填写信息</td></tr>
+    <tr><td class="import_font">不要增、删EXCEL的第一行信息</td></tr>
+    <tr><td class="import_font">可以在这里下载EXCEL模版文件<a href="../../../Upload/TemplateFile/社区经理信息.xls">下载</a></td></tr>
+    <tr><td id="showmsg"></td></tr>
+    </table></td></tr>
+    </table>
+</form>
+    </div>
+</body>
+</html>

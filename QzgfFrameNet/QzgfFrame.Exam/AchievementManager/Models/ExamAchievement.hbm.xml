@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Exam.AchievementManager.Models" assembly="QzgfFrame.Exam">
+  <class name="QzgfFrame.Exam.AchievementManager.Models.ExamAchievement,QzgfFrame.Exam" table="tab_exam_achievement">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="UserId" type="String" name="UserId" length="256" />
+    <property column="AnswerStartTime" type="DateTime" name="AnswerStartTime" length="256" />
+    <property column="AnswerEndTime" type="DateTime" name="AnswerEndTime" length="256" />
+    <property column="Fraction" type="String" name="Fraction" length="256" />
+    <property column="IsSubmitted" type="Int32" name="IsSubmitted" length="2" />
+    <property column="MarkingState" type="Int32" name="MarkingState" length="2" />
+    <property column="MarkingTime" type="DateTime" name="MarkingTime" length="256" />
+    <property column="TestId" type="String" name="TestId" length="256" />
+    <property column="SetUpId" type="String" name="SetUpId" length="256" />
+    <property column="ExamType" type="String" name="ExamType" length="256" />
+  </class>
+</hibernate-mapping>

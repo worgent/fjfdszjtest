@@ -1,0 +1,82 @@
+﻿.l-button-submit,.l-button-test
+{
+    width:80px; 
+    float:left; 
+    margin-left:10px; 
+    padding-bottom:2px;
+}
+.Left_font 
+{
+    padding-left: 10px;
+    line-height:23px; 
+    background:#ffffff;
+    padding-right:10px;
+    height:23px;
+    border-bottom:solid #93c7e3 1px;
+    border-right:solid #93c7e3 1px; 
+    text-align:left;
+}
+.l_judge_font 
+{
+    padding-left: 10px;
+    line-height: 23px;
+    background: #ffffff;
+    height: 23px;
+    text-align: left;
+}
+.l_judge_font table
+{
+    border: none;
+    width: 100%;
+}
+.l_judge_font table tr td
+{
+    border: none;
+}
+.l_font
+{
+    line-height: 23px;
+    background: #ffffff;
+    height: 23px;
+    text-align: left;
+}
+.l_font table
+{
+    border: none;
+    width: 100%;
+}
+.l_font table tr td
+{
+    border: none;
+}
+.l_font table .tr_top
+{
+    border-right: solid #93c7e3 1px;
+    border-top: solid #93c7e3 1px;
+}
+.r_font
+{
+    line-height: 23px;
+    height: 23px;
+    border-right: solid #93c7e3 1px;
+    background: #eff7fc;
+    border-bottom: solid #93c7e3 1px;
+    width: 180px;
+    text-align: right;
+    padding-right: 5px;
+}
+.r_font span
+{
+    color: red;
+}
+.Right_font 
+{
+    line-height:23px;
+    padding-right:10px;
+    height:23px;
+    border-right:solid #93c7e3 1px;
+    background:#eff7fc; 
+    border-bottom:solid #93c7e3 1px; 
+    text-align:right;
+}
+

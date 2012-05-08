@@ -1,0 +1,170 @@
+﻿    <form id="form1" runat="server">
+    <div id="topmenu"></div>
+    <div id="toolbar"></div>
+    <!--方案一：直接页面中
+    <div id="searchbar"> 
+        菜单名称：<input type="text" id="querymenu" />
+        <div id="searchbtn" style="width:80px;">搜索</div>
+    </div> 
+    -->
+
+    <div id="maingrid"></div>
+    </form>
+    <script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager = null; 
+        var activeDialog = null;
+        function f_openWindow(url, title, width, height, btnname) {
+            if (btnname == null) {
+                btnname = '保存';
+            }
+            var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: btnname, onclick: function (item, dialog) {
+                dialog.frame.f_save("qzgfframe" + GetUrlParam('_menuid'));
+            }
+            },
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+            };
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+        function f_closeWindow(reload) {
+            //这两件事同时做会有异常
+            reload && f_reload();
+            activeDialog && activeDialog.close();
+        }
+        function f_btnClick(item) {
+            switch (item.id) {
+                case "add":
+                    f_add();
+                    break;
+                case "modify":
+                    f_modify();
+                    break;
+                case "delete":
+                    f_delete();
+                    break;
+                case "button":
+                    f_button();
+                    break;
+                case "search":
+                    f_search();
+                    break;    
+                default:
+                    $.ligerDialog.alert('暂未实现!');
+                    break;
+            }
+        }
+        function f_button() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+            var id = rowsdata[0].Id;
+            f_openWindow('system/ButtonList.aspx?CurID=' + id, '菜单操作管理', 600, 350);
+        }
+        function f_add() {
+            f_openWindow('/system/menu/add/0', '添加菜单', 600, 350);
+        }
+        function f_search() {
+            f_openWindow('/system/menu/search', '查询模块', 700, 250, '查询');
+        }
+        function f_modify() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (rowsdata.length != 1) {
+                $.ligerDialog.alert('请选择一行记录!');
+                return;
+            }
+            var id = rowsdata[0].Id;
+            //system/MenuEdit.aspx?CurID=' + id
+            f_openWindow('/system/menu/modify?id=' + id, '修改菜单', 600, 350);
+        }
+        function f_delete() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            $.ligerDialog.confirm("是否确认删除?", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在删除中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                    $.getJSON('/system/menu/delete?id=' + idStr, { Rnd: Math.random() }, function (data) {
+                        if (data.Type) {
+                            $.ligerDialog.success("删除成功");
+                        }
+                        else {
+                            $.ligerDialog.error("删除失败!<BR>" + data.Message);
+                        }
+                        $.ligerDialog.closeWaitting();
+                        f_reload();
+                    });
+                } else {
+                    return;
+                }
+            });
+
+        }
+        $(function () {
+
+            f_setToolbar();
+            f_setGrid();
+        });
+        function f_setToolbar() {
+            //SetButtons($("#toolbar"));
+            SetButtons($("#toolbar"), "/system/menu/GetButton?menuid=2");
+        }
+        function f_setGrid() {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '名称', name: 'Name', align: 'left', width: 130, minWidth: 60 },
+                { display: '图片', name: 'Pic', align: 'left', width: 180, minWidth: 60 },
+                { display: '链接地址', name: 'Url', align: 'left', width: 300, minWidth: 60 },
+                { display: '父结点', name: 'FatherName', align: 'left', width: 130, minWidth: 60, isSort: false }
+                , { display: '是否菜单', name: 'IsmenuName', align: 'left', width: 40, minWidth: 60, isSort: false }
+                ], dataAction: 'server',
+                url: "/system/menu/gridpager", sortName: 'Id', sortOrder: 'desc',
+                width: '99%', height: '100%', pageSize: 30,
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+        /*用户查询模块*/
+        $("#searchbtn").ligerButton({ click: function () {
+            if (!gridManager) return;
+            //方案一：直接在list的页面中处理需要的参数
+            var menuname = $("#querymenu").val();
+            var searchparm = {};
+            searchparm["sm.Name"] = menuname;
+            var gridsearch = "";
+            for (now in searchparm) {
+                gridsearch += " and " + now + " ='" + searchparm[now] + "'";
+            }
+            gridManager.setOptions(
+                { parms: [{ name: 'gridsearch', value: gridsearch}] }
+            );
+            gridManager.loadData(true);
+            //方案二:在search.cshtml页面进行查询
+        }
+        });
+         </script>
+    <style type="text/css"> 
+        #maingrid{ margin:0 auto;}
+        #toolbar{margin:2px auto;width:99%; background:#F3F8F9;border: 1px solid #B6D3E0; height:30px; line-height:30px;}
+        #toolbar .l-toolbar-item{ margin-top:4px;}
+    </style>

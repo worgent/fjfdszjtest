@@ -1,0 +1,53 @@
+<!--
+	 /********************************************
+	 * 文件名称：choicelist.htm
+	 * 功能描述：类别选择用例
+	 * 创建日期：2008-07-24
+	 * @author：codeslave
+	 *********************************************/
+-->
+<html>
+<head>
+<title>类别选择用例</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link type="text/css" rel="stylesheet" href="highquery/style.css" />
+<script type="text/javascript">
+<!--
+//发送值。
+function sendValues(arrValue)
+{
+  parent.returnValue = arrValue;
+	closeFrame();
+}
+
+//关闭窗体。
+function closeFrame()
+{
+  parent.close();
+}
+//-->
+</script>
+</head>
+<body>
+<table id='highQuery' class='HQ_TABLE'>
+<th class='HQ_TH'>选取</th>
+<th class='HQ_TH'>类别编号</th>
+<th class='HQ_TH'>类别描述</th>
+<tr>
+<td class='HQ_TD'><input type="radio" name="category" onClick="sendValues(new Array('1','类别1'))"></td>
+<td class='HQ_TD'>1</td>
+<td class='HQ_TD'>类别1</td>
+</tr>
+<tr>
+<td class='HQ_TD'><input type="radio" name="category" onClick="sendValues(new Array('2','类别2'))"></td>
+<td class='HQ_TD'>2</td>
+<td class='HQ_TD'>类别2</td>
+</tr>
+<tr>
+<td class='HQ_TD'><input type="radio" name="category" onClick="sendValues(new Array('3','类别3'))"></td>
+<td class='HQ_TD'>3</td>
+<td class='HQ_TD'>类别3</td>
+</tr>
+</table>
+</body>
+</html>

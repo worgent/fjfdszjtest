@@ -1,0 +1,150 @@
+﻿@model QzgfFrame.System.MenuManger.Models.SystemMenu
+@*
+model Tuple< QzgfFrame.System.MenuManger.Models.SystemMenu, QzgfFrame.System.RoleManger.Models.SystemRole>
+@Html.TextBoxFor(m=>m.Item1.Pic)
+@Html.TextBoxFor(m=>m.Item2.Rolename)
+*@
+@{
+    ViewBag.Title = "Register";
+}
+@using (Html.BeginForm("edit", "Menu", FormMethod.Post, new { name = "form1", id = "form1" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        菜单名：<span class="l-verify-star">*</span>
+                    </td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.Name, new { validate = "{required:true,minlength:1}", ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        图标：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       @Html.TextBoxFor(m => m.Pic, new { ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        链接地址：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       
+                        @Html.TextBoxFor(m => m.Url, new { ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        权限标识：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       
+                        @Html.TextBoxFor(m => m.Permissionsflag, new { ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        父结点：<span class="l-verify-star">*</span>
+                    </td>
+                    <td align="left" class="editcell">
+                        
+                        @Html.TextBoxFor(m => m.FatherName, new { validate = "{required:true,minlength:1}", ltype = "text" })
+                        @Html.HiddenFor(m => m.Father)
+                        @*
+                    <input type="text" id="Father"/>
+                    Html.DropDownList("Father", (SelectList)ViewData["DropFatherData"])
+                    *@
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        排序：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       @Html.TextBoxFor(m => m.Orderno, new { ltype = "text" })
+                    </td>
+                </tr>
+                
+                   <tr>
+                   <td align="right" class="editcellmessage">
+                        是否菜单：<span class="l-verify-star">*</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       
+                             @Html.DropDownList("Ismenu", new List<SelectListItem>{
+                                           (new SelectListItem() {Text = "是", Value = "1", Selected = true}),
+                                           (new SelectListItem() {Text = "否", Value = "0", Selected = false})
+                                       })
+                    </td>
+               </tr>     
+               
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+}
+<script src="@Url.Content("~/Lib/jquery-validation/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Lib/jquery-validation/messages_cn.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Lib/jquery-validation/jquery.metadata.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    var Validator = null;
+    $(function () {
+        //处理下拉框
+        $("#FatherName").ligerComboBox({
+            selectBoxWidth: 200, treeLeafOnly: false,
+            selectBoxHeight: 150, valueFieldID: 'Father', textFieldID: 'FatherName',
+            //Service/SystemData.ashx?Action=GetMenu  /system/menu/GetMenu
+            tree: { url: '/system/menu/GetMenu', checkbox: false, topParentIDValue: -1,
+                idFieldName: 'id', parentIDFieldName: 'pid'
+                //,onSuccess: function (node) {
+                    //tree.collapseAll();
+                //}
+            }
+        });
+        $("#Ismenu").ligerComboBox({ selectBoxHeight: 50 }); //{height:10} selectBoxWidth: 200,
+        //验证
+        $.metadata.setType("attr", "validate");
+        $("#form1").ligerForm();
+        deafultValidate($("#form1"));
+        Validator = $("#form1").validate();
+    });
+    //操作成功提示
+    function f_success(id) {
+        $.ligerDialog.success("保存成功", "提示", function () {
+            $.ligerDialog.closeWaitting();
+            parent.window.frames[id].f_reload();
+            //暂不知原因关闭窗体后，再打开就无法编辑了
+//            if (!ok) {
+//                    alert("begin");
+//                    parent.window.frames[id].f_closeWindow(true);
+//                    alert("begin");
+//            }else {
+//                    
+//              }
+        });
+    }
+    //操作失败提示
+    function f_error(message) {
+            $.ligerDialog.closeWaitting();
+            $.ligerDialog.error(message);
+    }
+    function f_save(frameid) {
+        if (!Validator.form()) return;
+        $.ligerDialog.waitting("正在保存中...");
+        //提交数据
+        var now = $('#form1');
+        var path = now[0].action; //参数
+        var formdata = now.serialize(); //参数
+        f_submit(path, formdata, frameid);
+        //document.forms[0].submit();
+    } 
+</script>

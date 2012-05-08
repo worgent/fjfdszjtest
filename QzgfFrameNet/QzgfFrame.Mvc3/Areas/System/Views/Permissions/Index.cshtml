@@ -1,0 +1,296 @@
+﻿
+    <!--json数据转化-->
+    <script src="../../../../Lib/json2.js" type="text/javascript"></script> 
+    <script src="../../../../Lib/ligerUI/js/plugins/ligerGrid1.1.0.js" type="text/javascript"></script>
+    <link href="../../../../Lib/ligerUI/skins/silvery/css/ligerui-grid1.1.css" rel="stylesheet" type="text/css" />
+@* ReSharper disable AssignedValueIsNeverUsed *@
+    <script type="text/javascript">
+        var functionGrid = null;
+        var applicationGrid = null;
+        var activeDialog = null;
+        var navtab = null;
+        var roleid = "1";
+        //var myTree = new GridTree();
+        //var TreeDeptData =@*Html.Raw(ViewData.Eval("menutree").ToString())*@ ;
+        var vlist = ["列表", "增加", "删除", "修改", "启用", "停用","导入", "退网","查询"]; //菜单按钮列表信息
+
+        function f_openWindow(url, title, width, height) {
+            var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: '确认', onclick: function (item, dialog) {
+                //移动最后一个选项卡
+                navtab.selectTabItem("applicationGrid");
+                var tmp = dialog.frame.f_getdata();
+                addNewRows(tmp);
+                dialog.close();
+                //重新加载
+                //applicationGrid.loadData(false);
+            }
+            },
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+            };
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+
+        $(function () {
+            $("#maintab").ligerTab({ contextmenu: false });
+            roleid = $("#roleid").val();
+            //roleid == @ViewData["rolename"];
+            //alert(roleid);
+            navtab = $("#maintab").ligerGetTabManager(); //选项卡管理,可选中指定选项卡
+            //应用程序 表格
+            f_setApplicationGrid();
+            //菜单操作 表格
+            f_setFunctionGrid();
+            //初始化角色信息
+        });
+
+        function deleteRow() {
+            applicationGrid.deleteSelectedRow();
+        }
+        function addNewRow() {
+            //applicationGrid.addRowData("{Menuid:'5', Filedcode:'rolename', Filedname:'角色名', Tablecode:'systemrole', Tablename:'角色表', Remark:'测试', Menuname:'角色'}");
+            //alert("{Menuid:'5', Filedcode:'rolename', Filedname:'角色名', Tablecode:'systemrole', Tablename:'角色表', Remark:'测试', Menuname:'角色'}");
+            applicationGrid.addRow();
+            applicationGrid.addRowData("{Menuid:'5', Fieldcode:'1', Fieldname:'1', Tablecode:'1', Tablename:'1', Menuname:'1'}");
+        }
+        function addNewRows(datas) {
+            for (var i = 0; i < datas.length; i++) {
+                var tmp = JSON2.stringify(datas[i]);
+                //$.ligerDialog.alert(tmp);
+                applicationGrid.addRowData(tmp);
+            }
+
+        }
+
+        function f_setApplicationGrid() {
+            //默认数据为空
+            var data = { Rows: [], Total: 0 };
+            applicationGrid = $("#applicationGrid").ligerGrid({
+                columns: [
+                //{ display: '字段主键', name: 'Id', width: 50 },
+                //{ display: '模块代码', name: 'Menuid', width: 50 },
+                {display: '模块名称', name: 'Menuname', width: 100 },
+                { display: '字段代码', name: 'Fieldcode', width: 100 },
+                { display: '字段名称', name: 'Fieldname', width: 100 },
+                { display: '表代码', name: 'Tablecode', width: 100 },
+                { display: '表名称', name: 'Tablename', width: 100 }
+                 , { display: '权限值', name: 'Powerval', width: 200,
+                     render: function (item) {
+                         var html = '<input type ="checkbox" name="chkexport" ';
+                         if ((item.Powerval & 4) == 4) html += 'checked="checked" oldvalue ="4"';
+                         else html += 'oldvalue ="4"';
+                         html += ">导出";
+
+                         html += '<input type ="checkbox" name="chkprint" ';
+                         if ((item.Powerval & 2) == 2) html += 'checked="checked" oldvalue ="2"';
+                         else html += 'oldvalue ="2"';
+                         html += ">打印";
+
+                         html += '<input type ="checkbox" name="chkview" ';
+                         if ((item.Powerval & 1) == 1) html += 'checked="checked" oldvalue ="1"';
+                         else html += 'oldvalue ="1"';
+                         html += ">查看";
+
+                         return html;
+                     }
+                 }
+                ],
+                onAfterShowData: function () {
+                    //遍历'权限分配列' 所有的复选框 应用liger皮肤
+                    //$("#applicationGrid td.l-grid-row-cell[columnname=Powerval] input").ligerCheckBox();
+                    //写入数据
+
+                },
+                url: "/system/permissions/LoadAllViewrolepowerval/" + roleid,
+                enabledEdit: true, usePager: false, isScroll: true, sortName: 'Id', enabledSort: false,
+                allowHideColumn: true,
+                //data: data,
+                //checkbox: true, 
+                width: '95%', height: 300
+            });
+            //隐藏字段
+            //applicationGrid.toggleCol('Id', false); //第一个字段 字段主键 
+            //applicationGrid.toggleCol('Menuid', false); //第一个字段 模块代码
+            //applicationGrid.toggleCol(0, false);
+            //applicationGrid.loadData(true);
+        }
+
+        //选中菜单
+        function onClick(note) {
+            var flag = $("#flag").val();
+            if (flag == "1") {
+                f_openWindow('/system/menufield/IndexPermissions/', '数据字段列表', 600, 350);
+                //alert('onCheck:' + note.data.text);
+            }
+        }
+
+        //角色菜单
+        function f_setFunctionGrid() {
+            functionGrid = $("#functionGrid").ligerGrid({
+                columns: [
+            { display: '菜单名称', name: 'name', width: 250, align: 'left' },
+            {name: 'optval', width: 450, type: 'int',
+            headerRender: function () {
+                var html = "";
+                //水平选择
+                html += '全选';
+                var len = vlist.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<input type ="checkbox" name="list' + i + '" onclick="choose(this)" >' + vlist[i].toString();
+                }
+                // html += ' <a class="l-checkbox l-checkbox-checked" onclick="choose(this)"/>' +
+                //     ' <input type="checkbox" onclick="choose(this)" name="chknetout" class="l-hidden"/>';
+                return html;
+            },
+            render: function (item) {
+                var html = "";
+                //水平选择
+                html += '<input type ="checkbox" name="chkvchoose" onclick="chkchoose(this)" >&nbsp;&nbsp;';
+
+                var len = vlist.length;
+                for (var i = 0; i < len; i++) {
+                    var nowval = parseInt(Math.round(Math.pow(2, i)));
+                    html += '<input type ="checkbox" name="list' + i + '"';
+                    if ((item.optval & nowval) == nowval) html += ' checked="checked" ';
+                    html += ' oldvalue ="' + nowval + '">' + vlist[i].toString();
+                }
+                return html;
+            }
+        }
+            ], width: '95%', pageSizeOptions: [5, 10, 15, 20], height: 300,
+                //checkbox: true,
+                onAfterShowData: function () {
+                    //遍历'权限分配列' 所有的复选框 应用liger皮肤
+                    //$("#functionGrid td.l-grid-row-cell[columnname=optval] input").ligerCheckBox();
+                },
+                //写入数据
+                //data: TreeDeptData,
+                url: '/system/permissions/LoadAllViewrolemenu/' + roleid,
+                enabledEdit: true, usePager: false, isScroll: true, enabledSort: false,
+                alternatingRow: false
+            , tree: { columnName: 'name' }
+            }
+            );
+        }
+
+
+
+        function f_success() {
+            $(document).ready(function () {
+                $.ligerDialog.confirm("是否继续编辑", "保存成功", function (ok) {
+                    $.ligerDialog.closeWaitting();
+                    f_reload();
+                    if (!ok) {
+                        parent.window.frames["mainframe"].f_closeWindow();
+                    }
+                });
+            });
+        }
+        function f_error(message) {
+            $(document).ready(function () {
+                alert(message);
+                //$.ligerDialog.error(message);
+            });
+        }
+        function f_updatedata() {
+            //debugger;
+            if (applicationGrid) {
+                //转化复选框数据运算为整型值
+                $("#applicationGrid tr.l-grid-row td.l-grid-row-cell[columnname=Powerval]").each(function () {
+                    var result = 0;
+                    var chkexport = $("input[name='chkexport']", this);
+                    var chkexportval = chkexport[0].checked ? parseInt(chkexport.attr("oldvalue")) : 0;
+                    var chkprint = $("input[name='chkprint']", this);
+                    var chkprintval = chkprint[0].checked ? parseInt(chkprint.attr("oldvalue")) : 0;
+                    var chkview = $("input[name='chkview']", this);
+                    var chkviewval = chkview[0].checked ? parseInt(chkview.attr("oldvalue")) : 0;
+                    result = chkexportval + chkprintval + chkviewval;
+                    applicationGrid.updateData(this, result);
+                });
+            }
+            if (functionGrid) {
+                $("#functionGrid  td.l-grid-row-cell[columnname=optval]").each(function () {
+                    debugger;
+                    var result = 0;
+                    var len = vlist.length;
+                    var objcur;
+                    var valcur;
+                    for (var i = 1; i < len; i++) {
+                        objcur = $('input[name="list' + i + '"]', this);
+                        valcur = objcur[0].checked ? parseInt(objcur.attr("oldvalue")) : 0;
+                        result += valcur;
+                    }
+                    //是否选中菜单
+                    objcur = $('input[name="list' + 0 + '"]', this);
+                    valcur = objcur[0].checked ? parseInt(objcur.attr("oldvalue")) : 0;
+                    if (result > 0) result += 1;
+                    else result += valcur;
+                    try {
+                        functionGrid.updateData(this, result);
+                    } catch (ex) {
+                        //debugger;
+                    }
+                });
+            }
+        }
+        function f_save() {
+            f_updatedata();
+            $("#applicationGridData").val(JSON2.stringify(applicationGrid.getData()));
+            $("#functionGridData").val(JSON2.stringify(functionGrid.getData()));
+            $.ligerDialog.waitting("正在保存中...");
+            document.forms[0].submit();
+        }
+        function f_reload() {
+            functionGrid && functionGrid.loadData(true);
+            applicationGrid && applicationGrid.loadData(true);
+        }
+        //是否全选
+        function choose(now) {
+            $("#functionGrid  td.l-grid-row-cell[columnname=optval]").each(function () {
+                var chknetout = $("input[name='" + now.name + "']", this);
+                chknetout[0].checked = now.checked;
+            });
+        }
+        //是否全选
+        function chkchoose(now) {
+            var jnow = $(now);
+            var nowcr = jnow.parent();
+            $("input[type='checkbox']", nowcr).each(function () {
+                this.checked = now.checked;
+            });
+        }
+        //启动/关闭配置
+        function f_flagchange() {
+            var flagval = $("#flag").val();
+            if (flagval == "1") {
+                $("#flag").val("0");
+                $("#btnflag").val("启动配置");
+            } else {
+                $("#flag").val("1");
+                $("#btnflag").val("关闭配置");
+            }
+        }
+    </script> 
+    <style type="text/css"> 
+        body { font-size:12px; background:white;}
+    </style>
+
+@using (Html.BeginForm("Save", "Permissions"))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+
+    <div id="maintab" style="width: 100%; overflow: hidden; border: 1px solid #A3C0E8;">
+        <div title="操作权限"  tabid="functionGrid" style="height: 300px; padding: 10px;" ><div id="functionGrid" ></div>
+        </div> 
+        <div style="height: 300px; padding:10px;" tabid="applicationGrid" title="数据权限"><div id="applicationGrid"></div>
+        </div>
+    </div>
+    @Html.Hidden("functionGridData");
+    @Html.Hidden("applicationGridData");
+    @Html.Hidden("flag");
+    @Html.Hidden("roleid");           
+}

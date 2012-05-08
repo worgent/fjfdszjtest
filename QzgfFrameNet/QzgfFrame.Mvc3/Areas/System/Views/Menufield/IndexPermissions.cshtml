@@ -1,0 +1,46 @@
+﻿    <form id="form1" runat="server">
+    <div id="maingrid"></div>
+    </form>
+    <script type="text/javascript">
+        var gridManager = null;
+
+        function f_closeWindow(reload) {
+            reload && f_reload();
+        }
+        
+        $(function () {
+            f_setGrid();
+        });
+        
+        function f_setGrid() {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '字段代码', name: 'Fieldcode', align: 'left', width: 130, minWidth: 60 },
+                { display: '字段名称', name: 'Fieldname', align: 'left', width: 180, minWidth: 60 },
+                { display: '表代码', name: 'Tablecode', align: 'left', width: 300, minWidth: 60 },
+                { display: '表名称', name: 'Tablename', align: 'left', width: 130, minWidth: 60 }
+                , { display: '模块名称', name: 'Menuname', align: 'left', width: 40, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/system/menufield/permissionsgridpager", sortName: 'Id',
+                width: '99%', height: '100%', pageSize: 30, usePager: false,
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+
+        function f_getdata() {
+            var manager = $("#maingrid").ligerGetGridManager();
+            //manager.getData();
+            return manager.getCheckedRows();
+        }
+        
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+    </script>
+    <style type="text/css"> 
+        #maingrid{ margin:0 auto;}
+    </style>

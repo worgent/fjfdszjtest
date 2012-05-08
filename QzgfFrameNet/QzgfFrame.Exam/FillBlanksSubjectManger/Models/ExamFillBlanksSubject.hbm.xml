@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Exam.FillBlanksSubjectManger.Models" assembly="QzgfFrame.Exam">
+	<class name="QzgfFrame.Exam.FillBlanksSubjectManger.Models.ExamFillBlanksSubject,QzgfFrame.Exam" table="TAB_FILLBLANKS_SUBJECT">
+
+		<!-- Primary Key(s) -->
+		<id name="ID" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="SUBJECTID" type="String" name="SubjectID" length="256"/>
+    <property column="ORDERNO" type="String" name="OrderNo" length="256" />
+		<property column="ANSWER" type="String" name="Answer" length="256" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,156 @@
+﻿@model QzgfFrame.System.DepartmentManger.Models.SystemDepartment
+@{
+    ViewBag.Title = "Register";
+}
+@using (Html.BeginForm("edit", "department", FormMethod.Post, new { name = "form1", id = "form1" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Levelno)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        机构名称：<span class="l-verify-star">*</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       @Html.TextBoxFor(m => m.Departname, new { validate = "{required:true,minlength:1}", ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        负责人：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       
+                        @Html.TextBoxFor(m => m.Charger, new { ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        负责人电话：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       
+                        @Html.TextBoxFor(m => m.Tel, new { validate = "{cellphone:true}", ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        负责人地址：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       
+                        @Html.TextBoxFor(m => m.Address, new { ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        上级结点：<span class="l-verify-star">*</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       
+                        @Html.TextBoxFor(m => m.Fathername, new { validate = "{required:true,minlength:1}", ltype = "text" })
+                        @Html.HiddenFor(m => m.Father)
+                    </td>
+                </tr>
+                <tr>
+                   <td align="right" class="editcellmessage">
+                       类型：<span class="l-verify-star">*</span>
+                    </td>
+                    <td align="left" class="editcell">
+                             @Html.DropDownList("Type", new List<SelectListItem>{
+                                           //(new SelectListItem() {Text = "区县", Value = "4", Selected = true}),
+                                           (new SelectListItem() {Text = "公司", Value = "5", Selected = false}),
+                                           (new SelectListItem() {Text = "驻点", Value = "6", Selected = false}),
+                                           (new SelectListItem() {Text = "网格", Value = "7", Selected = false})
+                                       })
+                    </td>
+               </tr>   
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        排序：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       @Html.TextBoxFor(m => m.Orderno, new { ltype = "text" })
+                    </td>
+                </tr>
+                 <tr>
+                    <td align="right" class="editcellmessage">
+                        是否代维：<span class="l-verify-star">*</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       @Html.DropDownList("Isrepair", new List<SelectListItem>{
+                                           (new SelectListItem() {Text = "是", Value = "1", Selected = true}),
+                                           (new SelectListItem() {Text = "否", Value = "0", Selected = false})
+                       })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="editcellmessage">
+                        备注：<span class="l-verify-star">&nbsp;</span>
+                    </td>
+                    <td align="left" class="editcell">
+                       
+                        @Html.TextAreaFor(m => m.Remark, new { ltype = "text" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+}
+<script src="@Url.Content("~/Lib/jquery-validation/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Lib/jquery-validation/messages_cn.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Lib/jquery-validation/jquery.metadata.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    var Validator = null;
+    function onSelect(note) {
+        //alert('onSelect:' + note.data.text + ",level:" + note.level);
+        $("#Levelno").val(note.level + 1);
+        //alert('onSelect:' + note.data.id);
+    }
+    $(function () {
+        $.metadata.setType("attr", "validate");
+        //处理下拉框
+        $("#Fathername").ligerComboBox({
+            selectBoxWidth: 200, treeLeafOnly: false,
+            selectBoxHeight: 150, valueFieldID: 'Father', textFieldID: 'Fathername',
+            onSelect: onSelect,
+            tree: { url: '/system/department/getfather?r='+ new Date().getTime(), checkbox: false, topParentIDValue: -1, idFieldName: 'id', parentIDFieldName: 'pid'}
+        });
+
+        $("#Isrepair").ligerComboBox({ selectBoxHeight: 50 });
+
+        $("#form1").ligerForm();
+        deafultValidate($("#form1"));
+        Validator = $("#form1").validate();
+        debugger;
+    });
+
+    //操作成功提示
+    function f_success(id) {
+        $.ligerDialog.success("保存成功", "提示", function () {
+            $.ligerDialog.closeWaitting();
+            parent.window.frames[id].f_reload();
+        });
+    }
+    //操作失败提示
+    function f_error(message) {
+        $.ligerDialog.closeWaitting();
+        $.ligerDialog.error(message);
+    }
+    function f_save(frameid) {
+        if (!Validator.form()) return;
+        $.ligerDialog.waitting("正在保存中...");
+        //提交数据
+        var now = $('#form1');
+        var path = now[0].action; //参数
+        var formdata = now.serialize(); //参数
+        f_submit(path, formdata, frameid);
+    } 
+</script>

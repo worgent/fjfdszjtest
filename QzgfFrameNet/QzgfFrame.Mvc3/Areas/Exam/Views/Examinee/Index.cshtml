@@ -1,0 +1,226 @@
+﻿@model QzgfFrame.Exam.ExamineeInfoManger.Models.ExamineeInfo
+<body style="padding: 0px; margin: 0; overflow: hidden; font-size: 12px; background-color: #deefff;">
+    <div id="pageloading">
+    </div>
+    <div id="layout1" style="width: 100%">
+        <div position="top">
+            <div class="l-layout-top-title">
+                <div class="l-layout-top-title-l_exam">
+                    <div class="l-layout-top-title-r">
+                       <a onclick="LoginOut()" href="#" >退出系统</a>
+                    </div>
+                </div>
+            </div>
+            <div class="l-navigationbars">
+                <div style="float: left">
+                    <img src="../../../../Content/Lib/images/index/nav_pre.gif" alt="" /></div>
+                <div class="l-navigationbars-l">
+                    &nbsp; 当前登录考生姓名：@Model.FullName &nbsp;考试类型：@Model.ExamType
+                </div>
+                <div class="l-navigationbars-r">
+                    <table style="width: auto; text-align: left">
+                        <tr>
+                            <td>
+                                <span style="padding-right: 50px;">
+                                    <a  onclick="LoginOut()" href="#" >
+                                        <img alt="" src="/Content/Lib/images/index/nav_changePassword.gif" border="0"  />重新登录</a>
+                                    <a href="#" onclick="Changepwd()">
+                                        <img alt="" src="/Content/Lib/images/index/nav_resetPassword.gif" border="0"  />修改密码</a>
+                                    <a href="#">
+                                        <img alt="" src="/Content/Lib/images/index/nav_help.gif" border="0" />帮助</a>
+                                    <img alt="" src="/Content/Lib/images/index/menu_seprator.gif" />
+                                    <span id="clock"></span>
+
+                                    </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div position="left" title="主要菜单" id="accordion1" style="border-right: none">
+            <div title="功能列表" class="l-scroll">
+                <ul id="tree1" style="margin-top: 3px;">
+                </ul>
+            </div>
+        </div>
+        <div position="center" id="framecenter">
+            <div tabid="home" title="我的主页" style="height: 300px">
+                <iframe frameborder="0" name="home" src="/Home/Welcome"></iframe>
+            </div>
+        </div>
+        <div position="bottom">
+           Copyright © 2011 中国移动福建公司泉州分公司 技术支持：冠发信息
+        </div>
+    </div>
+    <div style="display: none">
+        <!-- 流量统计代码 -->
+    </div>
+</body>
+
+    <link rel="Stylesheet" href="../../../../Content/Lib/css/Style.css" type="text/css" />
+    <script type="text/javascript">
+        var tab = null;
+        var accordion = null;
+        var tree = null;
+        $(function () {
+            //time
+            //$("#clock").val("jell");
+            tick();
+            //布局
+            $("#layout1").ligerLayout({ leftWidth: 190, height: '100%', topHeight: 87, bottomHeight: 30, onHeightChanged: f_heightChanged });
+
+            var height = $(".l-layout-center").height();
+
+            //Tab
+            $("#framecenter").ligerTab({ height: height });
+
+            //面板
+            $("#accordion1").ligerAccordion({ height: height - 24, speed: null });
+
+
+            $(".l-link").hover(function () {
+                $(this).addClass("l-link-over");
+            }, function () {
+                $(this).removeClass("l-link-over");
+            });
+            //树
+            $("#tree1").ligerTree({
+                checkbox: false,
+                nodeWidth: 120,
+                url: '/system/menu/GetMenu?r=' + new Date().getTime(),
+                idFieldName: 'id',
+                parentIDFieldName: 'pid',
+                //topParentIDValue: 10,
+                //attribute: ['nodename', 'url'],
+                onSelect: function (node) {
+                    //debugger;
+                    if (!node.data.url) return;
+                    var tabid = $(node.target).attr("tabid");
+                    if (!tabid) {
+                        //tabid = new Date().getTime();
+                        tabid = "qzgfframe" + node.data.id;
+                        $(node.target).attr("tabid", tabid);
+                        node.data.url = node.data.url + "?_menuid=" + node.data.id;
+                    }
+                    //f_selectTab(tabid);
+                    f_addTab(tabid, node.data.text, node.data.url);
+                },
+                onSuccess: function (node) {
+                    tree.collapseAll();
+                }
+            });
+
+            tab = $("#framecenter").ligerGetTabManager();
+            accordion = $("#accordion1").ligerGetAccordionManager();
+            tree = $("#tree1").ligerGetTreeManager();
+
+            $("#pageloading").hide();
+        });
+
+        //注销
+        function LoginOut() {
+            $.ajax({
+                type: 'post', cache: false, dataType: 'json',
+                url: '/exam/examinee/LoginOut?r=' + new Date().getTime(),
+                success: function (result) {
+                    location.href = "/exam/examinee/login";
+                }
+            });
+        };
+        //修改密码
+        function Changepwd() {
+            $.ligerDialog.open({ title: "修改密码",
+                url: '/exam/examinee/Myconfig?r=' + new Date().getTime(), height: 250, width: null,
+                buttons: [
+                       { text: '确定', onclick: function (item, dialog) {
+                           var result = dialog.frame.f_save();
+                           //alert(result);
+                           /*
+                           if (result == "2") {
+                           $.ligerDialog.alert('原密码错误!');
+                           $("#txtoldpwd").focus();
+                           } else if (result == "3") {
+                           $.ligerDialog.alert('更新失败 !');
+                           $("#txtnewpwd").focus();
+                           }
+                           else {
+                           $.ligerDialog.alert('修改成功 !');
+                           }*/
+                           //dialog.close();
+                       }
+                       },
+                       { text: '取消', onclick: function (item, dialog) { dialog.close(); } }
+                       ]
+            });
+        };
+
+        //时间显示================
+        function tick() {
+            var hours, minutes, seconds, xfile;
+            var intHours, intMinutes, intSeconds;
+            var today, theday;
+            today = new Date();
+            function initArray() {
+                this.length = initArray.arguments.length
+                for (var i = 0; i < this.length; i++)
+                    this[i + 1] = initArray.arguments[i]
+            }
+            var d = new initArray(
+   " 星期日",
+   " 星期一",
+   " 星期二",
+   " 星期三",
+   " 星期四",
+   " 星期五",
+   " 星期六");
+            theday = today.getYear() + "年" + [today.getMonth() + 1] + "月" + today.getDate() + "日" + d[today.getDay() + 1];
+            intHours = today.getHours();
+            intMinutes = today.getMinutes();
+            intSeconds = today.getSeconds();
+            if (intHours == 0) {
+                hours = "12:";
+                xfile = " 午夜 ";
+            } else if (intHours < 12) {
+                hours = intHours + ":";
+                xfile = " 上午 ";
+            } else if (intHours == 12) {
+                hours = "12:";
+                xfile = " 正午 ";
+            } else {
+                intHours = intHours - 12
+                hours = intHours + ":";
+                xfile = " 下午 ";
+            }
+            if (intMinutes < 10) {
+                minutes = "0" + intMinutes + ":";
+            } else {
+                minutes = intMinutes + ":";
+            }
+            if (intSeconds < 10) {
+                seconds = "0" + intSeconds + " ";
+            } else {
+                seconds = intSeconds + " ";
+            }
+            timeString = theday + xfile + hours + minutes + seconds;
+            //Clock.innerHTML = timeString;
+            //$("#clock").val(timeString);
+            //clock.innerHTML = "现在是:" + timeString;
+            $("#clock").html("现在是:" + timeString);
+            window.setTimeout("tick();", 100);
+        }
+
+        //==============
+        function f_heightChanged(options) {
+            if (tab)
+                tab.addHeight(options.diff);
+            if (accordion && options.middleHeight - 24 > 0)
+                accordion.setHeight(options.middleHeight - 24);
+        }
+        function f_addTab(tabid, text, url) {
+            tab.addTabItem({ tabid: tabid, text: text, url: url });
+        }
+        function f_selectTab(tabid) {
+            tab.selectTabItem(tabid);
+        }
+    </script>

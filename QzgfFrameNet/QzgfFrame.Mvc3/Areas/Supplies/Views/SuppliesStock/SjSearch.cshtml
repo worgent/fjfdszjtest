@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>欢迎使用 ligerUI 权限管理系统</title> 
+    <link href="/Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="/Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />    
+
+    <link rel="stylesheet" type="text/css" href="/Lib/tab/tabcontent.css" />
+    <script type="text/javascript" src="/Lib/tab/tabcontent.js"></script>
+    
+    <script src="/Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+     
+    <script src="/Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script> 
+     
+    <script src="/Content/Lib/js/common.js" type="text/javascript"></script
+</head>
+<body>
+    <div>
+        <section id="main">
+            <!--高级查询专用-->
+<head>
+<link type="text/css" rel="stylesheet" href="/Lib/highquery/style.css"/>
+<script src="/Lib/highquery/highquery.js" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+<!--
+    $.getJSON('/Archives/Company/GetCombobox/', { Rnd: Math.random() }, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            DictList.add(new Dict('SelCompany', '公司', data[i].text, data[i].id));
+        }
+    });
+    $.getJSON('/Archives/District/GetSearchCombobox/', { Rnd: Math.random() }, function (companydata) {
+        for (var j = 0; j < companydata.length; j++) {
+            DictList.add(new Dict('SelDistrict', '区县', companydata[j].text, companydata[j].id));
+        }
+    });
+    // 字段信息
+    FieldList.add(new Field('ast.SuppliesTypeName', '耗材名称', 'varchar', '100', '', ''));
+    FieldList.add(new Field('', '请选择一个字段', '', '0', '', '')); // 空白，必须是最后加入
+    // 初始化
+    initHighQuery();
+
+    //查询信息
+    function f_save(frameid) {
+        if (frameid == "qzgfframenull")
+            frameid = "qzgfframe" + $("#frameid").val();
+        $.ligerDialog.waitting("正在查询中...");
+        var arrReturn = interpreter();
+        //提交数据
+        var gridsearch = "";
+        if (arrReturn[1] != "") {
+            gridsearch = " and " + arrReturn[1];
+        }
+        f_find(parent.window.frames[frameid].gridManager, gridsearch);
+        $.ligerDialog.closeWaitting();
+    } 
+//-->
+</script>
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+        </section>
+        <footer>
+        </footer>
+    </div>
+</body>
+</html>

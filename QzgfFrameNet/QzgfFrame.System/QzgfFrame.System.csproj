@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QzgfFrame.System</RootNamespace>
+    <AssemblyName>QzgfFrame.System</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DepartmentManger\Domain\DepartmentFacade.cs" />
+    <Compile Include="DepartmentManger\Domain\DepartmentFacadeImpl.cs" />
+    <Compile Include="DepartmentManger\Models\SystemDepartment.cs" />
+    <Compile Include="LogManger\Domain\SystemLogFacade.cs" />
+    <Compile Include="LogManger\Domain\SystemLogFacadeImpl.cs" />
+    <Compile Include="LogManger\Models\SystemLog.cs" />
+    <Compile Include="MenufieldManger\Domain\MenufieldFacade.cs" />
+    <Compile Include="MenufieldManger\Domain\MenufieldFacadeImpl.cs" />
+    <Compile Include="MenufieldManger\Models\SystemMenufield.cs" />
+    <Compile Include="MenuManger\Domain\MenuFacade.cs" />
+    <Compile Include="MenuManger\Domain\MenuFacadeImpl.cs" />
+    <Compile Include="MenuManger\Models\SystemMenu.cs" />
+    <Compile Include="PermissionsManger\Domain\PermissionsFacade.cs" />
+    <Compile Include="PermissionsManger\Domain\PermissionsFacadeImpl.cs" />
+    <Compile Include="PermissionsManger\Models\SystemRolefiledpower.cs" />
+    <Compile Include="PermissionsManger\Models\SystemRolemenu.cs" />
+    <Compile Include="PermissionsManger\Models\ViewSystemRolemenu.cs" />
+    <Compile Include="PermissionsManger\Models\ViewSystemRolepowerval.cs" />
+    <Compile Include="RoleManger\Domain\RoleFacade.cs" />
+    <Compile Include="RoleManger\Domain\RoleFacadeImpl.cs" />
+    <Compile Include="RoleManger\Models\SystemRole.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmsManger\Domain\SmsFacade.cs" />
+    <Compile Include="SmsManger\Domain\SmsFacadeImpl.cs" />
+    <Compile Include="SmsManger\Models\TabQywyySmsSend.cs" />
+    <Compile Include="UserManger\Domain\UserFacade.cs" />
+    <Compile Include="UserManger\Domain\UserFacadeImpl.cs" />
+    <Compile Include="UserManger\Models\SystemUser.cs" />
+    <Compile Include="UserManger\Models\SystemUserrole.cs" />
+    <Compile Include="RelationManger\Domain\RelationFacade.cs" />
+    <Compile Include="RelationManger\Domain\RelationFacadeImpl.cs" />
+    <Compile Include="RelationManger\Models\SystemRelation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MenuManger\Models\SystemMenu.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoleManger\Models\SystemRole.hbm.xml" />
+    <EmbeddedResource Include="UserManger\Models\SystemUser.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QzgfFrame.Utility\QzgfFrame.Utility.csproj">
+      <Project>{FC01A832-1EF9-447D-8169-06678E0E0BE6}</Project>
+      <Name>QzgfFrame.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="RelationManger\Models\SystemRelation.hbm.xml" />
+    <EmbeddedResource Include="DepartmentManger\Models\SystemDepartment.hbm.xml" />
+    <EmbeddedResource Include="MenufieldManger\Models\SystemMenufield.hbm.xml" />
+    <EmbeddedResource Include="PermissionsManger\Models\SystemRolefiledpower.hbm.xml" />
+    <EmbeddedResource Include="PermissionsManger\Models\SystemRolemenu.hbm.xml" />
+    <EmbeddedResource Include="LogManger\Models\SystemLog.hbm.xml" />
+    <Content Include="PermissionsManger\Models\ViewSystemRolemenu.hbm.xml" />
+    <Content Include="PermissionsManger\Models\ViewSystemRolepowerval.hbm.xml" />
+    <EmbeddedResource Include="SmsManger\Models\TabQywyySmsSend.hbm.xml" />
+    <EmbeddedResource Include="UserManger\Models\SystemUserrole.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

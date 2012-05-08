@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.PermissionsManger.Models" assembly="QzgfFrame.System">
+	<class name="QzgfFrame.System.PermissionsManger.Models.SystemRolemenu,QzgfFrame.System" table="SYSTEM_ROLEMENU">
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+		<!-- Properties -->
+		<property column="ROLEID" type="String" length="20" name="Roleid"  />
+		<property column="MENUID" type="String" length="20" name="Menuid" />
+        <property column="OPTVAL" type="Int32" name="Optval" />
+	</class>
+</hibernate-mapping>

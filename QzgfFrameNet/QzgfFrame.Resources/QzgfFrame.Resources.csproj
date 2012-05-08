@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QzgfFrame.Resources</RootNamespace>
+    <AssemblyName>QzgfFrame.Resources</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NBear.Common">
+      <HintPath>..\lib\NBear.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClieEquipManger\Domain\ClieEquipFacade.cs" />
+    <Compile Include="ClieEquipManger\Domain\ClieEquipFacadeImpl.cs" />
+    <Compile Include="ClieEquipManger\Models\ClieEquip.cs" />
+    <Compile Include="ClieEquipManger\Models\ResourceClieEquip.cs" />
+    <Compile Include="DedicateLineManger\Domain\DedicateLineFacade.cs" />
+    <Compile Include="DedicateLineManger\Domain\DedicateLineFacadeImpl.cs" />
+    <Compile Include="DedicateLineManger\Models\DedicateLine.cs" />
+    <Compile Include="DedicateLineManger\Models\ResourceDedicateLine.cs" />
+    <Compile Include="EquipFaultManger\Domain\EquipFaultFacade.cs" />
+    <Compile Include="EquipFaultManger\Domain\EquipFaultFacadeImpl.cs" />
+    <Compile Include="EquipFaultManger\Models\EquipFault.cs" />
+    <Compile Include="EquipFaultManger\Models\ResourceEquipFault.cs" />
+    <Compile Include="EquipmentManger\Models\EquipClie.cs" />
+    <Compile Include="EquipmentManger\Models\Equipment.cs" />
+    <Compile Include="GroupClieManger\Models\GroupClie.cs" />
+    <Compile Include="GroupClieManger\Models\ResourceClieGrid.cs" />
+    <Compile Include="OneSevenZeroManger\Models\OneSevenZeroLine.cs" />
+    <Compile Include="OtherInfoManger\Domain\OtherInfoFacade.cs" />
+    <Compile Include="OtherInfoManger\Domain\OtherInfoFacadeImpl.cs" />
+    <Compile Include="OtherInfoManger\Models\ResourceOtherInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GroupClieManger\Domain\GroupClieFacade.cs" />
+    <Compile Include="GroupClieManger\Domain\GroupClieFacadeImpl.cs" />
+    <Compile Include="GroupClieManger\Models\ResourceGroupClie.cs" />
+    <Compile Include="EquipmentManger\Domain\EquipmentFacade.cs" />
+    <Compile Include="EquipmentManger\Domain\EquipmentFacadeImpl.cs" />
+    <Compile Include="EquipmentManger\Models\ResourceEquipment.cs" />
+    <Compile Include="FiberCoreManger\Domain\FiberCoreFacade.cs" />
+    <Compile Include="FiberCoreManger\Domain\FiberCoreFacadeImpl.cs" />
+    <Compile Include="FiberCoreManger\Models\ResourceFiberCore.cs" />
+    <Compile Include="NumberGroupManger\Domain\NumberGroupFacade.cs" />
+    <Compile Include="NumberGroupManger\Domain\NumberGroupFacadeImpl.cs" />
+    <Compile Include="NumberGroupManger\Models\ResourceNumberGroup.cs" />
+    <Compile Include="SelfHelpEquipManger\Domain\SelfHelpEquipFacade.cs" />
+    <Compile Include="SelfHelpEquipManger\Domain\SelfHelpEquipFacadeImpl.cs" />
+    <Compile Include="SelfHelpEquipManger\Models\ResourceSelfHelpEquip.cs" />
+    <Compile Include="SelfHelpEquipManger\Models\SelfHelpEquip.cs" />
+    <Compile Include="VehicleManger\Domain\VehicleFacade.cs" />
+    <Compile Include="VehicleManger\Domain\VehicleFacadeImpl.cs" />
+    <Compile Include="VehicleManger\Models\ResourceVehicle.cs" />
+    <Compile Include="ApparatusManger\Domain\ApparatusFacade.cs" />
+    <Compile Include="ApparatusManger\Domain\ApparatusFacadeImpl.cs" />
+    <Compile Include="ApparatusManger\Models\ResourceApparatus.cs" />
+    <Compile Include="PersonnelManger\Domain\PersonnelFacade.cs" />
+    <Compile Include="PersonnelManger\Domain\PersonnelFacadeImpl.cs" />
+    <Compile Include="PersonnelManger\Models\ResourcePersonnel.cs" />
+    <Compile Include="OneSevenZeroManger\Domain\OneSevenZeroFacade.cs" />
+    <Compile Include="OneSevenZeroManger\Domain\OneSevenZeroFacadeImpl.cs" />
+    <Compile Include="OneSevenZeroManger\Models\ResourceOneSevenZero.cs" />
+    <Compile Include="EquipComponentManger\Domain\EquipComponentFacade.cs" />
+    <Compile Include="EquipComponentManger\Domain\EquipComponentFacadeImpl.cs" />
+    <Compile Include="EquipComponentManger\Models\ResourceEquipComponent.cs" />
+    <Compile Include="LineEquipManger\Domain\LineEquipFacade.cs" />
+    <Compile Include="LineEquipManger\Domain\LineEquipFacadeImpl.cs" />
+    <Compile Include="LineEquipManger\Models\ResourceLineEquip.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DedicateLineManger\Models\ResourceDedicateLine.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GroupClieManger\Models\ResourceGroupClie.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EquipmentManger\Models\ResourceEquipment.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FiberCoreManger\Models\ResourceFiberCore.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NumberGroupManger\Models\ResourceNumberGroup.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QzgfFrame.Archives\QzgfFrame.Archives.csproj">
+      <Project>{19437E73-E436-4D2F-9D84-916F5FDA9951}</Project>
+      <Name>QzgfFrame.Archives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.System\QzgfFrame.System.csproj">
+      <Project>{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}</Project>
+      <Name>QzgfFrame.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Utility\QzgfFrame.Utility.csproj">
+      <Project>{FC01A832-1EF9-447D-8169-06678E0E0BE6}</Project>
+      <Name>QzgfFrame.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ClieEquipManger\Models\ResourceClieEquip.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EquipFaultManger\Models\ResourceEquipFault.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelfHelpEquipManger\Models\ResourceSelfHelpEquip.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OtherInfoManger\Models\ResourceOtherInfo.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VehicleManger\Models\ResourceVehicle.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ApparatusManger\Models\ResourceApparatus.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PersonnelManger\Models\ResourcePersonnel.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OneSevenZeroManger\Models\ResourceOneSevenZero.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EquipComponentManger\Models\ResourceEquipComponent.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GroupClieManger\Models\ResourceClieGrid.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LineEquipManger\Models\ResourceLineEquip.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

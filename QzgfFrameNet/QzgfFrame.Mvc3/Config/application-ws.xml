@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <description>webservice配置</description>
+  <!--调用测试
+    http://localhost:7362/ContactWebService.asmx?op=GetEmails
+    http://localhost:7362/ContactWebService.asmx?wsdl
+    170接口
+    http://localhost:7362/wsenter.asmx?wsdl
+    -->
+  <!-- Defines the contact service. -->
+  <!--========================服务端配置===========================================================-->
+  <object id="ContactService" type="QzgfFrame.Mvc3.CommonSupport.Webservices.ContactService" lazy-init="true">
+    <property name="Emails">
+      <list element-type="string">
+        <value>manuel@spring.pt</value>
+        <value>bruno@spring.net</value>
+        <value>marie@spring.net</value>
+        <value>brice@spring.net</value>
+        <value>bertrand@spring.net</value>
+        <value>marcel@spring.net</value>
+        <value>bernadette@spring.net</value>
+        <value>bruno@spring.pt</value>
+        <value>baptiste@spring.net</value>
+        <value>brad@spring.net</value>
+        <value>marc@spring.net</value>
+        <value>barbie@spring.net</value>
+        <value>bernie@spring.net</value>
+        <value>betty@spring.net</value>
+        <value>maria@spring.pt</value>
+      </list>
+    </property>
+  </object>
+
+  <object id="ContactWebService" type="Spring.Web.Services.WebServiceExporter, Spring.Web" lazy-init="true">
+    <property name="TargetName" value="ContactService"/>
+    <property name="Namespace" value="http://qzgf.com/"/>
+    <property name="Description" value="webservice 测试"/>
+    <property name="TypeAttributes">
+      <list>
+        <object type="System.Web.Script.Services.ScriptServiceAttribute, System.Web.Extensions"/>
+      </list>
+    </property>
+  </object>
+
+
+  <object id="uuvwsservice" type="QzgfFrame.Mvc3.CommonSupport.Webservices.uuvwsservice" lazy-init="true">
+  </object>
+  <object id="uuvws" type="Spring.Web.Services.WebServiceExporter, Spring.Web" lazy-init="true">
+    <property name="TargetName" value="uuvwsservice"/>
+    <property name="Namespace" value="http://qzgf.com/"/>
+    <property name="Description" value="webservice 测试"/>
+    <!--
+        <property name="TypeAttributes">
+            <list>
+                <object type="System.Web.Script.Services.ScriptServiceAttribute, System.Web.Extensions"/>
+            </list>
+        </property>        
+        -->
+    <property name="MemberAttributes">
+      <dictionary>
+        <entry key="*">
+          <object type="System.Web.Services.WebMethodAttribute, System.Web.Services" >
+          </object>
+        </entry>
+      </dictionary>
+    </property>
+  </object>
+
+  <!--对外接口-->
+  <object id="wsenterFacade" parent="BaseTransactionManager" lazy-init="true">
+    <property name="Target">
+      <object type="QzgfFrame.WebService.Service.WsenterFacadeImpl,QzgfFrame.WebService">
+        <property name="wsenterRepository" ref="repository.wsenter"/>
+      </object>
+    </property>
+  </object>
+  <object id="wsenter" type="Spring.Web.Services.WebServiceExporter, Spring.Web" lazy-init="true">
+    <property name="TargetName" value="wsenterFacade"/>
+    <property name="Namespace" value="http://qzgf.com/"/>
+    <property name="Description" value="webservice对外接口"/>
+    <property name="MemberAttributes">
+      <dictionary>
+        <entry key="*">
+          <object type="System.Web.Services.WebMethodAttribute, System.Web.Services" >
+          </object>
+        </entry>
+      </dictionary>
+    </property>
+  </object>
+
+
+  <!--========================客户端配置===========================================================-->
+  <object id="ContactWebServiceClient" type="Spring.Web.Services.WebServiceProxyFactory, Spring.Services" lazy-init="true">
+    <!--服务器Uri-->
+    <property name="ServiceUri" value="http://localhost:7362/ContactWebService.asmx"/>
+    <!--服务契约-->
+    <property name="ServiceInterface" value="QzgfFrame.Mvc3.CommonSupport.Webservices.IContactService"/>
+
+    <property name="ProductTemplate">
+      <!-- Configure the Username and password for the web service 
+            <property name="Credentials">
+                <object type="System.Net.NetworkCredential, System">
+                    <property name="UserName" value="user"/>
+                    <property name="Password" value="password"/>
+                </object>
+            </property>
+            -->
+      <object>
+        <!--超时时间10000毫秒-->
+        <property name="Timeout" value="10000" />
+      </object>
+    </property>
+  </object>
+
+  <!--统一用户验证入口 2011-09-15 -->
+  <object id="uuvwsserviceclient" type="Spring.Web.Services.WebServiceProxyFactory, Spring.Services" lazy-init="true">
+    <!--      
+        <property name="ProxyType" value="QzgfFrame.Mvc3.CommonSupport.Webservices.uuvwsservice"/>
+        <property name="ServiceInterface" value="QzgfFrame.Mvc3.CommonSupport.Webservices.Iuuvwsservice"/>     
+         -->
+
+
+    <!--
+        正式: http://10.49.28.2/uuvws/uuvws.asmx 
+        测试: http://localhost:7362/uuvws.asmx
+        -->
+    <property name="ServiceUri" value="http://10.49.28.2/uuvws/uuvws.asmx"/>
+    <property name="ServiceInterface" value="QzgfFrame.Mvc3.CommonSupport.Webservices.Iuuvwsservice"/>
+    <property name="ProductTemplate">
+      <object>
+        <property name="Timeout" value="10000" />
+      </object>
+    </property>
+
+
+  </object>
+    
+</objects>

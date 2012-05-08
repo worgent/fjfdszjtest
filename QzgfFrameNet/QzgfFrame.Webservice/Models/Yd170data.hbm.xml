@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Webservice.Models" assembly="QzgfFrame.Webservice">
+	<class name="QzgfFrame.Webservice.Models.Yd170data,QzgfFrame.Webservice" table="YD_170DATA">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="CITYCOUNTRYNO" type="String" name="Citycountryno" length="50" />
+		<property column="ENSUREGRADE" type="String" name="Ensuregrade" length="50" />
+		<property column="CLIENTGRADE" type="String" name="Clientgrade" length="50" />
+		<property column="IMPORTLEVEL" type="String" name="Importlevel" length="50" />
+		<property column="MANAGERTEL" type="String" name="Managertel" length="50" />
+		<property column="NAME" type="String" name="Name" length="50" />
+		<property column="ISFLYOVER" type="String" name="Isflyover" length="2" />
+		<property column="INTENDMONEY" type="String" name="Intendmoney" length="50" />
+		<property column="EXPRESSREMARK" type="String" name="Expressremark" length="500" />
+		<property column="OPERATIONTYPE" type="String" name="Operationtype" length="50" />
+		<property column="APPLYMAN" type="String" name="Applyman" length="50" />
+		<property column="APPLYTEL" type="String" name="Applytel" length="50" />
+		<property column="APPLYFAX" type="String" name="Applyfax" length="50" />
+		<property column="CLIENTTYPE" type="String" name="Clienttype" length="50" />
+		<property column="COMMUNICATEADDRESS" type="String" name="Communicateaddress" length="500" />
+		<property column="GROUPID" type="String" name="Groupid" length="50" />
+		<property column="CLIENTCOMPANYNAME" type="String" name="Clientcompanyname" length="100" />
+		<property column="CITYCOUNTY" type="String" name="Citycounty" length="50" />
+		<property column="PROJECTEXPOSITORY" type="String" name="Projectexpository" length="500" />
+		<property column="COMPLETETIME13" type="DateTime" name="Completetime13" />
+		<property column="COMPLETETIME14" type="DateTime" name="Completetime14" />
+		<property column="COMPLETETIME15" type="DateTime" name="Completetime15" />
+		<property column="COMPLETETIME16" type="DateTime" name="Completetime16" />
+		<property column="WANEQUIPMENT" type="String" name="Wanequipment" length="100" />
+		<property column="WANEQUIPMENTPORT" type="String" name="Wanequipmentport" length="50" />
+		<property column="BANDWIDTH" type="String" name="Bandwidth" length="50" />
+		<property column="CIRCUITNO" type="String" name="Circuitno" length="50" />
+		<property column="TRANSFERSEQUIPMENT" type="String" name="Transfersequipment" length="100" />
+		<property column="TRANSFERSEQUIPMENTPORT" type="String" name="Transfersequipmentport" length="50" />
+		<property column="COREINFORMATION" type="String" name="Coreinformation" length="500" />
+		<property column="ORGNETMODE" type="String" name="Orgnetmode" length="50" />
+		<property column="VLAN" type="String" name="Vlan" length="50" />
+		<property column="WANSWITCHEQUIPMENT" type="String" name="Wanswitchequipment" length="100" />
+		<property column="WANSWITCHEQUIPMENTPORT" type="String" name="Wanswitchequipmentport" length="50" />
+		<property column="BASESTATION" type="String" name="Basestation" length="100" />
+		<property column="CLIENTIP" type="String" name="Clientip" length="50" />
+		<property column="CLIENTGATEWAY" type="String" name="Clientgateway" length="50" />
+		<property column="CLIENTSUBNETMASK" type="String" name="Clientsubnetmask" length="50" />
+		<property column="ACCESSTOTHEBASESTATION" type="String" name="Accesstothebasestation" length="100" />
+		<property column="NORESOURCE" type="String" name="Noresource" length="500" />
+		<property column="WANBOSSFACTORYMODE" type="String" name="Wanbossfactorymode" length="100" />
+		<property column="USERFIRSTFACTORY" type="String" name="Userfirstfactory" length="100" />
+		<property column="USERFIRSTMODE" type="String" name="Userfirstmode" length="100" />
+		<property column="USERSENCODEFACTORY" type="String" name="Usersencodefactory" length="100" />
+		<property column="USERSENCODEMODE" type="String" name="Usersencodemode" length="100" />
+		<property column="USERTHIRDFACTORY" type="String" name="Userthirdfactory" length="100" />
+		<property column="USERTHIRDMODE" type="String" name="Userthirdmode" length="100" />
+		<property column="USERFOURFACTORY" type="String" name="Userfourfactory" length="100" />
+		<property column="USERFOURMODE" type="String" name="Userfourmode" length="100" />
+		<property column="USERFIVEFACTORY" type="String" name="Userfivefactory" length="100" />
+		<property column="USERFIVEMODE" type="String" name="Userfivemode" length="100" />
+		<property column="BASESTATIONFIRSTFACTORY" type="String" name="Basestationfirstfactory" length="100" />
+		<property column="BASESTATIONFIRSTMODE" type="String" name="Basestationfirstmode" length="100" />
+		<property column="BASESTATIONSENCODEFACTORY" type="String" name="Basestationsencodefactory" length="100" />
+		<property column="BASESTATIONSENCODEMODE" type="String" name="Basestationsencodemode" length="100" />
+		<property column="GROUPINNET" type="String" name="Groupinnet" length="100" />
+		<property column="MAINTENANCECOMPANY" type="String" name="Maintenancecompany" length="100" />
+		<property column="ISINTEGRATEBEFOREHAND" type="String" name="Isintegratebeforehand" length="2" />
+		<property column="ISLINEPIPEBEFORDHAND" type="String" name="Islinepipebefordhand" length="2" />
+		<property column="ISINTEGRATEINDUE" type="String" name="Isintegrateindue" length="2" />
+		<property column="ISLINEPIPEINDUE" type="String" name="Islinepipeindue" length="2" />
+        <property column="JOBNO" type="String" name="Jobno" length="6" />
+		<property column="STATE" type="String" name="State" length="10" />
+		
+	</class>
+</hibernate-mapping>

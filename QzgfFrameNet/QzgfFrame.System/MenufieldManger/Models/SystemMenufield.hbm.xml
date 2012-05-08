@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.MenufieldManger.Models" assembly="QzgfFrame.System">
+	<class name="QzgfFrame.System.MenufieldManger.Models.SystemMenufield,QzgfFrame.System" table="SYSTEM_MENUFIELD">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="MENUID" type="String" length="20" name="Menuid" />
+		<property column="FIELDCODE" type="String" name="Fieldcode" length="50" />
+		<property column="FIELDNAME" type="String" name="Fieldname" length="100" />
+		<property column="TABLECODE" type="String" name="Tablecode" length="50" />
+		<property column="TABLENAME" type="String" name="Tablename" length="100" />
+		<property column="REMARK" type="String" name="Remark" length="100" />
+        <property column="PERMISSIONSFLAG" type="String" name="Permissionsflag" length="100" />
+	</class>
+</hibernate-mapping>

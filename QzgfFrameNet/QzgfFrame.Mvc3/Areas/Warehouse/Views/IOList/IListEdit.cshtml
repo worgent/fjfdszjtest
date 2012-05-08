@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Warehouse.IOListManger.Models.IOList
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Lib/css/autoSearchText.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/addmethod.js" type="text/javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.autoSearchText.js" type='text/javascript' ></script>
+    <script src="../../../../Content/lib/js/Warehouse/IODetailLine.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Warehouse/IListEdit.js" type="text/javascript"></script> 
+</head>
+<body style=" padding:1px;">
+<div id="autoSearch"><ul class="menu_v"></ul></div>
+@using (Html.BeginForm("Edit", "IOList", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div> <table width="100%"><tr class="Header"><td style="width:45%"></td>
+<td><input type="submit" value="提 交" id="Button11" class="l-button l-button-submit" /> 
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+ 
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody> 
+            <tr>
+                    <td class="Right_White_font">所属县市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    @Html.TextBoxFor(m => m.warehouseIOList.IDistrictName, new { @class = "disable-dd-text", @readonly = "readonly", style = "width:138px;", validate = "{required:false}" })
+                  
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.warehouseIOList.Id) 
+                    @Html.HiddenFor(m => m.warehouseIOList.IDistrictId)   
+                     </td> 
+                    <td class="Right_White_font">所属公司：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                     @Html.TextBoxFor(m => m.warehouseIOList.ICompanyName, new { @class = "disable-dd-text", @readonly = "readonly", style = "width:138px;", validate = "{required:false}" })
+                     @Html.HiddenFor(m => m.warehouseIOList.ICompanyId)  
+                   </td> 
+                    
+                </tr> 
+                <tr>
+                    <td  class="Right_font" >入库方式：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font">
+                    @Html.DropDownList("warehouseIOList.IOClassId", (SelectList)ViewData["ioClasses"], new { ltype = "select" })
+                    @Html.HiddenFor(m => m.warehouseIOList.Id)
+                    </td> 
+                    <td  class="Right_font" >领料人员：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font">
+                    @Html.TextBoxFor(m => m.warehouseIOList.Operator, new { @class = "dd-text", validate = "{required:true,minlength:1,maxlength:20,isFullName:true}" })
+                    </td> 
+                    <td  class="Right_font" >领料时间：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font">
+                    <input type="text" id="warehouseIOList_IODate" name="warehouseIOList.IODate" class = "disable-dd-text", readonly = "readonly", style = "width:138px;", validate = "{required:false}" value=" @string.Format("{0:D}", Model.warehouseIOList.IODate)" />
+                     </td> 
+                </tr> 
+                 <tr>
+                    <td colspan="9" width="100%" align="center" class="Left_Bottom">
+                    <table width="100%" border="0" cellpadding="2" cellspacing="1" id="IODetailFrame" class="com_tab">
+<tr class="hno">
+              
+                <td   width="80px"><input type="button" style="width:80px;" class="sel_btn"  name="Submit" value="添加备件" onclick="f_addh();" /></td>
+               <td width="100px"> 设备厂家</td>
+                <td width="100px" >设备名称</td>
+                <td  >设备型号</td>
+                <td  width="140px">单位</td>
+                <td  width="140px">设备状态</td>
+                <td width="60px" >数量</td>
+                <td  >备注</td>
+                
+              </tr>
+@{var j = 0;}
+ @foreach (var n in Model.ioDetailList as IList<QzgfFrame.Warehouse.IODetailManger.Models.WarehouseIODetail>)
+ {
+     // ViewData["Component"] = new SelectList(Model.Components, "Id", "ComponentName",n.ComponentId);
+
+     var EquipModelId = "EquipModelId" + j; var Num = "Num" + j; var EquipState = "EquipState" + j;
+     var FactoryId = "FactoryId" + j; var FactoryName = "FactoryName" + j;
+     var EquipModelName = "EquipModelName" + j; var EquipTypeName = "EquipTypeName" + j;
+     var Remark = "Remark" + j; var EquipTypeId = "EquipTypeId" + j;
+     var SignItem = "SignItem" + j;
+     
+             <tr id='@SignItem' class="bno">
+                <td ><div align='center' style='width:40px'><a href='javascript:;' onclick="DelIODetailRow('@SignItem')">删除</a></div></td>
+             <td ><input name='@FactoryId' type="hidden" id='@FactoryId' value='@n.FactoryId' /><input name='@FactoryName' type='text' size='15'   id='@FactoryName' value='@n.FactoryName'   class = 'disable-dd-text'  readonly='readonly' /></td>
+                <td ><input name='@EquipTypeId' type="hidden" id='@EquipTypeId' value='@n.EquipTypeId' /><input name='@EquipTypeName' type='text'  size='15'  id='@EquipTypeName' value='@n.EquipTypeName'    class = 'disable-dd-text'  readonly='readonly' /></td>
+                <td ><input name='@EquipModelId' type="hidden" id='@EquipModelId' value='@n.EquipModelId' /><input name='@EquipModelName' type='text'  id='@EquipModelName' value='@n.EquipModelName'  size='60'   class = 'disable-dd-text'  readonly='readonly' /></td>
+                <td>
+                    @Html.DropDownList("UnitName", (SelectList)ViewData["unit"], new { ltype = "select",style="width:100px;" })
+                    </td> 
+                <td >
+                @Html.DropDownList(EquipState, new SelectList(ViewData["stateList"] as IEnumerable<SelectListItem>, "Value", "Text", n.EquipState), new { name = "EquipState", ltype = "select" })
+               </td>
+              
+                <td  ><input name='@Num' id='@Num' type='text' value="@n.Num" size='4' style="width:50px;" maxlength='4'  class = 'dd-text'  onkeyup="GetCount(@j)" validate = "{required:true,isNumCode:true}"/></td>
+                <td  ><textarea  cols="160" rows="2" id="@Remark"  name="@Remark"  style="width:160px" class = 'l-textarea' ltype="text"  validate ="{required:false,minlength:0,maxlength:50}">@n.Remark</textarea></td>
+                 </tr>
+                                                                                                       j++;
+ }
+        </table>
+        <input name='TRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+                    @Html.HiddenFor(m => m.ioDetails)
+                    </td>
+                </tr> 
+                 <tr ><td  align="left" style=" background-color:#fff;" colspan="6"><span class="l-verify-star" id="displyMsg" ></span></td></tr>
+               
+                 <tr>
+                    <td  class="Right_font" >入库总量：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font">
+                    @Html.TextBoxFor(m => m.warehouseIOList.TotalNum, new { @class = "disable-dd-text" })
+                    </td> 
+                    <td  class="Right_font" >入库报废量：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font">
+                    @Html.TextBoxFor(m => m.warehouseIOList.ScrapNum, new { @class = "disable-dd-text" })
+                    </td>
+                    <td  class="Right_font" >入库坏件量：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font" colspan="4">
+                    @Html.TextBoxFor(m => m.warehouseIOList.BadNum, new { @class = "disable-dd-text", value = '0' })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td  class="Right_font" >备注：<span class="l-verify-star">&nbsp;</span></td>
+                    <td  class="Left_font" colspan="7">
+                    @Html.TextAreaFor(m => m.warehouseIOList.Remark, new { Multiline = true, @class = "l-textarea", size = "80", style = "width:100%", ltype = "text" , validate = "{required:false,minlength:0,maxlength:100}"})
+                    </td> 
+                </tr> 
+                </tbody>
+        </table>
+          <table width="100%"><tr class="Header"><td style="width:45%"></td>
+<td><input type="submit" value="提 交"  class="l-button l-button-submit" /> 
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+     
+    </div> 
+    }
+    
+</body>
+</html>

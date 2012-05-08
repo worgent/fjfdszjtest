@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Exam.TestManger.Models" assembly="QzgfFrame.Exam">
+	<class name="QzgfFrame.Exam.TestManger.Models.ExamTestContent,QzgfFrame.Exam" table="TAB_TEST_CONTENT">
+
+		<!-- Primary Key(s) -->
+		<id name="ID" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="NAME" type="String" name="Name" length="256"/>
+    <property column="CREATORID" type="String" name="CreatorID" length="256" />
+		<property column="CREATETIME" type="DateTime" name="CreateTime" />
+    <property column="POINTS" type="String" name="Points" length="256" />
+    <property column="TYPEID" type="String" name="TypeID" length="256" />
+		<property column="STATE" type="QzgfFrame.Exam.TestManger.Models.TestState, QzgfFrame.Exam" name="State"/>
+    <property column="ISDELETE" type="Boolean" name="IsDelete" length="256" />
+
+  </class>
+</hibernate-mapping>

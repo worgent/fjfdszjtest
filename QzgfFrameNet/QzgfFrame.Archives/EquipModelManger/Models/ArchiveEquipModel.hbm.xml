@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.CityManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.EquipModelManger.Models.ArchiveEquipModel,QzgfFrame.Archives" table="tab_equip_model">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="EquipModelName" type="String" name="EquipModelName" length="50"  not-null="true"/>
+		<property column="FactoryId" type="String" name="FactoryId" length="20" not-null="true" />
+		<property column="EquipTypeId" type="String" name="EquipTypeId" length="20"  not-null="true"/>
+
+	</class>
+</hibernate-mapping>

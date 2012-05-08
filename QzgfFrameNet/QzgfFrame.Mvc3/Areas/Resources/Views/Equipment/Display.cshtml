@@ -1,0 +1,182 @@
+﻿@using QzgfFrame.Mvc3.CommonSupport.Html
+@model QzgfFrame.Resources.EquipmentManger.Models.EquipClie
+@{
+    
+    ViewBag.Title = "Register";
+}   
+@using (Html.BeginForm("Edit", "Equipment", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font" width="12%">设备厂家：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @ViewData["factory"] 
+                      @Html.HiddenFor(m => m.equipment.Id)
+                      @Html.HiddenFor(m => m.Id)
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    </td> 
+                    <td class="Right_font">设备类型：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     @ViewData["equipType"] 
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font" width="12%">设备型号：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Model.equipment.EquipModelName
+                    </td> 
+                </tr>
+                <tr>
+                
+                    <td class="Right_font">设备名称：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Model.equipment.EquipName
+                    </td> 
+                </tr>
+                 <tr>                   
+                    <td class="Right_font" width="12%">设备序列号：</td>
+                    <td class="Left_font">
+                    @Model.equipment.SeqNumber
+                    </td>
+                    <td class="Right_font">设备启用时间：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @string.Format("{0:D}", Model.equipment.StartDatetime)
+                    </td>
+                </tr> 
+                 
+                 <tr>
+                    <td class="Right_font" width="12%">设备安装位置：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @{
+               var selFalgT = "局端";
+               if (Model.equipment.Position == 0)
+               {
+                   selFalgT = "用户机房";
+               }
+               else
+               {
+                   selFalgT = "局端";
+               }
+                    }
+                    @selFalgT
+                    </td> 
+                    <td class="Right_font">基站/机房名称：</td>
+                    <td class="Left_font">
+                    @Model.equipment.BaseStationName
+                    </td>
+                </tr> 
+                <tr>
+                
+                    <td class="Right_font">所属区县：</td>
+                    <td class="Left_font">
+                    @ViewData["district"]
+                    </td>
+                    <td class="Right_font">所属公司：</td>
+                    <td class="Left_font">
+                    @ViewData["company"]
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Right_font" width="12%">组网方式：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                     @ViewData["network"]
+                    </td> 
+                </tr> 
+                <tr ><td class="tit" align="center" colspan="6">设备对应集团客户&nbsp;&nbsp;<span class="l-verify-star" id="displyMsg"></span></td></tr>
+                <tr>
+                <td colspan="6" align="center" class="Left_Bottom">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" id="clieFrame" class="com_tab" >
+               <tr  class="hno">
+               <td style="width:0"></td>
+                <td > 客户编号 <span class="l-verify-star">*</span></td>
+                <td >客户名称 <span class="l-verify-star">*</span></td>
+                <td >占用槽位</td>
+                <td  >板卡类型</td>
+                <td >占用端口</td>
+                <td >端口类型</td>
+              </tr>
+              @{var i = 0;}
+ @foreach (var fc in Model.ClieEquips as IList<QzgfFrame.Resources.ClieEquipManger.Models.ResourceClieEquip>)
+ {
+     var ClieId = "ClieId" + i; var ClieNo = "ClieNo" + i; var ClieName = "ClieName" + i;
+     var OccupySlot = "OccupySlot" + i; var BoardType = "BoardType" + i; var OccupyPort = "OccupyPort" + i; var SignItem = "SignItem" + i;
+     var seqno = i + 1; var OrderNo = "OrderNo" + i; var del_link = "del_link" + i;
+          <tr id='@SignItem' class="bno">
+              <td style="width:0"><input name='@ClieId' type="hidden" id='@ClieId' value='@fc.ClieId' /></td>
+                <td > @fc.ClieNo </td>
+                <td  >@fc.ClieName</td>
+                <td >@fc.OccupySlot</td>
+                <td >@fc.BoardType</td>
+                <td >@fc.OccupyPort</td>
+                <td >@fc.PortTypeName</td>
+              </tr>
+                                                                                       i++;
+ }
+        </table>
+        <input name='txtTRLastIndex' type='hidden' id='TRLastIndex' value="@i" />
+        <input name='CountIndex' type='hidden' id='CountIndex' value="@i" />
+         @Html.HiddenFor(m => m.equipclies)
+                </td>
+                </tr>
+                 <tr>
+                    <td class="Right_font" width="12%">登录方式：</td>
+                    <td class="Left_font">
+                    @Model.equipment.LoginStyle
+                    </td> 
+                     <td class="Right_font">MAC地址：</td>
+                    <td class="Left_font">
+                    @Model.equipment.MacAddress
+                    </td> 
+                </tr> 
+                 <tr>
+                    <td class="Right_font" width="12%">SNMP只读共同体：</td>
+                    <td class="Left_font">
+                    @Model.equipment.SnmpOnlyRead
+                    </td> 
+                    <td class="Right_font">SNMP只写共同体：</td>
+                    <td class="Left_font">
+                    @Model.equipment.SnmpOnlyWrite
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font" width="12%">用户名：</td>
+                    <td class="Left_font">
+                    @Model.equipment.UserName
+                    </td> 
+                    <td class="Right_font">密码：</td>
+                    <td class="Left_font">
+                  
+                @if (!Html.IsShow("QzgfFrame.Resources.EquipmentManger.Domain.EquipmentFacadeImpl", "PassWord"))
+                {
+                    var pwd = "******";
+                    @pwd
+                }
+                else
+                {
+                    @Model.equipment.PassWord
+                }
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font" width="12%">网管IP：</td>
+                    <td class="Left_font">
+                    @Model.equipment.NetManageIp
+                    </td> 
+                    <td class="Right_font">WEB端口：</td>
+                    <td class="Left_font">
+                    @Model.equipment.WebPort
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_font" width="12%">备注：</td>
+                    <td class="Left_font" colspan="3">
+                    @Model.equipment.Remark
+                    </td> 
+                </tr></tbody>
+</table>  
+  
+    </div> 
+    }

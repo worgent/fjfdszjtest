@@ -1,0 +1,1456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3DD278BE-C6E5-4FDA-876F-8B2B42CEA63A}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QzgfFrame.Mvc3</RootNamespace>
+    <AssemblyName>QzgfFrame.Mvc3</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\Microsoft.Vbe.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\lib\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="OFFICE, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\OFFICE.DLL</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\lib\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop">
+      <HintPath>..\lib\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.3.1.40711, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data">
+      <HintPath>..\lib\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate30">
+      <HintPath>..\lib\Spring.Data.NHibernate30.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Scheduling.Quartz">
+      <HintPath>..\lib\Spring.Scheduling.Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Services">
+      <HintPath>..\lib\Spring.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web, Version=1.3.1.40711, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Spring.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web.Extensions">
+      <HintPath>..\lib\Spring.Web.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Archives\ArchivesAreaRegistration.cs" />
+    <Compile Include="Areas\Cop\CopAreaRegistration.cs" />
+    <Compile Include="Areas\Exam\ExamAreaRegistration.cs" />
+    <Compile Include="Areas\Resources\ResourcesAreaRegistration.cs" />
+    <Compile Include="Areas\Supervision\SupervisionAreaRegistration.cs" />
+    <Compile Include="Areas\Supplies\SuppliesAreaRegistration.cs" />
+    <Compile Include="Areas\System\SystemAreaRegistration.cs" />
+    <Compile Include="Areas\Test\TestAreaRegistration.cs" />
+    <Compile Include="Areas\Test\Views\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\Test\Views\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\Warehouse\WarehouseAreaRegistration.cs" />
+    <Compile Include="CommonSupport\Html\CheckPower.cs" />
+    <Compile Include="CommonSupport\LoggingAroundAdvice.cs" />
+    <Compile Include="CommonSupport\Webservices\uuvwsservice.cs" />
+    <Compile Include="CommonSupport\Webservices\Iuuvwsservice.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CommonSupport\Scheduling\ExampleJob.cs" />
+    <Compile Include="Service\BillListData.ashx.cs">
+      <DependentUpon>BillListData.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Service\SystemData.ashx.cs">
+      <DependentUpon>SystemData.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSupport\Webservices\ContactService.cs" />
+    <Compile Include="CommonSupport\Webservices\IContactService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Cop\Views\Plan\LoadFile.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Config\application-scheduling.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\application-respository.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\application-control.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\application-domian.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\application-aop.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\application-ws.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\pageextend.xml" />
+    <Content Include="Content\Lib\css\autoSearchText.css" />
+    <Content Include="Content\Lib\css\EditStyle.css" />
+    <Content Include="Content\Lib\css\Exam\EditTest.css" />
+    <Content Include="Content\Lib\css\Exam\ViewTest.css" />
+    <Content Include="Content\Lib\css\Exam\EditSubject.css" />
+    <Content Include="Content\Lib\css\index.css" />
+    <Content Include="Content\Lib\css\layerStyle.css" />
+    <Content Include="Content\Lib\css\OneSevenZero.css" />
+    <Content Include="Content\Lib\css\Style.css" />
+    <Content Include="Content\Lib\images\index\add_papers.png" />
+    <Content Include="Content\Lib\images\index\add_questions.png" />
+    <Content Include="Content\Lib\images\index\bg.gif" />
+    <Content Include="Content\Lib\images\index\bg_banner_menu.gif" />
+    <Content Include="Content\Lib\images\index\bg_nav.gif" />
+    <Content Include="Content\Lib\images\index\bookL.png" />
+    <Content Include="Content\Lib\images\index\delete.gif" />
+    <Content Include="Content\Lib\images\index\del_file.gif" />
+    <Content Include="Content\Lib\images\index\footbar.gif" />
+    <Content Include="Content\Lib\images\index\Header.png" />
+    <Content Include="Content\Lib\images\index\inp_btn.png" />
+    <Content Include="Content\Lib\images\index\logo.jpg" />
+    <Content Include="Content\Lib\images\index\logo_bg.jpg" />
+    <Content Include="Content\Lib\images\index\mail.gif" />
+    <Content Include="Content\Lib\images\index\map.jpg" />
+    <Content Include="Content\Lib\images\index\menu_seprator.gif" />
+    <Content Include="Content\Lib\images\index\navigationbars.gif" />
+    <Content Include="Content\Lib\images\index\nav_back.gif" />
+    <Content Include="Content\Lib\images\index\nav_changePassword.gif" />
+    <Content Include="Content\Lib\images\index\nav_forward.gif" />
+    <Content Include="Content\Lib\images\index\nav_help.gif" />
+    <Content Include="Content\Lib\images\index\nav_pre.gif" />
+    <Content Include="Content\Lib\images\index\nav_resetPassword.gif" />
+    <Content Include="Content\Lib\images\index\qq.png" />
+    <Content Include="Content\Lib\images\index\show_file.png" />
+    <Content Include="Content\Lib\images\index\t3.png" />
+    <Content Include="Content\Lib\images\index\tab_current.png" />
+    <Content Include="Content\Lib\images\index\tab_tit.png" />
+    <Content Include="Content\Lib\images\index\tab_title.png" />
+    <Content Include="Content\Lib\images\index\topmenu-item-l.gif" />
+    <Content Include="Content\Lib\images\index\topmenu-item-r.gif" />
+    <Content Include="Content\Lib\images\index\topmenu-item-selected-l.gif" />
+    <Content Include="Content\Lib\images\index\topmenu-item-selected-r.gif" />
+    <Content Include="Content\Lib\images\index\topmenu-item.gif" />
+    <Content Include="Content\Lib\images\index\topmenu-logo.gif" />
+    <Content Include="Content\Lib\images\index\topmenu.gif" />
+    <Content Include="Content\Lib\images\loading.gif" />
+    <Content Include="Content\Lib\images\login\bg.gif" />
+    <Content Include="Content\Lib\images\login\bg_login.jpg" />
+    <Content Include="Content\Lib\images\login\default.gif" />
+    <Content Include="Content\Lib\images\login\line.gif" />
+    <Content Include="Content\Lib\images\login\line2.png" />
+    <Content Include="Content\Lib\images\login\login-btn.gif" />
+    <Content Include="Content\Lib\images\login\login-btn2.gif" />
+    <Content Include="Content\Lib\images\login\examlogin_main.jpg" />
+    <Content Include="Content\Lib\images\login\login_main.jpg" />
+    <Content Include="Content\Lib\images\login\logo.jpg" />
+    <Content Include="Content\Lib\images\index\examlogo.jpg" />
+    <Content Include="Content\Lib\images\login\panel-c.gif" />
+    <Content Include="Content\Lib\images\login\panel-f.gif" />
+    <Content Include="Content\Lib\images\login\panel-h.gif" />
+    <Content Include="Content\Lib\js\Archives\ArchiveDistrict.js" />
+    <Content Include="Content\Lib\js\Archives\ArchiveEdit.js" />
+    <Content Include="Content\Lib\js\common.js" />
+    <Content Include="Content\Lib\js\Convert.js" />
+    <Content Include="Content\Lib\js\Cop\Enrol.js" />
+    <Content Include="Content\Lib\js\Cop\TerminalEnrol.js" />
+    <Content Include="Content\Lib\js\Exam\EditMultiple.js" />
+    <Content Include="Content\Lib\js\Exam\EditFillBlank.js" />
+    <Content Include="Content\Lib\js\Exam\EditJudge.js" />
+    <Content Include="Content\Lib\js\Exam\EditRandom.js" />
+    <Content Include="Content\Lib\js\Exam\EditTest.js" />
+    <Content Include="Content\Lib\js\Exam\EditTestSet.js" />
+    <Content Include="Content\Lib\js\Exam\EditTestMock.js" />
+    <Content Include="Content\Lib\js\Exam\EditTestExercise.js" />
+    <Content Include="Content\Lib\js\Exam\ExamineeInfo.js" />
+    <Content Include="Content\Lib\js\Exam\ExamineeInfoBatch.js" />
+    <Content Include="Content\Lib\js\Exercises.js" />
+    <Content Include="Content\Lib\js\index.js" />
+    <Content Include="Areas\Test\Views\index.aspx" />
+    <Content Include="Areas\Test\Views\login.aspx" />
+    <Content Include="Areas\Test\Views\login.htm" />
+    <Content Include="Areas\Test\Views\welcome.htm" />
+    <Content Include="Config\application.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\Lib\js\Resources\Apparatus.js" />
+    <Content Include="Content\Lib\js\Resources\ComponentLine.js" />
+    <Content Include="Content\Lib\js\Resources\DisplayLine.js" />
+    <Content Include="Content\Lib\js\Resources\EditIMS.js" />
+    <Content Include="Content\Lib\js\Resources\EditInternet.js" />
+    <Content Include="Content\Lib\js\Resources\EditLine.js" />
+    <Content Include="Content\Lib\js\Resources\EditVOIP.js" />
+    <Content Include="Content\Lib\js\Resources\EditWide.js" />
+    <Content Include="Content\Lib\js\Resources\Equipment.js" />
+    <Content Include="Content\Lib\js\Resources\line.js" />
+    <Content Include="Content\Lib\js\Resources\OneSevenZeroLine.js" />
+    <Content Include="Content\Lib\js\Resources\Personnel.js" />
+    <Content Include="Content\Lib\js\Resources\SelfHelpEquip.js" />
+    <Content Include="Content\Lib\js\Resources\SelfHelpEquipFault.js" />
+    <Content Include="Content\Lib\js\Resources\Vehicle.js" />
+    <Content Include="Content\Lib\js\subject.js" />
+    <Content Include="Content\Lib\js\Supplies\Collar.js" />
+    <Content Include="Content\Lib\js\Supplies\CollarModify.js" />
+    <Content Include="Content\Lib\js\Supplies\CommunityInfo.js" />
+    <Content Include="Content\Lib\js\Supplies\CommunityManager.js" />
+    <Content Include="Content\Lib\js\Supplies\Distribution.js" />
+    <Content Include="Content\Lib\js\Supplies\DistributionLine.js" />
+    <Content Include="Content\Lib\js\Supplies\DistributionModify.js" />
+    <Content Include="Content\Lib\js\Supplies\PayStandard.js" />
+    <Content Include="Content\Lib\js\Supplies\Register.js" />
+    <Content Include="Content\Lib\js\Supplies\RegisterSuppliesLine.js" />
+    <Content Include="Content\Lib\js\Supplies\SuppliesTypeLine.js" />
+    <Content Include="Content\Lib\js\Supplies\Workload.js" />
+    <Content Include="Content\Lib\js\Supplies\CollarSupplies.js" />
+    <Content Include="Content\Lib\js\Supplies\RegisterLine.js" />
+    <Content Include="Content\Lib\js\Supplies\YwDistribution.js" />
+    <Content Include="Content\Lib\js\Supplies\CollarLine.js" />
+    <Content Include="Content\Lib\js\Supplies\YwDistributionLine.js" />
+    <Content Include="Content\Lib\js\TEMData.js" />
+    <Content Include="Content\Lib\js\Exam\test.js" />
+    <Content Include="Content\Lib\js\Warehouse\IListEdit.js" />
+    <Content Include="Content\Lib\js\Warehouse\IODetailLine.js" />
+    <Content Include="Content\Lib\js\Warehouse\OListEdit.js" />
+    <Content Include="Content\Lib\js\Warehouse\TracListEdit.js" />
+    <Content Include="Content\Lib\js\Warehouse\TracDetailLine.js" />
+    <Content Include="doc\nhibernateqzyd.sql" />
+    <Content Include="Global.asax" />
+    <Content Include="Lib\choicelist.htm" />
+    <Content Include="Lib\demo.htm" />
+    <Content Include="Lib\highquery\browser.js" />
+    <Content Include="Lib\highquery\calendar.htm" />
+    <Content Include="Lib\highquery\calendar.js" />
+    <Content Include="Lib\highquery\check.js" />
+    <Content Include="Lib\highquery\highquery.js" />
+    <Content Include="Lib\highquery\oracle.js" />
+    <Content Include="Lib\highquery\sqlserver.js" />
+    <Content Include="Lib\highquery\style.css" />
+    <Content Include="Lib\jquery-validation\addmethod.js" />
+    <Content Include="Lib\jquery-validation\jquery.metadata.js" />
+    <Content Include="Lib\jquery-validation\jquery.validate.js" />
+    <Content Include="Lib\jquery-validation\jquery.validate.min.js" />
+    <Content Include="Lib\jquery-validation\messages_cn.js" />
+    <Content Include="Lib\jquery-validation\version.txt" />
+    <Content Include="Lib\jquery\jquery-1.3.2.min.js" />
+    <Content Include="Lib\jquery\jquery-1.4.4.min.js" />
+    <Content Include="Lib\jquery\jquery-1.5.2-vsdoc.js" />
+    <Content Include="Lib\jquery\jquery-1.5.2.min.js" />
+    <Content Include="Lib\jquery\jquery.autoSearchText.js" />
+    <Content Include="Lib\jquery\jquery.form.js" />
+    <Content Include="Lib\jquery\jquery.js" />
+    <Content Include="Lib\jquery\jquery.MultiFile.js" />
+    <Content Include="Lib\jquery\jquery.validate.min.js" />
+    <Content Include="Lib\json2.js" />
+    <Content Include="Lib\ligerUI\js\ligerui.all.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerAccordion.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerButton.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerCheckBox.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerComboBox.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerDateEditor.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerDialog.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerDrag.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerEasyTab.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerForm.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerGrid.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerGrid1.1.0.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerLayout.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerMenu.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerMenuBar.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerMessageBox.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerNoSelect.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerRadio.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerResizable.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerSpinner.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerTab.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerTextBox.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerTip.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerToolBar.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerTree.js" />
+    <Content Include="Lib\ligerUI\js\plugins\ligerWindow.js" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-all.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-common.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-dialog.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-form.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-grid.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-layout.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-menu.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-tab.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\css\ligerui-tree.css" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-done.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-error.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-l-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-question.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-r-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn-warn.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-btn.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-close-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-lefttop.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-righttop.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\box-top.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\box\tabs-item-left-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\common\loading.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-panel-title-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-panel-title-pressed.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-panel-title.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-tab-title-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-tab-title-pressed.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-tab-title.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-text.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-text.jpg" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-trigger-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-trigger-pressed.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\bg-trigger.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\btn-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\btn-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\btn.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\button-bg-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\button-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\checkbox.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\checkboxandradio.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\dateeditor-bar-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\dateeditor-header-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\controls\radio.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dateeditor\icon-first.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dateeditor\icon-last.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dateeditor\icon-next.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dateeditor\icon-prev.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-bc.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-bl.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-br.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-button.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-button.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-cl.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-close.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-cr.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-done.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-error.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-icons.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-question.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-tc.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-title-icon.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-tl.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-tr.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\dialog-warn.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\ie6\dialog-bc.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\ie6\dialog-cl.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\ie6\dialog-cr.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\dialog\ie6\dialog-tc.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\form\verify-corner.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\box-lefttop.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\box-righttop.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\grid-checkbox-checked.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\grid-checkbox.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\grid-detail-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\grid-detail-open.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\grid-line.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\grid-tree-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\grid-tree-open.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\header-bg-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\header-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\header2-bg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\loading.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\popup-line.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\popup-row-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\grid\popup-row-over.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\bar-button-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\checkbox-checked.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\checkbox.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-close-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-close18X18.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-done.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-down.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-drop.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-edited.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-first.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-last.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-line.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-load.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-load.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-milestone.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-next.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-prev.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-remark15X15.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-sort-asc.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-sort-desc.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-up.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\icon-warn.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\icon\magnifier.png" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\accordion-content.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\accordion-header-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\accordion-header.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\layout-header-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\layout-header.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\layout-sidebar-header.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\mini-bottom.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\mini-left.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\mini-right.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\mini-top.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\panel-content.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\panel-header-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\panel-header.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\tabs-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\tabs-item-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\tabs-item-left-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\tabs-item-over-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\tabs-item-right-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\tabs-tools.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\layout\togglebar.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\menu\menu-item-arrow.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\menu\menu-item-down.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\menu\menu-item-over-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\menu\menu-item-over-m.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\menu\menu-item-over-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\menu\menu-line-x.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\menu\menu-line-y.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\bar-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\header-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\header-bg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\header2-bg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-btn-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-btn-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-btn.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-header.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-menu-item-down.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-menu.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-menu.jpg" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-toolbar.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-toolbar.jpg" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-tools-sprites.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\panel\panel-tools.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\folder-open.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\folder.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\loading.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\tree-leaf.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\tree-level.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\tree-noline.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\tree-status-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\tree-status-open.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\tree-status.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\tree.gif" />
+    <Content Include="Lib\ligerUI\skins\Aqua\images\tree\tree.png" />
+    <Content Include="Lib\ligerUI\skins\icons\add.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\archives.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\attibutes.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\back.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\bluebook.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\bookpen.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\busy.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\calendar.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\candle.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\coffee.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\comment.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\communication.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\config.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\customers.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\cut.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\database.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\delete.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\discuss.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\edit.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\graywarn.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\greenwarn.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\help.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\home.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\lock.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\logout.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\mailbox.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\memeber.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\modify.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\msn.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\myaccount.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\ok.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\outbox.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\pager.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\photograph.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\plus.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\prev.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\print.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\process.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\qq.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\refresh.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\right.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\role.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\save-disabled.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\save.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\search.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\search2.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\settings.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\true.gif" />
+    <Content Include="Lib\ligerUI\skins\icons\up.gif" />
+    <Content Include="Lib\ligerUI\skins\ligerui-icons.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-all.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-common.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-dialog.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-form.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-grid.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-grid1.1.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-layout.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-menu.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-tab.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\css\ligerui-tree.css" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-done.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-error.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-l-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-question.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-r-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn-warn.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-btn.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-close-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-lefttop.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-righttop.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\box-top.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\box\tabs-item-left-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\common\loading.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-panel-title-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-panel-title-pressed.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-panel-title.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-tab-title-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-tab-title-pressed.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-tab-title.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-text.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-text.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-trigger-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-trigger-pressed.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\bg-trigger.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\btn-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\btn-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\btn.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\button-bg-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\button-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\checkbox.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\checkboxandradio.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\dateeditor-bar-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\dateeditor-header-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\controls\radio.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dateeditor\icon-first.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dateeditor\icon-last.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dateeditor\icon-next.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dateeditor\icon-prev.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-bc.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-bl.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-br.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-button.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-cl.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-close.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-cr.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-icons.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-tc.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-title-icon.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-tl.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\dialog-tr.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\ie6\dialog-bc.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\ie6\dialog-cl.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\ie6\dialog-cr.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\dialog\ie6\dialog-tc.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\address.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\checkboxradio.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\config.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\invalid_line.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-date-icon.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-down-icon.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-focus.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-l-focus.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-l-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-memeber-icon.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-r-focus.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-r-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\text.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\form\verify-corner.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\box-lefttop.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\box-righttop.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\grid-checkbox-checked.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\grid-checkbox.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\grid-detail-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\grid-detail-open.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\grid-line.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\grid-tree-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\grid-tree-open.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\gridheaderbg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\header-bg-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\header-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\header2-bg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\loading.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\popup-line.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\popup-row-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\grid\popup-row-over.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\bar-button-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\checkbox-checked.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\checkbox.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-close-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-down.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-drop.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-edited.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-first.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-last.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-line.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-load.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-load.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-next.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-prev.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-sort-asc.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-sort-desc.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\icon-up.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\icon\magnifier.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\accordion-content.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\accordion-header-over.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\accordion-header.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\layout-header-over.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\layout-header-over.png" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\layout-header.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\panel-content.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\panel-header-over.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\panel-header.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\tabs-bg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\tabs-item-bg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\tabs-item-left-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\tabs-item-over-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\tabs-item-right-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\tabs-tools.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\layout\togglebar.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\menu\menu-item-arrow.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\menu\menu-item-down.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\menu\menu-item-over-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\menu\menu-item-over-m.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\menu\menu-item-over-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\menu\menu-line-x.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\menu\menu-line-y.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\bar-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\header-bg.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\header-bg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\header2-bg.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-btn-l.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-btn-r.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-btn.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-header.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-menu-item-down.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-menu.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-menu.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-toolbar.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-toolbar.jpg" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-tools-sprites.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\panel\panel-tools.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\folder-open.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\folder.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\loading.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\tree-leaf.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\tree-level.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\tree-noline.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\tree-status-close.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\tree-status-open.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\tree-status.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\tree.gif" />
+    <Content Include="Lib\ligerUI\skins\Silvery\images\tree\tree.png" />
+    <Content Include="Lib\MyDatePicker\calendar.js" />
+    <Content Include="Lib\MyDatePicker\config.js" />
+    <Content Include="Lib\MyDatePicker\lang\en.js" />
+    <Content Include="Lib\MyDatePicker\lang\zh-cn.js" />
+    <Content Include="Lib\MyDatePicker\lang\zh-tw.js" />
+    <Content Include="Lib\MyDatePicker\My97DatePicker.htm" />
+    <Content Include="Lib\MyDatePicker\skin\datePicker.gif" />
+    <Content Include="Lib\MyDatePicker\skin\default\datepicker.css" />
+    <Content Include="Lib\MyDatePicker\skin\default\img.gif" />
+    <Content Include="Lib\MyDatePicker\skin\WdatePicker.css" />
+    <Content Include="Lib\MyDatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Lib\MyDatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Lib\MyDatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Lib\MyDatePicker\WdatePicker.js" />
+    <Content Include="Lib\tab\indentbg.gif" />
+    <Content Include="Lib\tab\indentbg2.gif" />
+    <Content Include="Lib\tab\shade.gif" />
+    <Content Include="Lib\tab\shadeactive.gif" />
+    <Content Include="Lib\tab\tabcontent.css" />
+    <Content Include="Lib\tab\tabcontent.js" />
+    <Content Include="Lib\zTree\asyncData\demoData.js" />
+    <Content Include="Lib\zTree\asyncData\fun1.txt" />
+    <Content Include="Lib\zTree\asyncData\fun2.txt" />
+    <Content Include="Lib\zTree\asyncData\node.txt" />
+    <Content Include="Lib\zTree\demoStyle\demo.css" />
+    <Content Include="Lib\zTree\demoStyle\img\addNode.png" />
+    <Content Include="Lib\zTree\demoStyle\img\books.png" />
+    <Content Include="Lib\zTree\demoStyle\img\btn1.png" />
+    <Content Include="Lib\zTree\demoStyle\img\btn2.png" />
+    <Content Include="Lib\zTree\demoStyle\img\btn3.png" />
+    <Content Include="Lib\zTree\demoStyle\img\btn4.png" />
+    <Content Include="Lib\zTree\demoStyle\img\checkNode.png" />
+    <Content Include="Lib\zTree\demoStyle\img\collapseNode.png" />
+    <Content Include="Lib\zTree\demoStyle\img\down.png" />
+    <Content Include="Lib\zTree\demoStyle\img\download.png" />
+    <Content Include="Lib\zTree\demoStyle\img\expandNode.png" />
+    <Content Include="Lib\zTree\demoStyle\img\hardware.gif" />
+    <Content Include="Lib\zTree\demoStyle\img\home.gif" />
+    <Content Include="Lib\zTree\demoStyle\img\left.png" />
+    <Content Include="Lib\zTree\demoStyle\img\moveNode.png" />
+    <Content Include="Lib\zTree\demoStyle\img\moveNodeR.png" />
+    <Content Include="Lib\zTree\demoStyle\img\people.gif" />
+    <Content Include="Lib\zTree\demoStyle\img\phone.gif" />
+    <Content Include="Lib\zTree\demoStyle\img\refresh.png" />
+    <Content Include="Lib\zTree\demoStyle\img\removeNode.png" />
+    <Content Include="Lib\zTree\demoStyle\img\right.png" />
+    <Content Include="Lib\zTree\demoStyle\img\safari.png" />
+    <Content Include="Lib\zTree\demoStyle\img\searchNode.png" />
+    <Content Include="Lib\zTree\demoStyle\img\skin.png" />
+    <Content Include="Lib\zTree\demoStyle\img\star.png" />
+    <Content Include="Lib\zTree\demoStyle\img\unCheckNode.png" />
+    <Content Include="Lib\zTree\demoStyle\img\up.png" />
+    <Content Include="Lib\zTree\demoStyle\img\zTreeDemo_background.png" />
+    <Content Include="Lib\zTree\demoTools.js" />
+    <Content Include="Lib\zTree\jquery-1.4.2.js" />
+    <Content Include="Lib\zTree\jquery.ztree-2.6.js" />
+    <Content Include="Lib\zTree\jquery.ztree-2.6.min.js" />
+    <Content Include="Lib\zTree\zTreeStyle\img\checkbox.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\edit.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\10.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\1_close.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\1_open.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\2.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\3.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\4.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\5.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\6.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\7.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\8.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\flag\9.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\folder_Close.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\folder_Open.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\line_bottom.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\line_center.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\line_top.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\loading.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\minus_bottom.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\minus_center.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\minus_noLine.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\minus_root.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\minus_top.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\moveArrow.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\page.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\plus_bottom.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\plus_center.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\plus_noLine.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\plus_root.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\plus_top.gif" />
+    <Content Include="Lib\zTree\zTreeStyle\img\radio.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\remove.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\10.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\1_close.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\1_open.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\2.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\3.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\4.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\5.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\6.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\7.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\8.png" />
+    <Content Include="Lib\zTree\zTreeStyle\img\sim\9.png" />
+    <Content Include="Lib\zTree\zTreeStyle\zTreeIcons.css" />
+    <Content Include="Lib\zTree\zTreeStyle\zTreeStyle.css" />
+    <Content Include="robots.txt" />
+    <Content Include="Service\SystemData.ashx" />
+    <Content Include="Service\BillListData.ashx" />
+    <Content Include="Service\DataHandler.ashx" />
+    <Content Include="Service\ValidateData.ashx" />
+    <Content Include="Areas\Archives\Views\Web.config" />
+    <Content Include="Areas\Archives\Views\City\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\City\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\City\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\District\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\District\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\District\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Grid\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Grid\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Grid\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Unit\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Unit\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Unit\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Factory\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Factory\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Factory\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\BizAssuranLeve\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\BizAssuranLeve\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\BizAssuranLeve\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\BizType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\BizType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\BizType\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\ClieScaleGrade\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\ClieScaleGrade\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\ClieScaleGrade\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\EquipModel\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\EquipModel\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\EquipModel\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\ClieServStarLeve\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\ClieServStarLeve\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\ClieServStarLeve\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\NetworkingMode\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\NetworkingMode\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\NetworkingMode\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\EquipType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\EquipType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\EquipType\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\Web.config" />
+    <Content Include="Areas\Resources\Views\DedicateLine\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\EditInternet.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\GroupClie\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\GroupClie\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\GroupClie\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\EditIMS.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\EditVOIP.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\EditWide.cshtml" />
+    <Content Include="Areas\Resources\Views\SelfHelpEquip\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\SelfHelpEquip\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\SelfHelpEquip\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\EquipFault\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\EquipFault\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\EquipFault\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\BreakdownType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\BreakdownType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\BreakdownType\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Component\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Component\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Component\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\GroupClie\Display.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\LoadFile.cshtml" />
+    <Content Include="Areas\Cop\Views\Web.config" />
+    <Content Include="Areas\Resources\Views\Vehicle\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\Vehicle\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\Vehicle\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\Vehicle\LoadFile.cshtml" />
+    <Content Include="Areas\Resources\Views\Personnel\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\Personnel\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\Personnel\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\Personnel\LoadFile.cshtml" />
+    <Content Include="Areas\Resources\Views\Apparatus\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\Apparatus\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\Apparatus\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\Apparatus\LoadFile.cshtml" />
+    <Content Include="Areas\Warehouse\Views\InventoryFile\ButtonList.cshtml" />
+    <Content Include="Areas\Warehouse\Views\InventoryFile\Index.cshtml" />
+    <Content Include="Areas\Warehouse\Views\InventoryFile\LoadFile.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Web.config" />
+    <Content Include="Areas\Exam\Views\Course\ButtonList.cshtml" />
+    <Content Include="Areas\Exam\Views\Course\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\Course\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\ScaleGrade\ButtonList.cshtml" />
+    <Content Include="Areas\Exam\Views\ScaleGrade\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\ScaleGrade\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\SubjectType\ButtonList.cshtml" />
+    <Content Include="Areas\Exam\Views\SubjectType\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\SubjectType\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\ButtonList.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\Web.config" />
+    <Content Include="Areas\Supervision\Views\Send\Edit.cshtml" />
+    <Content Include="Areas\Supervision\Views\Send\Index.cshtml" />
+    <Content Include="Areas\Supervision\Views\Web.config" />
+    <Content Include="Areas\Exam\Views\Achievement\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\Test\ButtonList.cshtml" />
+    <Content Include="Areas\Exam\Views\Test\EditRandom.cshtml" />
+    <Content Include="Areas\Exam\Views\Test\EditTest.cshtml" />
+    <Content Include="Areas\Exam\Views\Test\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\TestType\ButtonList.cshtml" />
+    <Content Include="Areas\Exam\Views\TestType\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\TestType\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Certificate\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Certificate\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Certificate\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Company\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Company\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Company\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Diploma\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Diploma\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Diploma\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Duty\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Duty\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Duty\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\IOClass\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\IOClass\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\IOClass\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\ItemProperty\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\ItemProperty\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\ItemProperty\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\MaintainSpecialty\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\MaintainSpecialty\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\MaintainSpecialty\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\MeterState\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\MeterState\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\MeterState\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Nature\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Nature\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Nature\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\OutletsType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\OutletsType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\OutletsType\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\QualificationType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\QualificationType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\QualificationType\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\SignalModel\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\SignalModel\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\SignalModel\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Stagnation\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Stagnation\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Stagnation\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Use\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Use\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Use\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\VehicleNature\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\VehicleNature\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\VehicleNature\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\OneSevenZero\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\OneSevenZero\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\OneSevenZero\Index.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Inventory\ButtonList.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Inventory\Edit.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Inventory\Index.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Inventory\LoadFile.cshtml" />
+    <Content Include="Areas\Warehouse\Views\IOList\ButtonList.cshtml" />
+    <Content Include="Areas\Warehouse\Views\IOList\Index.cshtml" />
+    <Content Include="Areas\Warehouse\Views\IOList\LoadFile.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Repair\ButtonList.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Repair\Edit.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Repair\Index.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Repair\LoadFile.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Repertoty\ButtonList.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Repertoty\Edit.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Repertoty\Index.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Stock\ButtonList.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Stock\Edit.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Stock\Index.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Stock\LoadFile.cshtml" />
+    <Content Include="Areas\Exam\Views\Test\ViewTest.cshtml" />
+    <Content Include="Areas\Supervision\Views\Send\Unit.cshtml" />
+    <Content Include="Areas\Supervision\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Supervision\Views\Audit\Index.cshtml" />
+    <Content Include="Areas\Supervision\Views\Orders\Order.cshtml" />
+    <Content Include="Areas\Supervision\Views\Orders\Back.cshtml" />
+    <Content Include="Areas\Supervision\Views\Orders\Detailed.cshtml" />
+    <Content Include="Areas\Supervision\Views\Audit\Approval.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\IMS.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\Internet.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\VOIP.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\Wide.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\LoadFile.cshtml" />
+    <Content Include="Areas\Resources\Views\EquipFault\LoadFile.cshtml" />
+    <Content Include="Areas\Resources\Views\GroupClie\LoadFile.cshtml" />
+    <Content Include="Areas\Resources\Views\SelfHelpEquip\LoadFile.cshtml" />
+    <Content Include="Areas\Supervision\Views\Orders\ReBack.cshtml" />
+    <Content Include="Areas\Supervision\Views\Audit\Detailed.cshtml" />
+    <Content Include="Areas\Exam\Views\TestExercise\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\TestMock\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\TestSet\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\SubjectType\Display.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\Display.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\EditFillBlank.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\EditJudge.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\EditMultiple.cshtml" />
+    <Content Include="Areas\Exam\Views\OnlineExam\Exam.cshtml" />
+    <Content Include="Areas\Exam\Views\OnlineExam\ExamList.cshtml" />
+    <Content Include="Areas\Exam\Views\OnlineExam\Exercises.cshtml" />
+    <Content Include="Areas\Exam\Views\OnlineExam\ExercisesList.cshtml" />
+    <Content Include="Areas\Exam\Views\OnlineExam\Simulation.cshtml" />
+    <Content Include="Areas\Exam\Views\OnlineExam\SimulationList.cshtml" />
+    <Content Include="Areas\Exam\Views\TestSet\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\TestMock\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\TestExercise\Index.cshtml" />
+    <Content Include="Areas\System\Views\Department\add.cshtml" />
+    <Content Include="Areas\System\Views\Department\addTWO.cshtml" />
+    <Content Include="Areas\System\Views\Department\Edit.cshtml" />
+    <Content Include="Areas\System\Views\Department\Index.cshtml" />
+    <Content Include="Areas\System\Views\Menufield\Edit.cshtml" />
+    <Content Include="Areas\System\Views\Menufield\Index.cshtml" />
+    <Content Include="Areas\System\Views\Menufield\IndexPermissions.cshtml" />
+    <Content Include="Areas\System\Views\Menu\ButtonList.cshtml" />
+    <Content Include="Areas\System\Views\Menu\Edit.cshtml" />
+    <Content Include="Areas\System\Views\Menu\Index.cshtml" />
+    <Content Include="Areas\System\Views\Permissions\Edit.cshtml" />
+    <Content Include="Areas\System\Views\Permissions\Index.cshtml" />
+    <Content Include="Areas\System\Views\Role\Edit.cshtml" />
+    <Content Include="Areas\System\Views\Role\Index.cshtml" />
+    <Content Include="Areas\System\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\System\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\System\Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Areas\System\Views\User\Edit.cshtml" />
+    <Content Include="Areas\System\Views\User\Index.cshtml" />
+    <Content Include="Areas\System\Views\Web.config" />
+    <Content Include="Areas\System\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Exam\Views\TestExercise\Exercises.cshtml" />
+    <Content Include="Areas\Exam\Views\TestSet\Set.cshtml" />
+    <Content Include="Areas\Exam\Views\TestMock\Mock.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityManager\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityManager\Edit.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityManager\Index.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityManager\LoadFile.cshtml" />
+    <Content Include="Areas\Supplies\Views\Web.config" />
+    <Content Include="Areas\Archives\Views\NetworkName\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\NetworkName\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\NetworkName\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\Posts\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\Posts\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\Posts\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpEquipModel\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpEquipModel\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpEquipModel\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpEquipType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpEquipType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpEquipType\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpFactory\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpFactory\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\SelfHelpFactory\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\Achievement\ExamRecords.cshtml" />
+    <Content Include="Areas\Archives\Views\SaleDepartment\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\SaleDepartment\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\SaleDepartment\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\StockEquipUse\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\StockEquipUse\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\StockEquipUse\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\SuppliesType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\SuppliesType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\SuppliesType\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\AccessWay\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\AccessWay\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\AccessWay\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\BuildWay\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\BuildWay\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\BuildWay\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\CommunityType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\CommunityType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\CommunityType\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\MaintainType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\MaintainType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\MaintainType\Index.cshtml" />
+    <Content Include="Areas\Supervision\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Exam\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Cop\Views\CycTime\Edit.cshtml" />
+    <Content Include="Areas\Cop\Views\CycTime\Index.cshtml" />
+    <Content Include="Areas\Cop\Views\Enrol\Edit.cshtml" />
+    <Content Include="Areas\Cop\Views\Enrol\Index.cshtml" />
+    <Content Include="Areas\Cop\Views\Enrol\LoadFile.cshtml" />
+    <Content Include="Areas\Cop\Views\Plan\Index.cshtml" />
+    <Content Include="Areas\Cop\Views\Plan\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\Display.cshtml" />
+    <Content Include="Areas\Exam\Views\Achievement\Ranking.cshtml" />
+    <Content Include="Areas\Resources\Views\GroupClie\SelIndex.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\BatchAddList.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\ViewMultiple.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\DisplayIMS.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\DisplayInternet.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\DisplayVOIP.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\DisplayWide.cshtml" />
+    <Content Include="Areas\Resources\Views\Personnel\Display.cshtml" />
+    <Content Include="Areas\Resources\Views\SelfHelpEquip\Display.cshtml" />
+    <Content Include="Areas\Resources\Views\Vehicle\Display.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\ViewFillBlank.cshtml" />
+    <Content Include="Areas\Exam\Views\Subject\ViewJudge.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamType\ButtonList.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamType\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamType\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\EquipFault\Display.cshtml" />
+    <Content Include="Areas\Resources\Views\Apparatus\Display.cshtml" />
+    <Content Include="Areas\System\Views\Menu\Search.cshtml" />
+    <Content Include="Areas\System\Views\Role\Search.cshtml" />
+    <Content Include="Areas\System\Views\User\Search.cshtml" />
+    <Content Include="Areas\Exam\Views\Examinee\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\Examinee\Login.cshtml" />
+    <Content Include="Areas\Exam\Views\Examinee\Myconfig.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\Edit.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\Index.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\LoadFile.cshtml" />
+    <Content Include="Areas\Supplies\Views\PayStandard\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\PayStandard\Edit.cshtml" />
+    <Content Include="Areas\Supplies\Views\PayStandard\Index.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\Edit.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\Index.cshtml" />
+    <Content Include="Areas\Supplies\Views\Workload\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\Workload\Edit.cshtml" />
+    <Content Include="Areas\Supplies\Views\Workload\Index.cshtml" />
+    <Content Include="Areas\System\Views\Log\Index.cshtml" />
+    <Content Include="Areas\System\Views\Log\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\Vehicle\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\SelfHelpEquip\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\Personnel\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\GroupClie\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\EquipFault\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\Apparatus\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Resources\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Resources\Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Areas\Resources\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Archives\Views\StockType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\StockType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\StockType\Index.cshtml" />
+    <Content Include="Areas\Warehouse\Views\InventoryFile\Search.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalPlan\Edit.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalPlan\Index.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalTime\Edit.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalTime\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamineeInfo\BatchAdd.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamineeInfo\Display.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamineeInfo\Edit.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamineeInfo\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamineeInfo\LoadFile.cshtml" />
+    <Content Include="Areas\Exam\Views\ExamineeInfo\SelectList.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalEnrol\Edit.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalEnrol\Index.cshtml" />
+    <Content Include="Areas\Resources\Views\FiberCore\ButtonList.cshtml" />
+    <Content Include="Areas\Resources\Views\FiberCore\Edit.cshtml" />
+    <Content Include="Areas\Resources\Views\FiberCore\Index.cshtml" />
+    <Content Include="Areas\Archives\Views\District\SelDistrict.cshtml" />
+    <Content Include="Areas\Supplies\Views\CollarSupplies\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\CollarSupplies\Edit.cshtml" />
+    <Content Include="Areas\Supplies\Views\CollarSupplies\Index.cshtml" />
+    <Content Include="Areas\Cop\Views\Plan\Add.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\Index.cshtml" />
+    <Content Include="Areas\Cop\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Cop\Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Areas\Cop\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Cop\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\TRIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\YRIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\WRIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\Confirm.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\Display.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\SelSupIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\Modify.cshtml" />
+    <Content Include="Areas\Supplies\Views\CollarSupplies\Display.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalPlan\Add.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\YwEdit.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\YwModify.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\SelYwIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\YwIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\QxIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\YwIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\AllIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\SelRegIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\Display.cshtml" />
+    <Content Include="Areas\Supplies\Views\CollarSupplies\Modify.cshtml" />
+    <Content Include="Areas\Supplies\Views\CollarSupplies\Collar.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\Search.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\Search.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\YwSearch.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\SjSearch.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\YwSearch.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\JlIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\CollarSupplies\Search.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\AllIndex.cshtml" />
+    <Content Include="Areas\Supplies\Views\Distribution\AllSearch.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\PjIndex.cshtml" />
+    <Content Include="Areas\Archives\Views\SuppliesType\SelIndex.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalEnrol\LoadFile.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\TzIndex.cshtml" />
+    <Content Include="Areas\Resources\Views\Vehicle\ExcelOut.cshtml" />
+    <Content Include="Areas\Resources\Views\SelfHelpEquip\ExcelOut.cshtml" />
+    <Content Include="Areas\Resources\Views\Personnel\ExcelOut.cshtml" />
+    <Content Include="Areas\Resources\Views\GroupClie\ExcelOut.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\ExcelOut.cshtml" />
+    <Content Include="Areas\Resources\Views\EquipFault\ExcelOut.cshtml" />
+    <Content Include="Areas\Resources\Views\DedicateLine\ExcelOut.cshtml" />
+    <Content Include="Areas\Resources\Views\Apparatus\ExcelOut.cshtml" />
+    <Content Include="Areas\Cop\Views\Plan\Search.cshtml" />
+    <Content Include="Areas\Cop\Views\CycTime\Search.cshtml" />
+    <Content Include="Areas\Resources\Views\Equipment\SelIndex.cshtml" />
+    <Content Include="Areas\Archives\Views\PortType\ButtonList.cshtml" />
+    <Content Include="Areas\Archives\Views\PortType\Edit.cshtml" />
+    <Content Include="Areas\Archives\Views\PortType\Index.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalTime\Search.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\Search.cshtml" />
+    <Content Include="Areas\Supplies\Views\PayStandardManger\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\PayStandardManger\Edit.cshtml" />
+    <Content Include="Areas\Supplies\Views\PayStandardManger\Index.cshtml" />
+    <Content Include="Areas\Supplies\Views\Register\Search.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityManager\Search.cshtml" />
+    <Content Include="Areas\Archives\Views\SuppliesType\Search.cshtml" />
+    <Content Include="Areas\Archives\Views\SaleDepartment\Search.cshtml" />
+    <Content Include="Areas\Cop\Views\Enrol\Search.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalPlan\Search.cshtml" />
+    <Content Include="Areas\Cop\Views\TerminalEnrol\Search.cshtml" />
+    <Content Include="Areas\System\Views\User\ModifyRole.cshtml" />
+    <Content Include="Areas\Warehouse\Views\IOList\IList.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Warehouse\Views\IOList\IListEdit.cshtml" />
+    <Content Include="Areas\Warehouse\Views\IOList\OList.cshtml" />
+    <Content Include="Areas\Warehouse\Views\IOList\OListEdit.cshtml" />
+    <Content Include="Areas\Supplies\Views\SuppliesStock\SelStock.cshtml" />
+    <Content Include="Areas\Archives\Views\EquipModel\SelIndex.cshtml" />
+    <Content Include="Areas\Warehouse\Views\IOList\TracList.cshtml" />
+    <Content Include="Areas\Warehouse\Views\IOList\TracListEdit.cshtml" />
+    <Content Include="Areas\Warehouse\Views\Stock\SelIndex.cshtml" />
+    <Content Include="Areas\Supervision\Views\Send\Search.cshtml" />
+    <Content Include="Areas\Supervision\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Supervision\Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Areas\Supervision\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityInfo\ButtonList.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityInfo\Edit.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityInfo\Index.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityInfo\LoadFile.cshtml" />
+    <Content Include="Areas\Supplies\Views\CommunityInfo\Search.cshtml" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Lib\zTree\asyncData\node.jsp" />
+    <None Include="Lib\zTree\asyncData\node.php" />
+    <None Include="Lib\zTree\asyncData\nodeForBigData.jsp" />
+    <None Include="Lib\zTree\asyncData\nodeForBigData.php" />
+    <None Include="Lib\zTree\asyncData\nodeForHugeData.jsp" />
+    <None Include="Lib\zTree\asyncData\nodeForHugeData.php" />
+    <None Include="Upload\OtherInfo\测试方案模板.doc" />
+    <None Include="Upload\OtherInfo\软件测试用例模板.doc" />
+    <None Include="Upload\OtherInfo\需求变更控制报告.doc" />
+    <Content Include="Upload\TemplateFile\人员信息.xlsx" />
+    <Content Include="Upload\TemplateFile\广域网专线.xlsx" />
+    <Content Include="Upload\TemplateFile\自助终端设备信息.xlsx" />
+    <Content Include="Views\Home\Myconfig.cshtml" />
+    <Content Include="Views\Home\Welcome.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Home\Indexv1.cshtml" />
+    <None Include="Upload\TemplateFile\IMS专线.xlsx" />
+    <None Include="Upload\TemplateFile\VOIP专线.xlsx" />
+    <None Include="Upload\TemplateFile\专线巡检登记.xlsx" />
+    <None Include="Upload\TemplateFile\专线设备信息.xlsx" />
+    <None Include="Upload\TemplateFile\互联网专线.xlsx" />
+    <None Include="Upload\TemplateFile\仪器仪表信息.xlsx" />
+    <None Include="Upload\TemplateFile\客户信息表.xlsx" />
+    <None Include="Upload\TemplateFile\小区信息管理.xlsx" />
+    <None Include="Upload\TemplateFile\社区经理信息.xlsx" />
+    <None Include="Upload\TemplateFile\终端巡检登记.xlsx" />
+    <None Include="Upload\TemplateFile\考生信息.xls" />
+    <None Include="Upload\TemplateFile\自助终端故障信息.xlsx" />
+    <None Include="Upload\TemplateFile\装维人员信息.xlsx" />
+    <None Include="Upload\TemplateFile\车辆档案信息.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Archives\Views\Shared\" />
+    <Folder Include="Areas\Exam\Views\Shared\" />
+    <Folder Include="Areas\Test\Views\Shared\" />
+    <Folder Include="Areas\Warehouse\Views\Shared\" />
+    <Folder Include="Upload\CheckData\Apparatus\" />
+    <Folder Include="Upload\CheckData\CopEnrol\" />
+    <Folder Include="Upload\CheckData\DedicateLine\" />
+    <Folder Include="Upload\CheckData\ExamineeInfo\" />
+    <Folder Include="Upload\CheckData\Personnel\" />
+    <Folder Include="Upload\CheckData\TerminalEnrol\" />
+    <Folder Include="Upload\ImportDataResult\Apparatus\" />
+    <Folder Include="Upload\ImportDataResult\CopEnrol\" />
+    <Folder Include="Upload\ImportDataResult\DedicateLine\" />
+    <Folder Include="Upload\ImportDataResult\EquipFault\" />
+    <Folder Include="Upload\ImportDataResult\Equipment\" />
+    <Folder Include="Upload\ImportDataResult\ExamineeInfo\" />
+    <Folder Include="Upload\ImportDataResult\GroupClie\" />
+    <Folder Include="Upload\ImportDataResult\Personnel\" />
+    <Folder Include="Upload\ImportDataResult\SelfHelpEquip\" />
+    <Folder Include="Upload\ImportDataResult\Vehicle\" />
+    <Folder Include="Upload\LoadFile\Apparatus\" />
+    <Folder Include="Upload\LoadFile\DedicateLine\" />
+    <Folder Include="Upload\LoadFile\Equipment\" />
+    <Folder Include="Upload\LoadFile\ExamineeInfo\" />
+    <Folder Include="Upload\LoadFile\Personnel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Test\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Test\Views\System\Role\Index.cshtml" />
+    <Content Include="Areas\Test\Views\System\User\Index.cshtml" />
+    <None Include="Lib\ligerUI\skins\icons\1.bat" />
+    <None Include="Lib\ligerUI\skins\icons\新建 Microsoft Office Excel 工作表.xlsx" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QzgfFrame.Archives\QzgfFrame.Archives.csproj">
+      <Project>{19437E73-E436-4D2F-9D84-916F5FDA9951}</Project>
+      <Name>QzgfFrame.Archives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Controllers\QzgfFrame.Controllers.csproj">
+      <Project>{7A2D1EC2-BFD6-47F5-86E7-B1FFF81A15A2}</Project>
+      <Name>QzgfFrame.Controllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Exam\QzgfFrame.Exam.csproj">
+      <Project>{B4AAF668-7A9C-4560-B975-0B5B49AB328C}</Project>
+      <Name>QzgfFrame.Exam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Resources\QzgfFrame.Resources.csproj">
+      <Project>{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}</Project>
+      <Name>QzgfFrame.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Supervision\QzgfFrame.Supervision.csproj">
+      <Project>{E8B9EF99-3B8A-4616-904B-819E463BF5DF}</Project>
+      <Name>QzgfFrame.Supervision</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Supplies\QzgfFrame.Supplies.csproj">
+      <Project>{58BD1D52-758B-4F21-8868-34B518378CBD}</Project>
+      <Name>QzgfFrame.Supplies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.System\QzgfFrame.System.csproj">
+      <Project>{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}</Project>
+      <Name>QzgfFrame.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Utility\QzgfFrame.Utility.csproj">
+      <Project>{FC01A832-1EF9-447D-8169-06678E0E0BE6}</Project>
+      <Name>QzgfFrame.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Warehouse\QzgfFrame.Warehouse.csproj">
+      <Project>{0E31FA2D-FB85-4DE6-B8E1-A8C1B513548F}</Project>
+      <Name>QzgfFrame.Warehouse</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Webservice\QzgfFrame.Webservice.csproj">
+      <Project>{18208E25-8635-4B0F-ADA8-83FAFAA68C81}</Project>
+      <Name>QzgfFrame.Webservice</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>23334</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.BizAssuranLeveManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.BizAssuranLeveManger.Models.ArchiveBizAssuranLeve,QzgfFrame.Archives" table="tab_biz_assuran_leve">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="AssuranLeveName" type="String" name="AssuranLeveName" length="8" not-null="true"/>
+
+	</class>
+</hibernate-mapping>

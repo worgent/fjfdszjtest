@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--权限不拦截-->
+<pages>
+    <page controller="permissions" name="分配权限"></page>
+</pages>

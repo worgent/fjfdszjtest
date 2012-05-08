@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Supplies.DistributionManger.Models.Distribution
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Lib/css/autoSearchText.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/addmethod.js" type="text/javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            if ($("#suppliesDistribution_State").val() == "2") {
+                $("#showReason").show();
+            }
+            else if ($("#suppliesDistribution_State").val() == "1") {
+                $("#showReason").hide();
+            }            
+        });
+    </script>
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Confirm", "Distribution", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+    <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+            <tr class="Header"><td  colspan="4">&nbsp;</td></tr>
+            <tr id="showReason" style="display:none"> <td class="Right_Display_font" width="15%">退回理由：<span class="l-verify-star">*</span></td>                     
+                    <td class="Left_font" colspan="3">
+                    @Model.suppliesDistribution.Reason
+                    </td> 
+            </tr>
+                <tr>
+                   <td class="Right_Display_font" width="15%">所属县市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" width="30%">
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    @Html.HiddenFor(m => m.suppliesDistribution.State) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.Id) 
+                    <input type="hidden" name="addFlag" id="addFlag"/>
+                    @Model.suppliesDistribution.DistrictName
+                   @Html.HiddenFor(m => m.suppliesDistribution.CityId)   
+                    </td> 
+                    <td class="Right_Display_font" width="15%">维护单位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.suppliesDistribution.CompanyName
+                    @Html.HiddenFor(m => m.suppliesDistribution.CompanyId)  
+                    </td>  
+                </tr>  
+                 <tr>
+                    <td colspan="4" width="100%" align="center" class="Left_Bottom">
+                    <table width="100%" border="0" cellpadding="2" cellspacing="1" id="SuppliesFrame" class="com_tab">
+<tr class="hno">
+                <td > 所属区县</td>
+                <td  >所属公司</td>
+                <td > 耗材类型</td>
+                <td  >耗材单位</td>
+                <td  >数量</td>
+              </tr>
+@{var j = 0;}
+ @foreach (var n in Model.distributionDetailList as IList<QzgfFrame.Supplies.DistributionDetailManger.Models.SuppliesDistributionDetail>)
+ {
+    // ViewData["Component"] = new SelectList(Model.Components, "Id", "ComponentName",n.ComponentId);
+
+     var SuppliesTypeId = "SuppliesTypeId" + j; var Num = "Num" + j; var UnitName = "UnitName" + j;
+     var SuppliesTypeName = "SuppliesTypeName" + j;var seqno = j + 1;
+     var SignSuppliesItem = "SignSuppliesItem" + j; var OrderNo = "OrderNo" + j;
+     var DistrictId = "DistrictId" + j; var DistrictName = "DistrictName" + j;
+     var CompanyId = "CompanyId" + j; var CompanyName = "CompanyName" + j; var MaxNum = "MaxNum" + j; 
+     
+             <tr id='@SignSuppliesItem' class="bno">
+                <td class="sno"> @n.DistrictName</td>
+                <td class="sno">@n.CompanyName</td>
+                <td class="sno"> @n.SuppliesTypeName</td>
+                <td  >@n.UnitName</td>
+                <td  >@n.Num</td>
+              </tr>
+                                                                                       j++;
+ }
+        </table>
+        <input name='TRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+                    @Html.HiddenFor(m => m.distributionDetails)
+                    @Html.HiddenFor(m => m.OrgIds)
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_Display_font">操作员：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.suppliesDistribution.DistributionUser
+                    </td> 
+                    <td class="Right_Display_font">合计：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" >
+                    @Model.suppliesDistribution.Num
+                     </td> 
+                </tr>
+                <tr>
+                    <td class="Right_Display_font">分配日期：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="3">
+                     @string.Format("{0:D}", Model.suppliesDistribution.CreateDatetime)
+                     </td> 
+</tr>
+                 <tr>
+                    <td class="Right_Display_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="3">
+                    @Model.suppliesDistribution.Remark
+                     </td> 
+</tr>
+<tr class="Header"><td  colspan="4">&nbsp;</td></tr>
+</tbody>
+</table>  
+    </div> 
+    }
+    
+</body>
+</html>

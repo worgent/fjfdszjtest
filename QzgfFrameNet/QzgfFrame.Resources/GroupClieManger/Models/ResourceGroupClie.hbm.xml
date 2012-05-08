@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.GroupClieManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.GroupClieManger.Models.ResourceGroupClie,QzgfFrame.Resources" table="tab_group_clie">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="ClieNo" type="String" name="ClieNo" length="15" not-null="true"/>
+		<property column="ClieName" type="String" name="ClieName" length="50" not-null="true"/>
+		<property column="ClieContacTel" type="String" name="ClieContacTel" length="15" />
+		<property column="ClieAddress" type="String" name="ClieAddress" length="50" />
+		<property column="ClieAreaLongitude" type="String" name="ClieAreaLongitude" length="20" />
+		<property column="ClieAreaLatitude" type="String" name="ClieAreaLatitude" length="20" />
+    <property column="GroupClieContacts" type="String" name="GroupClieContacts" length="30" />
+    <property column="GroupClieContacTel" type="String" name="GroupClieContacTel" length="15" />
+    <property column="ClieManager" type="String" name="ClieManager" length="30" />
+		<property column="ClieManagerTel" type="String" name="ClieManagerTel" length="15" />
+		<property column="ClieBizContacts" type="String" name="ClieBizContacts" length="30" />
+		<property column="ClieBizContacTel" type="String" name="ClieBizContacTel" length="15" />
+		<property column="CityId" type="String" name="CityId" length="20" />
+		<property column="DistrictId" type="String" name="DistrictId" length="20" />
+		<property column="CompanyId" type="String" name="CompanyId" length="20" />
+		<property column="StarLeveId" type="String" name="StarLeveId" length="20" />
+    <property column="ScaleGradeId" type="String" name="ScaleGradeId" length="20" />
+    <property column="State" type="short" name="State" not-null="true"/>
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  not-null="true"/>
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate"  not-null="true"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+
+	</class>
+</hibernate-mapping>

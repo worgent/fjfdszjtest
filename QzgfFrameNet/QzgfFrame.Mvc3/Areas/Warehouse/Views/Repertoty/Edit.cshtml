@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Warehouse.RepertotyManger.Models.WarehouseRepertoty
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //var CurID =  <%=CurID %>;
+        var Validator = null;
+        $(function () {
+            $("#GridNames").ligerComboBox({ isShowCheckBox: true, isMultiSelect: true,
+                url: '/Warehouse/Repertoty/UserCombobox',
+                valueFieldID: 'MUserId'
+            });
+            //验证
+            $.metadata.setType("attr", "validate");
+            Validator = $("form").validate({
+                debug: false,
+                errorPlacement: function (lable, element) {
+                    if (element.hasClass("l-textarea")) element.ligerTip({ content: lable.html(), appendIdTo: lable });
+                    else if (element.hasClass("l-text-field")) element.parent().ligerTip({ content: lable.html(), appendIdTo: lable });
+                    else lable.appendTo(element.parents("td:first").next("td"));
+                },
+                success: function (lable) {
+                    lable.ligerHideTip();
+                },
+                submitHandler: function () {
+                    $("form .l-text,.l-textarea").ligerHideTip();
+                }
+            });
+            $("form").ligerForm();
+        });
+        function f_save() {
+            $.ligerDialog.waitting("正在保存中...");
+            //提交数据
+            var fm = $("#newForm");
+            //提交表单  result为返回的数据，success为成功,form为提交的form
+            fm.ajaxSubmit(function (result, success, form) {
+                if (result.Type) {
+                    //$.ligerDialog.success(result.Message);
+                    $.ligerDialog.alert(result.Message, '提示', success);
+                    window.location.href = "/Warehouse/Repertoty/";
+                }
+                else {
+                    $.ligerDialog.closeWaitting();
+                    $.ligerDialog.error(result.Message);
+                }
+            });
+        }
+    </script>
+    <style type="text/css">
+        .edittable .editcellmessage,.edittable .editcellverify,.edittable .editcell{ padding:4px;line-height:23px;}
+        .edittable .editcellmessage{ padding-left:20px;} 
+        body { font-size:12px; background:white;}
+         
+    </style>
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Edit", "Repertoty", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font" width="15%">维护单位：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Html.HiddenFor(m=>m.Id)
+                    @Html.DropDownList("CompanyId", (SelectList)ViewData["companys"])
+                    </td> 
+                    <td class="Right_font" width="10%">所属区县:<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Html.DropDownList("DistrictId", (SelectList)ViewData["districts"])
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font" width="15%">仓库管理员：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     <input type="text"  id="UserNames" name="UserNames" validate = "{required:true,minlength:1}", ltype = "text" />
+                     @Html.HiddenFor(m => m.MUserId)
+                    </td> 
+                    <td class="Right_font" width="10%">联系电话:<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.Tel)
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_font" width="15%">仓库地址：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font" colspan="4">
+                     @Html.TextBoxFor(m => m.Address, new {  size = "80", style = "width:550px" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font" width="15%">备注：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font" colspan="4">
+                     @Html.TextAreaFor(m => m.Remark, new { Multiline = true, size = "80", style = "width:550px" })
+                    </td> 
+                </tr> 
+                </tbody>
+        </table>
+    </div> 
+    }
+    
+</body>
+</html>

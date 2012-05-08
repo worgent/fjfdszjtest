@@ -1,0 +1,143 @@
+﻿@model QzgfFrame.Resources.VehicleManger.Models.ResourceVehicle
+@{
+    
+    ViewBag.Title = "Register";
+}  
+@using (Html.BeginForm("Edit", "Vehicle", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div style=" height:100%">
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+               <tr>
+                    <td class="Right_font">二维码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    @Model.TwoDimensionalCode 
+                    </td>
+                     
+                    <td class="Right_font">所属地市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["city"]
+                    </td>
+                </tr>
+                <tr>
+                
+                    <td class="Right_font">所属区县：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @ViewData["district"]
+                    </td> 
+                    <td class="Right_font">所属公司：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["company"]
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_font">所属驻点：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["stagnation"]                   
+                    </td>
+                    <td class="Right_font">所属网格：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">                      
+                    @ViewData["grid"]         
+                    </td> 
+                </tr> 
+                 
+                <tr>
+                    <td class="Right_font">姓名：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.FullName   
+                    </td>
+                    <td class="Right_font">联系电话：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.LinkTel
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">维护专业：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["maintainSpecialty"]    
+                    </td>
+                    <td class="Right_font">车牌号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.LicensePlateNumber 
+                    </td> 
+                </tr> 
+                 <tr>
+                    <td class="Right_font">开始使用时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @string.Format("{0:D}", Model.StartDatetime)
+                    </td>
+                    <td class="Right_font">开始使用里程：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.UseMileage 
+                    </td> 
+                </tr>
+                 <tr>
+                    <td class="Right_font">性质：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    @ViewData["vehicleNature"]    
+                   </td> 
+                    <td class="Right_font">用 途：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    @ViewData["use"]    
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">行驶证号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.DrivingLicenseNo 
+                    </td> 
+                    <td class="Right_font">发动机号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.EngineNo 
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">年检时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @string.Format("{0:D}", Model.AnnualInspectTime)
+                    </td> 
+                    <td class="Right_font">生产厂家：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font">
+                    @Model.ManuFacturer 
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">型号规格：<span class="l-verify-star">&nbsp;</span> </td>
+                    <td class="Left_font">
+                    @Model.ModelSpecification 
+                    </td> 
+                    <td class="Right_font">排气量：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font">
+                    @Model.Displacement 
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Model.Remark 
+                    </td> 
+</tr></tbody>
+</table>  
+    </div> 
+    }
+    

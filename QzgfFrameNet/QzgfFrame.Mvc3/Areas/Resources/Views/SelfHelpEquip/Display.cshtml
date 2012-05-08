@@ -1,0 +1,189 @@
+﻿@model QzgfFrame.Resources.SelfHelpEquipManger.Models.SelfHelpEquip
+@{
+    
+    ViewBag.Title = "Register";
+}   
+@using (Html.BeginForm("Edit", "selfHelpEquip", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>                
+                <tr>
+                    <td class="Right_font" >设备厂家：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["factory"]
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.selfHelpEquip.Id)
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    </td> 
+                    <td class="Right_font">设备类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["equipType"]
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">设备型号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.selfHelpEquip.EquipModelName
+                    </td> 
+                    <td class="Right_font">所属县市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["district"]
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">设备安装时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @string.Format("{0:D}", Model.selfHelpEquip.StartDatetime)
+                    </td> 
+                    <td class="Right_font">终端ID号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.selfHelpEquip.TermiId 
+                    </td>
+                </tr> 
+                 
+                 <tr>
+                    <td class="Right_font">网点类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @ViewData["outletsType"]
+                    </td> 
+                </tr> 
+                <tr>
+                
+                    <td class="Right_font">网点编号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.selfHelpEquip.UseNetNo
+                    </td> 
+                    <td class="Right_font">使用网点名称：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.selfHelpEquip.UseNetName 
+                    </td> 
+                </tr>        
+                 <tr>                    
+                    <td class="Right_font">使用网点地址：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font"  colspan="4">
+                    @Model.selfHelpEquip.NetAddress 
+                    </td>
+                </tr>        
+                 <tr>
+                    <td colspan="6" width="100%" align="center" class="Left_Bottom">
+                    <table width="100%" border="0" cellpadding="2" cellspacing="1" id="ComponentFrame" class="com_tab">
+<tr class="hno">
+              
+                <td > 部件类型</td>
+                <td style="width:50%" >部件型号</td>
+              
+              </tr>
+@{var j = 0;}
+ @foreach (var n in Model.equipComponent as IList<QzgfFrame.Resources.EquipComponentManger.Models.ResourceEquipComponent>)
+ {
+     // ViewData["Component"] = new SelectList(Model.Components, "Id", "ComponentName",n.ComponentId);
+
+     var ComponentId = "ComponentId" + j; var ComponentModel = "ComponentModel" + j;
+     var SignComponentItem = "SignComponentItem" + j;
+     
+             <tr id='@SignComponentItem' class="bno">
+                <td class="sno">@n.ComponentName</td>
+                <td  >@n.ComponentModel</td>
+              </tr>
+                 j++;
+ }
+        </table>
+        <input name='TRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+                    @Html.HiddenFor(m => m.equipComponents)
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">终端IP地址：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.selfHelpEquip.TerimIP 
+                    </td> 
+                    <td class="Right_font">掩码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.selfHelpEquip.SubnetMask 
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">终端MAC地址：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.selfHelpEquip.MacAddress 
+                    </td>
+                     <td class="Right_font">设备采购时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @string.Format("{0:D}", Model.selfHelpEquip.BuyDatetime)
+                    </td> 
+                </tr> 
+                <tr>
+                
+                    <td class="Right_font">可使用年限：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font" ><table style="width:100%"><tr> 
+                    <td style="width:10%; ">        
+                     @Model.selfHelpEquip.Life 年</td>
+                    <td style="text-align:left;"></td>
+                    </tr></table></td> 
+                     <td class="Right_font">维修次数：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.selfHelpEquip.FaultNum 次
+                    </td> 
+                </tr>
+                <tr>
+                
+                    <td class="Right_font">已使用时间：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font" colspan="4"> 
+                    @{
+               DateTime dt = DateTime.Now; string strResout = "";
+               if (Model.selfHelpEquip.BuyDatetime != null)
+               {
+                   TimeSpan jdt = dt - Convert.ToDateTime(Model.selfHelpEquip.BuyDatetime);
+                   int iTatol = Convert.ToInt32(jdt.TotalSeconds);
+                   //计算出相差月份
+                   int iMinutes = 1 * 60;
+                   int iHours = iMinutes * 60;
+                   int iDay = iHours * 24;
+                   int iMonth = iDay * 30;
+                   int iYear = iMonth * 12;
+                   if (iTatol > iYear)
+                   {
+                       int year = iTatol / iYear;
+                       strResout += year + "年";
+                       Decimal dc = (iTatol - (iYear * year)) / iMonth;
+                       strResout += Math.Round(dc) + "月";
+                   }
+                   else
+                   {
+                       Decimal dc = iTatol / (720 * 3600);
+                       strResout += Math.Round(dc) + "月";
+                   }
+               }
+}
+                     @strResout 
+                     
+                     </td>
+                </tr>
+                <tr>
+                    <td class="Right_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Model.selfHelpEquip.Remark 
+                    </td> 
+</tr></tbody>
+</table>  
+    </div> 
+    }
+    

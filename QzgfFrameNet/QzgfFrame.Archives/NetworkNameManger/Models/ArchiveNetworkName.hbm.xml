@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.NetworkNameManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.NetworkNameManger.Models.ArchiveNetworkName,QzgfFrame.Archives" table="tab_network_name">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="NetworkName" type="String" name="NetworkName" length="100"  not-null="true"/>
+    <property column="NetworkNo" type="String" name="NetworkNo" length="7"  not-null="true"/>
+    <property column="DistrictId" type="String" name="DistrictId" length="20"  not-null="true"/>
+	</class>
+</hibernate-mapping>

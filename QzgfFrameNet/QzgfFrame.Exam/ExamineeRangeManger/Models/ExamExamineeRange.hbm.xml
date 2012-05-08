@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Exam.ExamineeRangeManger.Models" assembly="QzgfFrame.Exam">
+	<class name="QzgfFrame.Exam.ExamineeRangeManger.Models.ExamExamineeRange,QzgfFrame.Exam" table="TAB_EXAMINEE_RANGE">
+
+		<!-- Primary Key(s) -->
+		<id name="ID" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="TESTSETID" type="String" name="TestSetID" length="256" />
+    <property column="EXAMINEEID" type="String" name="ExamineeID" length="256" />
+  </class>
+</hibernate-mapping>

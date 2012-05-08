@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.UserManger.Models" assembly="QzgfFrame.System">
+	<class name="QzgfFrame.System.UserManger.Models.SystemUserrole,QzgfFrame.System" table="SYSTEM_USERROLE">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="USERID" type="String" length="20" name="Userid" />
+		<property column="ROLEID" type="String" length="20" name="Roleid" />
+		
+	</class>
+</hibernate-mapping>

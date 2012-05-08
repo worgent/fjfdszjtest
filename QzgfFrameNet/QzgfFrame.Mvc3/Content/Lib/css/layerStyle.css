@@ -1,0 +1,115 @@
+﻿/* -----------------------
+   * form 下的table编辑 *
+* ----------------------- */
+.table
+{
+    width: 100%;
+    text-align: left;
+}
+.table tr
+{
+    line-height: 25px;
+    text-align: left;
+}
+.table tr td
+{
+    text-indent: 10px;
+    text-align: left;
+}
+.table tr td span
+{
+    color: red;
+}
+.Tab
+{
+    width: 100%;
+}
+.Tab tr td
+{
+    text-indent: 10px;
+    border: 1px solid #93c7e3;
+}
+.out_div
+{
+    width: 99%;
+    height: 100%;
+    margin: 5px auto auto auto;
+    border: 1px solid #93c7e3;
+}
+.Tab tr .table_top
+{
+    background-color: #d9e8fb;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    color: #004499;
+    font-weight: bold;
+}
+.table_td_left
+{
+    background-color: #eff7fc;
+    width: 150px;
+    text-align: right;
+}
+.table_td_right
+{
+    width: 150px;
+    text-align: left;
+}
+
+
+
+
+
+/*********************弹出框内效果样式****************/
+.edittable
+{
+    width: 100%;
+    text-align: left;
+}
+.edittable tbody tr td
+{
+    border: 1px solid #a5cdff;
+}
+.editcellverify
+{
+    width: 5px;
+    float: left;
+    border-right: none;
+    background-color: #e5f0ff;
+}
+.editcellmessage
+{
+    padding: 4px;
+    line-height: 23px;
+    background-color: #e5f0ff;
+}
+.l-verify-star
+{
+    width: 5px;
+}
+.l-verify-star span{ color: red;}
+
+.edittable .edittable .editcell
+{
+    padding: 4px;
+    line-height: 23px;
+    text-indent:20px;
+}
+.edittable .editcellmessage
+{
+    padding-left: 0px;
+}
+/*出现边框效果
+       fieldset {
+           padding:10px;
+           margin:10px;
+           color:#333; 
+           border:#06c dashed 1px;
+       } 
+       legend {
+           color:#06c;
+           font-weight:800; 
+           background:#fff;
+       }*/
+/*********************弹出框内效果样式   结束****************/

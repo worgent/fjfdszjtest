@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Warehouse.InventoryFileManger.Models" assembly="QzgfFrame.Warehouse">
+	<class name="QzgfFrame.Warehouse.InventoryFileManger.Models.WarehouseInventoryFile,QzgfFrame.Warehouse" table="tab_inventory_file">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="LedgerFileName" type="String" name="LedgerFileName" length="100" />
+    <property column="LedgerFileType" type="String" name="LedgerFileType"   length="150"/>
+    <property column="LedgerFileSize" type="int" name="LedgerFileSize" />
+    <property column="LocalDatetime" type="DateTime" name="LocalDatetime" />
+	</class>
+</hibernate-mapping>

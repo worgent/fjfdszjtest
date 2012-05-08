@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.FactoryManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.FactoryManger.Models.ArchiveFactory,QzgfFrame.Archives" table="tab_factory">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="Abbrevia" type="String" name="Abbrevia" length="20"  not-null="true"/>
+		<property column="ChinaName" type="String" name="ChinaName" length="50" />
+
+	</class>
+</hibernate-mapping>

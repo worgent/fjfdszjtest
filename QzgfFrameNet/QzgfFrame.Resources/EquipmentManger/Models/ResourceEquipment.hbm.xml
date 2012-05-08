@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.EquipmentManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.EquipmentManger.Models.ResourceEquipment,QzgfFrame.Resources" table="tab_equipment">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="EquipName" type="String" name="EquipName" length="40"  not-null="true"/>
+		<property column="SeqNumber" type="String" name="SeqNumber" length="20" />
+		<property column="Position" type="short" name="Position"  not-null="true"/>
+		<property column="BaseStationName" type="String" name="BaseStationName" length="20" /> 
+		<property column="MacAddress" type="String" name="MacAddress" length="20" />
+		<property column="StartDatetime" type="DateTime" name="StartDatetime"   not-null="true"/> 
+		<property column="LoginStyle" type="String" name="LoginStyle" length="20" />
+    <property column="SnmpOnlyRead" type="String" name="SnmpOnlyRead" length="30" />
+    <property column="SnmpOnlyWrite" type="String" name="SnmpOnlyWrite" length="30" />
+		<property column="UserName" type="String" name="UserName" length="20" /> 
+		<property column="PassWord" type="String" name="PassWord" length="20" />
+		<property column="NetManageIp" type="String" name="NetManageIp" length="20" /> 
+		<property column="WebPort" type="String" name="WebPort" length="40" />
+    <property column="NetWorkingModeId" type="String" name="NetWorkingModeId" length="20"  not-null="true"/>
+		<property column="EquipModelName" type="String" name="EquipModelName" length="100" not-null="true" /> 
+		<property column="FactoryId" type="String" name="FactoryId" length="20"  not-null="true"/>
+		<property column="EquipTypeId" type="String" name="EquipTypeId" length="20" not-null="true" /> 
+		<property column="Remark" type="String" name="Remark" length="200" />
+    <property column="OrderNo" type="String" name="OrderNo" length="10" />
+    <property column="State" type="short" name="State"  />
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  not-null="true"/>
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate"  not-null="true"/>
+    <property column="CompanyId" type="String" name="CompanyId"   length="20" not-null="true"/>
+    <property column="DistrictId" type="String" name="DistrictId"   length="20" not-null="true"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+  </class>
+</hibernate-mapping>

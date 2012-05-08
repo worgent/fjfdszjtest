@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Supplies.CommunityManagerManger.Models" assembly="QzgfFrame.Supplies">
+	<class name="QzgfFrame.Supplies.CommunityManagerManger.Models.SuppliesCommunityManager,QzgfFrame.Supplies" table="tab_community_manager">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <property column="FullName" type="String" name="FullName" length="20" />
+    <property column="IDCardNumber" type="String" name="IDCardNumber" length="18" />
+    <property column="LinkTel" type="String" name="LinkTel" length="15" />
+    
+    
+    <property column="EntryDate" type="DateTime" name="EntryDate" />
+    <property column="QuitDate" type="DateTime" name="QuitDate" />
+    <property column="Wage" type="Decimal" name="Wage" precision="7" scale="2"  />
+    <property column="IsFullTime" type="short" name="IsFullTime" />
+    <property column="IsInService" type="short" name="IsInService" />
+
+    <property column="CityId" type="String" name="CityId"   length="20"/>
+    <property column="DistrictId" type="String" name="DistrictId"   length="20"/>
+    <property column="CompanyId" type="String" name="CompanyId"   length="20"/>
+    <property column="SaleDepartmentId" type="String" name="SaleDepartmentId"   length="20"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  not-null="true"/>
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate"  not-null="true"/>
+	</class>
+</hibernate-mapping>

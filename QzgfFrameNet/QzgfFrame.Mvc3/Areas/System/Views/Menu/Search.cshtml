@@ -1,0 +1,72 @@
+﻿<!--高级查询专用-->
+<head>
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/Lib/highquery/style.css")"/>
+<script src="@Url.Content("~/Lib/highquery/highquery.js")" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+<!--
+    // 测试用
+    function show() {
+        $("#txtAliasC").val("");
+        $("#txtFieldC").val("");
+        $("#txtAliasS").val("");
+        $("#txtFieldS").val("");
+        var arrReturn = interpreter();
+        $("#txtAliasC").val(arrReturn[0]);
+        $("#txtFieldC").val(arrReturn[1]);
+        $("#txtAliasS").val(arrReturn[2]);
+        $("#txtFieldS").val(arrReturn[3]);
+    }
+
+    // 选择类别
+    function choiceCategory() {
+        var config = "scrollbars=no;status=no;dialogLeft=" + 300 + "px;dialogTop=" + 200 + "px;dialogWidth=" + 170 + "px;dialogHeight=" + 130 + "px";
+        return window.showModalDialog("choicelist.htm", null, config); // 必须返回值(由编号和描述组成的数组)
+    }
+    //查询信息
+    function f_save(frameid) {
+        $.ligerDialog.waitting("正在查询中...");
+        var arrReturn = interpreter();
+        //提交数据
+        var gridsearch = "";
+        if (arrReturn[1]!="") {
+            gridsearch = " and " + arrReturn[1];
+        }
+        f_find(parent.window.frames[frameid].gridManager, gridsearch);
+        $.ligerDialog.closeWaitting();
+    } 
+//-->
+</script>
+<script type="text/javascript">
+<!--
+    // 字段信息
+    FieldList.add(new Field('sm.Name', '名称', 'varchar', '100', '', ''));
+    FieldList.add(new Field('', '请选择一个字段', '', '0', '', '')); // 空白，必须是最后加入
+    // 初始化
+    initHighQuery();
+//-->
+</script>
+<!--
+
+<br>
+<input type="button" class="HQ_BUTTON" onClick="show();" value="查看生成文本">
+<table border="0">
+<tr>
+<td>条件别名形式：</td>
+<td>排序别名形式：</td>
+</tr>
+<tr>
+<td><textarea class="HQ_TEXTAREA" id="txtAliasC" rows="3" cols="50"></textarea></td>
+<td><textarea class="HQ_TEXTAREA" id="txtAliasS" rows="3" cols="50"></textarea></td>
+</tr>
+<tr>
+<td>条件字段名形式：</td>
+<td>排序字段名形式：</td>
+</tr>
+<tr>
+<td><textarea class="HQ_TEXTAREA" id="txtFieldC" rows="3" cols="50"></textarea></td>
+<td><textarea class="HQ_TEXTAREA" id="txtFieldS" rows="3" cols="50"></textarea></td>
+</tr>
+</table>
+-->
+

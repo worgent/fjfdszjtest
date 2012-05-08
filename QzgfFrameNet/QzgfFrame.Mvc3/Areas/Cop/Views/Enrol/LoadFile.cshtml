@@ -1,0 +1,82 @@
+﻿<script src="@Url.Content("~/Lib/jquery/jquery.MultiFile.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        function showRequest(formData, jqForm, options) {
+            $.ligerDialog.waitting("正在上传中...");
+            return true;
+        }
+        function showError(data) {
+            alert('error');
+        }
+        function showResponse(data, status) {
+            $.ligerDialog.closeWaitting();
+            if (data.Type) {
+                $.ligerDialog.success(data.Message, function () {
+                    if ($("#btnFlag").val() == "0") {
+                        var showcheck = document.getElementById("showcheck");
+                        showcheck.innerHTML = "验证结果<a href='" + $("#checkMsgPath").val() + data.FileName + "'>下载</a>";
+                    }
+                    else {
+                        var showimport = document.getElementById("showimport");
+                        showimport.innerHTML = "导入数据库结果<a href='" + $("#saveMsgPath").val() + data.FileName + "'>下载</a>";
+                    }
+                    if ($("#frameid").val() == "" || $("#frameid").val() == null)
+                        parent.window.frames["qzgfframe20111025150004376940"].f_reload();
+                    else
+                        parent.window.frames["qzgfframe" + $("#frameid").val()].f_reload();
+                });
+
+            }
+            else
+                $.ligerDialog.error(data.Message, function () {
+                });
+        }
+
+        function btn_onclick(n) {
+            if ($('input[type="file"]').length > 2)
+                $.ligerDialog.error("只能导入一个文件!!", function () {
+                });
+            else {
+                $("#btnFlag").val(n);
+                var options = {
+                    dataType: 'json',
+                    beforeSubmit: showRequest,
+                    error: showError,
+                    success: showResponse
+                };
+                $('#myform').ajaxSubmit(options);
+            }
+        }
+
+        $(function () {
+            $('#T7').MultiFile({
+                max: 1,
+                accept: 'xls|xlsx'
+            });
+        });
+    </script>
+    <div>
+<form action="/Enrol/UploadFile" method="post" id="myform" enctype="multipart/form-data">
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+    @Html.Hidden("saveMsgPath", ViewData["saveMsgPath"])
+    @Html.Hidden("checkMsgPath", ViewData["checkMsgPath"])
+<table cellpadding="0" border="0" cellspacing="0"  class="importtable">
+<tr><td  class="import_font">
+    请上传文件： 
+     <input type="file" id="T7"   name="uploadfiles" size="60"  accept="xls|xlsx"/>
+     <input type="hidden" id="btnFlag"   name="btnFlag" value="0" />
+     </td></tr>
+    <tr><td  class="import_center_font">   
+<table width="100%"><tr><td style="width:45%"></td>
+<td align="left"><input type="button" value="导入" onclick="btn_onclick(1)" class="l-button  l-button-test"/><input type="button" value="验证数据" onclick="btn_onclick(0)" class="l-button  l-button-test"/></td></tr></table> 
+   </td></tr>
+  <tr><td  ><table cellpadding="0" border="0" cellspacing="0"  style=" color:Red;width:100%;">
+   <tr><td class="import_tit">处理信息</td></tr>
+    <tr><td class="import_font">请按照EXCEL模版填写信息</td></tr>
+    <tr><td class="import_font">不要增、删EXCEL的第一行信息</td></tr>
+    <tr><td class="import_font">可以在这里下载EXCEL模版文件<a href="../../../Upload/TemplateFile/@ViewData["downFileName"]">下载</a></td></tr>
+    <tr><td id="showcheck"  class="import_font"></td></tr>
+    <tr><td id="showimport"  class="import_font"></td></tr>
+    </table></td></tr>
+    </table>
+</form>
+    </div>

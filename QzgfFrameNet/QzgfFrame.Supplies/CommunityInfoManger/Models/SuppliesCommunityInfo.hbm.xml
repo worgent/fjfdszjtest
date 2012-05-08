@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Supplies.CommunityInfoManger.Models" assembly="QzgfFrame.Supplies">
+	<class name="QzgfFrame.Supplies.CommunityInfoManger.Models.SuppliesCommunityInfo,QzgfFrame.Supplies" table="tab_community_info">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <property column="CommunityCode" type="String" name="CommunityCode" length="20"/>
+    <property column="CommunityName" type="String" name="CommunityName" length="100"/>
+    <property column="BuildWayId" type="String" name="BuildWayId" length="20"/>
+    <property column="AccessWayId" type="String" name="AccessWayId" length="20"/>
+    <property column="CommunityTypeId" type="String" name="CommunityTypeId" length="20"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+    
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  />
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate" />
+	</class>
+</hibernate-mapping>

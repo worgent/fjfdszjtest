@@ -1,0 +1,1451 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <description>业务配置文件</description>
+  <!--cache的session缓存-->
+  <object id="cacheFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Utility.Core.Cache.WebCache,QzgfFrame.Utility">
+      </object>
+    </property>
+  </object>
+
+  <!--=====================系统管理begin==============================-->
+  <!--=============菜单管理begin===================-->
+  <object id="menuFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.System.MenuManger.Domain.MenuFacadeImpl,QzgfFrame.System">
+        <property name="menuRepository" ref="repository.menu"/>
+      </object>
+    </property>
+  </object>
+  <!--增强扩展业务处理多模型关连,测试-->
+  <object id="menuFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.System.MenuManger.MenuFacadeExImpl,QzgfFrame.Controllers">
+        <property name="menuFacade" ref="menuFacade"/>
+        <property name="roleFacade" ref="roleFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--=============菜单管理end====================-->
+
+  <!--=============角色管理begin===================-->
+  <object id="roleFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.System.RoleManger.Domain.RoleFacadeImpl,QzgfFrame.System">
+        <property name="roleRepository" ref="repository.role"/>
+      </object>
+    </property>
+  </object>
+  <!--=============角色管理end===================-->
+
+  <!--=============部门信息管理===================-->
+  <object id="departmentFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.System.DepartmentManger.Domain.DepartmentFacadeImpl,QzgfFrame.System">
+        <property name="departmentRepository" ref="repository.department"/>
+      </object>
+    </property>
+  </object>
+
+  <!--=============用户信息管理===================-->
+  <object id="userFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.System.UserManger.Domain.UserFacadeImpl,QzgfFrame.System">
+        <property name="userRepository" ref="repository.user"/>
+        <property name="userroleRepository" ref="repository.userrole"/>
+        <!-- 
+        <property name="departmentRepository" ref="repository.department"/>
+        -->
+      </object>
+    </property>
+  </object>
+
+  <!--=============菜单字段管理begin===================-->
+  <object id="menufieldFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.System.MenufieldManger.Domain.MenufieldFacadeImpl,QzgfFrame.System">
+        <property name="menufieldRepository" ref="repository.menufield"/>
+      </object>
+    </property>
+  </object>
+  <!--=============菜单字段管理end===================-->
+
+
+  <!--=============权限管理begin===================-->
+  <object id="permissionsFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.System.PermissionsManger.Domain.PermissionsFacadeImpl,QzgfFrame.System">
+        <property name="menuRepository" ref="repository.menu"/>
+        <property name="rolefiledpowerRepository" ref="repository.rolefiledpower"/>
+        <property name="rolemenuRepository" ref="repository.rolemenu"/>
+        <property name="menufieldRepository" ref="repository.menufield"/>
+        <property name="userroleRepository" ref="repository.userrole"/>
+      </object>
+    </property>
+  </object>
+  <!--=============权限管理end===================-->
+
+  <!--=============短信===================-->
+  <object id="smsFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.System.SmsManger.Domain.SmsFacadeImpl,QzgfFrame.System">
+        <property name="serverRepository" ref="repository.sms"/>
+      </object>
+    </property>
+  </object>
+
+    <!--=============系统日志===================-->
+    <object id="logFacade" parent="BaseTransactionManager">
+        <property name="Target">
+            <object type="QzgfFrame.System.LogManger.Domain.SystemLogFacadeImpl,QzgfFrame.System">
+                <property name="serverRepository" ref="repository.log"/>
+                <property name="menuRepository" ref="repository.menu"/>
+                <property name="userRepository" ref="repository.user"/>
+            </object>
+        </property>
+    </object>
+  <!--======================系统管理end================================-->
+
+
+  <!--=============扩展===================--> 
+  <object id="DedicateLineFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Resources.DedicateLineManger.DedicateLineFacadeExImpl,QzgfFrame.Controllers">
+        <property name="fiberCoreFacade" ref="fiberCoreFacade"/>
+        <property name="numberGroupFacade" ref="numberGroupFacade"/>
+        <property name="otherInfoFacade" ref="otherInfoFacade"/>
+        <property name="dedicateLineFacade" ref="dedicateLineFacade"/>
+        <property name="bizTypeFacade" ref="bizTypeFacade"/>
+        <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+        <property name="networkingModeFacade" ref="networkingModeFacade"/>
+        <property name="groupClieFacade" ref="groupClieFacade"/>
+        <property name="signalModelFacade" ref="signalModelFacade"/>
+        <property name="oneSevenZeroFacade" ref="oneSevenZeroFacade"/>
+        <property name="equipmentFacade" ref="equipmentFacade"/>
+        <property name="clieEquipFacade" ref="clieEquipFacade"/>
+        <property name="clieScaleGradeFacade" ref="clieScaleGradeFacade"/>
+        <property name="clieServStarLeveFacade" ref="clieServStarLeveFacade"/>
+        <property name="gridFacade" ref="gridFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="lineEquipFacade" ref="lineEquipFacade"/>
+        <property name="planFacade" ref="planFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="EquipmentFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Resources.EquipmentManger.EquipmentFacadeExImpl,QzgfFrame.Controllers">
+        <property name="equipmentFacade" ref="equipmentFacade"/>
+        <property name="clieEquipFacade" ref="clieEquipFacade"/>
+        <property name="factoryFacade" ref="factoryFacade"/>
+        <property name="equipTypeFacade" ref="equipTypeFacade"/>
+        <property name="equipModelFacade" ref="equipModelFacade"/>
+        <property name="networkingModeFacade" ref="networkingModeFacade"/>
+        <property name="groupClieFacade" ref="groupClieFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="portTypeFacade" ref="portTypeFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="EquipFaultFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Resources.EquipFaultManger.EquipFaultFacadeExImpl,QzgfFrame.Controllers">
+        <property name="equipFaultFacade" ref="equipFaultFacade"/>
+        <property name="breakdownTypeFacade" ref="breakdownTypeFacade"/>
+        <property name="componentFacade" ref="componentFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="selfHelpFactoryFacade" ref="selfHelpFactoryFacade"/>
+        <property name="selfHelpEquipModelFacade" ref="selfHelpEquipModelFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="selfHelpEquipFacade" ref="selfHelpEquipFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="selfHelpEquipFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Resources.SelfHelpEquipManger.SelfHelpEquipFacadeExImpl,QzgfFrame.Controllers">
+        <property name="selfHelpEquipFacade" ref="selfHelpEquipFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="gridFacade" ref="gridFacade"/>
+        <property name="componentFacade" ref="componentFacade"/>
+        <property name="selfHelpEquipModelFacade" ref="selfHelpEquipModelFacade"/>
+        <property name="selfHelpEquipTypeFacade" ref="selfHelpEquipTypeFacade"/>
+        <property name="selfHelpFactoryFacade" ref="selfHelpFactoryFacade"/>
+        <property name="outletsTypeFacade" ref="outletsTypeFacade"/>
+        <property name="equipComponentFacade" ref="equipComponentFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="groupClieFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Resources.GroupClieManger.GroupClieFacadeExImpl,QzgfFrame.Controllers">
+        <property name="groupClieFacade" ref="groupClieFacade"/>
+        <property name="clieScaleGradeFacade" ref="clieScaleGradeFacade"/>
+        <property name="clieServStarLeveFacade" ref="clieServStarLeveFacade"/>
+        <property name="gridFacade" ref="gridFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="vehicleFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Resources.VehicleManger.VehicleFacadeExImpl,QzgfFrame.Controllers">
+        <property name="vehicleFacade" ref="vehicleFacade"/>
+        <property name="gridFacade" ref="gridFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="useFacade" ref="useFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="stagnationFacade" ref="stagnationFacade"/>
+        <property name="vehicleNatureFacade" ref="vehicleNatureFacade"/>
+        <property name="maintainSpecialtyFacade" ref="maintainSpecialtyFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="apparatusFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Resources.ApparatusManger.ApparatusFacadeExImpl,QzgfFrame.Controllers">
+        <property name="apparatusFacade" ref="apparatusFacade"/>
+        <property name="gridFacade" ref="gridFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="useFacade" ref="useFacade"/>
+        <property name="meterStateFacade" ref="meterStateFacade"/>
+        <property name="stagnationFacade" ref="stagnationFacade"/>
+        <property name="maintainSpecialtyFacade" ref="maintainSpecialtyFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="personnelFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Resources.PersonnelManger.PersonnelFacadeExImpl,QzgfFrame.Controllers">
+        <property name="personnelFacade" ref="personnelFacade"/>
+        <property name="gridFacade" ref="gridFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="stagnationFacade" ref="stagnationFacade"/>
+        <property name="maintainSpecialtyFacade" ref="maintainSpecialtyFacade"/>
+        <property name="dutyFacade" ref="dutyFacade"/>
+        <property name="qualificationTypeFacade" ref="qualificationTypeFacade"/>
+        <property name="itemPropertyFacade" ref="itemPropertyFacade"/>
+        <property name="certificateFacade" ref="certificateFacade"/>
+        <property name="diplomaFacade" ref="diplomaFacade"/>
+        <property name="postsFacade" ref="postsFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="ioListFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Warehouse.IOListManger.IOListFacadeExImpl,QzgfFrame.Controllers">
+        <property name="ioListFacade" ref="ioListFacade"/>
+        <property name="ioDetailFacade" ref="ioDetailFacade"/>
+        <property name="factoryFacade" ref="factoryFacade"/>
+        <property name="stockFacade" ref="stockFacade"/>
+        <property name="equipModelFacade" ref="equipModelFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--小区宽带-->
+  <object id="communityManagerFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Supplies.CommunityManagerManger.CommunityManagerFacadeExImpl,QzgfFrame.Controllers">
+        <property name="communityManagerFacade" ref="communityManagerFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="saleDepartmentFacade" ref="saleDepartmentFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="communityInfoFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Supplies.CommunityInfoManger.CommunityInfoFacadeExImpl,QzgfFrame.Controllers">
+        <property name="communityInfoFacade" ref="communityInfoFacade"/>
+        <property name="accessWayFacade" ref="accessWayFacade"/>
+        <property name="buildWayFacade" ref="buildWayFacade"/>
+        <property name="communityTypeFacade" ref="communityTypeFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="distributionFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Supplies.DistributionManger.DistributionFacadeExImpl,QzgfFrame.Controllers">
+        <property name="distributionFacade" ref="distributionFacade"/>
+        <property name="distributionDetailFacade" ref="distributionDetailFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="saleDepartmentFacade" ref="saleDepartmentFacade"/>
+        <property name="unitFacade" ref="unitFacade"/>
+        <property name="suppliesStockFacade" ref="suppliesStockFacade"/>
+        <property name="suppliesTypeFacade" ref="suppliesTypeFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="collarSuppliesFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Supplies.CollarSuppliesManger.CollarSuppliesFacadeExImpl,QzgfFrame.Controllers">
+        <property name="collarSuppliesFacade" ref="collarSuppliesFacade"/>
+        <property name="collarSuppliesDetailFacade" ref="collarSuppliesDetailFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="suppliesStockFacade" ref="suppliesStockFacade"/>
+        <property name="suppliesTypeFacade" ref="suppliesTypeFacade"/>
+      </object>
+    </property>
+  </object>
+  <object id="registerFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Supplies.RegisterManger.RegisterFacadeExImpl,QzgfFrame.Controllers">
+        <property name="registerFacade" ref="registerFacade"/>
+        <property name="registerDetailFacade" ref="registerDetailFacade"/>
+        <property name="companyFacade" ref="companyFacade"/>
+        <property name="districtFacade" ref="districtFacade"/>
+        <property name="saleDepartmentFacade" ref="saleDepartmentFacade"/>
+        <property name="communityManagerFacade" ref="communityManagerFacade"/>
+        <property name="unitFacade" ref="unitFacade"/>
+        <property name="suppliesTypeFacade" ref="suppliesTypeFacade"/>
+        <property name="suppliesStockFacade" ref="suppliesStockFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--=============扩展end===================-->
+  <!--=======================档案管理begin===============================-->
+  <object id="companyFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.CompanyManger.Domain.CompanyFacadeImpl,QzgfFrame.Archives">
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="districtFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.DistrictManger.Domain.DistrictFacadeImpl,QzgfFrame.Archives">
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="gridFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.GridManger.Domain.GridFacadeImpl,QzgfFrame.Archives">
+        <property name="gridRepository" ref="repository.grid"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="natureRepository" ref="repository.nature"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="bizAssuranLeveFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.BizAssuranLeveManger.Domain.BizAssuranLeveFacadeImpl,QzgfFrame.Archives">
+        <property name="assuranRepository" ref="repository.bizAssuranLeve"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="bizTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.BizTypeManger.Domain.BizTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="bizTypeRepository" ref="repository.bizType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="clieScaleGradeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.ClieScaleGradeManger.Domain.ClieScaleGradeFacadeImpl,QzgfFrame.Archives">
+        <property name="scaleRepository" ref="repository.clieScaleGrade"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="clieServStarLeveFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.ClieServStarLeveManger.Domain.ClieServStarLeveFacadeImpl,QzgfFrame.Archives">
+        <property name="starRepository" ref="repository.clieServStarLeve"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="equipModelFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.EquipModelManger.Domain.EquipModelFacadeImpl,QzgfFrame.Archives">
+        <property name="equipModelRepository" ref="repository.equipModel"/>
+        <property name="equipTypeRepository" ref="repository.equipType"/>
+        <property name="factoryRepository" ref="repository.factory"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="equipTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.EquipTypeManger.Domain.EquipTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="equipTypeRepository" ref="repository.equipType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="factoryFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.FactoryManger.Domain.FactoryFacadeImpl,QzgfFrame.Archives">
+        <property name="factoryRepository" ref="repository.factory"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="networkingModeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.NetworkingModeManger.Domain.NetworkingModeFacadeImpl,QzgfFrame.Archives">
+        <property name="modeRepository" ref="repository.networkingMode"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="breakdownTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.BreakdownTypeManger.Domain.BreakdownTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="breakdownTypeRepository" ref="repository.breakdownType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="componentFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.ComponentManger.Domain.ComponentFacadeImpl,QzgfFrame.Archives">
+        <property name="componentRepository" ref="repository.component"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="dutyFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.DutyManger.Domain.DutyFacadeImpl,QzgfFrame.Archives">
+        <property name="dutyRepository" ref="repository.duty"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="outletsTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.OutletsTypeManger.Domain.OutletsTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="outletsTypeRepository" ref="repository.outletsType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="meterStateFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.MeterStateManger.Domain.MeterStateFacadeImpl,QzgfFrame.Archives">
+        <property name="meterStateRepository" ref="repository.meterState"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="maintainSpecialtyFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.MaintainSpecialtyManger.Domain.MaintainSpecialtyFacadeImpl,QzgfFrame.Archives">
+        <property name="maintainSpecialtyRepository" ref="repository.maintainSpecialty"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="qualificationTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.QualificationTypeManger.Domain.QualificationTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="qualificationTypeRepository" ref="repository.qualificationType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="signalModelFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.SignalModelManger.Domain.SignalModelFacadeImpl,QzgfFrame.Archives">
+        <property name="signalModelRepository" ref="repository.signalModel"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="stagnationFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.StagnationManger.Domain.StagnationFacadeImpl,QzgfFrame.Archives">
+        <property name="stagnationRepository" ref="repository.stagnation"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="useFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.UseManger.Domain.UseFacadeImpl,QzgfFrame.Archives">
+        <property name="useRepository" ref="repository.use"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="vehicleNatureFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.VehicleNatureManger.Domain.VehicleNatureFacadeImpl,QzgfFrame.Archives">
+        <property name="vehicleNatureRepository" ref="repository.vehicleNature"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="natureFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.NatureManger.Domain.NatureFacadeImpl,QzgfFrame.Archives">
+        <property name="natureRepository" ref="repository.nature"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="diplomaFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.DiplomaManger.Domain.DiplomaFacadeImpl,QzgfFrame.Archives">
+        <property name="diplomaRepository" ref="repository.diploma"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="certificateFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.CertificateManger.Domain.CertificateFacadeImpl,QzgfFrame.Archives">
+        <property name="certificateRepository" ref="repository.certificate"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="itemPropertyFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.ItemPropertyManger.Domain.ItemPropertyFacadeImpl,QzgfFrame.Archives">
+        <property name="itemPropertyRepository" ref="repository.itemProperty"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="ioClassFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.IOClassManger.Domain.IOClassFacadeImpl,QzgfFrame.Archives">
+        <property name="ioClassRepository" ref="repository.ioClass"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="stockEquipUseFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.StockEquipUseManger.Domain.StockEquipUseFacadeImpl,QzgfFrame.Archives">
+        <property name="stockEquipUseRepository" ref="repository.stockEquipUse"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="unitFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.UnitManger.Domain.UnitFacadeImpl,QzgfFrame.Archives">
+        <property name="unitRepository" ref="repository.unit"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="selfHelpEquipModelFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.SelfHelpEquipModelManger.Domain.SelfHelpEquipModelFacadeImpl,QzgfFrame.Archives">
+        <property name="selfHelpEquipModelRepository" ref="repository.selfHelpEquipModel"/>
+        <property name="selfHelpEquipTypeRepository" ref="repository.selfHelpEquipType"/>
+        <property name="selfHelpFactoryRepository" ref="repository.selfHelpFactory"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="selfHelpEquipTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.SelfHelpEquipTypeManger.Domain.SelfHelpEquipTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="selfHelpEquipTypeRepository" ref="repository.selfHelpEquipType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="selfHelpFactoryFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.SelfHelpFactoryManger.Domain.SelfHelpFactoryFacadeImpl,QzgfFrame.Archives">
+        <property name="selfHelpFactoryRepository" ref="repository.selfHelpFactory"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="postsFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.PostsManger.Domain.PostsFacadeImpl,QzgfFrame.Archives">
+        <property name="postsRepository" ref="repository.posts"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="networkNameFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.NetworkNameManger.Domain.NetworkNameFacadeImpl,QzgfFrame.Archives">
+        <property name="networkNameRepository" ref="repository.networkName"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="saleDepartmentFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.SaleDepartmentManger.Domain.SaleDepartmentFacadeImpl,QzgfFrame.Archives">
+        <property name="saleDepartmentRepository" ref="repository.saleDepartment"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="accessWayFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.AccessWayManger.Domain.AccessWayFacadeImpl,QzgfFrame.Archives">
+        <property name="accessWayRepository" ref="repository.accessWay"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="buildWayFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.BuildWayManger.Domain.BuildWayFacadeImpl,QzgfFrame.Archives">
+        <property name="buildWayRepository" ref="repository.buildWay"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="communityTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.CommunityTypeManger.Domain.CommunityTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="communityTypeRepository" ref="repository.communityType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="maintainTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.MaintainTypeManger.Domain.MaintainTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="maintainTypeRepository" ref="repository.maintainType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="suppliesTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.SuppliesTypeManger.Domain.SuppliesTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="suppliesTypeRepository" ref="repository.suppliesType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+    <object id="stockTypeFacade" parent="BaseTransactionManager">
+      <property name="Target">
+        <object type="QzgfFrame.Archives.StockTypeManger.Domain.StockTypeFacadeImpl,QzgfFrame.Archives">
+          <property name="stockTypeRepository" ref="repository.stockType"/>
+          <property name="relationRepository" ref="repository.relation"/>
+        </object>
+      </property>
+    </object>
+
+  <object id="portTypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.PortTypeManger.Domain.PortTypeFacadeImpl,QzgfFrame.Archives">
+        <property name="portTypeRepository" ref="repository.portType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+
+  <object id="supplierFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Archives.SupplierManger.Domain.SupplierFacadeImpl,QzgfFrame.Archives">
+        <property name="supplierRepository" ref="repository.supplier"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <!--========================档案管理end================================-->
+
+
+  <!--========================资源管理begin================================-->
+  <object id="dedicateLineFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.DedicateLineManger.Domain.DedicateLineFacadeImpl,QzgfFrame.Resources">
+        <property name="lineRepository" ref="repository.dedicateLine"/>
+        <property name="signalModelRepository" ref="repository.signalModel"/>
+        <property name="clieRepository" ref="repository.groupClie"/>
+        <property name="modeRepository" ref="repository.networkingMode"/>
+        <property name="bizTypeRepository" ref="repository.bizType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+        <property name="fiberCoreRepository" ref="repository.fiberCore"/>
+        <property name="numberRepository" ref="repository.numberGroup"/>
+        <property name="lineEquipRepository" ref="repository.lineEquip"/>
+      </object>
+    </property>
+  </object>
+  <object id="equipmentFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.EquipmentManger.Domain.EquipmentFacadeImpl,QzgfFrame.Resources">
+        <property name="equipRepository" ref="repository.equipment"/>
+        <property name="equipModelRepository" ref="repository.equipModel"/>
+        <property name="equipTypeRepository" ref="repository.equipType"/>
+        <property name="factoryRepository" ref="repository.factory"/>
+        <property name="clieEquipRepository" ref="repository.clieEquip"/>
+        <property name="clieRepository" ref="repository.groupClie"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="lineEquipFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.LineEquipManger.Domain.LineEquipFacadeImpl,QzgfFrame.Resources">
+        <property name="lineEquipRepository" ref="repository.lineEquip"/>
+        <property name="relationRepository" ref="repository.relation"/>
+        <property name="clieEquipRepository" ref="repository.clieEquip"/>
+      </object>
+    </property>
+  </object>
+  <object id="clieEquipFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.ClieEquipManger.Domain.ClieEquipFacadeImpl,QzgfFrame.Resources">
+        <property name="clieEquipRepository" ref="repository.clieEquip"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="groupClieFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.GroupClieManger.Domain.GroupClieFacadeImpl,QzgfFrame.Resources">
+        <property name="clieRepository" ref="repository.groupClie"/>
+        <property name="clieGridRepository" ref="repository.clieGrid"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="gridRepository" ref="repository.grid"/>
+        <property name="starRepository" ref="repository.clieServStarLeve"/>
+        <property name="scaleRepository" ref="repository.clieScaleGrade"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="numberGroupFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.NumberGroupManger.Domain.NumberGroupFacadeImpl,QzgfFrame.Resources">
+        <property name="numberRepository" ref="repository.numberGroup"/>
+      </object>
+    </property>
+  </object>
+  <object id="otherInfoFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.OtherInfoManger.Domain.OtherInfoFacadeImpl,QzgfFrame.Resources">
+        <property name="infoRepository" ref="repository.otherInfo"/>
+      </object>
+    </property>
+  </object>
+  <object id="fiberCoreFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.FiberCoreManger.Domain.FiberCoreFacadeImpl,QzgfFrame.Resources">
+        <property name="fiberCoreRepository" ref="repository.fiberCore"/>
+      </object>
+    </property>
+  </object>
+  <object id="equipFaultFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.EquipFaultManger.Domain.EquipFaultFacadeImpl,QzgfFrame.Resources">
+        <property name="equipfaultRepository" ref="repository.equipfault"/>
+        <property name="selfHelpEquipModelRepository" ref="repository.selfHelpEquipModel"/>
+        <property name="selfHelpEquipTypeRepository" ref="repository.selfHelpEquipType"/>
+        <property name="selfHelpFactoryRepository" ref="repository.selfHelpFactory"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="selfHelpEquipFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.SelfHelpEquipManger.Domain.SelfHelpEquipFacadeImpl,QzgfFrame.Resources">
+        <property name="selfHelpEquipRepository" ref="repository.selfhelpequip"/>
+        <property name="selfHelpEquipModelRepository" ref="repository.selfHelpEquipModel"/>
+        <property name="selfHelpEquipTypeRepository" ref="repository.selfHelpEquipType"/>
+        <property name="selfHelpFactoryRepository" ref="repository.selfHelpFactory"/>
+        <property name="equipcomponentRepository" ref="repository.equipcomponent"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <!--======人员\车辆\仪器仪表=========-->
+  <object id="vehicleFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.VehicleManger.Domain.VehicleFacadeImpl,QzgfFrame.Resources">
+        <property name="vehicleRepository" ref="repository.vehicle"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="stagnationRepository" ref="repository.stagnation"/>
+        <property name="gridRepository" ref="repository.grid"/>
+        <property name="maintainSpecialtyRepository" ref="repository.maintainSpecialty"/>
+        <property name="vehicleNatureRepository" ref="repository.vehicleNature"/>
+        <property name="useRepository" ref="repository.use"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="personnelFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.PersonnelManger.Domain.PersonnelFacadeImpl,QzgfFrame.Resources">
+        <property name="personnelRepository" ref="repository.personnel"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="stagnationRepository" ref="repository.stagnation"/>
+        <property name="gridRepository" ref="repository.grid"/>
+        <property name="maintainSpecialtyRepository" ref="repository.maintainSpecialty"/>
+        <property name="qualificationTypeRepository" ref="repository.qualificationType"/>
+        <property name="itemPropertyRepository" ref="repository.itemProperty"/>
+        <property name="dutyRepository" ref="repository.duty"/>
+        <property name="diplomaRepository" ref="repository.diploma"/>
+        <property name="postsRepository" ref="repository.posts"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="apparatusFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.ApparatusManger.Domain.ApparatusFacadeImpl,QzgfFrame.Resources">
+        <property name="apparatusRepository" ref="repository.apparatus"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="stagnationRepository" ref="repository.stagnation"/>
+        <property name="gridRepository" ref="repository.grid"/>
+        <property name="maintainSpecialtyRepository" ref="repository.maintainSpecialty"/>
+        <property name="meterStateRepository" ref="repository.meterState"/>
+        <property name="useRepository" ref="repository.use"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="equipComponentFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.EquipComponentManger.Domain.EquipComponentFacadeImpl,QzgfFrame.Resources">
+        <property name="equipcomponentRepository" ref="repository.equipcomponent"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <!--======170流程的数据=========-->
+  <object id="oneSevenZeroFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Resources.OneSevenZeroManger.Domain.OneSevenZeroFacadeImpl,QzgfFrame.Resources">
+        <property name="oneSevenZeroRepository" ref="repository.oneSevenZero"/>
+      </object>
+    </property>
+  </object>
+  <!--========================资源管理end================================-->
+  <!--=====================小区宽带begin==============================-->
+  <object id="communityManagerFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.CommunityManagerManger.Domain.CommunityManagerFacadeImpl,QzgfFrame.Supplies">
+        <property name="communityManagerRepository" ref="repository.communityManager"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="communityInfoFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.CommunityInfoManger.Domain.CommunityInfoFacadeImpl,QzgfFrame.Supplies">
+        <property name="communityInfoRepository" ref="repository.communityInfo"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="suppliesStockFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.SuppliesStockManger.Domain.SuppliesStockFacadeImpl,QzgfFrame.Supplies">
+        <property name="suppliesStockRepository" ref="repository.suppliesStock"/>
+        <property name="suppliesTypeRepository" ref="repository.suppliesType"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="saleDepartmentRepository" ref="repository.saleDepartment"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="collarSuppliesFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.CollarSuppliesManger.Domain.CollarSuppliesFacadeImpl,QzgfFrame.Supplies">
+        <property name="collarSuppliesRepository" ref="repository.collarSupplies"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="collarRepository" ref="repository.collar"/>
+        <property name="suppliesTypeRepository" ref="repository.suppliesType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="collarSuppliesDetailFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.CollarSuppliesDetailManger.Domain.CollarSuppliesDetailFacadeImpl,QzgfFrame.Supplies">
+        <property name="collarSuppliesDetailRepository" ref="repository.collarSuppliesDetail"/>
+        <property name="suppliesTypeRepository" ref="repository.suppliesType"/>
+      </object>
+    </property>
+  </object>
+  <object id="distributionFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.DistributionManger.Domain.DistributionFacadeImpl,QzgfFrame.Supplies">
+        <property name="distributionRepository" ref="repository.distribution"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="saleDepartmentRepository" ref="repository.saleDepartment"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="distributionDetailFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.DistributionDetailManger.Domain.DistributionDetailFacadeImpl,QzgfFrame.Supplies">
+        <property name="distributionDetailRepository" ref="repository.distributionDetail"/>
+        <property name="suppliesTypeRepository" ref="repository.suppliesType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="payStandardFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.PayStandardManger.Domain.PayStandardFacadeImpl,QzgfFrame.Supplies">
+        <property name="payStandardRepository" ref="repository.payStandard"/>
+        <property name="maintainTypeRepository" ref="repository.maintainType"/>
+        <property name="accessWayRepository" ref="repository.accessWay"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="registerFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.RegisterManger.Domain.RegisterFacadeImpl,QzgfFrame.Supplies">
+        <property name="registerRepository" ref="repository.register"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="accessWayRepository" ref="repository.accessWay"/>
+        <property name="buildWayRepository" ref="repository.buildWay"/>
+        <property name="communityTypeRepository" ref="repository.communityType"/>
+        <property name="maintainTypeRepository" ref="repository.maintainType"/>
+        <property name="saleDepartmentRepository" ref="repository.saleDepartment"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="registerDetailFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.RegisterDetailManger.Domain.RegisterDetailFacadeImpl,QzgfFrame.Supplies">
+        <property name="registerDetailRepository" ref="repository.registerDetail"/>
+        <property name="suppliesTypeRepository" ref="repository.suppliesType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="workloadFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supplies.WorkloadManger.Domain.WorkloadFacadeImpl,QzgfFrame.Supplies">
+        <property name="workloadRepository" ref="repository.workload"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <!--======================小区宽带end================================-->
+  <!--=====================在线考试begin==============================-->
+  <!--试题业务处理多模型关联-->
+  <object id="subjectFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Exam.ExaminerManger.SubjectFacadeExImpl,QzgfFrame.Controllers">
+        <property name="subjectFacade" ref="subjectFacade"/>
+        <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+        <property name="courseFacade" ref="courseFacade"/>
+        <property name="scalegradeFacade" ref="scalegradeFacade"/>
+        <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+        <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+        <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷业务处理多模型关联-->
+  <object id="testFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Exam.ExaminerManger.TestFacadeExImpl,QzgfFrame.Controllers">
+        <property name="subjectFacade" ref="subjectFacade"/>
+        <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+        <property name="courseFacade" ref="courseFacade"/>
+        <property name="testFacade" ref="testFacade"/>
+        <property name="testsetFacade" ref="testsetFacade"/>
+        <property name="testmockFacade" ref="testmockFacade"/>
+        <property name="testexerciseFacade" ref="testexerciseFacade"/>
+        <property name="testsubjecttypeFacade" ref="testsubjecttypeFacade"/>
+        <property name="testsubjectFacade" ref="testsubjectFacade"/>
+        <property name="getsubjectFacade" ref="getsubjectFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷设置处理多模型关联-->
+  <object id="testsetFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Exam.TestSetManger.TestSetFacadeExImpl,QzgfFrame.Controllers">
+        <property name="examineerangeFacade" ref="examineerangeFacade"/>
+        <property name="testsetFacade" ref="testsetFacade"/>
+        <property name="testFacade" ref="testFacade"/>
+      </object>
+    </property>
+  </object>
+
+  <!--试卷设置模拟卷处理多模型关联-->
+  <object id="testmockFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Exam.TestMockManger.TestMockFacadeExImpl,QzgfFrame.Controllers">
+        <property name="examineerangeFacade" ref="examineerangeFacade"/>
+        <property name="testmockFacade" ref="testmockFacade"/>
+        <property name="testexerciseFacade" ref="testexerciseFacade"/>
+        <property name="testFacade" ref="testFacade"/>
+      </object>
+    </property>
+  </object>
+
+  <!--试卷设置练习卷处理多模型关联-->
+  <object id="testexerciseFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Exam.TestExerciseManger.TestExerciseFacadeExImpl,QzgfFrame.Controllers">
+        <property name="examineerangeFacade" ref="examineerangeFacade"/>
+        <property name="testexerciseFacade" ref="testexerciseFacade"/>
+        <property name="testmockFacade" ref="testmockFacade"/>
+        <property name="testFacade" ref="testFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--考生信息业务处理多模型关联-->
+  <object id="examineeinfoFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Exam.ExamineeInfoManger.ExamineeInfoFacadeExImpl,QzgfFrame.Controllers">
+        <property name="examineeinfoFacade" ref="examineeinfoFacade"/>
+        <property name="diplomaFacade" ref="diplomaFacade"/>
+        <property name="examtypeFacade" ref="examtypeFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--试题主业务-->
+  <object id="subjectFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.SubjectManger.Domain.SubjectFacadeImpl,QzgfFrame.Exam">
+        <property name="subjectRepository" ref="repository.subject"/>
+        <property name="testsubjectFacade" ref="testsubjectFacade"/>
+        <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+        <property name="courseFacade" ref="courseFacade"/>
+        <property name="scalegradeFacade" ref="scalegradeFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--试题类型业务-->
+  <object id="subjecttypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.SubjectTypeManger.Domain.SubjectTypeFacadeImpl,QzgfFrame.Exam">
+        <property name="subjecttypeRepository" ref="repository.subjecttype"/>
+      </object>
+    </property>
+  </object>
+  <!--科目类型业务-->
+  <object id="courseFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.CourseManger.Domain.CourseFacadeImpl,QzgfFrame.Exam">
+        <property name="coursetypeRepository" ref="repository.coursetype"/>
+      </object>
+    </property>
+  </object>
+  <!--等级类型业务-->
+  <object id="scalegradeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.ScaleGradeManger.Domain.ScaleGradeFacadeImpl,QzgfFrame.Exam">
+        <property name="scalegradeRepository" ref="repository.scalegrade"/>
+      </object>
+    </property>
+  </object>
+  <!--试题选择题业务-->
+  <object id="multiplesubjectFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.MultipleSubjectManger.Domain.MultipleSubjectFacadeImpl,QzgfFrame.Exam">
+        <property name="multiplesubjectRepository" ref="repository.multiplesubject"/>
+      </object>
+    </property>
+  </object>
+  <!--试题填空题业务-->
+  <object id="fillblankssubjectFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.FillBlanksSubjectManger.Domain.FillBlanksSubjectFacadeImpl,QzgfFrame.Exam">
+        <property name="fillblankssubjectRepository" ref="repository.fillblankssubject"/>
+      </object>
+    </property>
+  </object>
+  <!--试题判断题业务-->
+  <object id="judgesubjectFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.JudgeSubjectManger.Domain.JudgeSubjectFacadeImpl,QzgfFrame.Exam">
+        <property name="judgesubjectRepository" ref="repository.judgesubject"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷类型业务-->
+  <object id="testtypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.TestTypeManger.Domain.TestTypeFacadeImpl,QzgfFrame.Exam">
+        <property name="testtypeRepository" ref="repository.testtype"/>
+      </object>
+    </property>
+  </object>
+  <!--考试类型业务-->
+  <object id="examtypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.ExamTypeManger.Domain.ExamTypeFacadeImpl,QzgfFrame.Exam">
+        <property name="examtypeRepository" ref="repository.examtype"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷主业务-->
+  <object id="testFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.TestManger.Domain.TestFacadeImpl,QzgfFrame.Exam">
+        <property name="testRepository" ref="repository.test"/>
+        <property name="courseFacade" ref="courseFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷设置业务-->
+  <object id="testsetFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.TestSetManger.Domain.TestSetFacadeImpl,QzgfFrame.Exam">
+        <property name="testsetRepository" ref="repository.testset"/>
+        <property name="achievementRepository" ref="repository.achievement"/>
+        <property name="testFacade" ref="testFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷设置模拟卷业务-->
+  <object id="testmockFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.TestMockManger.Domain.TestMockFacadeImpl,QzgfFrame.Exam">
+        <property name="testmockRepository" ref="repository.testmock"/>
+        <property name="testFacade" ref="testFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷设置练习卷业务-->
+  <object id="testexerciseFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.TestExerciseManger.Domain.TestExerciseFacadeImpl,QzgfFrame.Exam">
+        <property name="testexerciseRepository" ref="repository.testexercise"/>
+        <property name="testFacade" ref="testFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷试题类型业务-->
+  <object id="testsubjecttypeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.TestSubjectTypeManger.Domain.TestSubjectTypeFacadeImpl,QzgfFrame.Exam">
+        <property name="testsubjecttypeRepository" ref="repository.testsubjecttype"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷试题业务-->
+  <object id="testsubjectFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.TestSubjectManger.Domain.TestSubjectFacadeImpl,QzgfFrame.Exam">
+        <property name="testsubjectRepository" ref="repository.testsubject"/>
+      </object>
+    </property>
+  </object>
+  <!--试卷随机试卷业务-->
+  <object id="getsubjectFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.GetSubjectManger.Domain.GetSubjectFacadeImpl,QzgfFrame.Exam">
+        <property name="subjectFacade" ref="subjectFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--考生信息业务-->
+  <object id="examineeinfoFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.ExamineeInfoManger.Domain.ExamineeInfoFacadeImpl,QzgfFrame.Exam">
+        <property name="examineeinfoRepository" ref="repository.examineeinfo"/>
+        <property name="diplomaFacade" ref="diplomaFacade"/>
+        <property name="examtypeFacade" ref="examtypeFacade"/>
+      </object>
+    </property>
+  </object>
+
+  <!--考生范围业务-->
+  <object id="examineerangeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.ExamineeRangeManger.Domain.ExamineeRangeFacadeImpl,QzgfFrame.Exam">
+        <property name="examineerangeRepository" ref="repository.examineerange"/>
+      </object>
+    </property>
+  </object>
+
+  <!--考生做过的试卷表-->
+  <object id="achievementFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.AchievementManager.Domain.AchievementFacadeImpl,QzgfFrame.Exam">
+        <property name="achievementRepository" ref="repository.achievement"/>
+        <property name="answerExamRepository" ref="repository.answerExam"/>
+      </object>
+    </property>
+  </object>
+  <!--成绩管理(详表)-->
+  <object id="achievementxFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.AchievementxManager.Domain.AchievementxFacadeImpl,QzgfFrame.Exam">
+        <property name="achievementxRepository" ref="repository.achievementx"/>
+      </object>
+    </property>
+  </object>
+  <!--考生考试回答表-->
+  <object id="answerExamFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.AnswerExamManager.Domain.AnswerExamFacadeImpl,QzgfFrame.Exam">
+        <property name="answerExamRepository" ref="repository.answerExam"/>
+      </object>
+    </property>
+  </object>
+  <!--在线考试-->
+  <object id="onlineExamFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.OnlineExamManager.Domain.OnlineExamFacadeImpl,QzgfFrame.Exam">
+        <property name="onlineExamRepository" ref="repository.onlineExam"/>
+        <property name="testRepository" ref="repository.test"/>
+        <property name="testtypeFacade" ref="testtypeFacade"/>
+      </object>
+    </property>
+  </object>
+  <!--选择题答案表-->
+  <object id="multipleAnswerFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.MultipleAnswerManager.Domain.MultipleAnswerFacadeImpl,QzgfFrame.Exam">
+        <property name="multipleAnswerRepository" ref="repository.multipleAnswer"/>
+      </object>
+    </property>
+  </object>
+  <!--填空题答案表-->
+  <object id="fillBlanksAnswerFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.FillBlanksAnswerManager.Domain.FillBlanksAnswerFacadeImpl,QzgfFrame.Exam">
+        <property name="fillBlanksAnswerRepository" ref="repository.fillBlanksAnswer"/>
+      </object>
+    </property>
+  </object>
+  <!--判断题答案表-->
+  <object id="judgeAnswerFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Exam.JudgeAnswerManager.Domain.JudgeAnswerFacadeImpl,QzgfFrame.Exam">
+        <property name="judgeAnswerRepository" ref="repository.judgeAnswer"/>
+      </object>
+    </property>
+  </object>
+
+  <!--========================在线考试end================================-->
+
+  <!--========================仓库管理begin================================-->
+  <object id="inventoryFileFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Warehouse.InventoryFileManger.Domain.InventoryFileFacadeImpl,QzgfFrame.Warehouse">
+        <property name="inventoryFileRepository" ref="repository.inventoryFile"/>
+      </object>
+    </property>
+  </object>
+  <object id="repertotyFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Warehouse.RepertotyManger.Domain.RepertotyFacadeImpl,QzgfFrame.Warehouse">
+        <property name="repertotyRepository" ref="repository.repertoty"/>
+        <property name="districtRepository" ref="repository.district"/>
+        <property name="companyRepository" ref="repository.company"/>
+        <property name="userRepository" ref="repository.user"/>
+      </object>
+    </property>
+  </object>
+  <object id="stockFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Warehouse.StockManger.Domain.StockFacadeImpl,QzgfFrame.Warehouse">
+        <property name="stockRepository" ref="repository.stock"/>
+      </object>
+    </property>
+  </object>
+  <object id="repairFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Warehouse.RepairManger.Domain.RepairFacadeImpl,QzgfFrame.Warehouse">
+        <property name="repairRepository" ref="repository.repair"/>
+      </object>
+    </property>
+  </object>
+  <object id="ioListFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Warehouse.IOListManger.Domain.IOListFacadeImpl,QzgfFrame.Warehouse">
+        <property name="ioListRepository" ref="repository.ioList"/>
+      </object>
+    </property>
+  </object>
+  <object id="ioDetailFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Warehouse.IODetailManger.Domain.IODetailFacadeImpl,QzgfFrame.Warehouse">
+        <property name="ioDetailRepository" ref="repository.ioDetail"/>
+      </object>
+    </property>
+  </object>
+  <object id="inventoryFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Warehouse.InventoryManger.Domain.InventoryFacadeImpl,QzgfFrame.Warehouse">
+        <property name="inventoryRepository" ref="repository.inventory"/>
+      </object>
+    </property>
+  </object>
+  <object id="inventoryDetailFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Warehouse.InventoryDetailManger.Domain.InventoryDetailFacadeImpl,QzgfFrame.Warehouse">
+        <property name="inventoryDetailRepository" ref="repository.inventoryDetail"/>
+      </object>
+    </property>
+  </object>
+  <!--========================仓库管理end================================-->
+  <!--=======================巡检管理begin===============================-->
+  <!--专线巡检周期-->
+  <object id="cycTimeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Cop.CycTimeManager.Domain.CycTimeFacadeImpl,QzgfFrame.Cop">
+        <property name="cycTimeRepository" ref="repository.cycTime"/>
+        <property name="planRepository" ref="repository.plan"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <!--专线巡检计划-->
+  <object id="planFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Cop.PlanManager.Domain.PlanFacadeImpl,QzgfFrame.Cop">
+        <property name="planRepository" ref="repository.plan"/>
+        <property name="enrolRepository" ref="repository.enrol"/>
+        <property name="lineRepository" ref="repository.dedicateLine"/>
+        <property name="clieRepository" ref="repository.groupClie"/>
+        <property name="bizTypeRepository" ref="repository.bizType"/>
+        <property name="assuranRepository" ref="repository.bizAssuranLeve"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="planFacadeExImpl" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Cop.PlanManager.PlanFacadeEx,QzgfFrame.Controllers">
+        <property name="planFacade" ref="planFacade"/>
+      </object>
+    </property>
+  </object>
+
+  <!--专线巡检登记-->
+  <object id="enrolFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Cop.EnrolManager.Domain.EnrolFacadeImpl,QzgfFrame.Cop">
+        <property name="enrolRepository" ref="repository.enrol"/>
+        <property name="lineRepository" ref="repository.dedicateLine"/>
+        <property name="clieRepository" ref="repository.groupClie"/>
+        <property name="bizTypeRepository" ref="repository.bizType"/>
+        <property name="assuranRepository" ref="repository.bizAssuranLeve"/>
+        <property name="planRepository" ref="repository.plan"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="enrolFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Cop.EnrolManager.EnrolFacadeExImpl,QzgfFrame.Controllers">
+        <property name="planFacade" ref="planFacade"/>
+        <property name="enrolFacade" ref="enrolFacade"/>
+        <property name="dedicateLineFacade" ref="dedicateLineFacade"/>
+        <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+        <property name="groupClieFacade" ref="groupClieFacade"/>
+        <property name="bizTypeFacade" ref="bizTypeFacade"/>
+        <property name="cycTimeFacade" ref="cycTimeFacade"/>
+      </object>
+    </property>
+  </object>
+
+  <!--自助终端巡检周期-->
+  <object id="terminalTimeFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Cop.TerminalTimeManager.Domain.TerminalTimeFacadeImpl,QzgfFrame.Cop">
+        <property name="terminalTimeRepository" ref="repository.terminalTime"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <!--自助终端巡检计划-->
+  <object id="terminalPlanFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Cop.TerminalPlanManager.Domain.TerminalPlanFacadeImpl,QzgfFrame.Cop">
+        <property name="terminalPlanRepository" ref="repository.terminalPlan"/>
+        <property name="terminalEnrolRepository" ref="repository.terminalEnrol"/>
+        <property name="selfHelpEquipRepository" ref="repository.selfhelpequip"/>
+        <property name="outletsTypeRepository" ref="repository.outletsType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <!--自助终端巡检登记-->
+  <object id="terminalEnrolFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Cop.TerminalEnrolManager.Domain.TerminalEnrolFacadeImpl,QzgfFrame.Cop">
+        <property name="terminalEnrolRepository" ref="repository.terminalEnrol"/>
+        <property name="terminalPlanRepository" ref="repository.terminalPlan"/>
+        <property name="selfHelpEquipRepository" ref="repository.selfhelpequip"/>
+        <property name="outletsTypeRepository" ref="repository.outletsType"/>
+        <property name="relationRepository" ref="repository.relation"/>
+      </object>
+    </property>
+  </object>
+  <object id="terminalEnrolFacadeEx" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Controllers.Cop.TerminalEnrolManager.TerminalEnrolFacadeExImpl,QzgfFrame.Controllers">
+        <property name="terminalEnrolFacade" ref="terminalEnrolFacade"/>
+        <property name="terminalPlanFacade" ref="terminalPlanFacade"/>
+        <property name="selfHelpEquipFacade" ref="selfHelpEquipFacade"/>
+        <property name="outletsTypeFacade" ref="outletsTypeFacade"/>
+        <property name="terminalTimeFacade" ref="terminalTimeFacade"/>
+      </object>
+    </property>
+  </object>
+
+  <!--========================巡检管理end================================-->
+  <!--========================督办工单begin================================-->
+  <!--派遣工单-->
+  <object id="sendFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supervision.SendManager.Domain.SendFacadeImpl,QzgfFrame.Supervision">
+        <property name="sendRepository" ref="repository.send"/>
+      </object>
+    </property>
+  </object>
+  <!--接单/接单-->
+  <object id="ordersFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supervision.OrdersManager.Domain.OrdersFacadeImpl,QzgfFrame.Supervision">
+        <property name="ordersRepository" ref="repository.orders"/>
+        <property name="sendRepository" ref="repository.send"/>
+      </object>
+    </property>
+  </object>
+  <!--回单-->
+  <object id="backFacade" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="QzgfFrame.Supervision.BackManager.Domain.BackFacadeImpl,QzgfFrame.Supervision">
+        <property name="backRepository" ref="repository.back"/>
+      </object>
+    </property>
+  </object>
+  <!--========================督办工单end================================-->
+</objects>

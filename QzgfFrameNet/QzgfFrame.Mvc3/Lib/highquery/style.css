@@ -1,0 +1,109 @@
+* {
+	font-size: 12px; 
+	font-family: ËÎÌו
+}
+
+.HQ_TABLE {
+	border: #2892F0 1px solid;
+}
+
+.HQ_TH {
+	background-color: #A0CFFE;
+	border-color:#94BAE7;
+	color: black;
+	font-size: 12px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.HQ_TD {
+	font-family: ËÎÌו;
+	font-size: 12px;
+	line-height: 15px;
+}
+
+.HQ_BUTTON {
+	border-right: #002D96 1px solid;
+	padding-right: 2px;
+	border-top: #002D96 1px solid;
+	padding-left: 2px;
+	font-size: 12px;
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,  StartColorStr=#FFFFFF,  EndColorStr=#9DBCEA);
+	border-left: #002D96 1px solid;
+	cursor: pointer;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #002D96 1px solid;
+}
+
+.HQ_TEXT {
+	background-color:#FFFFFF; 
+	color:#000000;
+	border:1px solid;
+	border-color:#93C9FF;
+}
+
+.HQ_TEXTAREA {
+	background-color:#FFFFFF; 
+	color:#000000;
+	border:1px solid;
+	border-color:#93C9FF;
+}
+
+.HQ_ADD_P{
+	color: #00CC33;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.HQ_REMOVE_P {
+	color: red;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.HQ_P {
+	font-weight: bold;
+}
+
+.HQ_DICT_TABLE {
+	border: #2892F0 1px solid;
+	cursor: pointer;
+}
+
+.HQ_DICT_TH {
+	background-color: #A0CFFE;
+	border-color:#94BAE7;
+	color: black;
+	font-size: 12px;
+	font-weight:bold;
+}
+
+.HQ_DICT_MOUSE_OVER {
+	background-color:#D1D1D1
+}
+.HQ_DICT_MOUSE_OUT{
+	background-color:#FFFFFF
+}
+
+.HQ_DICT_TR {
+	background-color:#FFFFFF;
+}
+
+.HQ_DICT_TD {
+	font-family: ËÎÌו;
+	font-size: 12px;
+	line-height: 15px;
+}
+
+.HQ_UP{
+	color: #00CC33;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.HQ_DOWN{
+	color: #00CC33;
+	font-weight: bold;
+	cursor: pointer;
+}

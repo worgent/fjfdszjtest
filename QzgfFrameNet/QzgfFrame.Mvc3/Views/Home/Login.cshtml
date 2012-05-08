@@ -1,0 +1,133 @@
+﻿
+<body style="text-align: center; background: #73bcff url('/Content/Lib/images/login/bg_login.jpg') repeat-x">
+    <div id="login" >
+        <div id="loginpanel">
+            <div class="panel-c">
+                <div class="panel-c-l">
+                    <table cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td align="right">
+                                    用户名：
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="loginusername" id="txtUsername" class="login-text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    密 &nbsp;码：
+                                </td>
+                                <td align="left">
+                                    <input type="password" name="loginpassword" id="txtPassword"  class="login-text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    验证码：
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="authcode" maxlength="4" id="txtauthcode" class="login-text" style="width: 55px" />&nbsp;<img
+                                     id="imgauthcode"   src="/home/Authcode?date="+(new Date().getTime()) alt="不清楚，再来一张" onclick="changeauthcode()" />
+                                      <a id="my" href="javascript:changeauthcode()"  style="font-size: 11px">不清楚，再来一张</a>
+                                </td>
+                            </tr>
+                            <!--
+                            <tr>
+                                <td align="right">
+                                    短信随机码：
+                                </td>
+                                <td align="left">
+                                    <input type="password" name="loginpassword" class="login-text" />
+                                </td>
+                            </tr>
+                             -->
+                            <tr>
+                                <td align="center" colspan="2">
+                                    <input type="submit" id="btnLogin" value="" class="login-btn" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-f">
+            </div>
+            <div style="position:absolute; top:400px; right:230px; color:#fff">
+                 <img src="../../Content/Lib/images/login/line.gif" /><a href="/exam/examinee/login" style="color:#fff">在线考试登录</a>  
+            </div>
+        </div>
+
+    </div>
+            <div id="logincopyright">
+            Copyright © 2011 中国移动福建公司泉州分公司 技术支持：泉州市冠发信息科技有限公司
+        </div>
+</body>
+<link rel="Stylesheet" href="../../Content/Lib/css/Style.css" />
+    <script type="text/javascript">
+        function changeauthcode() {
+            //alert("ss");
+            $("#imgauthcode").attr("src", "/home/Authcode?r=" + (new Date().getTime()));
+        }
+
+        $(function () {
+            $(".login-text").focus(function () {
+                $(this).addClass("login-text-focus");
+            }).blur(function () {
+                $(this).removeClass("login-text-focus");
+            });
+
+            $("#btnLogin").click(function () {
+                var username = $("#txtUsername").val();
+                var password = $("#txtPassword").val();
+                var authcode = $("#txtauthcode").val();
+                if (username == "") {
+                    $.ligerDialog.alert('账号不能为空!');
+                    $("#txtUsername").focus();
+                    return;
+                }
+                if (password == "") {
+                    $.ligerDialog.alert('密码不能为空!');
+                    $("#txtPassword").focus();
+                    return;
+                }
+                if (authcode == "") {
+                    $.ligerDialog.alert('验证码不能为空!');
+                    $("#txtauthcode").focus();
+                    return;
+                }
+                $.ajax({
+                    type: 'post', cache: false, dataType: 'json',
+                    url: '/Home/CheckLogin',
+                    data: [
+                   { name: 'username', value: username },
+                   { name: 'password', value: password },
+                   { name: 'authcode', value: authcode }
+                   ],
+                    success: function (result) {
+                        if (result == "0") {
+                            $.ligerDialog.alert('登陆失败,账号或密码有误!');
+                            $("#txtUsername").focus();
+                        } else if (result == "2") {
+                            $.ligerDialog.alert('验证码有误!');
+                            $("#txtauthcode").focus();
+                        }
+                        else {
+                            location.href = "/home/";
+                        }
+                    },
+                    error: function (ex) {
+                        //debugger;
+                        //alert(ex);
+                        $.ligerDialog.alert('发送系统错误,请与系统管理员联系!');
+                    },
+                    beforeSend: function () {
+                        $("#btnLogin").attr("disabled", true);
+                    },
+                    complete: function () {
+                        $("#btnLogin").attr("disabled", false);
+                    }
+                });
+            });
+        });
+    </script>

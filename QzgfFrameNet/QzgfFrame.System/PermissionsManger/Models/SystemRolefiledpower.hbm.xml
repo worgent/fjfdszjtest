@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.PermissionsManger.Models" assembly="QzgfFrame.System">
+	<class name="QzgfFrame.System.PermissionsManger.Models.SystemRolefiledpower,QzgfFrame.System" table="SYSTEM_ROLEFILEDPOWER">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="ROLEID" type="String" length="20" name="Roleid"  />
+		<property column="FIELDID" type="String" length="20" name="Fieldid" />
+		<property column="POWERVAL" type="Int32" name="Powerval" />
+		
+	</class>
+</hibernate-mapping>

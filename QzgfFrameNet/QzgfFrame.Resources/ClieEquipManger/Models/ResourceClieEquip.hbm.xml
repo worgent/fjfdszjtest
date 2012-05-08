@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.ClieEquipManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.ClieEquipManger.Models.ResourceClieEquip,QzgfFrame.Resources" table="tab_clie_equip">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="OccupySlot" type="String" name="OccupySlot" length="20" />
+    <property column="BoardType" type="String" name="BoardType" length="30" />
+    <property column="OccupyPort" type="String" name="OccupyPort" length="20" />
+    <property column="PortTypeId" type="String" name="PortTypeId" length="20" />
+    <property column="ClieId" type="String" name="ClieId" length="20" not-null="true"/>
+    <property column="EquipId" type="String" name="EquipId" length="20"  not-null="true"/>
+    <property column="LineId" type="String" name="LineId" length="20" />
+    <property column="DelFlag" type="short" name="DelFlag"  />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Warehouse.InventoryManger.Models" assembly="QzgfFrame.Warehouse">
+	<class name="QzgfFrame.Warehouse.InventoryManger.Models.WarehouseInventory,QzgfFrame.Warehouse" table="tab_inventory">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="Operator" type="String" name="Operator" length="20" />
+    <property column="InventoryDate" type="DateTime" name="InventoryDate" />
+	</class>
+</hibernate-mapping>

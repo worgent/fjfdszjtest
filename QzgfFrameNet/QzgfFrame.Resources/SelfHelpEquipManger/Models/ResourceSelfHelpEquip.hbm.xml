@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.SelfHelpEquipManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.SelfHelpEquipManger.Models.ResourceSelfHelpEquip,QzgfFrame.Resources" table="tab_self_help_equip">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="TermiId" type="String" name="TermiId" length="20" not-null="true"/>
+    <property column="UseNetNo" type="String" name="UseNetNo" length="7" />
+    <property column="UseNetName" type="String" name="UseNetName" length="50" not-null="true"/>		
+    <property column="NetAddress" type="String" name="NetAddress" length="100" />
+    <property column="StartDatetime" type="DateTime" name="StartDatetime"  not-null="true"/> 
+    <property column="NetType" type="String" name="NetType" length="20" not-null="true"/>
+    <property column="TerimIP" type="String" name="TerimIP" length="20"/>
+		<property column="SubnetMask" type="String" name="SubnetMask" length="20" /> 
+		<property column="MacAddress" type="String" name="MacAddress" length="20" />
+		<property column="IsOverInsuran" type="short" name="IsOverInsuran"  not-null="true"/>
+    <property column="Life" type="int" name="Life" not-null="true"/>
+    <property column="Remark" type="String" name="Remark" length="200" />
+    <property column="EquipModelName" type="String" name="EquipModelName" length="100" not-null="true"/> 
+		<property column="FactoryId" type="String" name="FactoryId" length="20" not-null="true"/>
+		<property column="EquipTypeId" type="String" name="EquipTypeId" length="20" not-null="true"/> 
+		<property column="DistrictId" type="String" name="DistrictId" length="20" not-null="true"/>
+    <property column="BuyDatetime" type="DateTime" name="BuyDatetime"  />
+    <property column="State" type="short" name="State"  />
+    <property column="FaultNum" type="int" name="FaultNum" not-null="true"/>
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  not-null="true"/>
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate"  not-null="true"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+  </class>
+</hibernate-mapping>

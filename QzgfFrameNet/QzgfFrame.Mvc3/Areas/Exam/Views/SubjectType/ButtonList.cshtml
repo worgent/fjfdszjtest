@@ -1,0 +1,153 @@
+﻿<%@Register Assembly="QzgfFrame.Utility" Namespace="QzgfFrame.Utility.UI" TagPrefix="cc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script> 
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    <script src="../../../../Lib/ligerUI/js/plugins/ligerGrid.js" type="text/javascript"></script>
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../Lib/json2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var CurID =  <%=CurID %>; 
+        var gridManager = null;
+        $(function ()
+        {   
+            f_setToolbar();
+            f_setGrid();
+        }); 
+        function f_btnClick(item)
+        {
+            switch (item.id)
+            {
+                case "add":
+                    f_add();
+                    break; 
+                case "delete":
+                    f_delete();
+                    break; 
+            }
+        }
+        function f_add()
+        {
+           if(!gridManager) return ;
+           gridManager.addRow();
+        }
+        function f_delete()
+        {
+            if(!gridManager) return ;
+            var row = gridManager.getSelectedRow();
+            if(!row){
+                $.ligerDialog.alert('请先选择行!');
+                return ;
+            }
+            $.ligerDialog.confirm('确定要删除吗？',function(y){
+                y && gridManager.deleteSelectedRow();
+            });
+        }
+         function f_setToolbar()
+        {
+            $("#toolbar").ligerToolBar({items:[
+                { text: '增加', icon: 'add', id: 'add',click : f_btnClick },
+                { text: '删除', icon: 'delete', id: 'delete',click : f_btnClick  }
+            ]});
+        }
+        function f_setGrid()
+        {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '操作名', name: 'BtnName', align: 'left', width: 180, minWidth: 60,editor:{type:'text'} },
+                { display: '操作编号', name: 'BtnNo', align: 'left', width: 130, minWidth: 60 ,editor:{type:'text'}}
+                ,{ display: '图标', name:'BtnIcon',align: 'left', width: 100, minWidth: 40, render: function (item)
+                {
+                    return "<div style='margin-left:9px;margin-top:2px;' class='l-icon l-icon-" + item.BtnIcon + "'></div>";
+                },editor:{type:'text'}
+                }
+                ], dataAction: 'server',usePager:false,enabledEdit:true, 
+            url: "../service/BillListData.ashx?Action=GetGridView&gridviewname=Sys_Button", sortName: 'BtnID',
+            parms : [{name:"gridsearch",value:"MenuNo='<%=MenuNo %>'"}],
+                width: '99%', height: '100%', pageSize: 30,
+                checkbox: false,
+                heightDiff: -9,
+                onError: function (a, b)
+                {
+                    debugger
+                }
+            });  
+        }
+        function f_success()
+        {
+           $(document).ready(function(){
+                 $.ligerDialog.confirm("是否继续编辑","保存成功", function (ok)
+                {
+                    $.ligerDialog.closeWaitting();
+                    f_reload(); 
+                    if (!ok)
+                    {
+                        parent.window.frames["mainframe"].f_closeWindow();
+                    }  
+                });
+            });
+        }
+        function f_error(message)
+        {
+            $(document).ready(function(){
+                $.ligerDialog.error(message);
+            });
+        }
+        function f_checkdata(data)
+        {
+            if(!data.length)
+            {
+                $.ligerDialog.alert('没有数据可以保存！');
+                return false;
+            }
+            for(var i=0;i<data.length;i++)
+            {
+                if(data[i].BtnName == "" || data[i].BtnNo == "")
+                {
+                    if(data[i].__status != undefined && data[i].__status == "delete")
+                        continue;
+                    $.ligerDialog.alert('编码和名称不能为空！');
+                    return false;
+                }
+            }
+            return true;
+        }
+        function f_save()
+        { 
+            var data = gridManager.getData(); 
+            if(!f_checkdata(data)) return ;
+            
+            $("#HidGridData").val(JSON2.stringify(data)); 
+            $.ligerDialog.waitting("正在保存中...");
+            f_post();
+        } 
+        function f_reload()
+        {
+            gridManager && gridManager.loadData(true);
+        }
+    </script>
+    <style type="text/css"> 
+        
+        body { font-size:12px; background:white;}
+    </style>
+</head>
+<body style=" padding:4px;"> 
+    <form id="form1" runat="server">
+     <div id="toolbar"></div>
+    <div id="maingrid"></div>
+    <input id="HidGridData" type="hidden" runat="server" />
+     <cc1:CallPostControl ID="CallPostControl1" runat="server" 
+        onclick="CallPostControl1_Click"></cc1:CallPostControl> 
+    </form>
+    
+</body>
+</html>

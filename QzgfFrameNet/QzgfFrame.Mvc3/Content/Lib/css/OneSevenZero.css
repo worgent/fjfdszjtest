@@ -1,0 +1,139 @@
+﻿
+.tit 
+{
+    line-height:20px;
+    padding-left:10px;
+    padding-right:0px;
+    background:#CCE5FE;
+    color:#183152; 
+    text-align:center;
+    font-weight:bold;
+    padding-top:5px;
+    border-bottom:solid #93c7e3 1px;
+ }
+ 
+.ywtit 
+{
+    line-height:20px;
+    padding-left:10px;
+    padding-right:0px;
+    background:#CCE5FE;
+    color:#183152; 
+    font-weight:bold;
+    padding-top:5px;
+    border-bottom:solid #93c7e3 1px;
+ }
+body 
+{ 
+    font-size:12px; 
+    background:white;
+     height: 100%; 
+     margin: 0; 
+     padding: 0;
+}
+html { 
+     height: 100%; 
+}  
+.edittable 
+{ 
+    margin:0;
+    padding:0;
+    line-height:23px;
+    text-align:center; 
+    vertical-align:top;
+    background:#eff7fc; 
+    border:solid #93c7e3 1px; 
+    width:100%;
+    height: 100%;
+} 
+.editcellmessage
+{ 
+    padding-left:0px;
+    line-height:23px; 
+    width:150px;
+}
+.Right_font 
+{
+    line-height:23px;
+    padding-right:10px;
+    height:23px;
+    border-right:solid #93c7e3 1px;
+    background:#eff7fc; 
+    border-bottom:solid #93c7e3 1px; 
+    text-align:right;
+  }
+.Right_Middle_font 
+{
+    line-height:23px;
+    padding-right:10px;
+    height:23px;
+    border-right:solid #93c7e3 1px; 
+    background:#eff7fc;
+    border-bottom:solid #93c7e3 1px;
+    border-left:solid #93c7e3 1px;
+ }
+.Left_font 
+{
+    padding-left: 10px;
+    line-height:23px; 
+    background:#ffffff;
+    padding-right:10px;
+    height:23px;
+    border-bottom:solid #93c7e3 1px;
+    border-right:solid #93c7e3 1px; 
+    text-align:left;
+}
+.Left_Middle_font 
+{
+    padding-left: 10px;
+    line-height:23px; 
+    background:#ffffff;
+    padding-right:10px;
+    height:23px;
+    border-bottom:solid #93c7e3 1px;
+    text-align:left;
+}
+.Left_Bottom
+{ 
+   width:100%;
+   border-bottom:solid #93c7e3 1px; 
+    border-right:solid #93c7e3 1px; 
+    background:#deefff;  
+}
+.out_div
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto auto 0px;
+    background-color:#ffffff;    
+    border:solid #e9e9e9 3px;
+}  
+.out_div_M
+{
+    background: url(../../../../Content/Lib/images/index/bookL.png) repeat-y center 0;
+    border-right:solid #93c7e3 1px; 
+    border-left:solid #93c7e3 1px; 
+    height: auto;
+    width:17px;
+} 
+.ltab
+{
+    background-color:#ffffff;
+}
+.ltab  table .hno td
+{ 
+     background:#CCE5FE;
+     color:#183152; 
+    text-align:center;
+    font-weight:bold;
+    text-align:center;
+     
+}
+.ltab  table  td
+{
+    line-height:20px; 
+    height:20px;
+    text-align:center;
+    border-bottom:solid #DFDFDF 1px;
+    border-right:solid #DFDFDF 1px;
+} 

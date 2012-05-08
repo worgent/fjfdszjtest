@@ -1,0 +1,224 @@
+﻿<form id="form1" runat="server">
+    <div id="topmenu"></div>
+    <div id="toolbar"></div>
+    <div id="searchbar"></div>
+    <div id="maingrid"></div>
+</form>
+    <script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager = null;
+        var activeDialog = null;
+        //弹出对话框
+        function f_openWindow(url, title, width, height, btnname) {
+            if (btnname==null) {
+                btnname = '保存';
+            }
+            var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: btnname, onclick: function (item, dialog) {
+                dialog.frame.f_save("qzgfframe" + GetUrlParam('_menuid'));
+                f_reload(); //刷新数据
+            }
+            },
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+            };
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+        //重载数据
+        function f_closeWindow(reload) {
+            activeDialog && activeDialog.close();
+            reload && f_reload();
+        }
+        //事件回调该方法
+        function f_btnClick(item) {
+            switch (item.id) {
+                case "add":
+                    f_add();
+                    break;
+                case "modify":
+                    f_modify();
+                    break;
+                case "delete":
+                    f_delete();
+                    break;
+                case "usestart":
+                    f_usestate("1");
+                    break;
+                case "usestop":
+                    f_usestate("2");
+                    break;    
+                case "button":
+                    f_button();
+                    break;
+                case "search":
+                    f_search();
+                    break;  
+                default:
+                    $.ligerDialog.alert('暂未实现!');
+                    break;    
+            }
+        }
+        //暂无用,作为按钮的扩展
+        function f_button() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+            var id = rowsdata[0].Id;
+            f_openWindow('system/ButtonList.aspx?CurID=' + id, '菜单操作管理', 600, 350);
+        }
+        //添加事件
+        function f_add() {
+            f_openWindow('/system/role/add/0', '添加角色', 600, 350);
+        }
+        function f_search() {
+            f_openWindow('/system/role/search', '查询模块', 700, 250,'查询');
+        }
+        //修改事件
+        function f_modify() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (rowsdata.length != 1) {
+                $.ligerDialog.alert('请选择一行记录!');
+                return;
+            }
+            var id = rowsdata[0].Id;
+            f_openWindow('/system/role/modify/' + id, '修改角色', 600, 350);
+        }
+        //删除事件
+        function f_delete() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            $.ligerDialog.confirm("是否确认删除?", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在删除中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                    $.getJSON('/system/role/delete?id=' + idStr, { Rnd: Math.random() }, function (data) {
+                        if (data.Type) {
+                            $.ligerDialog.success("删除成功");
+                        }
+                        else {
+                            $.ligerDialog.error("删除失败!<BR>" + data.Message);
+                        }
+                        $.ligerDialog.closeWaitting();
+                        f_reload();
+                    });
+                } else {
+                    return;
+                }
+            });
+
+        }
+
+        //启用停止
+        function f_usestate(state) {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            $.ligerDialog.confirm(state == "1" ? "是否启用?" : "是否停用", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在处理中...");
+                    debugger;
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                    if (state == "1")
+                        $.getJSON('/system/role/usestart?id=' + idStr + '&state=' + state, { Rnd: Math.random() }, function (data) {
+                            if (data.Type) {
+                                $.ligerDialog.success("操作成功");
+                            }
+                            else {
+                                $.ligerDialog.error("操作失败!<BR>" + data.Message);
+                            }
+                            $.ligerDialog.closeWaitting();
+                            f_reload();
+                        });
+                    else if (state == "2")
+                        $.getJSON('/system/role/usestop?id=' + idStr + '&state=' + state, { Rnd: Math.random() }, function (data) {
+                            if (data.Type) {
+                                $.ligerDialog.success("操作成功");
+                            }
+                            else {
+                                $.ligerDialog.error("操作失败!<BR>" + data.Message);
+                            }
+                            $.ligerDialog.closeWaitting();
+                            f_reload();
+                        });
+                } else {
+                    return;
+                }
+            });
+
+        }
+
+        //分配权限
+        function f_permissions(roleid, rolename) {
+            //方案一:弹出框
+            //"/system/permissions/index/?roleid=" + roleid + "&rolename=" + encodeURIComponent(rolename)
+            f_openWindow("/system/permissions/index/" + roleid, "分配权限--(" + rolename + ")", 900, 450);
+            //方案二:增加选项卡
+            //var tt = parent.window; 
+            //parent.window.frames["mainframe"].f_reload();
+            //var tabid = "permissions"; //new Date().getTime();
+            //alert(roleid);
+            //parent.window.f_addTab(tabid, "分配权限", "/system/permissions/index/?roleid="+roleid+"&rolename="+rolename);
+            //切换选项卡
+        }
+
+        $(function () {
+            //debugger;
+            f_setToolbar();
+            f_setGrid();
+        });
+        function f_setToolbar() {
+            SetButtons($("#toolbar"), "/system/menu/GetButton?menuid=5");
+        }
+        //测试时使用，当前模型去除改方法 { display: '创建时间', name: 'Createdate', align: 'left', width: 300, minWidth: 60 },
+        function f_setGrid() {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '名称', name: 'Rolename', align: 'left', width: 130, minWidth: 60 },
+                { display: '备注', name: 'Remark', align: 'left', width: 180, minWidth: 60 },
+                { display: '状态', name: 'Statename', align: 'left', width: 40, minWidth: 60, isSort: false },
+                {
+                    display: '操作', isAllowHide: false,
+                    render: function (row) {
+                        var html = '<a href="#" onclick="f_permissions(\'' + row.Id + '\',\'' + row.Rolename + '\')">分配权限</a>';
+                        return html;
+                    }
+                }]
+                , dataAction: 'server',
+                url: "/system/role/gridpager", sortName: 'Id',sortOrder:'desc',
+                width: '99%', height: '100%', pageSize: 30,
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+    </script>
+    <style type="text/css"> 
+        #maingrid{ margin:0 auto;}
+        #toolbar{margin:2px auto;width:99%; background:#F3F8F9;border: 1px solid #B6D3E0; height:30px; line-height:30px;}
+        #toolbar .l-toolbar-item{ margin-top:4px;}
+    </style>

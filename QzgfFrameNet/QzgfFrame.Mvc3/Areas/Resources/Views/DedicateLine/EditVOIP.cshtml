@@ -1,0 +1,296 @@
+﻿@model QzgfFrame.Resources.DedicateLineManger.Models.DedicateLine
+@{
+    
+    ViewBag.Title = "Register";
+}      
+<script src="@Url.Content("~/Content/lib/js/Resources/line.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/lib/js/Resources/EditVOIP.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/lib/json2.js")" type="text/javascript"></script> 
+<script src="@Url.Content("~/Lib/jquery/jquery.autoSearchText.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Lib/jquery/jquery.MultiFile.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/lib/js/TEMData.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/lib/js/Resources/EditLine.js")" type="text/javascript"></script>
+<div id="autoSearch"><ul class="menu_v"></ul></div>
+@using (Html.BeginForm("Edit", "DedicateLine", FormMethod.Post, new { enctype = "multipart/form-data", name = "newForm", id = "newForm", autocomplete = "off" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+    <table border="0"  width="100%" class="edittable">
+       <tr>
+                
+   <td  class="Right_font" width="15%">选择集团编号：<span class="l-verify-star">*</span></td>
+    <td class="Left_font" width="15%"> 
+     <table style="width:100%"><tr><td>       
+    @Html.TextBoxFor(m => m.ClieNo, new { @class = "dd-text", maxlength = "14", onblur = "getLineClieNo(this.value);", validate = "{required:true,minlength:1,maxlength:15,number:true}" }) 
+    @Html.HiddenFor(m => m.ClieId)
+   </td><td id="showClie" style="width:50%; text-align:left; color:red"></td>
+                   </tr></table>
+     </td>
+    <td class="Right_font"  width="12%">集团名称：<span class="l-verify-star">*</span></td>
+    <td colspan="3" class="Left_font"> 
+    @Html.TextBoxFor(m => m.ClieName, new { @class = "dd-text", validate = "{required:true,minlength:1,maxlength:50}" }) 
+    
+    @Html.HiddenFor(m => m.DediLine.Id)
+    @Html.HiddenFor(m => m.DediLine.ClieId)
+    @Html.HiddenFor(m => m.DediLine.BizTypeId) 
+    @Html.HiddenFor(m => m.editFlag)
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+    </td>
+    </tr>
+    <tr>
+<td class="Right_font" width="10%">专线编号：<span class="l-verify-star">*</span></td>
+
+<td  class="Left_font" colspan="5">
+  @{if (Model.DediLine.Id != "0" && Model.DediLine.Id != null && Model.DediLine.Id != "")
+   {
+                          @Model.DediLine.ProductNo                        
+    @Html.HiddenFor(m => m.DediLine.ProductNo)
+   }
+    else
+    {
+<table style="width:100%"><tr><td>   
+                    <input type="hidden" id="terimFlag" value="0"/>    
+                    @Html.TextBoxFor(m => m.DediLine.ProductNo, new { @class = "dd-text", style = "width:325px;", validate = "{required:true,isVoiceNo:true}", onblur = "getProductNo(this.value);" })
+ </td><td id="showTerim" style="width:75%; text-align:left; color:red"></td>
+                   </tr>
+                   </table>
+    }
+}
+ </td>
+</tr>
+    <tr>
+    <td class="Right_font">所属区县：<span class="l-verify-star">*</span></td>
+      <td class="Left_font">               
+       @Html.DropDownList("DediLine.DistrictId", (SelectList)ViewData["district"], new { style = "width:135px", ltype = "select" })              
+      </td>  
+      <td class="Right_font">所属公司：<span class="l-verify-star">*</span></td>             
+        <td class="Left_font"  >             
+       @Html.DropDownList("DediLine.CompanyId", (SelectList)ViewData["company"], new { style = "width:135px", ltype = "select" })           
+       </td>   
+      <td class="Right_font">状态：<span class="l-verify-star">*</span></td>             
+        <td class="Left_font"  colspan="" >             
+       @Html.DropDownListFor(model => model.DediLine.State, ViewData["state"] as IEnumerable<SelectListItem>, new { style = "width:135px", ltype = "select" })           
+       </td>              
+</tr>  
+    <tr>
+    <td  class="Right_font" width="10%"> 组网方式：<span class="l-verify-star">*</span></td>
+    <td colspan="5" class="Left_font"> @Html.DropDownList("NetWorkingModeId", (SelectList)ViewData["selnetwork"], new { style = "width:135px", ltype = "select" })     
+    @Html.HiddenFor(m => m.DediLine.NetWorkingModeId)</td>
+    </tr>
+    <tr>
+    <td class="Right_font"  width="15%">业务保障等级：<span class="l-verify-star">*</span></td>    
+    <td class="Left_font" width="35%"> @Html.DropDownList("DediLine.BizAssuranLeveId", (SelectList)ViewData["selbizassuran"], new { style = "width:135px", ltype = "select" }) </td>
+    <td class="Right_font" width="10%">速率：<span class="l-verify-star">*</span></td>
+    <td class="Left_font" width="10%"><table style="width:100%"><tr> 
+    <td>        
+    @Html.TextBoxFor(m => m.DediLine.Rate, new { ltype = "text", validate = "{required:true,isRate: true}" })</td>
+    <td style="width:60%; text-align:left;">Mbit/s</td>
+    </tr></table></td>
+    <td class="Right_font" width="10%">中继数量：<span class="l-verify-star">*</span> </td><td align="left" class="Left_font">  @Html.TextBoxFor(m => m.DediLine.RalayNumber, new { ltype = "text", validate = "{required:true,minlength:1,maxlength:10,number: true}" })</td>
+    </tr>
+    <tr ><td  class="Right_font" width="10%">信令方式：<span class="l-verify-star">*</span></td><td class="Left_font">
+    @Html.DropDownList("DediLine.SignalModel", (SelectList)ViewData["signalModel"], new { style = "width:135px", ltype = "select" })
+    </td>
+    <td class="Right_font">电话号码：<span class="l-verify-star">&nbsp;</span></td>
+    <td colspan="5" class="Left_font">
+    @Html.TextAreaFor(m => m.DediLine.TelNumber, new { size = "70", @class = "dd-text", style = "width:100%;" })
+
+    </td></tr>
+    <tr><td colspan="6" class="Left_Bottom">
+    <div class="tab"> 
+  <table class="table1" width="100%"><tr>
+  <td id="zstation" class="tab_tit">Z端传输</td><td id="astation"  class="tab_tit">A端传输</td>
+  <td id="core" class="tab_tit">纤芯</td><td id="files" class="tab_tit">上传资料</td>
+  <td class="tab_b">&nbsp;</td>
+  </tr></table>
+    <ul class="ulcss">
+    <li class="zstation">
+<table class="tab_li_tab">
+<tr><td  class="tab_right_font" width="12%">接入基站名称：<span class="l-verify-star">*</span></td>
+<td class="tab_left_font" width="23%">
+    @Html.TextBoxFor(m => m.DediLine.StationName, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:20}" })</td>
+    <td  class="tab_right_font"  width="15%">基站传输设备及端口：<span class="l-verify-star">*</span></td><td class="tab_left_font">
+    @Html.TextBoxFor(m => m.DediLine.StationTEquipAndPort, new { width = "120px", @class = "dd-text", style = "width:165px;", autocomplete = "off" })</td></tr>
+<tr><td  class="tab_right_font" width="12%">DDF架传输侧位置：<span class="l-verify-star">&nbsp;</span></td>
+<td class="tab_left_font" width="23%">
+    @Html.TextBoxFor(m => m.DediLine.ZDDFT, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:20}" })</td>
+    <td  class="tab_right_font"  width="15%">DDF架设备侧位置：<span class="l-verify-star">&nbsp;</span></td><td class="tab_left_font">
+    @Html.TextBoxFor(m => m.DediLine.ZDDFE, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:20}" })</td></tr>
+<tr><td  class="tab_right_font" width="12%">电路编号：<span class="l-verify-star">*</span></td>
+<td colspan="3" class="tab_left_font">
+   @Html.TextBoxFor(m => m.DediLine.CircuitNumber, new { @class = "dd-text", style = "width:155px;", autocomplete = "off" })</td></tr>
+<tr><td colspan="4" class="tab_msg">
+<span>填写说明：</span>
+<p>接入基站名称：新门街基站、加州阳光基站；</p>
+<p>基站传输设备及端口：705-新门街OSN3500 4.4.63、3-400加州阳光5-OI2D-1.42；</p>
+<p>DDF架传输侧位置（传输设备DDF）：传输设备侧的DDF位置 ：7F-R2-F2-2-6；</p>
+<p>DDF架设备侧位置（业务设备DDF）：传输业务设备侧的DDF位置 ：R2-F1-3-6；</p>
+<p>电路编号：传输提供的电路编号：圣湖-公安局专线30N702；</p>
+
+</td></tr>
+</table>
+</li>
+    <li class="astation">
+<table class="tab_li_tab">
+<tr><td  class="tab_right_font" width="12%">局端设备：<span class="l-verify-star">&nbsp;</span></td>
+<td  class="tab_left_font" width="23%">@Html.TextBoxFor(m => m.DediLine.TermiEquip, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:40}" })</td>
+<td  class="tab_right_font"  width="15%">局端端口：<span class="l-verify-star">&nbsp;</span></td><td  class="tab_left_font">
+    @Html.TextBoxFor(m => m.DediLine.TermiPort, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:40}" })</td>
+</tr>
+<tr><td  class="tab_right_font" width="12%">DDF架传输侧位置：<span class="l-verify-star">&nbsp;</span></td>
+<td  class="tab_left_font" width="23%">
+    @Html.TextBoxFor(m => m.DediLine.ADDFT, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:20}" })</td>
+    <td  class="tab_right_font"  width="15%">DDF架设备侧位置：<span class="l-verify-star">&nbsp;</span></td><td  class="tab_left_font">
+    @Html.TextBoxFor(m => m.DediLine.ADDFE, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:20}" })</td></tr>
+<tr><td colspan="4" class="tab_msg">
+<span>填写说明：</span>
+<p>局端设备（A端传输设备名称）：传输部门提供的传输设备名称如：520-数据专用；</p>
+<p>局端端口（A端传输设备端口）：A端传输设备端口：TP16.8；</p>
+<p>DDF架传输侧位置（传输设备DDF）：传输设备侧的DDF位置：7F-R2-F2-2-6；</p>
+<p>DDF架设备侧位置（业务设备DDF）：传输业务设备侧的DDF位置：R2-F1-3-6；</p>
+
+
+</td></tr>
+</table>
+</li>
+<li class="core"> 
+<table width="100%" border="0" cellpadding="2" cellspacing="1" id="SignFrame"  class="tab_li_tab">
+@{var i = 0;}
+ @foreach (var fc in Model.FiberCores as IList<QzgfFrame.Resources.FiberCoreManger.Models.ResourceFiberCore>)
+ {
+     var SeqNo = "SeqNo" + i; var BaseStationName = "BaseStationName" + i; var ODUStation = "SeqNo" + i;
+     var Core = "Core" + i; var SignItem = "SignItem" + i;
+     if (i == 0)
+     {
+              <tr id="trHeader">
+                <td  style="width:0;" width="0" ><input name='@SeqNo' type='hidden' value="0"   /></td>
+                <td >从<input name='@BaseStationName' class="dd-text" type='text' size='20' value='@fc.BaseStationName'/>&nbsp;跳纤点</td>
+               <td><textarea  class="l-textarea" cols="20" name="@ODUStation" rows="1" style="width:300px; height:19px;" validate = "{required:false,minlength:1,maxlength:80}" >@fc.ODUStation</textarea></td>
+                 <td>至&nbsp;<textarea   class="l-textarea" cols="20" name="@Core" rows="1" style="width:300px;height:19px;" validate = "{required:false,minlength:1,maxlength:80}" >@fc.Core</textarea></td>
+               <td  align="center" ><input type="button" class="sel_btn" name="Submit" value="添加跳纤点" onclick="AddSignRow()" /></td>
+              </tr>
+     }
+
+     else if (i == Model.FiberCores.Count - 1)
+     {
+              <tr >
+                <td  ><input name='SeqNo' type='hidden' id='SeqNow' value='' /></td>
+                 <td  ><input name='BaseStationName'class="dd-text" id='BaseStationNamew' type='hidden' value='@fc.BaseStationName' />至客户端</td>
+                 <td><textarea  class="l-textarea" cols="20" name="@ODUStation" rows="1" style="width:300px; height:19px;" validate = "{required:false,minlength:1,maxlength:80}" >@fc.ODUStation</textarea></td>
+                 <td>至&nbsp;<textarea   class="l-textarea" cols="20" name="@Core" rows="1" style="width:300px;height:19px;" validate = "{required:false,minlength:1,maxlength:80}" >@fc.Core</textarea></td>
+               <td  align="center" > &nbsp;</td>
+              </tr>
+     }
+     else
+     {
+         <tr id='@SignItem'>
+                <td  ><input name='@SeqNo' type='hidden'  value='@fc.SeqNo'  /></td>
+                <td >经<input name='@BaseStationName' class="dd-text" type='text' size='20' value='@fc.BaseStationName'/>&nbsp;跳纤点</td>
+                <td><textarea  class="l-textarea" cols="20" name="@ODUStation" rows="1" style="width:300px; height:19px;" validate = "{required:false,minlength:1,maxlength:80}" >@fc.ODUStation</textarea></td>
+                 <td>至&nbsp;<textarea   class="l-textarea" cols="20" name="@Core" rows="1" style="width:300px;height:19px;" validate = "{required:false,minlength:1,maxlength:80}" >@fc.Core</textarea></td>
+               <td  align="center" ><div align='center' style='width:40px'><a href='javascript:;' onclick="DeleteSignRow('@SignItem')">删除</a></div></td>
+              </tr>
+     }
+     i++;
+ }
+ @{i = i - 1;}
+        </table>
+        <input name='txtTRLastIndex' type='hidden' id='txtTRLastIndex' value="@i" />
+         @Html.HiddenFor(m => m.forces)
+</li>
+
+<li class="files">
+<table  class="tab_li_tab"><tr><td class="tab_msg">
+<table style="top:0px"><tr><td style=" padding-left:15px; margin-top:0px;"><input type="file" id="T7"   name="uploadfiles"  accept='doc|docx|rar|zip'/></td>
+<td style="color:Red">&nbsp;（只能上传zip,rar,doc格式的文件,其他格式文件请压缩后上传!!）</td></tr></table>
+
+ <div id="T7-list" >
+ <table id="FileFrame" class="tabfile">
+ @{var k = 0; if (Model.OtherInfos != null)
+   {
+       foreach (var info in Model.OtherInfos as IList<QzgfFrame.Resources.OtherInfoManger.Models.ResourceOtherInfo>)
+       {
+           var SignItemF = "SignItem" + k; var Id = "Id" + k; 
+ <tr id='@SignItemF'><td style="width:0px;"><input name='@Id' type='hidden' value="@info.Id" /></td>
+ <td style="width:30px;"><a class="MultiFile-remove" href="#T7_wrap"  onclick="javascript:DeleteFileRow('@SignItemF');"><img src="../../../../Content/Lib/images/index/del_file.gif" height="16" width="16" alt="x"/></a></td>
+ <td class="MultiFile-title"><a href="../../../Upload/OtherInfo/VOIP/@info.LoadFileName">@info.InfoFileName </a></td></tr>
+                                                                                    k++;
+       }
+   }
+}
+</table>
+ @Html.HiddenFor(m => m.delArys)
+  </div>
+  </td></tr></table>
+</li>
+    </ul>
+ </div>
+     </td></tr>
+   <tr>
+<td class="Right_font" width="10%">接入日期：<span class="l-verify-star">*</span></td>
+<td  class="Left_font" colspan="5">@Html.TextBoxFor(m => m.DediLine.StartDateTime, new { ltype = "text", validate = "{required:true}", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })</td>
+</tr>
+
+<tr>
+<td  class="Right_font" width="10%">是否接入本地网管：<span class="l-verify-star">*</span></td>
+<td class="Left_font">
+@{
+                              var selFalgT = false; var selFalgF = false;
+                              if (Model.DediLine.IsAccessLocalNet == 1)
+                              {
+                                  selFalgT = true;
+                                  selFalgF = false;
+                              }
+                              else
+                              {
+                                  selFalgT = false;
+                                  selFalgF = true;
+                              }
+}
+    @Html.RadioButton("DediLine.IsAccessLocalNet", "1", selFalgT)是
+    @Html.RadioButton("DediLine.IsAccessLocalNet", "0", selFalgF)否
+</td>
+<td class="Right_font">接入本地网管平台名称：<span class="l-verify-star">&nbsp;</span></td>
+<td colspan="3" class="Left_font">
+@Html.TextBoxFor(m => m.DediLine.AccessLocalNet, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:40}" })
+
+</td>
+</tr>
+<tr>
+<td  class="Right_font" width="10%">是否接入省网管监控：<span class="l-verify-star">*</span></td>
+<td class="Left_font">
+@{
+var selPFalgT = false; var selPFalgF = false;
+if (Model.DediLine.IsAccessProviNet == 1)
+{
+    selPFalgT = true;
+    selPFalgF = false;
+}
+else
+{
+    selPFalgT = false;
+    selPFalgF = true;
+}
+}
+@Html.RadioButton("DediLine.IsAccessProviNet", "1", selPFalgT)是
+@Html.RadioButton("DediLine.IsAccessProviNet", "0", selPFalgF)否
+</td>
+<td class="Right_font">接入省网管平台名称：<span class="l-verify-star">&nbsp;</span></td>
+<td colspan="3" class="Left_font">
+@Html.TextBoxFor(m => m.DediLine.AccessProviNet, new { @class = "dd-text", validate = "{required:false,minlength:1,maxlength:40}" })
+
+</td>
+</tr>
+<tr>
+<tr>
+<td  class="Right_font" width="10%">备注：<span class="l-verify-star">&nbsp;</span></td>
+<td  colspan="5" class="Left_font">
+ @Html.TextAreaFor(m => m.DediLine.Remark, new { Multiline = true, @class = "l-textarea", size = "80", style = "width:100%", validate = "{required:false,minlength:0,maxlength:100}" })
+</td></tr>
+</table>  
+<table width="100%"><tr><td style="width:45%"></td>
+<td><input type="submit" value="提 交" id="Button1" class="l-button l-button-submit" /> 
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+    
+    </div> 
+}

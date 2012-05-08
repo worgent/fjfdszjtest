@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.LogManger.Models" assembly="QzgfFrame.System">
+	<class name="QzgfFrame.System.LogManger.Models.SystemLog,QzgfFrame.System" table="SYSTEM_LOG">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="OPERCODE" type="String" name="Opercode" length="100" />
+        <property column="CONTROLLERSCODE" type="String" name="Controllerscode" length="100" />
+		<property column="USERID" type="String" name="Userid" length="20" />
+		<property column="OPERDATE" type="DateTime" name="Operdate" />
+		<property column="OPERRESULT" type="String" name="Operresult" length="256" />
+		<property column="OPERIP" type="String" name="Operip" length="50" />
+		
+	</class>
+</hibernate-mapping>

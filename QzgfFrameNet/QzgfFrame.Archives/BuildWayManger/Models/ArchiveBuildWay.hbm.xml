@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.BuildWayManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.BuildWayManger.Models.ArchiveBuildWay,QzgfFrame.Archives" table="tab_build_way">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="BuildWayName" type="String" name="BuildWayName" length="10"  not-null="true"/>
+
+	</class>
+</hibernate-mapping>

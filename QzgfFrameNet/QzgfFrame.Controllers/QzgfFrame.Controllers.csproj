@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7A2D1EC2-BFD6-47F5-86E7-B1FFF81A15A2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QzgfFrame.Controllers</RootNamespace>
+    <AssemblyName>QzgfFrame.Controllers</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\lib\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Excel">
+      <HintPath>..\lib\Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\Microsoft.Vbe.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="NBear.Common">
+      <HintPath>..\lib\NBear.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OFFICE, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\lib\OFFICE.DLL</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\lib\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Archives\AccessWayManger\AccessWayController.cs" />
+    <Compile Include="Archives\BizAssuranLeveManger\BizAssuranLeveController.cs" />
+    <Compile Include="Archives\BreakdownTypeManger\BreakdownTypeController.cs" />
+    <Compile Include="Archives\BuildWayManger\BuildWayController.cs" />
+    <Compile Include="Archives\CertificateManger\CertificateController.cs" />
+    <Compile Include="Archives\ClieServStarLeveManger\ClieServStarLeveController.cs" />
+    <Compile Include="Archives\BizTypeManger\BizTypeController.cs" />
+    <Compile Include="Archives\CommunityTypeManger\CommunityTypeController.cs" />
+    <Compile Include="Archives\CompanyManger\CompanyController.cs" />
+    <Compile Include="Archives\DiplomaManger\DiplomaController.cs" />
+    <Compile Include="Archives\DutyManger\DutyController.cs" />
+    <Compile Include="Archives\EquipModelManger\EquipModelController.cs" />
+    <Compile Include="Archives\EquipTypeManger\EquipTypeController.cs" />
+    <Compile Include="Archives\DistrictManger\DistrictController.cs" />
+    <Compile Include="Archives\FactoryManger\FactoryController.cs" />
+    <Compile Include="Archives\GridManger\GridController.cs" />
+    <Compile Include="Archives\IOClassManger\IOClassController.cs" />
+    <Compile Include="Archives\ItemPropertyManger\ItemPropertyController.cs" />
+    <Compile Include="Archives\MaintainSpecialtyManger\MaintainSpecialtyController.cs" />
+    <Compile Include="Archives\MaintainTypeManger\MaintainTypeController.cs" />
+    <Compile Include="Archives\MeterStateManger\MeterStateController.cs" />
+    <Compile Include="Archives\NatureManger\NatureController.cs" />
+    <Compile Include="Archives\NetworkNameManger\NetworkNameController.cs" />
+    <Compile Include="Archives\OutletsTypeManger\OutletsTypeController.cs" />
+    <Compile Include="Archives\PostsManger\PostsController.cs" />
+    <Compile Include="Archives\QualificationTypeManger\QualificationTypeController.cs" />
+    <Compile Include="Archives\SaleDepartmentManger\SaleDepartmentController.cs" />
+    <Compile Include="Archives\SeflHelpEquipTypeManger\SelfHelpEquipTypeController.cs" />
+    <Compile Include="Archives\SelfHelpEquipModelManger\SelfHelpEquipModelController.cs" />
+    <Compile Include="Archives\SelfHelpFactoryManger\SelfHelpFactoryController.cs" />
+    <Compile Include="Archives\SignalModeManger\SignalModeController.cs" />
+    <Compile Include="Archives\StagnationManger\StagnationController.cs" />
+    <Compile Include="Archives\StockEquipUseManger\StockEquipUseController.cs" />
+    <Compile Include="Archives\SuppliesTypeManger\SuppliesTypeController.cs" />
+    <Compile Include="Archives\UnitManger\UnitController.cs" />
+    <Compile Include="Archives\NetworkingModeManger\NetworkingModeController.cs" />
+    <Compile Include="Archives\ClieScaleGradeManger\ClieScaleGradeController.cs" />
+    <Compile Include="Archives\ComponentManger\ComponentController.cs" />
+    <Compile Include="Archives\UseManger\UseController.cs" />
+    <Compile Include="Archives\VehicleNatureManger\VehicleNatureController.cs" />
+    <Compile Include="Archives\StockTypeManger\StockTypeController.cs" />
+    <Compile Include="Archives\PortTypeManger\PortTypeController.cs" />
+    <Compile Include="Archives\SupplierManger\SupplierController.cs" />
+    <Compile Include="CommonSupport\BaseController.cs" />
+    <Compile Include="CommonSupport\BaseFun.cs" />
+    <Compile Include="CommonSupport\CurrentExaminee.cs" />
+    <Compile Include="CommonSupport\CurrentUser.cs" />
+    <Compile Include="CommonSupport\Dict.cs" />
+    <Compile Include="CommonSupport\Filter\AuthorizeFilterAttribute.cs" />
+    <Compile Include="CommonSupport\Filter\ExceFilterAttribute.cs" />
+    <Compile Include="CommonSupport\Filter\ViewPageAttribute.cs" />
+    <Compile Include="CommonSupport\SystemDataPro.cs" />
+    <Compile Include="Cop\CycTimeManager\CycTimeController.cs" />
+    <Compile Include="Cop\EnrolManager\EnrolController.cs" />
+    <Compile Include="Cop\EnrolManager\EnrolFacadeEx.cs" />
+    <Compile Include="Cop\EnrolManager\EnrolFacadeExImpl.cs" />
+    <Compile Include="Cop\PlanManager\PlanController.cs" />
+    <Compile Include="Cop\PlanManager\PlanFacadeEx.cs" />
+    <Compile Include="Cop\PlanManager\PlanFacadeExImpl.cs" />
+    <Compile Include="Cop\TerminalEnrolManager\TerminalEnrolController.cs" />
+    <Compile Include="Cop\TerminalEnrolManager\TerminalEnrolFacadeEx.cs" />
+    <Compile Include="Cop\TerminalEnrolManager\TerminalEnrolFacadeExImpl.cs" />
+    <Compile Include="Cop\TerminalPlanManager\TerminalPlanController.cs" />
+    <Compile Include="Cop\TerminalTimeManager\TerminalTimeController.cs" />
+    <Compile Include="Exam\AchievementManager\AchievementController.cs" />
+    <Compile Include="Exam\AchievementxManager\AchievementxController.cs" />
+    <Compile Include="Exam\CourseManger\CourseController.cs" />
+    <Compile Include="Exam\ExamineeInfoManger\ExamineeInfoFacadeEx.cs" />
+    <Compile Include="Exam\ExamineeInfoManger\ExamineeInfoFacadeExImpl.cs" />
+    <Compile Include="Exam\ExamineeManger\ExamineeController.cs" />
+    <Compile Include="Exam\ExamineeRangeManger\ExamineeRangeController.cs" />
+    <Compile Include="Exam\ExaminerManger\SubjectFacadeEx.cs" />
+    <Compile Include="Exam\ExaminerManger\SubjectController.cs" />
+    <Compile Include="Exam\ExaminerManger\SubjectFacadeExImpl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exam\ExaminerManger\TestController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exam\ExaminerManger\TestFacadeEx.cs" />
+    <Compile Include="Exam\ExaminerManger\TestFacadeExImpl.cs" />
+    <Compile Include="Exam\OnlineExamManager\OnlineExamController.cs" />
+    <Compile Include="Exam\ScaleGradeManger\ScaleGradeController.cs" />
+    <Compile Include="Exam\SubjectTypeManger\SubjectTypeController.cs" />
+    <Compile Include="Exam\FillBlanksSubjectManger\FillBlanksSubjectController.cs" />
+    <Compile Include="Exam\MultipleSubjectManger\MultipleSubjectController.cs" />
+    <Compile Include="Exam\JudgeSubjectManger\JudgeSubjectController.cs" />
+    <Compile Include="Exam\TestExerciseManger\TestExerciseController.cs" />
+    <Compile Include="Exam\TestExerciseManger\TestExerciseFacadeEx.cs" />
+    <Compile Include="Exam\TestExerciseManger\TestExerciseFacadeExImpl.cs" />
+    <Compile Include="Exam\TestMockManger\TestMockController.cs" />
+    <Compile Include="Exam\TestMockManger\TestMockFacadeEx.cs" />
+    <Compile Include="Exam\TestMockManger\TestMockFacadeExImpl.cs" />
+    <Compile Include="Exam\TestSetManger\TestSetFacadeEx.cs" />
+    <Compile Include="Exam\TestSetManger\TestSetFacadeExImpl.cs" />
+    <Compile Include="Exam\TestSetManger\TestSetController.cs" />
+    <Compile Include="Exam\TestSubjectManger\TestSubjectController.cs" />
+    <Compile Include="Exam\TestSubjectTypeManger\TestSubjectTypeController.cs" />
+    <Compile Include="Exam\TestTypeManger\TestTypeController.cs" />
+    <Compile Include="Exam\ExamTypeManger\ExamTypeController.cs" />
+    <Compile Include="Exam\ExamineeInfoManger\ExamineeInfoController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\DedicateLineManger\DedicateLineController.cs" />
+    <Compile Include="Resources\DedicateLineManger\DedicateLineFacadeEx.cs" />
+    <Compile Include="Resources\DedicateLineManger\DedicateLineFacadeExImpl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Resources\EquipComponentManger\EquipComponentController.cs" />
+    <Compile Include="Resources\EquipFaultManger\EquipFaultController.cs" />
+    <Compile Include="Resources\EquipFaultManger\EquipFaultFacadeEx.cs" />
+    <Compile Include="Resources\EquipFaultManger\EquipFaultFacadeExImpl.cs" />
+    <Compile Include="Resources\EquipmentManger\EquipmentController.cs" />
+    <Compile Include="Resources\EquipmentManger\EquipmentFacadeEx.cs" />
+    <Compile Include="Resources\EquipmentManger\EquipmentFacadeExImpl.cs" />
+    <Compile Include="Resources\FiberCoreManger\FiberCoreController.cs" />
+    <Compile Include="Resources\GroupClieManger\GroupClieFacadeEx.cs" />
+    <Compile Include="Resources\GroupClieManger\GroupClieFacadeExImpl.cs" />
+    <Compile Include="Resources\NumberGroupManger\NumberGroupController.cs" />
+    <Compile Include="Resources\GroupClieManger\GroupClieController.cs" />
+    <Compile Include="Resources\OtherInfoManger\OtherInfoController.cs" />
+    <Compile Include="Resources\SelfHelpEquipManger\SelfHelpEquipController.cs" />
+    <Compile Include="Resources\PersonnelManger\PersonnelController.cs" />
+    <Compile Include="Resources\PersonnelManger\PersonnelFacadeEx.cs" />
+    <Compile Include="Resources\PersonnelManger\PersonnelFacadeExImpl.cs" />
+    <Compile Include="Resources\SelfHelpEquipManger\SelfHelpEquipFacadeEx.cs" />
+    <Compile Include="Resources\SelfHelpEquipManger\SelfHelpEquipFacadeExImpl.cs" />
+    <Compile Include="Resources\VehicleManger\VehicleController.cs" />
+    <Compile Include="Resources\VehicleManger\VehicleFacadeEx.cs" />
+    <Compile Include="Resources\VehicleManger\VehicleFacadeExImpl.cs" />
+    <Compile Include="Resources\ApparatusManger\ApparatusController.cs" />
+    <Compile Include="Resources\ApparatusManger\ApparatusFacadeEx.cs" />
+    <Compile Include="Resources\ApparatusManger\ApparatusFacadeExImpl.cs" />
+    <Compile Include="Resources\OneSevenZeroManger\OneSevenZeroController.cs" />
+    <Compile Include="Resources\OneSevenZeroManger\OneSevenZeroFacadeEx.cs" />
+    <Compile Include="Resources\OneSevenZeroManger\OneSevenZeroFacadeExImpl.cs" />
+    <Compile Include="Supervision\AuditManager\AuditController.cs" />
+    <Compile Include="Supervision\BackManager\BackController.cs" />
+    <Compile Include="Supervision\OrdersManager\OrdersController.cs" />
+    <Compile Include="Supervision\SendManager\SendController.cs" />
+    <Compile Include="Supplies\CommunityInfoManger\CommunityInfoController.cs" />
+    <Compile Include="Supplies\CommunityInfoManger\CommunityInfoFacadeEx.cs" />
+    <Compile Include="Supplies\CommunityInfoManger\CommunityInfoFacadeExImpl.cs" />
+    <Compile Include="Supplies\CommunityManagerManger\CommunityManagerController.cs" />
+    <Compile Include="Supplies\CommunityManagerManger\CommunityManagerFacadeEx.cs" />
+    <Compile Include="Supplies\CommunityManagerManger\CommunityManagerFacadeExImpl.cs" />
+    <Compile Include="Supplies\DistributionManger\DistributionController.cs" />
+    <Compile Include="Supplies\DistributionManger\DistributionFacadeEx.cs" />
+    <Compile Include="Supplies\DistributionManger\DistributionFacadeExImpl.cs" />
+    <Compile Include="Supplies\PayStandardManger\PayStandardController.cs" />
+    <Compile Include="Supplies\RegisterManger\RegisterController.cs" />
+    <Compile Include="Supplies\RegisterManger\RegisterFacadeEx.cs" />
+    <Compile Include="Supplies\RegisterManger\RegisterFacadeExImpl.cs" />
+    <Compile Include="Supplies\WorkloadManger\WorkloadController.cs" />
+    <Compile Include="Supplies\CollarSuppliesManger\CollarSuppliesController.cs" />
+    <Compile Include="Supplies\CollarSuppliesManger\CollarSuppliesFacadeEx.cs" />
+    <Compile Include="Supplies\CollarSuppliesManger\CollarSuppliesFacadeExImpl.cs" />
+    <Compile Include="Supplies\SuppliesStockManger\SuppliesStockController.cs" />
+    <Compile Include="System\DepartmentManger\DepartmentController.cs" />
+    <Compile Include="System\LogManger\SystemLogController.cs" />
+    <Compile Include="System\MenufieldManger\MenufieldController.cs" />
+    <Compile Include="System\MenuManger\MenuController.cs" />
+    <Compile Include="System\MenuManger\MenuFacadeEx.cs" />
+    <Compile Include="System\MenuManger\MenuFacadeExImpl.cs" />
+    <Compile Include="System\PermissionsManger\PermissionsController.cs" />
+    <Compile Include="System\RoleManger\RoleController.cs" />
+    <Compile Include="System\UserManger\UserController.cs" />
+    <Compile Include="Warehouse\InventoryDetailManger\InventoryDetailController.cs" />
+    <Compile Include="Warehouse\InventoryFileManger\InventoryFileController.cs" />
+    <Compile Include="Warehouse\InventoryManger\InventoryController.cs" />
+    <Compile Include="Warehouse\IODetailManger\IODetailController.cs" />
+    <Compile Include="Warehouse\IOListManger\IOListController.cs" />
+    <Compile Include="Warehouse\IOListManger\IOListFacadeEx.cs" />
+    <Compile Include="Warehouse\IOListManger\IOListFacadeExImpl.cs" />
+    <Compile Include="Warehouse\RepairManger\RepairController.cs" />
+    <Compile Include="Warehouse\RepertotyManger\RepertotyController.cs" />
+    <Compile Include="Warehouse\StockManger\StockController.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\QzgfFrame.Archives\QzgfFrame.Archives.csproj">
+      <Project>{19437E73-E436-4D2F-9D84-916F5FDA9951}</Project>
+      <Name>QzgfFrame.Archives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Cop\QzgfFrame.Cop.csproj">
+      <Project>{2FC78458-0A51-4731-800B-C434603DE174}</Project>
+      <Name>QzgfFrame.Cop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Exam\QzgfFrame.Exam.csproj">
+      <Project>{B4AAF668-7A9C-4560-B975-0B5B49AB328C}</Project>
+      <Name>QzgfFrame.Exam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Resources\QzgfFrame.Resources.csproj">
+      <Project>{7CADA7B0-3CCD-4FFC-A927-DC66668EFE98}</Project>
+      <Name>QzgfFrame.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Supervision\QzgfFrame.Supervision.csproj">
+      <Project>{E8B9EF99-3B8A-4616-904B-819E463BF5DF}</Project>
+      <Name>QzgfFrame.Supervision</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Supplies\QzgfFrame.Supplies.csproj">
+      <Project>{58BD1D52-758B-4F21-8868-34B518378CBD}</Project>
+      <Name>QzgfFrame.Supplies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.System\QzgfFrame.System.csproj">
+      <Project>{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}</Project>
+      <Name>QzgfFrame.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Utility\QzgfFrame.Utility.csproj">
+      <Project>{FC01A832-1EF9-447D-8169-06678E0E0BE6}</Project>
+      <Name>QzgfFrame.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Warehouse\QzgfFrame.Warehouse.csproj">
+      <Project>{0E31FA2D-FB85-4DE6-B8E1-A8C1B513548F}</Project>
+      <Name>QzgfFrame.Warehouse</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

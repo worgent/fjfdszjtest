@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Cop.TerminalPlanManager.Models.TerminalPlan
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>自助终端巡检计划编辑页面</title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-form.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    <script src="../../../../Lib/ligerUI/js/plugins/ligerLayout.js" type="text/javascript"></script>  
+    <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //var CurID =  <%=CurID %>;
+        var Validator = null;
+        $(function () {
+            $.metadata.setType("attr", "validate");
+            $("#newForm").ligerForm();
+            deafultValidate($("#newForm"));
+            Validator = $("#newForm").validate();
+        });
+        function f_error(message) {
+            $(document).ready(function () {
+                $.ligerDialog.error(message);
+            });
+        }
+        function f_save() {
+            $.ligerDialog.waitting("正在保存中...");
+            document.forms[0].submit();
+        }
+    </script>
+</head>
+<body style=" padding:4px;">
+
+@using (Html.BeginForm("Edit", "TerminalPlan", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.CopTerminalPlan.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font">自助终端：</td>
+                    <td class="Left_font">
+                        @Html.TextBoxFor(m => m.SelfHelpEquip, new { @readonly = "readonly", @class = "notEditable" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">网点类型：</td>
+                    <td class="Left_font">
+                        @Html.TextBoxFor(m => m.OutletsType, new { @readonly = "readonly", @class = "notEditable" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">巡检周期：</td>
+                    <td class="Left_font">
+                        @Html.DropDownListFor(m => m.CopTerminalPlan.TerminalTimeId, (SelectList)ViewData["CopTerminalTimeList"])
+                    </td> 
+                </tr> 
+            </tbody>
+        </table>
+    </div> 
+    }
+    
+</body>
+</html>

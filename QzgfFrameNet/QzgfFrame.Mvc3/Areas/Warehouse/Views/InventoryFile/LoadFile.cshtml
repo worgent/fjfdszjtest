@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>LoadFile</title>
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    <script src="../../../../Lib/jquery/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+    <script type="text/javascript">
+     $(function () {
+            var options = {
+                dataType: 'json',
+                beforeSubmit: showRequest,
+                error:showError,
+                success: showResponse
+            };
+            $('#myform').ajaxForm(options);
+        });
+
+        function showRequest(formData, jqForm, options) {
+            $.ligerDialog.waitting("正在上传中...");
+            return true;
+        }
+        function showError(data) {
+            alert('error');
+        }
+        function showResponse(data, status) {
+            $.ligerDialog.closeWaitting();
+            if (data.Type) {
+                $.ligerDialog.success(data.Message, function () {
+                    if ($("#frameid").val() == "" || $("#frameid").val() == null)
+                        parent.window.frames["qzgfframe20111027163445763148"].f_reload();
+                    else
+                        parent.window.frames["qzgfframe" + $("#frameid").val()].f_reload();
+                });
+            }
+            else
+                $.ligerDialog.error(data.Message, function () {
+                }); 
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+<form action="/InventoryFile/UploadFile" method="post" id="myform" enctype="multipart/form-data">
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+    <div id="showmsg"></div>
+    <table>
+    <tr><td>
+    请上传文件: 
+     <input type="file" id="T7"   name="uploadfiles" size="60"  accept="xls"/>
+     </td></tr>
+    </table>
+   
+<table width="100%"><tr><td style="width:45%"></td>
+<td><input type="submit" value="提 交" id="Button1" class="l-button l-button-submit" /> </td></tr></table>                  
+   
+</form>
+    </div>
+</body>
+</html>

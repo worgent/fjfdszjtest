@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Supplies.RegisterManger.Models.Register
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+</head>
+<body style=" padding:1px;">
+@using (Html.BeginForm("Edit", "Register", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+<tr class="Header"><td  colspan="4">&nbsp;</td></tr>
+               
+                 <tr>
+                    <td class="Right_Display_font" width="15%">PBOSS工单号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" width="30%">
+                    @Html.HiddenFor(m => m.suppliesRegister.Id)
+                    @Model.suppliesRegister.PBOSSJobNo
+                    </td> 
+                    <td class="Right_Display_font" width="15%">所属县市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.suppliesRegister.DistrictName
+                    </td> 
+                </tr> 
+                 <tr> 
+                    <td class="Right_Display_font">维护单位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @Model.suppliesRegister.CompanyName
+                   </td>                 
+                    <td class="Right_Display_font">营业部：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                     @Model.suppliesRegister.SaleDepartmentName
+                    </td>
+                </tr>  
+                 <tr> 
+                    <td class="Right_Display_font">装维人员：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.suppliesRegister.Maintainer
+                    </td>                 
+                     <td class="Right_Display_font">小区类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @Model.suppliesRegister.CommunityTypeName
+                    </td>
+                </tr> 
+                 <tr> 
+                                   
+                    <td class="Right_Display_font">小区编码：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font"  >
+                    @Model.suppliesRegister.CommunityCode
+                    </td>
+                    <td class="Right_Display_font">付费号码：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    @Model.suppliesRegister.PayNumber
+                    </td>
+                </tr>                    
+                 <tr> 
+                    <td class="Right_Display_font">建设方式：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @Model.suppliesRegister.BuildWayName
+                   </td>                 
+                    <td class="Right_Display_font">接入方式：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                     @Model.suppliesRegister.AccessWayName
+                    </td>
+                </tr>   
+                 <tr> 
+                    <td class="Right_Display_font">装维类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font " >
+                     @Model.suppliesRegister.MaintainTypeName
+                   </td>   
+                    <td class="Right_Display_font">装机日期：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font " >
+                     @string.Format("{0:D}", Model.suppliesRegister.MaintainDatetime)
+                   </td>  
+                </tr>       
+                 <tr>
+                    <td colspan="4" width="100%" align="center" class="Left_Bottom">
+                    
+                    <table width="100%" ><tr width="100%" ><td width="100%" >
+                    <table width="100%" border="0" cellpadding="2" cellspacing="1" id="SuppliesFrame" class="com_tab">
+<tr class="hno">
+              
+                <td > 耗材类型</td>
+                <td  >耗材单位</td>
+                <td  >数量</td>
+              
+              </tr>
+@{var j = 0;}
+ @foreach (var n in Model.registerDetailList as IList<QzgfFrame.Supplies.RegisterDetailManger.Models.SuppliesRegisterDetail>)
+ {
+    // ViewData["Component"] = new SelectList(Model.Components, "Id", "ComponentName",n.ComponentId);
+
+     var SuppliesTypeId = "SuppliesTypeId" + j; var Num = "Num" + j; var UnitName = "UnitName" + j;
+     var SuppliesTypeName = "SuppliesTypeName" + j; var seqno = j + 1; var NumFlag = "NumFlag" + j;
+     var SignSuppliesItem = "SignSuppliesItem" + j; var OrderNo = "OrderNo" + j;
+     var MaxNum = "MaxNum" + j; 
+     
+             <tr id='@SignSuppliesItem' class="bno">
+               <td class="sno"> 
+                @n.SuppliesTypeName</td>
+                <td  >@n.UnitName</td>
+                <td  >@n.Num</td>
+              </tr>
+                                                                                       j++;
+ }
+        </table>
+        <input name='TRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+                    @Html.HiddenFor(m => m.registerDetails)
+                    </td></tr>
+                    <tr ><td  align="left" style=" background-color:#fff;"><span class="l-verify-star" id="displyMsg" ></span></td></tr>
+               
+                    </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Right_Display_font">总量：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Model.suppliesRegister.Num
+                    </td> 
+</tr> 
+                 <tr>
+                    <td class="Right_Display_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Model.suppliesRegister.Remark
+                    </td> 
+</tr>
+<tr class="Header"><td  colspan="4">&nbsp;</td></tr></tbody>
+</table>  
+  
+    </div> 
+    }
+    
+</body>
+</html>

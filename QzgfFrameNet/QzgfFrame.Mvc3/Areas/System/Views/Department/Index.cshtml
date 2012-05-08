@@ -1,0 +1,200 @@
+﻿@using QzgfFrame.Mvc3.CommonSupport.Html
+    <form id="form1" runat="server">
+    <div id="topmenu"></div>
+    <div id="toolbar"></div>
+    <div id="searchbar"></div>
+    <div id="maingrid"></div>
+    </form>
+    <script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager = null;
+        var activeDialog = null;
+        function f_openWindow(url, title, width, height) {
+            var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+            { text: '保存', onclick: function (item, dialog) {
+                dialog.frame.f_save("qzgfframe" + GetUrlParam('_menuid'));
+            }
+            },
+            { text: '关闭', onclick: function (item, dialog) {
+                dialog.close();
+            }
+            }
+            ], isResize: true, timeParmName: 'a'
+            };
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+        function f_closeWindow(reload) {
+            activeDialog && activeDialog.close();
+            reload && f_reload();
+        }
+        function f_btnClick(item) {
+            switch (item.id) {
+                case "add":
+                    f_add();
+                    break;
+                case "modify":
+                    f_modify();
+                    break;
+                case "delete":
+                    f_delete();
+                    break;
+                case "usestart":
+                    f_usestate("1");
+                    break;
+                case "usestop":
+                    f_usestate("2");
+                    break;    
+                case "button":
+                    f_button();
+                    break;
+                 default:
+                    $.ligerDialog.alert('暂未实现!');
+                    break;
+            }
+        }
+        function f_button() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+            var id = rowsdata[0].Id;
+            f_openWindow('system/ButtonList.aspx?CurID=' + id, '菜单操作管理', 600, 350);
+        }
+        function f_add() {
+
+            //f_openWindow('/system/views/department/add.cshtml', '添加菜单字段', 600, 350);
+
+            f_openWindow('/system/department/add/0', '添加机构', 600, 350);
+        }
+        function f_modify() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (rowsdata.length != 1) {
+                $.ligerDialog.alert('请选择一行记录!');
+                return;
+            }
+            var id = rowsdata[0].Id;
+            //system/MenuEdit.aspx?CurID=' + id
+            f_openWindow('/system/department/modify/' + id, '修改机构', 600, 350);
+        }
+        function f_delete() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            $.ligerDialog.confirm("是否确认删除?", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在删除中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                    $.getJSON('/system/department/delete?id=' + idStr, { Rnd: Math.random() }, function (data) {
+                        if (data.Type) {
+                            $.ligerDialog.success("删除成功");
+                        }
+                        else {
+                            $.ligerDialog.error("删除失败!<BR>" + data.Message);
+                        }
+                        $.ligerDialog.closeWaitting();
+                        f_reload();
+                    });
+                } else {
+                    return;
+                }
+            });
+        }
+        //启用停止
+        function f_usestate(state) {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            $.ligerDialog.confirm(state == "1" ? "是否启用?" : "是否停用", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在处理中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                    //启用标识
+                    if(state == "1")
+                    $.getJSON('/system/department/usestart?id=' + idStr + '&state=' + state, { Rnd: Math.random() }, function (data) {
+                        if (data.Type) {
+                            $.ligerDialog.success("操作成功");
+                        }
+                        else {
+                            $.ligerDialog.error("操作失败!<BR>" + data.Message);
+                        }
+                        $.ligerDialog.closeWaitting();
+                        f_reload();
+                    });
+                    //停用标识
+                    else if(state == "2")
+                    $.getJSON('/system/department/usestop?id=' + idStr + '&state=' + state, { Rnd: Math.random() }, function (data) {
+                        if (data.Type) {
+                            $.ligerDialog.success("操作成功");
+                        }
+                        else {
+                            $.ligerDialog.error("操作失败!<BR>" + data.Message);
+                        }
+                        $.ligerDialog.closeWaitting();
+                        f_reload();
+                    });
+                } else {
+                    return;
+                }
+            });
+        }
+        
+        $(function () {
+            f_setToolbar();
+            f_setGrid();
+        });
+        function f_setToolbar() {
+            SetButtons($("#toolbar"));
+            //SetButtons($("#toolbar"), "/system/menu/GetButton?menuid=20111101155132986948");
+        } 
+        function f_setGrid() {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+//                @* 
+//                @if (@Html.IsShow("QzgfFrame.System.DepartmentManger.Domain.DepartmentFacadeImpl", "Departname"))
+//                {
+//                    @:{ display: '部门名称', name: 'Departname', align: 'left', width: 130, minWidth: 60 },
+//                }
+//                  *@
+                {display: '机构名称', name: 'Departname', align: 'left', width: 200, minWidth: 60 },
+                { display: '负责人', name: 'Charger', align: 'left', width: 100, minWidth: 60 },
+                { display: '负责人电话', name: 'Tel', align: 'left', width: 100, minWidth: 60 },
+                { display: '负责人地址', name: 'Address', align: 'left', width: 100, minWidth: 60 },
+                { display: '类型', name: 'Typename', align: 'left', width: 100, minWidth: 60 },
+                { display: '上级结点', name: 'Fathername', align: 'left', width: 200, minWidth: 60, isSort: false },
+                 { display: '是否代维', name: 'Isrepair', align: 'left', width: 200, minWidth: 60, isSort: false },
+                { display: '状态', name: 'Statename', align: 'left', width: 40, minWidth: 60,isSort:false }
+                ], dataAction: 'server',
+                url: "/system/department/gridpager", sortName: 'Id',sortOrder:'desc',
+                width: '99%', height: '100%', pageSize: 30,
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+
+            });
+        }
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+    </script>
+    <style type="text/css"> 
+        #maingrid{ margin:0 auto;}
+        #toolbar{margin:2px auto;width:99%; background:#F3F8F9;border: 1px solid #B6D3E0; height:30px; line-height:30px;}
+        #toolbar .l-toolbar-item{ margin-top:4px;}
+    </style>

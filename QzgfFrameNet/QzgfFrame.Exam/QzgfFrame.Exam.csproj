@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B4AAF668-7A9C-4560-B975-0B5B49AB328C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QzgfFrame.Exam</RootNamespace>
+    <AssemblyName>QzgfFrame.Exam</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AchievementManager\Domain\AchievementFacade.cs" />
+    <Compile Include="AchievementManager\Domain\AchievementFacadeImpl.cs" />
+    <Compile Include="AchievementManager\Models\Achievement.cs" />
+    <Compile Include="AchievementManager\Models\ExamAchievement.cs" />
+    <Compile Include="AchievementManager\Models\TestList.cs" />
+    <Compile Include="AchievementxManager\Domain\AchievementxFacade.cs" />
+    <Compile Include="AchievementxManager\Domain\AchievementxFacadeImpl.cs" />
+    <Compile Include="AchievementxManager\Models\ExamAchievementx.cs" />
+    <Compile Include="AnswerExamManager\Domain\AnswerExamFacade.cs" />
+    <Compile Include="AnswerExamManager\Domain\AnswerExamFacadeImpl.cs" />
+    <Compile Include="AnswerExamManager\Models\ExamAnswerExam.cs" />
+    <Compile Include="CourseManger\Domain\CourseFacade.cs" />
+    <Compile Include="CourseManger\Domain\CourseFacadeImpl.cs" />
+    <Compile Include="CourseManger\Models\ExamCourseType.cs" />
+    <Compile Include="ExamineeInfoManger\Domain\ExamExamineeInfoFacade.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExamineeInfoManger\Domain\ExamExamineeInfoFacadeImpl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExamineeInfoManger\Models\ExamExamineeInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExamineeInfoManger\Models\ExamineeInfo.cs" />
+    <Compile Include="ExamineeRangeManger\Domain\ExamineeRangeFacade.cs" />
+    <Compile Include="ExamineeRangeManger\Domain\ExamineeRangeFacadeImpl.cs" />
+    <Compile Include="ExamineeRangeManger\Models\ExamExamineeRange.cs" />
+    <Compile Include="FillBlanksAnswerManager\Domain\FillBlanksAnswerFacade.cs" />
+    <Compile Include="FillBlanksAnswerManager\Domain\FillBlanksAnswerFacadeImpl.cs" />
+    <Compile Include="FillBlanksAnswerManager\Models\ExamFillBlanksAnswer.cs" />
+    <Compile Include="FillBlanksSubjectManger\Domain\FillBlanksSubjectFacade.cs" />
+    <Compile Include="FillBlanksSubjectManger\Domain\FillBlanksSubjectFacadeImpl.cs" />
+    <Compile Include="FillBlanksSubjectManger\Models\ExamFillBlanksSubject.cs" />
+    <Compile Include="FillBlanksSubjectManger\Models\FillBlanksSubject.cs" />
+    <Compile Include="GetSubjectManger\Domain\GetSubjectFacadeImpl.cs" />
+    <Compile Include="GetSubjectManger\Domain\GetSubjectFacade.cs" />
+    <Compile Include="GetSubjectManger\Models\ExamGetSubject.cs" />
+    <Compile Include="GetSubjectManger\Models\GetSubject.cs" />
+    <Compile Include="JudgeAnswerManager\Domain\JudgeAnswerFacade.cs" />
+    <Compile Include="JudgeAnswerManager\Domain\JudgeAnswerFacadeImpl.cs" />
+    <Compile Include="JudgeAnswerManager\Models\ExamJudgeAnswer.cs" />
+    <Compile Include="JudgeSubjectManger\Domain\JudgeSubjectFacade.cs" />
+    <Compile Include="JudgeSubjectManger\Domain\JudgeSubjectFacadeImpl.cs" />
+    <Compile Include="JudgeSubjectManger\Models\ExamJudgeSubject.cs" />
+    <Compile Include="JudgeSubjectManger\Models\JudgeSubject.cs" />
+    <Compile Include="MultipleAnswerManager\Domain\MultipleAnswerFacade.cs" />
+    <Compile Include="MultipleAnswerManager\Domain\MultipleAnswerFacadeImpl.cs" />
+    <Compile Include="MultipleAnswerManager\Models\ExamMultipleAnswer.cs" />
+    <Compile Include="MultipleSubjectManger\Domain\MultipleSubjectFacade.cs" />
+    <Compile Include="MultipleSubjectManger\Domain\MultipleSubjectFacadeImpl.cs" />
+    <Compile Include="MultipleSubjectManger\Models\ExamMultipleSubject.cs" />
+    <Compile Include="MultipleSubjectManger\Models\MultipleSubject.cs" />
+    <Compile Include="OnlineExamManager\Domain\OnlineExamFacade.cs" />
+    <Compile Include="OnlineExamManager\Domain\OnlineExamFacadeImpl.cs" />
+    <Compile Include="OnlineExamManager\Models\ExamOnlineExam.cs" />
+    <Compile Include="OnlineExamManager\Models\StatisticalResults.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScaleGradeManger\Domain\ScaleGradeFacade.cs" />
+    <Compile Include="ScaleGradeManger\Domain\ScaleGradeFacadeImpl.cs" />
+    <Compile Include="ScaleGradeManger\Models\ExamScaleGrade.cs" />
+    <Compile Include="SubjectManger\Models\SubjectContent.cs" />
+    <Compile Include="SubjectManger\Domain\SubjectFacade.cs" />
+    <Compile Include="SubjectManger\Domain\SubjectFacadeImpl.cs" />
+    <Compile Include="SubjectManger\Models\ExamSubjectContent.cs" />
+    <Compile Include="SubjectTypeManger\Domain\SubjectTypeFacade.cs" />
+    <Compile Include="SubjectTypeManger\Domain\SubjectTypeFacadeImpl.cs" />
+    <Compile Include="SubjectTypeManger\Models\ExamSubjectType.cs" />
+    <Compile Include="TestExerciseManger\Domain\TestExerciseFacade.cs" />
+    <Compile Include="TestExerciseManger\Domain\TestExerciseFacadeImpl.cs" />
+    <Compile Include="TestExerciseManger\Models\ExamTestExercise.cs" />
+    <Compile Include="TestExerciseManger\Models\TestExercise.cs" />
+    <Compile Include="TestManger\Domain\TestFacade.cs" />
+    <Compile Include="TestManger\Domain\TestFacadeImpl.cs" />
+    <Compile Include="TestManger\Models\ExamTestContent.cs" />
+    <Compile Include="TestManger\Models\TestContent.cs" />
+    <Compile Include="TestManger\Models\TestID.cs" />
+    <Compile Include="TestMockManger\Domain\TestMockFacade.cs" />
+    <Compile Include="TestMockManger\Domain\TestMockFacadeImpl.cs" />
+    <Compile Include="TestMockManger\Models\ExamTestMock.cs" />
+    <Compile Include="TestMockManger\Models\TestMock.cs" />
+    <Compile Include="TestSetManger\Domain\TestSetFacade.cs" />
+    <Compile Include="TestSetManger\Domain\TestSetFacadeImpl.cs" />
+    <Compile Include="TestSetManger\Models\ExamTestSet.cs" />
+    <Compile Include="TestSetManger\Models\TestIDState.cs" />
+    <Compile Include="TestSetManger\Models\TestSet.cs" />
+    <Compile Include="TestSubjectManger\Domain\TestSubjectFacade.cs" />
+    <Compile Include="TestSubjectManger\Domain\TestSubjectFacadeImpl.cs" />
+    <Compile Include="TestSubjectManger\Models\ExamTestSubject.cs" />
+    <Compile Include="TestSubjectTypeManger\Models\TestSubjectType.cs" />
+    <Compile Include="TestSubjectTypeManger\Domain\TestSubjectTypeFacade.cs" />
+    <Compile Include="TestSubjectTypeManger\Domain\TestSubjectTypeFacadeImpl.cs" />
+    <Compile Include="TestSubjectTypeManger\Models\ExamTestSubjectType.cs" />
+    <Compile Include="TestTypeManger\Domain\TestTypeFacade.cs" />
+    <Compile Include="TestTypeManger\Domain\TestTypeFacadeImpl.cs" />
+    <Compile Include="TestTypeManger\Models\ExamTestType.cs" />
+    <Compile Include="ExamTypeManger\Domain\ExamTypeFacade.cs" />
+    <Compile Include="ExamTypeManger\Domain\ExamTypeFacadeImpl.cs" />
+    <Compile Include="ExamTypeManger\Models\ExamType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QzgfFrame.Archives\QzgfFrame.Archives.csproj">
+      <Project>{19437E73-E436-4D2F-9D84-916F5FDA9951}</Project>
+      <Name>QzgfFrame.Archives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Utility\QzgfFrame.Utility.csproj">
+      <Project>{FC01A832-1EF9-447D-8169-06678E0E0BE6}</Project>
+      <Name>QzgfFrame.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExamineeInfoManger\Models\ExamExamineeInfo.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScaleGradeManger\Models\ExamScaleGrade.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SubjectManger\Models\ExamSubjectContent.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CourseManger\Models\ExamCourseType.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SubjectTypeManger\Models\ExamSubjectType.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FillBlanksSubjectManger\Models\ExamFillBlanksSubject.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MultipleSubjectManger\Models\ExamMultipleSubject.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JudgeSubjectManger\Models\ExamJudgeSubject.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestTypeManger\Models\ExamTestType.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestManger\Models\ExamTestContent.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestSetManger\Models\ExamTestSet.hbm.xml" />
+    <EmbeddedResource Include="TestSubjectManger\Models\ExamTestSubject.hbm.xml" />
+    <EmbeddedResource Include="TestSubjectTypeManger\Models\ExamTestSubjectType.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AnswerExamManager\Models\ExamAnswerExam.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExamineeRangeManger\Models\ExamExamineeRange.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FillBlanksAnswerManager\Models\ExamFillBlanksAnswer.hbm.xml" />
+    <EmbeddedResource Include="JudgeAnswerManager\Models\ExamJudgeAnswer.hbm.xml" />
+    <EmbeddedResource Include="MultipleAnswerManager\Models\ExamMultipleAnswer.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestExerciseManger\Models\ExamTestExercise.hbm.xml" />
+    <EmbeddedResource Include="TestMockManger\Models\ExamTestMock.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AchievementManager\Models\ExamAchievement.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AchievementxManager\Models\ExamAchievementx.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExamTypeManger\Models\ExamType.hbm.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

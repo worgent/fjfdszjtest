@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.UserManger.Models" assembly="QzgfFrame.System">
+  <class name="QzgfFrame.System.UserManger.Models.SystemUser,QzgfFrame.System" table="SYSTEM_USER">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String" length="20" >
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="USERNAME"  type="String" name="Username" length="100" />
+    <property column="NICKNAME"  type="String" name="Nickname" length="100" />      
+    <property column="TEL" type="String" name="Tel" length="50" />
+    <property column="EMAIL" type="String" name="Email" length="100" />
+    <property column="PASSWORD" type="String" name="Password" length="100" />
+    <property column="DEPARTMENTID" type="String" length="20" name="Departmentid"/>
+    <property column="AREAID" type="String" length="20" name="Areaid"/>
+    <property column="REMARK" type="String" name="Remark" length="200" />
+    <property column="CREATEMAN" type="String" length="20" name="Createman" />
+    <property column="CREATEDATE" type="DateTime" name="Createdate" update="false" />
+    <property column="STATE" type="String" length="2"  name="State" />
+    <!--
+        <property column="STATE" type="AnsiChar" length="2"  name="State" />
+        
+        <id name="Id" column="ID" type="AnsiChar" length="20" >
+			<generator class="assigned"/>
+		</id>
+        -->
+
+  </class>
+</hibernate-mapping>

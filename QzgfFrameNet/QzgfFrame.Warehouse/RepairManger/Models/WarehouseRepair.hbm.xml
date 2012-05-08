@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Warehouse.RepairManger.Models" assembly="QzgfFrame.Warehouse">
+	<class name="QzgfFrame.Warehouse.RepairManger.Models.WarehouseRepair,QzgfFrame.Warehouse" table="tab_repair">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="EquipName" type="String" name="EquipName" length="30" />
+    <property column="IsSendOrigi" type="short" name="IsSendOrigi" />
+    <property column="RepairFactoryId" type="String" name="RepairFactoryId" length="20"/>
+    <property column="SeqNo" type="String" name="SeqNo" length="20" />
+    <property column="EquipModelId" type="String" name="EquipModelId" length="20" />
+    <property column="FactoryId" type="String" name="FactoryId" length="20" />
+    <property column="RepertotyId" type="String" name="RepertotyId" length="20" />
+    <property column="Reason" type="String" name="Reason" length="200" />
+    <property column="Num" type="int" name="Num"/>
+    <property column="ClieId" type="String" name="ClieId" length="20" />
+    <property column="ClieNo" type="String" name="ClieNo" length="20" />
+    <property column="OCompanyId" type="String" name="OCompanyId" length="20" />
+    <property column="ODistrictId" type="String" name="ODistrictId" length="20" />
+    <property column="RepairDate" type="DateTime" name="RepairDate" />
+
+    <property column="IsFix" type="short" name="IsFix" />
+    <property column="ScheduleDate" type="DateTime" name="ScheduleDate" />
+    <property column="FactDate" type="DateTime" name="FactDate" />
+    <property column="HandleNote" type="String" name="HandleNote" length="200" />
+    <property column="State" type="short" name="State" />
+    <property column="Operator" type="String" name="Operator" length="20" />
+    <property column="ReOperator" type="String" name="ReOperator" length="20" />
+    <property column="IsStorage" type="short" name="IsStorage" />
+	</class>
+</hibernate-mapping>

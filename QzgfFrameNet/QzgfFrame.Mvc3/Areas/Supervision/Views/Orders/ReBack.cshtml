@@ -1,0 +1,100 @@
+﻿@model QzgfFrame.Supervision.OrdersManager.Models.Order
+@{
+    
+    ViewBag.Title = "重新回单";
+}       
+    <script type="text/javascript">
+        //var CurID =  <%=CurID %>;
+        var Validator = null;
+        $(function () {
+            $.metadata.setType("attr", "validate");
+            $("#form1").ligerForm();
+            deafultValidate($("#form1"));
+            Validator = $("#form1").validate();
+        });
+
+        function f_success() {
+            $(document).ready(function () {
+                $.ligerDialog.confirm("是否继续编辑", "保存成功", function (ok) {
+                    $.ligerDialog.closeWaitting();
+                    parent.window.frames["mainframe"].f_reload();
+                    if (!ok) {
+                        parent.window.frames["mainframe"].f_closeWindow();
+                    }
+                });
+            });
+        }
+        function f_error(message) {
+            $(document).ready(function () {
+                $.ligerDialog.error(message);
+            });
+        }
+        function f_save() {
+            $.ligerDialog.waitting("正在保存中...");
+            document.forms[0].submit();
+        }
+
+        $(function () {
+            $.metadata.setType("attr", "validate");
+            var v = $("form").validate({
+                debug: true,
+                errorPlacement: function (lable, element) {
+                    if (element.hasClass("l-textarea")) element.ligerTip({ content: lable.html(), appendIdTo: lable });
+                    else if (element.hasClass("l-text-field")) element.parent().ligerTip({ content: lable.html(), appendIdTo: lable });
+                    else lable.appendTo(element.parents("td:first").next("td"));
+                },
+                success: function (lable) {
+                    lable.ligerHideTip();
+                },
+                submitHandler: function () {
+                    $("form .l-text,.l-textarea").ligerHideTip();
+                    alert("Submitted!")
+                }
+            });
+            $("form").ligerForm();
+            $(".l-button-test").click(function () {
+                alert(v.element($("#txtName")));
+            });
+        }); 
+    </script>
+@using (Html.BeginForm("ReBack", "Orders", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.OrderId)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td align="right" class="editcellmessage">派遣工单主题:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.SupervisionSend.SendTitle, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">派遣工单内容:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextAreaFor(m => m.SupervisionSend.SendContent, 3, 25, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">退回次数:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.ReturnNum, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">重新回单时限:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.SupervisionBack.ReBackTimeLimit, new Dictionary<string, object>() { { "size", 20 }, { "readonly", "readonly" } })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td align="right" class="editcellmessage">回单附件:<span style="color:Red">*</span></td>
+                    <td align="left" class="editcell">
+                        @Html.TextBoxFor(m => m.BackAttachment, new Dictionary<string, object>() { { "size", 20 }})
+                    </td> 
+                </tr> 
+            </tbody>
+        </table>
+    </div> 
+    }

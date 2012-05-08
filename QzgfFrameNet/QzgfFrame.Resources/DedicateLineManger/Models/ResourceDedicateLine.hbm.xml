@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.DedicateLineManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.DedicateLineManger.Models.ResourceDedicateLine,QzgfFrame.Resources" table="tab_dedicate_line">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20" >
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="ContractBandwidth" type="string" name="ContractBandwidth" length="10"/>
+		<property column="ActualBandwidth" type="string" name="ActualBandwidth"  length="10"/> 
+		<property column="VLANNumber" type="String" name="VLANNumber" length="20" /> 
+		<property column="GateWay" type="String" name="GateWay" length="200" />  
+		<property column="IP" type="String" name="IP" length="200" />  
+		<property column="SubnetMask" type="String" name="SubnetMask" length="200" />  
+		<property column="Rate" type="String" name="Rate" length="20" />  
+		<property column="RalayNumber" type="String" name="RalayNumber" length="50" />  
+		<property column="SignalModel" type="String" name="SignalModel" length="20" />  
+		<property column="TelNumber" type="String" name="TelNumber" length="200" />  
+		<property column="CityNetSwitch" type="String" name="CityNetSwitch" length="40" />  
+		<property column="CityNetSwitchPort" type="String" name="CityNetSwitchPort" length="40" />  
+		<property column="ComputRoomtTEquip" type="String" name="ComputRoomtTEquip" length="40" />  
+		<property column="ComputRoomtTEquipPort" type="String" name="ComputRoomtTEquipPort" length="40" />  
+		<property column="StationName" type="String" name="StationName" length="20" />
+    <property column="StationTEquipAndPort" type="String" name="StationTEquipAndPort" length="80" />  
+		<property column="CircuitNumber" type="String" name="CircuitNumber" length="40" />  
+		<property column="ZDDFT" type="String" name="ZDDFT" length="40" />  
+		<property column="ZDDFE" type="String" name="ZDDFE" length="40" /> 
+		<property column="TermiEquip" type="String" name="TermiEquip" length="40" />  
+		<property column="TermiPort" type="String" name="TermiPort" length="40" />  
+		<property column="ADDFT" type="String" name="ADDFT" length="40" />  
+		<property column="ADDFE" type="String" name="ADDFE" length="40" /> 
+		<property column="ZBizEquip" type="String" name="ZBizEquip" length="40" />  
+		<property column="ZBizEquipPort" type="String" name="ZBizEquipPort" length="40" />  
+		<property column="ATEquip" type="String" name="ATEquip" length="40" />  
+		<property column="ATEquipPort" type="String" name="ATEquipPort" length="40" />  
+		<property column="ABizEquip" type="String" name="ABizEquip" length="40" />  
+		<property column="ABizEquipPort" type="String" name="ABizEquipPort" length="80" />
+		<property column="BizComputRoomName" type="String" name="BizComputRoomName" length="40" />
+		<property column="OLTEquipAPort" type="String" name="OLTEquipAPort" length="80" />
+		<property column="LOID" type="String" name="LOID" length="40" />
+		<property column="DDFT" type="String" name="DDFT" length="40" />
+		<property column="DDFE" type="String" name="DDFE" length="40" />
+		<property column="StartDateTime" type="DateTime" name="StartDateTime"  not-null="true"/> 
+		<property column="IsAccessLocalNet" type="short" name="IsAccessLocalNet"  /> 
+		<property column="IsAccessProviNet" type="short" name="IsAccessProviNet"  /> 
+		<property column="Remark" type="String" name="Remark" length="256" /> 
+		<property column="NetWorkingModeId" type="String" name="NetWorkingModeId" length="20" not-null="true"/> 
+		<property column="BizTypeId" type="String" name="BizTypeId" length="20" not-null="true"/>
+		<property column="ClieId" type="String" name="ClieId" length="20" not-null="true"/>
+		<property column="BizAssuranLeveId" type="String" name="BizAssuranLeveId" length="20" not-null="true"/>
+    <property column="LineNo" type="String" name="LineNo" length="20" />
+    <property column="State" type="short" name="State"  />
+    <property column="ProductNo" type="String" name="ProductNo" length="80"  />
+    <property column="CreateUserId" type="String" length="20" name="CreateUserId"  not-null="true"/>
+    <property column="CreateDate" type="DateTime" update="false" name="CreateDate"  not-null="true"/>
+    <property column="CompanyId" type="String" name="CompanyId"   length="20" not-null="true"/>
+    <property column="DistrictId" type="String" name="DistrictId"   length="20" not-null="true"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+
+    <property column="ABizEquipId" type="String" name="ABizEquipId" length="20" />
+    <property column="ZBizEquipId" type="String" name="ZBizEquipId" length="20" />
+    
+    <property column="ZStationName" type="String" name="ZStationName" length="20" />
+    <property column="ZComputRoomName" type="String" name="ZComputRoomName" length="40" />
+    <property column="ZTEquip" type="String" name="ZTEquip" length="40" />
+    <property column="ZTEquipPort" type="String" name="ZTEquipPort" length="40" />
+    <property column="AccessProviNet" type="String" name="AccessProviNet" length="20" />
+    <property column="AccessLocalNet" type="String" name="AccessLocalNet" length="20" />
+    <property column="ZClieId" type="String" name="ZClieId" length="20" />
+    <property column="BizNote" type="String" name="BizNote" length="100" />
+    <property column="ZNetWorkingModeId" type="String" name="ZNetWorkingModeId" length="20" />
+    <property column="LineType" type="String" name="LineType" length="2" />
+    <property column="UpdateUserId" type="String" length="20" name="UpdateUserId" />
+    <property column="UpdateUserName" type="String" length="30" name="UpdateUserName"  />
+    <property column="UpdateDate" type="DateTime"  name="UpdateDate" />
+  </class>
+</hibernate-mapping>

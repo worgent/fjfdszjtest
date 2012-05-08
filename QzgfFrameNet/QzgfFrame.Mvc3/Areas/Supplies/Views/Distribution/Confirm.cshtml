@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Supplies.DistributionManger.Models.Distribution
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Lib/css/autoSearchText.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/addmethod.js" type="text/javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+       
+        function checkForm(n) {
+            $("#suppliesDistribution_State").val(n);
+            if (n == "2") {
+                $.ligerDialog.prompt('退回理由', '请填写理由', true, function (yes, value) {
+                    if (yes) {
+                        $("#suppliesDistribution_Reason").val(value) ;
+                        f_save("退回");
+                    }
+                });
+                 $("#suppliesDistribution_Reason").focus();
+                return false;
+            }
+            else {
+                $.ligerDialog.confirm("是否确认接收?", "提示", function (ok) {
+                    if (ok) {
+                        $("#suppliesDistribution_Reason").val("");
+                        f_save("接收");
+                    }
+                });
+            }
+        }
+        function f_save(strdata) {
+            $.ligerDialog.waitting("正在保存中...");
+            //提交数据
+            var fm = $("#newForm");
+            //提交表单  result为返回的数据，success为成功,form为提交的form
+            fm.ajaxSubmit(function (result, success, form) {
+                $.ligerDialog.closeWaitting();
+                if (result.Type) {
+                    $.ligerDialog.success(strdata+'成功!', function () {
+                        window.location.href = "/Supplies/Distribution/WRIndex/?_menuid=" + $("#frameid").val();
+                    });
+                }
+                else {
+                    $.ligerDialog.error(result.Message, function () {
+                    });
+                }
+            });
+        }
+        function f_windowclose() {
+            window.location.href = "/Supplies/Distribution/WRIndex/?_menuid=" + $("#frameid").val();
+        } 
+    </script>
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Confirm", "Distribution", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div><table width="100%"><tr class="Header"><td style="width:45%"></td>
+<td>
+                <input type="button" class="l-button l-button-submit" id="subBtn2" value="接 收" onclick="return checkForm(1);"/>
+                <input type="button" class="l-button  l-button-submit" id="subBtn3" value="退 回" onclick="return checkForm(2);"/>
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>  
+   
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+
+            <tr>
+                   <td class="Right_White_font">发货所属县市：<span class="l-verify-star">*</span></td>                     
+                    <td class="Left_font">
+                    @Html.HiddenFor(m => m.suppliesDistribution.Reason)
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    @Html.HiddenFor(m => m.suppliesDistribution.Id) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.State) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.CreateDatetime) 
+                     @Html.TextBoxFor(m => m.suppliesDistribution.DistrictName, new { @class = "disable-dd-text", style = "width:138px;", @readonly = "readonly", validate = "{required:true,minlength:1,maxlength:40}" }) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.CityId)   
+                    </td> 
+                    <td class="Right_White_font">发货单位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                      @Html.TextBoxFor(m => m.suppliesDistribution.CompanyName, new { @class = "disable-dd-text", style = "width:138px;", @readonly = "readonly", validate = "{required:true,minlength:1,maxlength:40}" }) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.CompanyId)  
+                    </td>  
+                </tr>  <tr>
+                   <td class="Right_White_font">接收所属县市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                      @Html.TextBoxFor(m => m.suppliesDistribution.DDistrictName, new { @class = "disable-dd-text", style = "width:138px;", @readonly = "readonly", validate = "{required:true,minlength:1,maxlength:40}" }) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.DistrictId)  
+                     </td> 
+                    <td class="Right_White_font">接收维护单位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                      @Html.TextBoxFor(m => m.suppliesDistribution.DCompanyName, new { @class = "disable-dd-text", style = "width:138px;", @readonly = "readonly", validate = "{required:true,minlength:1,maxlength:40}" }) 
+                    @Html.HiddenFor(m => m.suppliesDistribution.DCompanyId)  
+                    </td>  
+                </tr> 
+                 <tr>
+                    <td colspan="4" width="100%" align="center" class="Left_Bottom">                    
+                    <table width="100%" ><tr width="100%" ><td width="100%" >
+                    <table width="100%" border="0" cellpadding="2" cellspacing="1" id="SuppliesFrame" class="com_tab">
+<tr class="hno">
+                <td > 耗材类型</td>
+                <td  >耗材单位</td>
+                <td  >数量</td>
+               <td ></td>
+              </tr>
+@{var j = 0;}
+ @foreach (var n in Model.distributionDetailList as IList<QzgfFrame.Supplies.DistributionDetailManger.Models.SuppliesDistributionDetail>)
+ {
+    // ViewData["Component"] = new SelectList(Model.Components, "Id", "ComponentName",n.ComponentId);
+
+     var SuppliesTypeId = "SuppliesTypeId" + j; var Num = "Num" + j; var UnitName = "UnitName" + j;
+     var SuppliesTypeName = "SuppliesTypeName" + j;var seqno = j + 1;
+     var SignSuppliesItem = "SignSuppliesItem" + j; var OrderNo = "OrderNo" + j;
+     var DistrictId = "DistrictId" + j; var DistrictName = "DistrictName" + j;
+     var CompanyId = "CompanyId" + j; var CompanyName = "CompanyName" + j; var MaxNum = "MaxNum" + j; 
+     
+             <tr id='@SignSuppliesItem' class="bno">
+                <td class="sno"> <input name='@SuppliesTypeId' type="hidden" id='@SuppliesTypeId' value='@n.SuppliesTypeId' />
+                <input name='@SuppliesTypeName' type='text'  id='@SuppliesTypeName' size='40' value='@n.SuppliesTypeName'   class = 'disable-dd-text'  readonly='readonly' /></td>
+                <td  ><input name='@UnitName' id='@UnitName' type='text'  size='20' value="@n.UnitName"   readonly='readonly' /></td>
+                <td  ><input name='@Num' id='@Num' type='text' size='20' value="@n.Num"  onkeyup="GetCount(@j)"  readonly='readonly' /><input name='@MaxNum' type="hidden" id='@MaxNum' value='@n.Num' /></td>
+               <td style="width:0"><input name='@OrderNo' type='hidden' id='@OrderNo' value='@seqno' /></td>
+              </tr>
+                                                                                       j++;
+ }
+        </table>
+        <input name='TRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+                    @Html.HiddenFor(m => m.distributionDetails)
+                    @Html.HiddenFor(m => m.OrgIds)
+                    </td></tr>
+                    <tr ><td  align="left" style=" background-color:#fff;"><span class="l-verify-star" id="displyMsg" ></span></td></tr>
+               
+                    </table>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_White_font">操作员：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.suppliesDistribution.DistributionUser, new { @readonly = "readonly", @class = "disable-dd-text", style = "width:138px;" })
+                    </td> 
+                    <td class="Right_White_font">合计：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    <input type="text" id="Count" name="suppliesDistribution.Num" value="@Model.suppliesDistribution.Num"  class = "disable-dd-text" style = "width:138px;"   readonly = "readonly"/>
+                    </td> 
+                </tr>
+                 <tr>
+                    <td class="Right_White_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Html.TextAreaFor(m => m.suppliesDistribution.Remark, new { Multiline = true, @class = "l-textarea", @readonly = "readonly", size = "70", style = "width:100%" })
+                    </td> 
+</tr></tbody>
+</table>  
+<table width="100%"><tr class="Header"><td style="width:45%"></td>
+<td>
+                <input type="button" class="l-button l-button-submit" id="subBtn" value="接 收" onclick="return checkForm(1);"/>
+                <input type="button" class="l-button  l-button-submit" id="subBtn1" value="退 回" onclick="return checkForm(2);"/>
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+   
+    </div> 
+    }
+    
+</body>
+</html>

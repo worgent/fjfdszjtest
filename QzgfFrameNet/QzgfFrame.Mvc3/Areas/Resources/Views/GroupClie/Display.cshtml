@@ -1,0 +1,76 @@
+﻿@model QzgfFrame.Resources.GroupClieManger.Models.ResourceGroupClie
+@{
+    
+    ViewBag.Title = "Register";
+}  
+@using (Html.BeginForm("Edit", "GroupClie", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td  class="Right_font">集团编号：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Model.ClieNo</td>
+                    <td class="Right_font">集团名称：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Model.ClieName
+                    </td>
+                </tr>
+                <tr>
+                    
+                    <td  class="Right_font">通信地址：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Model.ClieAddress</td>
+                </tr> 
+                <tr>
+                    
+                    <td  class="Right_font">规模等级：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font">
+
+                     @ViewData["servStarLeve"]
+                   </td>
+                    <td class="Right_font">客户服务等级：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     @ViewData["ScaleGrade"]
+                   </td>
+                </tr> 
+                <tr>
+                    
+                    <td  class="Right_font">客户经理：<span class="l-verify-star">&nbsp;</span></td>
+                    <td  class="Left_font">
+                    @Model.ClieManager</td>
+                    <td class="Right_font">客户经理联系电话：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font">
+                    @Model.ClieManagerTel </td>
+                </tr> 
+                <tr>
+                    
+                    <td  class="Right_font">所属区县：<span class="l-verify-star">*</span></td>
+                    <td   class="Left_font">
+                     @ViewData["district"]
+                    </td>
+                    <td class="Right_font">所属单位：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" >
+                     @ViewData["company"]
+                    </td>
+                </tr> 
+                
+                <tr>
+                    
+                    <td  class="Right_font">所属网格：<span class="l-verify-star">*</span></td>
+                    <td   class="Left_font" colspan="3">
+                    @ViewData["gridnames"]
+                   </td>
+                </tr> 
+                <!--
+                <tr>
+                    <input type="submit" value="Register" />
+                </tr>                
+                 -->
+            </tbody>
+        </table>
+    </div> 
+    }
+    

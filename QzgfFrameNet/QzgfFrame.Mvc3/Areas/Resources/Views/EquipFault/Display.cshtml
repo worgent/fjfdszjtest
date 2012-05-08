@@ -1,0 +1,143 @@
+﻿@model QzgfFrame.Resources.EquipFaultManger.Models.ResourceEquipFault
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<div id="autoSearch"><ul class="menu_v"></ul></div>
+@using (Html.BeginForm("Edit", "EquipFault", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{  @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font">终端ID：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     @Model.TermiId         
+                    @Html.HiddenFor(m => m.Id)    
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    </td>
+                   <td class="Right_font">所属县市：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Model.DistrictName
+                    </td>
+                   
+                </tr>
+                <tr>                
+                    <td class="Right_font">网点编号：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Model.UseNetNo    
+                    </td>
+                    <td class="Right_font">网点名称：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Model.UseNetName    
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Right_font">设备厂家：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     @Model.FactoryName
+                    </td> 
+                     <td class="Right_font">设备型号：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Model.EquipModelName
+                    
+                    </td> 
+                </tr>
+                <tr>
+                    <td class="Right_font">客户联系电话：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                   @Model.ClieTel
+                    </td>
+                     <td class="Right_font">代维单位：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" >
+                    @Model.CompanyName
+                    </td> 
+                    
+                </tr>  
+                 <tr><td colspan="6" class="tit">故障信息</td></tr>
+                 <tr>
+                    <td class="Right_font">申告日期：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font"> 
+                    @string.Format("{0:f}", Model.NoticeDateTime)
+                    </td>
+                    <td class="Right_font">人员到达时间：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @string.Format("{0:f}", Model.ReachDatetime)
+                    </td> 
+                </tr> 
+                 <tr>
+                    <td class="Right_font">故障解决时间：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @string.Format("{0:f}", Model.SolveDatetime)
+                    </td>
+                    <td class="Right_font">处理时长：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Model.HandleTime 分钟
+                    </td>
+                </tr>                 
+                 <tr>
+                    <td class="Right_font">排障人员：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="4">
+                    @Model.TroubleShooter
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">故障部件：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["component"]
+                    </td> 
+                    <td class="Right_font">故障类型：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @ViewData["breakdownType"]
+                    </td> 
+                </tr>
+                <tr>
+                    <td class="Right_font">故障现象：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Model.Description
+                    </td> 
+                </tr>  
+                 <tr>
+                    <td class="Right_font">故障处理过程：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Model.HandleProcess
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">故障处理结果：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Model.HandleResult
+                    </td> 
+                </tr> 
+                 <tr>
+                    <td class="Right_font">是否更换配件：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" colspan="3">
+                     @{
+               var selFalgT = "否";
+               if (Model.IsReplace == 1)
+               {
+                   selFalgT = "是";
+               }
+               else
+               {
+                   selFalgT = "否";
+               }
+                    }
+                    @selFalgT
+                    </td> 
+                    
+                </tr> 
+                <tr>
+                    <td class="Right_font">备注：</td>
+                    <td class="Left_font" colspan="3">
+                    @Model.Remark
+                    </td> 
+</tr></tbody>
+</table>  
+ 
+                
+    </div> 
+    }
+    

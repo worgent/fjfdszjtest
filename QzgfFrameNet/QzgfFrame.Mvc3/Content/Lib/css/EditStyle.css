@@ -1,0 +1,455 @@
+﻿#maingrid{ margin:0 auto;}
+#toolbar{margin:2px auto;width:99%; background:#F3F8F9;border: 1px solid #B6D3E0; height:30px; line-height:30px;}
+#toolbar .l-toolbar-item{ margin-top:4px;}
+.l-table-edit-td
+{ 
+    padding:4px;
+}
+.l-button-submit,.l-button-test
+{
+    width:80px; 
+    float:left; 
+    margin-left:10px; 
+    padding-bottom:2px;
+}
+.l-verify-tip
+{ 
+    left:230px; 
+    top:120px;
+}
+.editcellverify, .editcell
+{ 
+    padding:2px;
+    line-height:23px;
+}
+.edittable 
+{ 
+    margin:0;
+    padding:0;
+    line-height:23px;
+    text-align:center; 
+    vertical-align:top;
+    background:#eff7fc; 
+    border:solid #93c7e3 1px; 
+    width:100%;
+    height: 100%;
+} 
+.editcellmessage
+{ 
+    padding-left:0px;
+    line-height:23px; 
+    width:150px;
+}
+.Right_font 
+{
+    line-height:23px;
+    padding-right:10px;
+    height:23px;
+    border-right:solid #93c7e3 1px;
+    background:#eff7fc; 
+    border-bottom:solid #93c7e3 1px; 
+    text-align:right;
+  }
+.Right_Middle_font 
+{
+    line-height:23px;
+    padding-right:10px;
+    height:23px;
+    border-right:solid #93c7e3 1px; 
+    background:#eff7fc;
+    border-bottom:solid #93c7e3 1px;
+    border-left:solid #93c7e3 1px;
+ }
+.Left_font 
+{
+    padding-left: 10px;
+    line-height:23px; 
+    background:#ffffff;
+    padding-right:10px;
+    height:23px;
+    border-bottom:solid #93c7e3 1px;
+    border-right:solid #93c7e3 1px; 
+    text-align:left;
+}
+.Left_font table{border:none}
+.Left_font table tr td{border:none}
+.leftfont
+{
+    line-height:23px; 
+    background:#ffffff;
+    height:23px;
+    border-bottom:solid #93c7e3 1px;
+    border-right:solid #93c7e3 1px; 
+    text-align:left;
+    }
+.Left_Middle_font 
+{
+    padding-left: 10px;
+    line-height:23px; 
+    background:#ffffff;
+    padding-right:10px;
+    height:23px;
+    border-bottom:solid #93c7e3 1px;
+    text-align:left;
+}
+.Left_Bottom
+{ 
+   width:100%;
+   border-bottom:solid #93c7e3 1px; 
+    border-right:solid #93c7e3 1px; 
+    background:#deefff;  
+}
+.importtable 
+{ 
+    margin:0;
+    padding:0;
+    line-height:23px;
+    text-align:center; 
+    vertical-align:top;
+    background:#eff7fc; 
+    width:100%;
+    height: 100%;
+} 
+.import_font 
+{
+    padding-left: 10px;
+    line-height:23px; 
+    background:#ffffff;
+    padding-right:10px;
+    height:23px;
+    text-align:left;
+} 
+.import_center_font 
+{
+    padding-top: 3px;
+    padding-bottom: 1px;     
+    line-height:23px; 
+    background:#ffffff;
+    height:23px;
+}
+.import_tit 
+{
+    line-height:23px;
+    padding-left:10px;
+    padding-right:0px;
+    background:#c1ddec;
+    color:#004499; 
+    text-align:left;
+    font-weight:bold;
+    padding-top:5px;
+    border-top:solid #93c7e3 1px;
+    border-bottom:solid #93c7e3 1px;    
+    border-right:solid #93c7e3 1px; 
+ }
+.tit 
+{
+    line-height:20px;
+    padding-left:10px;
+    padding-right:0px;
+    background:#CCE5FE;
+    color:#183152; 
+    text-align:center;
+    font-weight:bold;
+    padding-top:5px;
+    border-bottom:solid #93c7e3 1px;    
+    border-right:solid #93c7e3 1px; 
+ }
+body 
+{ 
+    font-size:12px; 
+    background:white;
+    margin: 0; 
+    padding: 0;
+}
+.tab
+{
+    margin: 0px 0px 0px 0px;
+    padding: 10px 0px 10px 0px;
+    width: auto;
+    background-color:#fff;
+}
+.tab_tit 
+{
+    line-height: 20px;
+    background:url(../images/index/tab_tit.png) no-repeat;
+    color: #183152;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 5px;
+    margin-top:5px;
+    cursor: pointer;
+    width: 133px; 
+ }
+ .tab_b
+ { 
+    border-bottom:solid #93c7e3 1px;
+ }
+.tab .table1 td.current
+{
+    color:#183121; 
+    background:url(../images/index/tab_current.png) repeat-x 0 0; 
+}
+.tab .table1
+{
+    padding: 0px 0px 0px 0px; 
+}
+.ulcss
+{
+    margin: 0;
+} 
+.ulcss li
+{
+    margin-top: 0;
+    background:#f4fbff; 
+    border-bottom:solid  #93c7e3  1px;
+} 
+.ulIndex li
+{
+    margin-top: 0;
+    background:#fff; 
+} 
+.tabmenu
+{
+    margin:2px auto;
+    padding: 2px 2px 2px 3px;
+    width: auto;
+    background-color:#fff;
+}
+.tabmenu .table1 td.current
+{
+    color:#183121; 
+    background:url(../images/index/tab_current.png) repeat-x 0 0; 
+}
+.tabmenu .table1
+{
+    padding: 0px 0px 0px 0px; 
+}
+.tab_li_tab
+{
+   width:99%;
+   text-align:left; 
+   margin:5px;
+   margin-right:3px;
+   padding-right:10px;
+   border:solid  #DFDFDF  1px;
+}
+.tab_li_tab img
+{
+  border:solid #DFDFDF 0px;
+}
+.tab_li_tab a
+{
+  color:#0074ab;
+}
+.tab_editcellmessage 
+{
+    line-height:20px;
+    padding-right:10px;
+    height:20px;
+    background:#f4fbff; 
+    width: 133px;
+    text-align:right;
+    border-bottom:solid #DFDFDF 1px;
+  }
+.tab_editcell 
+{
+    padding-left: 10px;
+    line-height:20px; 
+    background:#ffffff;
+    padding-right:10px;
+    height:20px;
+    text-align:left;
+    border-bottom:solid #DFDFDF 1px;
+}
+.core,.number
+{
+    padding-bottom:5px;
+}
+
+.core table td
+{
+    line-height:23px; 
+    height:23px;
+    text-align:left;
+    border-left:solid #DFDFDF 1px;
+    border-bottom:solid #DFDFDF 1px;
+    background:#f4fbff;
+}
+
+.number  table
+{
+    margin:0;
+    padding:0;
+}
+.number  table  td
+{
+    line-height:23px; 
+    height:23px;
+    text-align:center;
+    border-top:solid #DFDFDF 0px;
+    border-left:solid #DFDFDF 0px;
+    border-bottom:solid #DFDFDF 1px;
+    border-right:solid #DFDFDF 1px;
+}
+.number  table .bno_right
+{
+    border-right:solid #DFDFDF 1px;
+}
+.number  table .hno td
+{ 
+     background:#f4fbff;
+}
+.bno 
+{ 
+     background:#ffffff;
+}
+
+.bno .sno
+{ 
+     text-align:center;
+}
+
+.bdno 
+{ 
+     width:100px;
+}
+.btno 
+{ 
+     width:40%;
+}
+.tab .mhot, .tab.allhot
+{
+    display: none;
+} 
+.dd-text
+{
+    height: 19px;
+    left: 24px;
+    line-height:19px;
+    border:1px solid #A8AAAD; 
+    outline:none;
+    background: #fff;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+.disable-dd-text
+{
+    height: 19px;
+    left: 24px;
+    line-height:19px;
+    border:1px solid #A8AAAD; 
+    outline:none;
+    background-color:#ECECED;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+} 
+.fault-dd-text
+{
+    height: 19px;
+    left: 24px;
+    line-height:19px;
+    border:1px solid #A8AAAD; 
+    outline:none;
+    background-color:red;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+} 
+ .dd-text:hover{border-color:#FF8801;}
+ .dd-text:focus{ border-color:#FF8801;}
+
+.com_tab td
+{
+    line-height:20px; 
+    height:20px;
+    text-align:center;
+    border-bottom:solid #DFDFDF 1px;
+    border-right:solid #DFDFDF 1px;
+} 
+.com_tab  a{TEXT-DECORATION:none}
+.hno
+{ 
+     background:#deefff;
+     font-weight:bold;
+     color:#183152;
+}
+.tno td
+{ 
+     background:#f4fbff;
+     color:#183152;
+}
+.tab_left_font
+{
+    text-align:left;
+    border-bottom:solid #DFDFDF 1px;
+    border-left:solid #DFDFDF 1px;
+    background: #fff;
+}   
+.tab_right_font
+{
+    text-align:right;
+    border-bottom:solid #DFDFDF 1px;
+    border-right:solid #DFDFDF 1px;
+    border-left:solid #DFDFDF 1px;
+    background:#f4fbff;
+} 
+.tab_msg
+{
+    background:#f4fbff;
+    height:auto;
+    text-indent:5px;
+    font-family:宋体;
+    color:#22416a
+} 
+#T7-list
+{
+    padding-left:10px;
+    border-top:#DFDFDF solid 1px; 
+}
+.tab_msg span{ font-weight:bold} 
+.tab_msg p{ margin-left:15px; color:#22416a}
+.sel_btn
+{
+    background:url(../images/index/inp_btn.png) repeat-x 0 0; 
+    border:1px solid #5aa0e4;
+    
+}
+.Header
+{
+    background:url(../images/index/Header.png) repeat-x 0 0; height:25px;
+    width:100%; line-height:25px; padding-bottom:1px;
+}
+/**去除底色**/
+.Right_White_font 
+{
+    line-height:23px;
+    padding-right:10px;
+    height:23px;
+    border-right:solid #93c7e3 1px;
+    background:#fff; 
+    border-bottom:solid #93c7e3 1px; 
+    text-align:right;
+  }
+  .Right_Display_font 
+{
+    line-height:23px;
+    padding-right:10px;
+    height:23px;
+    border-right:solid #93c7e3 1px;
+    background:#F6FCFE; 
+    border-bottom:solid #93c7e3 1px; 
+    text-align:right;
+  }
+/**去除底边框**/  
+.display-star
+{ 
+   margin-left:15px; 
+   padding-left:10px;
+   color:Red;
+}
+
+
+/* 文本框不可编辑时的样式*/
+.notEditable
+{
+    background-color:#e6e6e6;    
+}

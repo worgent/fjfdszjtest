@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Supplies.CollarSuppliesManger.Models.CollarSupplies
+@{
+    
+    ViewBag.Title = "Register";
+}       
+    
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Lib/css/autoSearchText.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/addmethod.js" type="text/javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Confirm", "Distribution", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+    <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+           <tr class="Header"><td  colspan="4">&nbsp;</td></tr>
+                <tr>
+                   <td class="Right_Display_font" width="15%">所属县市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" width="30%">
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    @Html.HiddenFor(m => m.suppliesCollarSupplies.Id) 
+                    <input type="hidden" name="addFlag" id="addFlag"/>
+                    @Model.suppliesCollarSupplies.DistrictName
+                    @Html.HiddenFor(m => m.suppliesCollarSupplies.DistrictId)   
+                    </td> 
+                    <td class="Right_Display_font" width="15%">维护单位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.suppliesCollarSupplies.CompanyName
+                    @Html.HiddenFor(m => m.suppliesCollarSupplies.CompanyId)  
+                    </td>  
+                </tr>  
+                <tr>
+                    
+                    <td class="Right_Display_font">采购时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                     @string.Format("{0:f}", Model.suppliesCollarSupplies.CollarDate)
+                     </td> 
+                    
+                    <td class="Right_Display_font">采购操作员：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    @Model.suppliesCollarSupplies.CollarUser
+                    </td> 
+                </tr> 
+                     
+                <tr>
+                    
+                    <td class="Right_Display_font">耗材类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    @Model.suppliesCollarSupplies.SuppliesTypeName
+                    @Html.HiddenFor(m => m.suppliesCollarSupplies.SuppliesTypeId)
+                    </td> 
+                    
+                    <td class="Right_Display_font">耗材单位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    
+                    @Model.suppliesCollarSupplies.UnitName
+                    
+                    </td> 
+                </tr>      
+                <tr>
+                   
+                    <td class="Right_Display_font">合计：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Model.suppliesCollarSupplies.Num
+                     </td> 
+                </tr>
+                 <tr>
+                    <td class="Right_Display_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Model.suppliesCollarSupplies.Remark
+                     </td> 
+</tr>
+ <tr>
+                    <td colspan="4" width="100%" align="center" class="Left_Bottom">
+                    <table width="100%" >
+                    <tr width="100%" ><td width="100%" >
+                    <table width="100%" border="0" cellpadding="2" cellspacing="1"  class="com_tab">
+<tr class="hno">
+               <td  width="40%" align="center">  领料时间</td>
+                <td  align="center">领料数量</td>
+ </tr>
+@if (Model.CollarList != null)
+{  var j = 0;
+             
+
+ foreach (var n in Model.CollarList as IList<QzgfFrame.Supplies.CollarSuppliesManger.Models.SuppliesCollar>)
+ {
+     // ViewData["Component"] = new SelectList(Model.Components, "Id", "ComponentName",n.ComponentId);
+
+     var CollarDate = "CollarDate" + j; var Num = "Num" + j; var seqno = j + 1;
+     var SignSuppliesItem = "SignSuppliesItem" + j; var OrderNo = "OrderNo" + j;
+             <tr id='@SignSuppliesItem' class="bno">
+                <td class="sno"> @string.Format("{0:D}", n.CollarDate)</td>
+                <td  >@n.Num</td>
+                </tr>                 
+     j++;
+ }
+ }
+  <tr ><td  align="center" class="Right_Display_font">已领数量：</td><td class="Right_Display_font">
+ @Model.suppliesCollarSupplies.ArrivalNum </td></tr>
+        </table>
+                    </td></tr>
+
+               
+                    </table> </td></tr>  
+                    <tr class="Header"><td  colspan="4">&nbsp;</td></tr>
+</tbody>
+</table>  
+    </div> 
+    }
+    
+</body>
+</html>

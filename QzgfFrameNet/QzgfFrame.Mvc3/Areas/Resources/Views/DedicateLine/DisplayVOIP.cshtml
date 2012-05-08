@@ -1,0 +1,246 @@
+﻿@model QzgfFrame.Resources.DedicateLineManger.Models.DedicateLine
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<script src="@Url.Content("~/Content/lib/js/Resources/DisplayLine.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/lib/js/Resources/EditVOIP.js")" type="text/javascript"></script>
+@using (Html.BeginForm("Edit", "DedicateLine", FormMethod.Post, new { enctype = "multipart/form-data", name = "newForm", id = "newForm", autocomplete = "off" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div style=" top:0;width:100%; ">
+    <table border="0" width="100%" class="edittable" cellspacing="0" align="center">
+    <tr> <td  class="Right_font" width="10%">业务类型：<span class="l-verify-star">*</span></td>
+    <td class="Left_font" width="15%"  colspan="5"> 
+   @Model.BizTypeName
+   </td></tr>
+    <tr>
+                
+    <td  class="Right_font" width="11%">选择集团编号：<span class="l-verify-star">*</span></td>
+    <td class="Left_font" width="15%"> 
+   @Model.ClieNo
+    @Html.HiddenFor(m => m.ClieId)
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+    <input type="hidden" id="selClie" value="@ViewData["selgroupclie"]" />
+     </td>
+    <td class="Right_font"  width="12%">集团名称：<span class="l-verify-star">*</span></td>
+    <td colspan="3" class="Left_font"> 
+    @Model.ClieName
+    
+    @Html.HiddenFor(m => m.DediLine.Id)
+    @Html.HiddenFor(m => m.DediLine.ClieId)
+    @Html.HiddenFor(m => m.DediLine.BizTypeId) 
+    @Html.HiddenFor(m => m.editFlag)
+    </td>
+    </tr>
+    <tr>
+    <td class="Right_font">所属区县：<span class="l-verify-star">*</span></td>
+      <td class="Left_font">               
+       @Model.DistrictName              
+      </td>  
+      <td class="Right_font">所属公司：<span class="l-verify-star">*</span></td>             
+        <td class="Left_font"  colspan="" >             
+        @Model.CompanyName              
+      </td>  
+      <td class="Right_font">状态：<span class="l-verify-star">*</span></td>             
+        <td class="Left_font"  colspan="" >             
+       @Model.State              
+       </td>              
+</tr>  
+    <tr>
+    <td class="Right_font" width="10%"> 组网方式：<span class="l-verify-star">*</span></td>
+    <td colspan="5" class="Left_font">@Model.NetWorkingMode 
+    @Html.HiddenFor(m => m.NetWorkingMode)</td>
+    </tr>
+    <tr>
+    <td  class="Right_font" width="10%">业务保障等级：<span class="l-verify-star">*</span></td>
+    <td class="Left_font">@Model.AssuranLeveName</td>
+    <td class="Right_font">速率：<span class="l-verify-star">*</span></td>
+    <td class="Left_font"><table style="width:100%"><tr> 
+    <td>        
+    @Model.DediLine.Rate Mbit/s</td> 
+    <td style="width:60%; text-align:left;"></td>
+    </tr></table></td>
+    <td class="Right_font">中继数量：<span class="l-verify-star">*</span> </td>
+    <td align="left" class="Left_font">  @Model.DediLine.RalayNumber</td>
+    </tr>
+    <tr ><td  class="Right_font" width="10%">信令方式：<span class="l-verify-star">*</span></td><td class="Left_font">
+    @Model.SignalModelName 
+    </td>
+    <td class="Right_font">电话号码：<span class="l-verify-star">&nbsp;</span></td>
+    <td colspan="5" class="Left_font">@Model.DediLine.TelNumber</td></tr>
+    
+    <tr><td colspan="6" class="Left_Bottom"> 
+    <div class="tab"> 
+  <table width="100%" class="table1"><tr>
+  <td id="zstation" class="tab_tit">Z端传输</td>
+  <td id="astation" class="tab_tit">A端传输</td>  
+  <td id="core" class="tab_tit">纤芯</td>
+  <td id="files" class="tab_tit">上传资料</td>
+  <td class="tab_b">&nbsp;</td>
+  </tr>
+  </table>
+    <ul class="ulcss" style=" clear:both">
+<li class="zstation">
+<table class="tab_li_tab">
+<tr><td  class="tab_right_font" width="12%">接入基站名称：<span class="l-verify-star">*</span></td>
+<td class="tab_left_font" width="23%">
+    @Model.DediLine.StationName</td>
+    <td  class="tab_right_font"  width="15%">基站传输设备及端口：<span class="l-verify-star">*</span></td><td class="tab_left_font">
+    @Model.DediLine.StationTEquipAndPort</td></tr>
+<tr><td  class="tab_right_font" width="12%">DDF架传输侧位置：<span class="l-verify-star">&nbsp;</span></td>
+<td class="tab_left_font" width="23%">
+    @Model.DediLine.ZDDFT</td>
+    <td  class="tab_right_font"  width="15%">DDF架设备侧位置：<span class="l-verify-star">&nbsp;</span></td><td class="tab_left_font">
+    @Model.DediLine.ZDDFE</td></tr>
+<tr><td  class="tab_right_font" width="12%">电路编号：<span class="l-verify-star">*</span></td>
+<td colspan="3" class="tab_left_font">
+    @Model.DediLine.CircuitNumber</td></tr>
+
+</table>
+</li>
+    <li class="astation">
+<table class="tab_li_tab">
+<tr><td  class="tab_right_font" width="12%">局端设备：<span class="l-verify-star">&nbsp;</span></td>
+<td  class="tab_left_font" width="23%">@Model.DediLine.TermiEquip</td>
+<td  class="tab_right_font"  width="15%">局端端口：<span class="l-verify-star">&nbsp;</span></td><td  class="tab_left_font">
+    @Model.DediLine.TermiPort</td>
+</tr>
+<tr><td  class="tab_right_font" width="12%">DDF架传输侧位置：<span class="l-verify-star">&nbsp;</span></td>
+<td  class="tab_left_font" width="23%">
+    @Model.DediLine.ADDFT</td>
+    <td  class="tab_right_font"  width="15%">DDF架设备侧位置：<span class="l-verify-star">&nbsp;</span></td><td  class="tab_left_font">
+    @Model.DediLine.ADDFE</td></tr>
+
+</table>
+</li>
+<li class="core"> 
+<table width="100%" border="0" cellpadding="2" cellspacing="1" id="SignFrame"   class="tab_li_tab">
+@{var i = 0;}
+ @foreach (var fc in Model.FiberCores as IList<QzgfFrame.Resources.FiberCoreManger.Models.ResourceFiberCore>)
+ {
+     var SeqNo = "SeqNo" + i; var BaseStationName = "BaseStationName" + i; var ODUStation = "SeqNo" + i;
+     var Core = "Core" + i; var SignItem = "SignItem" + i;
+     if (i == 0)
+     {
+              <tr id="trHeader">
+                <td style="width:20%">从 @fc.BaseStationName &nbsp;跳纤点</td>
+                <td  >@fc.ODUStation</td>
+                <td style="width:40%">至&nbsp;@fc.Core</td>
+              </tr>
+     }
+
+     else if (i == Model.FiberCores.Count - 1)
+     {
+              <tr >
+                 <td  >@fc.BaseStationName 至客户端</td>
+                  <td  >@fc.ODUStation</td>
+                <td >至&nbsp;@fc.Core</td>
+              </tr>
+     }
+     else
+     {
+         <tr id='@SignItem'>
+                <td >经 @fc.BaseStationName&nbsp;跳纤点</td>
+                <td  >@fc.ODUStation</td>
+                <td >至&nbsp;@fc.Core</td>
+              </tr>
+     }
+     i++;
+ }
+ @{i = i - 1;}
+        </table>
+        <input name='txtTRLastIndex' type='hidden' id='txtTRLastIndex' value="@i" />
+         @Html.HiddenFor(m => m.forces)
+</li>
+
+<li class="files">
+<table  class="tab_li_tab"><tr><td class="tab_msg">
+<div id="T7-list" style="border:#DFDFDF solid 1px; padding-left:10px;">
+ <table id="FileFrame" class="tabfile">
+ @{var k = 0; if (Model.OtherInfos != null)
+   {
+       if (Model.OtherInfos.Count > 0)
+       {
+           foreach (var info in Model.OtherInfos as IList<QzgfFrame.Resources.OtherInfoManger.Models.ResourceOtherInfo>)
+           {
+               var SignItemF = "SignItem" + k; var Id = "Id" + k; 
+ <tr id='@SignItemF'><td style="width:0px;"><input name='@Id' type='hidden' value="@info.Id" /></td>
+ <td style="width:30px;"><a class="MultiFile-remove" href="#T7_wrap"  ><img src="../../../../Content/Lib/images/index/show_file.png" height="16" width="16" alt="x"/></a></td>
+ <td class="MultiFile-title"><a href="../../../Upload/OtherInfo/VOIP/@info.LoadFileName">@info.InfoFileName </a></td></tr>
+                                                                                    k++;
+           }
+       }
+       else
+       {
+       <tr><td colspan="3">没有资料文件!!</td></tr>
+       }
+   }
+}
+</table>
+ @Html.HiddenFor(m => m.delArys)
+  </div>
+  </td></tr></table>
+</li>
+    </ul>
+    </div>
+     </td></tr>
+   
+   <tr>
+<td class="Right_font" width="10%">接入日期：<span class="l-verify-star">*</span></td>
+<td  class="Left_font"> @string.Format("{0:D}", Model.DediLine.StartDateTime)</td>
+<td class="Right_font" width="10%">专线编号：<span class="l-verify-star">*</span></td>
+<td colspan="3" class="Left_font"> @Model.DediLine.ProductNo</td>
+</tr>
+ <tr>
+<td  class="Right_font" width="10%">是否接入本地网管：<span class="l-verify-star">&nbsp;</span></td>
+<td class="Left_font">
+@{
+var selFalgT = "否";
+if (Model.DediLine.IsAccessLocalNet == 1)
+{
+    selFalgT = "是";
+}
+else
+{
+    selFalgT = "否";
+}
+}
+    @selFalgT
+</td>
+<td class="Right_font">接入本地网管平台名称：<span class="l-verify-star">&nbsp;</span></td>
+<td colspan="3" class="Left_font">
+@Model.DediLine.AccessLocalNet
+
+</td>
+</tr>
+<tr>
+<td  class="Right_font" width="10%">是否接入省网管监控：<span class="l-verify-star">&nbsp;</span></td>
+<td class="Left_font">
+@{
+var selPFalgT = "否";
+if (Model.DediLine.IsAccessProviNet == 1)
+{
+    selPFalgT = "是";
+}
+else
+{
+    selPFalgT = "否";
+}
+}
+@selPFalgT
+</td>
+<td class="Right_font">接入省网管平台名称：<span class="l-verify-star">&nbsp;</span></td>
+<td colspan="3" class="Left_font">
+@Model.DediLine.AccessProviNet
+
+</td>
+</tr>
+<tr>
+<td class="Right_font" width="10%">备注：<span class="l-verify-star">&nbsp;</span></td>
+<td  colspan="5" class="Left_font">@Model.DediLine.Remark</td>
+</tr>
+</table>  
+          
+    </div> 
+}

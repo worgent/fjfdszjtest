@@ -1,0 +1,88 @@
+﻿<!--高级查询专用-->
+<head>
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/Lib/highquery/style.css")"/>
+<script src="@Url.Content("~/Lib/highquery/highquery.js")" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+<!--
+    $.getJSON('/Archives/Company/GetCombobox/', { Rnd: Math.random() }, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            DictList.add(new Dict('SelCompany', '公司', data[i].text, data[i].id));
+        }
+    });
+    $.getJSON('/Archives/District/GetSearchCombobox/', { Rnd: Math.random() }, function (companydata) {
+        for (var j = 0; j < companydata.length; j++) {
+            DictList.add(new Dict('SelDistrict', '区县', companydata[j].text, companydata[j].id));
+        }
+    });
+    $.getJSON('/Archives/BizAssuranLeve/GetCombobox/', { Rnd: Math.random() }, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            DictList.add(new Dict('SelBizAssLeve', '业务保障等级', data[i].text, data[i].id));
+        }
+    });
+    $.getJSON('/Archives/NetworkingMode/GetCombobox/', { Rnd: Math.random() }, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            DictList.add(new Dict('SelNetworkMode', '组网方式', data[i].text, data[i].id));
+        }
+    });
+
+    DictList.add(new Dict('StateCode', '未移交', '未移交', '3'));
+    DictList.add(new Dict('StateCode', '预移交', '预移交', '0'));
+    DictList.add(new Dict('StateCode', '正式移交', '正式移交', '1'));
+    DictList.add(new Dict('StateCode', '退网', '退网', '2'));
+           
+    // 字段信息
+    FieldList.add(new Field('main.StartDateTime', '接入日期', 'date', '19', '', ''));
+    FieldList.add(new Field('main.ProductNo', '专线编号', 'varchar', '50', '', ''));
+FieldList.add(new Field('main.State', '状态', 'varchar', '2', 'StateCode', ''));
+    FieldList.add(new Field('clie.ClieNo', '客户编号', 'varchar', '100', '', ''));
+    FieldList.add(new Field('clie.ClieName', '客户名称', 'varchar', '100', '', ''));
+    FieldList.add(new Field('main.NetWorkingModeId', '组网方式', 'varchar', '20', 'SelNetworkMode', ''));
+    FieldList.add(new Field('main.BizAssuranLeveId', '业务保障等级', 'varchar', '20', 'SelBizAssLeve', ''));
+    FieldList.add(new Field('main.CompanyId', '所属公司', 'varchar', '20', 'SelCompany', ''));
+    FieldList.add(new Field('main.DistrictId', '所属区县', 'varchar', '20', 'SelDistrict', ''));
+    FieldList.add(new Field('', '请选择一个字段', '', '0', '', '')); // 空白，必须是最后加入
+    // 初始化
+    initHighQuery();
+
+    //导出
+    function f_excelout(frameid) {
+        var arrReturn = interpreter();
+        //提交数据
+        var gridsearch = "";
+        var bizId = $("#bizTypeId").val();
+        var gridsearch = " and main.BizTypeId='" + bizId + "'";
+        if (arrReturn[1] != "") {
+            gridsearch += " and " + arrReturn[1];
+        }
+        window.location.href = "/Resources/DedicateLine/GetExcelOut/?bizType=" + $("#bizType").val() + "&gridsearch=" + escape(gridsearch);
+    } 
+    //全部导出，未有条件
+    function f_excelallout(frameid) {
+        var arrReturn = interpreter();
+        //提交数据
+        var gridsearch = "";
+        var bizId = $("#bizTypeId").val();
+        var gridsearch = " and main.BizTypeId='" + bizId + "'";
+        window.location.href = "/Resources/DedicateLine/GetExcelOut/?bizType=" + $("#bizType").val() + "&gridsearch=" + escape(gridsearch);
+    }
+    //查询信息
+    function f_save(frameid) {
+        if (frameid == "qzgfframenull")
+            frameid = "qzgfframe" + $("#frameid").val();
+        $.ligerDialog.waitting("正在查询中...");
+        var arrReturn = interpreter();
+        //提交数据
+        var bizId = $("#bizTypeId").val();
+        var gridsearch = " and main.BizTypeId='" + bizId + "'";
+        if (arrReturn[1] != "") {
+            gridsearch += " and " + arrReturn[1];
+        }
+        f_find(parent.window.frames[frameid].gridManager, gridsearch);
+        $.ligerDialog.closeWaitting();
+    } 
+    //-->ViewData["bizType"] 
+</script>
+    <input type="hidden" id="bizTypeId" value="@ViewData["bizTypeId"]" />
+    <input type="hidden" id="bizType" value="@ViewData["bizType"]" />
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />

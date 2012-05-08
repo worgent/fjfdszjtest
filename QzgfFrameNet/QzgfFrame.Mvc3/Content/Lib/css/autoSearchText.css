@@ -1,0 +1,80 @@
+﻿body
+{
+}
+.autoSearchText{
+	border:solid 1px #CFCFCF;  
+	height:20px; 
+	color:Gray;
+}
+.autoSearchClieText{
+	border:solid 1px #CFCFCF;  
+	height:20px; 
+	color:Gray;
+}
+.menu_v{
+	margin:0;
+	padding:0;
+	line-height:20px;
+	font-size:12px;
+	list-style-type:none;
+	z-index:1000; 
+}
+.menu_v li{
+	margin:0;
+	padding:0;
+	line-height:18px;
+	font-size:12px;
+	color:#333;
+	list-style-type:none;
+	float:none;
+}
+
+.menu_v li font{
+	margin:0;
+	padding:0;
+	line-height:18px;
+	font-size:12px;
+	color:#333;
+	list-style-type:none;
+	float:none;
+}
+.menu_v li span{
+	color:Red;
+}
+#autoSearchItem{
+	border:solid 1px #CFCFCF;  
+	visibility:hidden;
+	position:absolute; 
+	background-color:white; 
+	overflow-y:auto;
+	z-index:1000; 
+}
+
+#autoSearch{
+	border:solid 1px #CFCFCF;  
+	visibility:hidden;
+	position:absolute; 
+	background-color:white; 
+	overflow-y:auto;
+	z-index:1000; 
+}
+.tab #autoSearch{
+	border:solid 1px #CFCFCF;  
+	visibility:hidden;
+	position:absolute; 
+	background-color:white; 
+	overflow-y:auto;
+	z-index:1000; 
+}
+.d-box-select
+{
+    background:white;
+    color:black;
+    font-size:12px;
+}
+.d-box-select-over
+{
+    background:#FFE7A2;
+    color:black;
+    font-size:12px;
+}

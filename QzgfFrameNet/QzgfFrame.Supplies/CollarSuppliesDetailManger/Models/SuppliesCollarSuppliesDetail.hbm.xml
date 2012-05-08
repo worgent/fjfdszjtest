@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Supplies.CollarSuppliesDetailManger.Models" assembly="QzgfFrame.Supplies">
+	<class name="QzgfFrame.Supplies.CollarSuppliesDetailManger.Models.SuppliesCollarSuppliesDetail,QzgfFrame.Supplies" table="tab_collar_supplies_detail">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+    <!-- <property column="FileData" type="VARBINARY" name="FileData" length="256" />-->
+    <property column="Num" type="int" name="Num" />
+    <property column="SuppliesTypeId" type="String" name="SuppliesTypeId"   length="20"/>
+    <property column="CollarSuppliesId" type="String" name="CollarSuppliesId"   length="20"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+    <property column="Remark" type="String" name="Remark"   length="100"/>
+	</class>
+</hibernate-mapping>
+

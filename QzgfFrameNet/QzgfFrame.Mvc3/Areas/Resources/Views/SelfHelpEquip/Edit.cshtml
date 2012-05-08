@@ -1,0 +1,176 @@
+﻿@model QzgfFrame.Resources.SelfHelpEquipManger.Models.SelfHelpEquip
+@{
+    
+    ViewBag.Title = "Register";
+}  
+<script src="@Url.Content("~/Content/lib/js/Resources/ComponentLine.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/lib/js/Resources/SelfHelpEquip.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/lib/json2.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Lib/jquery/jquery.autoSearchText.js")" type="text/javascript"></script>
+<div id="autoSearch"><ul class="menu_v"></ul></div>
+@using (Html.BeginForm("Edit", "selfHelpEquip", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>                
+                <tr>
+                    <td class="Right_font" >设备厂家：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    <input type="text" id="FactoryName"  name="FactoryName" validate = "{required:true,minlength:1,maxlength:30}"/>
+                    @Html.HiddenFor(m => m.FactoryId)
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.selfHelpEquip.Id)
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    </td> 
+                    <td class="Right_font">设备类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    <input type="text" id="EquipTypeName" name="EquipTypeName"   validate = "{required:true,minlength:1,maxlength:30}"/>
+                    @Html.HiddenFor(m => m.EquipTypeId)
+                     </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">设备型号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.selfHelpEquip.EquipModelName, new { @class = "dd-text", validate = "{required:true,minlength:1,maxlength:40}" })  
+                    </td> 
+                    <td class="Right_font">所属县市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("selfHelpEquip.DistrictId", (SelectList)ViewData["district"], new { style = "width:135px", ltype = "select" })
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">设备安装时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.selfHelpEquip.StartDatetime, new { @class = "dd-text",style="width:138px;", validate = "{required:true}", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td> 
+                    <td class="Right_font">终端ID号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" style="width:40%">
+                    <table style="width:100%"><tr><td>   
+                    <input type="hidden" id="terimFlag" value="0"/>    
+                     @Html.TextBoxFor(m => m.selfHelpEquip.TermiId, new { maxlength = "8", @class = "dd-text", style = "width:138px;", validate = "{required:true,minlength:8,maxlength:8,number:true}", onblur = "getTerimNo(this.value);" })
+                     </td><td id="showTerim" style="width:75%; text-align:left; color:red"></td>
+                   </tr></table>
+                   </td>
+                </tr> 
+                 
+                 <tr>
+                    <td class="Right_font">网点类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font"  colspan="4">
+                    @Html.DropDownList("selfHelpEquip.NetType", (SelectList)ViewData["outletsType"], new { style = "width:138px", ltype = "select" })
+                    </td> 
+                   
+                </tr>         
+                 <tr>  
+                  <td class="Right_font">网点编号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.selfHelpEquip.UseNetNo, new { maxlength = "7", @class = "dd-text", validate = "{required:true,minlength:7,maxlength:7,number:true}" }) 
+                   </td> 
+                    <td class="Right_font">使用网点名称：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @Html.TextBoxFor(m => m.selfHelpEquip.UseNetName, new { @class = "dd-text", validate = "{required:true,minlength:1,maxlength:40}" }) 
+                   
+                    </td>                   
+                    
+                </tr> 
+                <tr>
+                <td class="Right_font">使用网点地址：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font"  colspan="4">
+                    @Html.TextBoxFor(m => m.selfHelpEquip.NetAddress, new { style = "width:99%", @class = "dd-text" })
+                    </td>
+                </tr>       
+                 <tr>
+                    <td colspan="6" width="100%" align="center" class="Left_Bottom">
+                    <table width="100%" border="0" cellpadding="2" cellspacing="1" id="ComponentFrame" class="com_tab">
+<tr class="hno">
+              
+                <td > 部件类型</td>
+                <td  >部件型号</td>
+                <td  align="center"><input type="button" name="Submit" class="sel_btn" value="添加部件" onclick="AddComponentRow()"  /></td>
+              
+              </tr>
+@{var j = 0;}
+ @foreach (var n in Model.equipComponent as IList<QzgfFrame.Resources.EquipComponentManger.Models.ResourceEquipComponent>)
+ {
+     // ViewData["Component"] = new SelectList(Model.Components, "Id", "ComponentName",n.ComponentId);
+
+     var ComponentId = "ComponentId" + j; var ComponentModel = "ComponentModel" + j;
+     var SignComponentItem = "SignComponentItem" + j;
+     
+             <tr id='@SignComponentItem' class="bno">
+                <td class="sno">@Html.DropDownList(ComponentId, new SelectList(Model.Components, "Id", "ComponentName", n.ComponentId), new { name = "selComponent", ltype = "select" })</td>
+                <td  ><input name='@ComponentModel' id='@ComponentModel' type='text' size='20' value="@n.ComponentModel"  class="dd-text" /></td>
+                <td ><div align='center' style='width:40px'><a href='javascript:;' onclick="DelComponentRow('@SignComponentItem')">删除</a></div></td>
+              </tr>
+                                                                                                        j++;
+ }
+        </table>
+        <input name='TRLastIndex' type='hidden' id='TRLastIndex' value="@j" />
+                    @Html.HiddenFor(m => m.equipComponents)
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">终端IP地址：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.selfHelpEquip.TerimIP, new { style = "width:138px", @class = "dd-text", validate = "{required:false}" })
+                    </td> 
+                    <td class="Right_font">掩码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.selfHelpEquip.SubnetMask, new { style = "width:138px", @class = "dd-text", validate = "{required:false}" })
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">终端MAC地址：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.selfHelpEquip.MacAddress, new { style = "width:138px", @class = "dd-text", validate = "{required:false}" })
+                    </td>
+                     <td class="Right_font">设备采购时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.selfHelpEquip.BuyDatetime, new { style = "width:138px", @class = "dd-text", validate = "{required:true}", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd',onpicked: times}); " })
+                    </td> 
+                </tr> 
+                <tr>                
+                    <td class="Right_font">可使用年限：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font"  colspan="4"><table style="width:100%"><tr> 
+                    <td style="width:10%; ">        
+                     @Html.TextBoxFor(m => m.selfHelpEquip.Life, new { style = "width:138px", value = "3", @class = "dd-text", validate = "{required:true,minlength:1,maxlength:2,number: true}" })</td>
+                    <td style="text-align:left;">年</td>
+                    </tr></table></td> 
+                </tr>
+                <tr>
+                
+                    <td class="Right_font">已使用时间：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font" colspan="4"> 
+                    <input type="text" id="useMonth" style = "width:138px;background-color:#e6e6e6" readonly="readonly"  class="dd-text"/>
+                   
+                     </td>
+                </tr>
+                <tr>
+                    <td class="Right_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Html.TextAreaFor(m => m.selfHelpEquip.Remark, new { Multiline = true, @class = "l-textarea", size = "80", style = "width:100%", validate = "{required:false,minlength:0,maxlength:100}" })
+                    </td> 
+</tr></tbody>
+</table>  
+<table width="100%"><tr><td style="width:45%"></td>
+<td><input type="submit" value="提 交" id="Button1" class="l-button l-button-submit" /> 
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+   
+    </div> 
+    }
+    

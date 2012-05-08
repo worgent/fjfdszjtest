@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <description>控制器配置文件</description>
+
+  <!--=====================系统管理begin==============================-->
+  <!--部门信息管理-->
+  <object id="departmentController" parent="baseController" type="QzgfFrame.Controllers.System.DepartmentManger.DepartmentController, QzgfFrame.Controllers" singleton="false">
+    <property name="departmentFacade" ref="departmentFacade"/>
+  </object>
+  <!--用户信息管理-->
+  <object id="userController" parent="baseController" type="QzgfFrame.Controllers.System.UserManger.UserController, QzgfFrame.Controllers" singleton="false">
+    <property name="userFacade" ref="userFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <!--
+        <property name="roleFacade" ref="roleFacade"/>
+        -->
+  </object>
+  <!--菜单-->
+  <object id="menuController"  parent="baseController" type="QzgfFrame.Controllers.System.MenuManger.MenuController, QzgfFrame.Controllers" singleton="false">
+    <property name="menuFacade" ref="menuFacade"/>
+    <property name="menuFacadeEx" ref="menuFacadeEx"/>
+  </object>
+  <!--角色-->
+  <object id="roleController" parent="baseController" type="QzgfFrame.Controllers.System.RoleManger.RoleController, QzgfFrame.Controllers" singleton="false">
+    <property name="roleFacade" ref="roleFacade"/>
+  </object>
+  <!--菜单字段-->
+  <object id="menufieldController" parent="baseController" type="QzgfFrame.Controllers.System.MenufieldManger.MenufieldController, QzgfFrame.Controllers" singleton="false">
+    <property name="menufieldFacade" ref="menufieldFacade"/>
+  </object>
+  <!--权限-->
+  <object id="permissionsController" parent="baseController" type="QzgfFrame.Controllers.System.PermissionsManger.PermissionsController, QzgfFrame.Controllers" singleton="false">
+    <property name="permissionsFacade" ref="permissionsFacade"/>
+  </object>
+  <!--系统日志-->
+   <object id="logController" parent="baseController" type="QzgfFrame.Controllers.System.LogManger.SystemLogController, QzgfFrame.Controllers" singleton="false">
+        <property name="logFacade" ref="logFacade"/>
+    </object>
+  <!--
+    <object id="UserController" type="QzgfFrame.Controllers.System.MenuManger.UserController, QzgfFrame.Controllers" singleton="false">
+        <property name="menuFacade" ref="menuFacade"/>
+    </object> 
+    -->
+  <!--======================系统管理end================================-->
+
+
+  <!--=======================档案管理begin===============================-->
+  <object id="companyController" parent="baseController"  type="QzgfFrame.Controllers.Archives.CompanyManger.CompanyController, QzgfFrame.Controllers" singleton="false">
+    <property name="companyFacade" ref="companyFacade"/>
+  </object>
+  <object id="districtController"  parent="baseController" type="QzgfFrame.Controllers.Archives.DistrictManger.DistrictController, QzgfFrame.Controllers" singleton="false">
+    <property name="districtFacade" ref="districtFacade"/>
+  </object>
+  <object id="gridController"  parent="baseController" type="QzgfFrame.Controllers.Archives.GridManger.GridController, QzgfFrame.Controllers" singleton="false">
+    <property name="gridFacade" ref="gridFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="natureFacade" ref="natureFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+  </object>
+  <object id="bizAssuranLeveController"  parent="baseController" type="QzgfFrame.Controllers.Archives.BizAssuranLeveManger.BizAssuranLeveController, QzgfFrame.Controllers" singleton="false">
+    <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+  </object>
+  <object id="bizTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.BizTypeManger.BizTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="bizTypeFacade" ref="bizTypeFacade"/>
+  </object>
+  <object id="clieScaleGradeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.ClieScaleGradeManger.ClieScaleGradeController, QzgfFrame.Controllers" singleton="false">
+    <property name="clieScaleGradeFacade" ref="clieScaleGradeFacade"/>
+  </object>
+  <object id="clieServStarLeveController"  parent="baseController" type="QzgfFrame.Controllers.Archives.ClieServStarLeveManger.ClieServStarLeveController, QzgfFrame.Controllers" singleton="false">
+    <property name="clieServStarLeveFacade" ref="clieServStarLeveFacade"/>
+  </object>
+  <object id="equipModelController"  parent="baseController" type="QzgfFrame.Controllers.Archives.EquipModelManger.EquipModelController, QzgfFrame.Controllers" singleton="false">
+    <property name="equipModelFacade" ref="equipModelFacade"/>
+    <property name="equipTypeFacade" ref="equipTypeFacade"/>
+    <property name="factoryFacade" ref="factoryFacade"/>
+  </object>
+  <object id="equipTypeController" parent="baseController"  type="QzgfFrame.Controllers.Archives.EquipTypeManger.EquipTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="equipTypeFacade" ref="equipTypeFacade"/>
+  </object>
+  <object id="factoryController"  parent="baseController" type="QzgfFrame.Controllers.Archives.FactoryManger.FactoryController, QzgfFrame.Controllers" singleton="false">
+    <property name="factoryFacade" ref="factoryFacade"/>
+  </object>
+  <object id="networkingModeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.NetworkingModeManger.NetworkingModeController, QzgfFrame.Controllers" singleton="false">
+    <property name="networkingModeFacade" ref="networkingModeFacade"/>
+  </object>
+  <object id="breakdownTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.BreakdownTypeManger.BreakdownTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="breakdownTypeFacade" ref="breakdownTypeFacade"/>
+  </object>
+  <object id="componentController"  parent="baseController" type="QzgfFrame.Controllers.Archives.ComponentManger.ComponentController, QzgfFrame.Controllers" singleton="false">
+    <property name="componentFacade" ref="componentFacade"/>
+  </object>
+  <object id="dutyController"  parent="baseController" type="QzgfFrame.Controllers.Archives.DutyManger.DutyController, QzgfFrame.Controllers" singleton="false">
+    <property name="dutyFacade" ref="dutyFacade"/>
+  </object>
+  <object id="outletsTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.OutletsTypeManger.OutletsTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="outletsTypeFacade" ref="outletsTypeFacade"/>
+  </object>
+  <object id="meterStateController"  parent="baseController" type="QzgfFrame.Controllers.Archives.MeterStateManger.MeterStateController, QzgfFrame.Controllers" singleton="false">
+    <property name="meterStateFacade" ref="meterStateFacade"/>
+  </object>
+  <object id="maintainSpecialtyController"  parent="baseController" type="QzgfFrame.Controllers.Archives.MaintainSpecialtyManger.MaintainSpecialtyController, QzgfFrame.Controllers" singleton="false">
+    <property name="maintainSpecialtyFacade" ref="maintainSpecialtyFacade"/>
+  </object>
+  <object id="qualificationTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.QualificationTypeManger.QualificationTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="qualificationTypeFacade" ref="qualificationTypeFacade"/>
+  </object>
+  <object id="signalModelController"  parent="baseController" type="QzgfFrame.Controllers.Archives.SignalModelManger.SignalModelController, QzgfFrame.Controllers" singleton="false">
+    <property name="signalModelFacade" ref="signalModelFacade"/>
+  </object>
+  <object id="stagnationController"  parent="baseController" type="QzgfFrame.Controllers.Archives.StagnationManger.StagnationController, QzgfFrame.Controllers" singleton="false">
+    <property name="stagnationFacade" ref="stagnationFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+  </object>
+  <object id="useController"  parent="baseController" type="QzgfFrame.Controllers.Archives.UseManger.UseController, QzgfFrame.Controllers" singleton="false">
+    <property name="useFacade" ref="useFacade"/>
+  </object>
+  <object id="vehicleNatureController"  parent="baseController" type="QzgfFrame.Controllers.Archives.VehicleNatureManger.VehicleNatureController, QzgfFrame.Controllers" singleton="false">
+    <property name="vehicleNatureFacade" ref="vehicleNatureFacade"/>
+  </object>
+  <object id="natureController"  parent="baseController" type="QzgfFrame.Controllers.Archives.NatureManger.NatureController, QzgfFrame.Controllers" singleton="false">
+    <property name="natureFacade" ref="natureFacade"/>
+  </object>
+  <object id="diplomaController"  parent="baseController" type="QzgfFrame.Controllers.Archives.DiplomaManger.DiplomaController, QzgfFrame.Controllers" singleton="false">
+    <property name="diplomaFacade" ref="diplomaFacade"/>
+  </object>
+  <object id="certificateController"  parent="baseController" type="QzgfFrame.Controllers.Archives.CertificateManger.CertificateController, QzgfFrame.Controllers" singleton="false">
+    <property name="certificateFacade" ref="certificateFacade"/>
+  </object>
+  <object id="itemPropertyController"  parent="baseController" type="QzgfFrame.Controllers.Archives.ItemPropertyManger.ItemPropertyController, QzgfFrame.Controllers" singleton="false">
+    <property name="itemPropertyFacade" ref="itemPropertyFacade"/>
+  </object>
+  <object id="unitController"  parent="baseController" type="QzgfFrame.Controllers.Archives.UnitManger.UnitController, QzgfFrame.Controllers" singleton="false">
+    <property name="unitFacade" ref="unitFacade"/>
+  </object>
+  <object id="ioClassController"  parent="baseController" type="QzgfFrame.Controllers.Archives.IOClassManger.IOClassController, QzgfFrame.Controllers" singleton="false">
+    <property name="ioClassFacade" ref="ioClassFacade"/>
+  </object>
+  <object id="stockEquipUseController"  parent="baseController" type="QzgfFrame.Controllers.Archives.StockEquipUseManger.StockEquipUseController, QzgfFrame.Controllers" singleton="false">
+    <property name="stockEquipUseFacade" ref="stockEquipUseFacade"/>
+  </object>
+  <object id="selfHelpEquipModelController"  parent="baseController" type="QzgfFrame.Controllers.Archives.SelfHelpEquipModelManger.SelfHelpEquipModelController, QzgfFrame.Controllers" singleton="false">
+    <property name="selfHelpEquipModelFacade" ref="selfHelpEquipModelFacade"/>
+    <property name="selfHelpEquipTypeFacade" ref="selfHelpEquipTypeFacade"/>
+    <property name="selfHelpFactoryFacade" ref="selfHelpFactoryFacade"/>
+  </object>
+  <object id="selfHelpEquipTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.SelfHelpEquipTypeManger.SelfHelpEquipTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="selfHelpEquipTypeFacade" ref="selfHelpEquipTypeFacade"/>
+  </object>
+  <object id="selfHelpFactoryController"  parent="baseController" type="QzgfFrame.Controllers.Archives.SelfHelpFactoryManger.SelfHelpFactoryController, QzgfFrame.Controllers" singleton="false">
+    <property name="selfHelpFactoryFacade" ref="selfHelpFactoryFacade"/>
+  </object>
+  <object id="postsController"  parent="baseController" type="QzgfFrame.Controllers.Archives.PostsManger.PostsController, QzgfFrame.Controllers" singleton="false">
+    <property name="postsFacade" ref="postsFacade"/>
+  </object>
+  <object id="networkNameController"  parent="baseController" type="QzgfFrame.Controllers.Archives.NetworkNameManger.NetworkNameController, QzgfFrame.Controllers" singleton="false">
+    <property name="networkNameFacade" ref="networkNameFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+  </object>
+  <object id="saleDepartmentController"  parent="baseController" type="QzgfFrame.Controllers.Archives.SaleDepartmentManger.SaleDepartmentController, QzgfFrame.Controllers" singleton="false">
+    <property name="saleDepartmentFacade" ref="saleDepartmentFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+  </object>
+  <object id="accessWayController"  parent="baseController" type="QzgfFrame.Controllers.Archives.AccessWayManger.AccessWayController, QzgfFrame.Controllers" singleton="false">
+    <property name="accessWayFacade" ref="accessWayFacade"/>
+  </object>
+  <object id="buildWayController"  parent="baseController" type="QzgfFrame.Controllers.Archives.BuildWayManger.BuildWayController, QzgfFrame.Controllers" singleton="false">
+    <property name="buildWayFacade" ref="buildWayFacade"/>
+  </object>
+  <object id="communityTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.CommunityTypeManger.CommunityTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="communityTypeFacade" ref="communityTypeFacade"/>
+  </object>
+  <object id="maintainTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.MaintainTypeManger.MaintainTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="maintainTypeFacade" ref="maintainTypeFacade"/>
+  </object>
+  <object id="suppliesTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.SuppliesTypeManger.SuppliesTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="suppliesTypeFacade" ref="suppliesTypeFacade"/>
+    <property name="unitFacade" ref="unitFacade"/>
+  </object>
+  <object id="stockTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.StockTypeManger.StockTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="stockTypeFacade" ref="stockTypeFacade"/>
+  </object>
+  <object id="portTypeController"  parent="baseController" type="QzgfFrame.Controllers.Archives.PortTypeManger.PortTypeController, QzgfFrame.Controllers" singleton="false">
+    <property name="portTypeFacade" ref="portTypeFacade"/>
+  </object>
+  <object id="supplierController"  parent="baseController" type="QzgfFrame.Controllers.Archives.SupplierManger.SupplierController, QzgfFrame.Controllers" singleton="false">
+    <property name="supplierFacade" ref="supplierFacade"/>
+  </object>
+  <!--========================档案管理end================================-->
+  <!--=====================资源管理begin==============================-->
+  <object id="groupClieController"  parent="baseController" type="QzgfFrame.Controllers.Resources.GroupClieManger.GroupClieController, QzgfFrame.Controllers" singleton="false">
+    <property name="groupClieFacade" ref="groupClieFacade"/>
+    <property name="gridFacade" ref="gridFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="clieScaleGradeFacade" ref="clieScaleGradeFacade"/>
+    <property name="clieServStarLeveFacade" ref="clieServStarLeveFacade"/>
+    <property name="groupClieFacadeEx" ref="groupClieFacadeEx"/>
+    <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+  </object>
+  <object id="dedicateLineController"   parent="baseController" type="QzgfFrame.Controllers.Resources.DedicateLineManger.DedicateLineController, QzgfFrame.Controllers" singleton="false" >
+    <property name="dedicateLineFacade" ref="dedicateLineFacade"/>
+    <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+    <property name="networkingModeFacade" ref="networkingModeFacade"/>
+    <property name="groupClieFacade" ref="groupClieFacade"/>
+    <property name="bizTypeFacade" ref="bizTypeFacade"/>
+    <property name="fiberCoreFacade" ref="fiberCoreFacade"/>
+    <property name="otherInfoFacade" ref="otherInfoFacade"/>
+    <property name="numberGroupFacade" ref="numberGroupFacade"/>
+    <property name="signalModelFacade" ref="signalModelFacade"/>
+    <property name="dedicateLineFacadeEx" ref="dedicateLineFacadeEx"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="lineEquipFacade" ref="lineEquipFacade"/>
+  </object>
+  <object id="equipmentController"  parent="baseController" type="QzgfFrame.Controllers.Resources.EquipmentManger.EquipmentController, QzgfFrame.Controllers" singleton="false">
+    <property name="equipmentFacade" ref="equipmentFacade"/>
+    <property name="factoryFacade" ref="factoryFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="portTypeFacade" ref="portTypeFacade"/>
+    <property name="equipTypeFacade" ref="equipTypeFacade"/>
+    <property name="equipModelFacade" ref="equipModelFacade"/>
+    <property name="equipmentFacadeEx" ref="equipmentFacadeEx"/>
+    <property name="networkingModeFacade" ref="networkingModeFacade"/>
+  </object>
+  <object id="selfHelpEquipController"  parent="baseController" type="QzgfFrame.Controllers.Resources.SelfHelpEquipManger.SelfHelpEquipController, QzgfFrame.Controllers" singleton="false">
+    <property name="selfHelpEquipFacade" ref="selfHelpEquipFacade"/>
+    <property name="selfHelpFactoryFacade" ref="selfHelpFactoryFacade"/>
+    <property name="selfHelpEquipTypeFacade" ref="selfHelpEquipTypeFacade"/>
+    <property name="selfHelpEquipModelFacade" ref="selfHelpEquipModelFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="outletsTypeFacade" ref="outletsTypeFacade"/>
+    <property name="selfHelpEquipFacadeEx" ref="selfHelpEquipFacadeEx"/>
+    <property name="componentFacade" ref="componentFacade"/>
+    <property name="equipComponentFacade" ref="equipComponentFacade"/>
+  </object>
+  <object id="equipFaultController"  parent="baseController" type="QzgfFrame.Controllers.Resources.EquipFaultManger.EquipFaultController, QzgfFrame.Controllers" singleton="false">
+  <property name="equipFaultFacade" ref="equipFaultFacade"/>
+    <property name="componentFacade" ref="componentFacade"/>
+    <property name="breakdownTypeFacade" ref="breakdownTypeFacade"/>
+    <property name="groupClieFacade" ref="groupClieFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="selfHelpFactoryFacade" ref="selfHelpFactoryFacade"/>
+    <property name="selfHelpEquipModelFacade" ref="selfHelpEquipModelFacade"/>
+    <property name="selfHelpEquipFacade" ref="selfHelpEquipFacade"/>
+    <property name="equipFaultFacadeEx" ref="equipFaultFacadeEx"/>
+  </object>
+  <object id="equipComponentController" type="QzgfFrame.Controllers.Resources.EquipComponentManger.EquipComponentController, QzgfFrame.Controllers" singleton="false">
+    <property name="equipComponentFacade" ref="equipComponentFacade"/>
+  </object>
+  <!--======人员\车辆\仪器仪表=========-->
+  <object id="vehicleController"  parent="baseController" type="QzgfFrame.Controllers.Resources.VehicleManger.VehicleController, QzgfFrame.Controllers" singleton="false">
+    <property name="vehicleFacade" ref="vehicleFacade"/>
+    <property name="gridFacade" ref="gridFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="useFacade" ref="useFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="stagnationFacade" ref="stagnationFacade"/>
+    <property name="vehicleNatureFacade" ref="vehicleNatureFacade"/>
+    <property name="maintainSpecialtyFacade" ref="maintainSpecialtyFacade"/>
+    <property name="vehicleFacadeEx" ref="vehicleFacadeEx"/>
+  </object>
+  <object id="personnelController"  parent="baseController" type="QzgfFrame.Controllers.Resources.PersonnelManger.PersonnelController, QzgfFrame.Controllers" singleton="false">
+    <property name="personnelFacade" ref="personnelFacade"/>
+    <property name="gridFacade" ref="gridFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="personnelFacadeEx" ref="personnelFacadeEx"/>
+    <property name="stagnationFacade" ref="stagnationFacade"/>
+    <property name="maintainSpecialtyFacade" ref="maintainSpecialtyFacade"/>
+    <property name="dutyFacade" ref="dutyFacade"/>
+    <property name="certificateFacade" ref="certificateFacade"/>
+    <property name="qualificationTypeFacade" ref="qualificationTypeFacade"/>
+    <property name="itemPropertyFacade" ref="itemPropertyFacade"/>
+    <property name="diplomaFacade" ref="diplomaFacade"/>
+    <property name="postsFacade" ref="postsFacade"/>
+  </object>
+  <object id="apparatusController"  parent="baseController" type="QzgfFrame.Controllers.Resources.ApparatusManger.ApparatusController, QzgfFrame.Controllers" singleton="false">
+    <property name="apparatusFacade" ref="apparatusFacade"/>
+    <property name="gridFacade" ref="gridFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="useFacade" ref="useFacade"/>
+    <property name="meterStateFacade" ref="meterStateFacade"/>
+    <property name="stagnationFacade" ref="stagnationFacade"/>
+    <property name="maintainSpecialtyFacade" ref="maintainSpecialtyFacade"/>
+    <property name="apparatusFacadeEx" ref="apparatusFacadeEx"/>
+  </object>
+  <!--======170流程的数据=========-->
+  <object id="oneSevenZeroController"  parent="baseController" type="QzgfFrame.Controllers.Resources.OneSevenZeroManger.OneSevenZeroController, QzgfFrame.Controllers" singleton="false">
+    <property name="oneSevenZeroFacade" ref="oneSevenZeroFacade"/>
+    <property name="factoryFacade" ref="factoryFacade"/>
+    <property name="equipTypeFacade" ref="equipTypeFacade"/>
+    <property name="equipModelFacade" ref="equipModelFacade"/>
+    <property name="dedicateLineFacade" ref="dedicateLineFacade"/>
+    <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+    <property name="networkingModeFacade" ref="networkingModeFacade"/>
+    <property name="groupClieFacade" ref="groupClieFacade"/>
+    <property name="bizTypeFacade" ref="bizTypeFacade"/>
+    <property name="fiberCoreFacade" ref="fiberCoreFacade"/>
+    <property name="otherInfoFacade" ref="otherInfoFacade"/>
+    <property name="numberGroupFacade" ref="numberGroupFacade"/>
+    <property name="signalModelFacade" ref="signalModelFacade"/>
+  </object>
+  
+  <!--======================资源管理end================================-->
+  <!--=====================小区宽带begin==============================-->
+  <object id="communityManagerController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.CommunityManagerManger.CommunityManagerController, QzgfFrame.Controllers" singleton="false">
+    <property name="communityManagerFacade" ref="communityManagerFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="saleDepartmentFacade" ref="saleDepartmentFacade"/>
+    <property name="communityManagerFacadeEx" ref="communityManagerFacadeEx"/>
+  </object>
+  <object id="communityInfoController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.CommunityInfoManger.CommunityInfoController, QzgfFrame.Controllers" singleton="false">
+    <property name="communityInfoFacade" ref="communityInfoFacade"/>
+    <property name="accessWayFacade" ref="accessWayFacade"/>
+    <property name="buildWayFacade" ref="buildWayFacade"/>
+    <property name="communityTypeFacade" ref="communityTypeFacade"/>
+    <property name="communityInfoFacadeEx" ref="communityInfoFacadeEx"/>
+  </object>
+  <object id="suppliesStockController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.SuppliesStockManger.SuppliesStockController, QzgfFrame.Controllers" singleton="false">
+    <property name="suppliesStockFacade" ref="suppliesStockFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+  </object>
+  <object id="collarSuppliesController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.CollarSuppliesManger.CollarSuppliesController, QzgfFrame.Controllers" singleton="false">
+    <property name="collarSuppliesFacade" ref="collarSuppliesFacade"/>
+    <property name="collarSuppliesDetailFacade" ref="collarSuppliesDetailFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="suppliesTypeFacade" ref="suppliesTypeFacade"/>
+    <property name="collarSuppliesFacadeEx" ref="collarSuppliesFacadeEx"/>
+  </object>
+  <object id="distributionController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.DistributionManger.DistributionController, QzgfFrame.Controllers" singleton="false">
+    <property name="distributionFacade" ref="distributionFacade"/>
+    <property name="distributionDetailFacade" ref="distributionDetailFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="saleDepartmentFacade" ref="saleDepartmentFacade"/>
+    <property name="suppliesTypeFacade" ref="suppliesTypeFacade"/>
+    <property name="suppliesStockFacade" ref="suppliesStockFacade"/>
+    <property name="distributionFacadeEx" ref="distributionFacadeEx"/>
+  </object>
+  <object id="distributionDetailController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.DistributionDetailManger.DistributionDetailController, QzgfFrame.Controllers" singleton="false">
+    <property name="distributionDetailFacade" ref="distributionDetailFacade"/>
+  </object>
+  <object id="payStandardController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.PayStandardManger.PayStandardController, QzgfFrame.Controllers" singleton="false">
+    <property name="payStandardFacade" ref="payStandardFacade"/>
+    <property name="maintainTypeFacade" ref="maintainTypeFacade"/>
+    <property name="accessWayFacade" ref="accessWayFacade"/>
+  </object>
+  <object id="registerController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.RegisterManger.RegisterController, QzgfFrame.Controllers" singleton="false">
+    <property name="registerFacade" ref="registerFacade"/>
+    <property name="registerDetailFacade" ref="registerDetailFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="saleDepartmentFacade" ref="saleDepartmentFacade"/>
+    <property name="suppliesTypeFacade" ref="suppliesTypeFacade"/>
+    <property name="accessWayFacade" ref="accessWayFacade"/>
+    <property name="buildWayFacade" ref="buildWayFacade"/>
+    <property name="communityTypeFacade" ref="communityTypeFacade"/>
+    <property name="maintainTypeFacade" ref="maintainTypeFacade"/>
+    <property name="suppliesStockFacade" ref="suppliesStockFacade"/>
+    <property name="registerFacadeEx" ref="registerFacadeEx"/>
+  </object>
+  <object id="registerDetailController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.RegisterDetailManger.RegisterDetailController, QzgfFrame.Controllers" singleton="false">
+    <property name="registerDetailFacade" ref="registerDetailFacade"/>
+  </object>
+  <object id="workloadController"  parent="baseController" type="QzgfFrame.Controllers.Supplies.WorkloadManger.WorkloadController, QzgfFrame.Controllers" singleton="false">
+    <property name="workloadFacade" ref="workloadFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="saleDepartmentFacade" ref="saleDepartmentFacade"/>
+    <property name="communityManagerFacade" ref="communityManagerFacade"/>
+  </object>
+  <!--======================小区宽带end================================-->
+  <!--=====================在线考试begin==============================-->
+  <!--试题主表-->
+  <object id="subjectController" parent="baseController" type="QzgfFrame.Controllers.Exam.ExaminerManger.SubjectController,QzgfFrame.Controllers" singleton="false">
+    <property name="subjectFacade" ref="subjectFacade"/>
+    <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+    <property name="courseFacade" ref="courseFacade"/>
+    <property name="scalegradeFacade" ref="scalegradeFacade"/>
+    <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+    <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+    <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+    <property name="subjectFacadeEx" ref="subjectFacadeEx"/>
+  </object>
+  <!--试卷主表-->
+  <object id="testController" parent="baseController" type="QzgfFrame.Controllers.Exam.ExaminerManger.TestController,QzgfFrame.Controllers" singleton="false">
+    <property name="subjectFacade" ref="subjectFacade"/>
+    <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+    <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+    <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+    <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+    <property name="courseFacade" ref="courseFacade"/>
+    <property name="testFacade" ref="testFacade"/>
+    <property name="testsetFacade" ref="testsetFacade"/>
+    <property name="testsubjectTypeFacade" ref="testsubjectTypeFacade"/>
+    <property name="testsubjectFacade" ref="testsubjectFacade"/>
+    <property name="testFacadeEx" ref="testFacadeEx"/>
+  </object>
+  <!--试题类型-->
+  <object id="subjectTypeController" parent="baseController" type="QzgfFrame.Controllers.Exam.SubjectTypeManger.SubjectTypeController,QzgfFrame.Controllers" singleton="false">
+    <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+  </object>
+  <!--科目类型-->
+  <object id="courseController" parent="baseController" type="QzgfFrame.Controllers.Exam.CourseManger.CourseController,QzgfFrame.Controllers" singleton="false">
+    <property name="courseFacade" ref="courseFacade"/>
+  </object>
+  <!--等级类型-->
+  <object id="scalegradeController" parent="baseController" type="QzgfFrame.Controllers.Exam.ScaleGradeManger.ScaleGradeController,QzgfFrame.Controllers" singleton="false">
+    <property name="scalegradeFacade" ref="scalegradeFacade"/>
+  </object>
+  <!--试题选择题-->
+  <object id="multiplesubjectController" parent="baseController" type="QzgfFrame.Controllers.Exam.MultipleSubjectManger.MultipleSubjectController,QzgfFrame.Controllers" singleton="false">
+    <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+  </object>
+  <!--试题填空题-->
+  <object id="fillblankssubjectController" parent="baseController" type="QzgfFrame.Controllers.Exam.FillBlanksSubjectManger.FillBlanksSubjectController,QzgfFrame.Controllers" singleton="false">
+    <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+  </object>
+  <!--试题判断题-->
+  <object id="judgesubjectController" parent="baseController" type="QzgfFrame.Controllers.Exam.JudgeSubjectManger.JudgeSubjectController,QzgfFrame.Controllers" singleton="false">
+    <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+  </object>
+  <!--试卷类型-->
+  <object id="testtypeController" parent="baseController" type="QzgfFrame.Controllers.Exam.TestTypeManger.TestTypeController,QzgfFrame.Controllers" singleton="false">
+    <property name="testtypeFacade" ref="testtypeFacade"/>
+  </object>
+  <!--考试类型-->
+  <object id="examtypeController" parent="baseController" type="QzgfFrame.Controllers.Exam.ExamTypeManger.ExamTypeController,QzgfFrame.Controllers" singleton="false">
+    <property name="examtypeFacade" ref="examtypeFacade"/>
+  </object>
+  <!--“在线考试”设置-->
+  <object id="testsetController" parent="baseController" type="QzgfFrame.Controllers.Exam.TestSetManger.TestSetController,QzgfFrame.Controllers" singleton="false">
+    <property name="testsetFacade" ref="testsetFacade"/>
+    <property name="testsetFacadeEx" ref="testsetFacadeEx"/>
+    <property name="testFacade" ref="testFacade"/>
+    <property name="courseFacade" ref="courseFacade"/>
+    <property name="examineerangeFacade" ref="examineerangeFacade"/>
+
+    <!--连志民-->
+    <property name="achievementFacade" ref="achievementFacade"/>
+    <property name="testsubjecttypeFacade" ref="testsubjecttypeFacade"/>
+    <property name="testsubjectFacade" ref="testsubjectFacade"/>
+    <property name="subjectFacade" ref="subjectFacade"/>
+    <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+    <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+    <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+    <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+    <property name="answerExamFacade" ref="answerExamFacade"/>
+    <property name="multipleAnswerFacade" ref="multipleAnswerFacade"/>
+    <property name="judgeAnswerFacade" ref="judgeAnswerFacade"/>
+    <property name="fillBlanksAnswerFacade" ref="fillBlanksAnswerFacade"/>
+    <!--连志民-->
+  </object>
+  <!--“模拟考试”设置-->
+  <object id="testmockController" parent="baseController" type="QzgfFrame.Controllers.Exam.TestMockManger.TestMockController,QzgfFrame.Controllers" singleton="false">
+    <property name="testmockFacade" ref="testmockFacade"/>
+    <property name="testmockFacadeEx" ref="testmockFacadeEx"/>
+    <property name="testFacade" ref="testFacade"/>
+    <property name="courseFacade" ref="courseFacade"/>
+    <property name="examineerangeFacade" ref="examineerangeFacade"/>
+
+    <!--连志民-->
+    <property name="achievementFacade" ref="achievementFacade"/>
+    <property name="testsubjecttypeFacade" ref="testsubjecttypeFacade"/>
+    <property name="testsubjectFacade" ref="testsubjectFacade"/>
+    <property name="subjectFacade" ref="subjectFacade"/>
+    <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+    <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+    <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+    <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+    <property name="answerExamFacade" ref="answerExamFacade"/>
+    <property name="multipleAnswerFacade" ref="multipleAnswerFacade"/>
+    <property name="judgeAnswerFacade" ref="judgeAnswerFacade"/>
+    <property name="fillBlanksAnswerFacade" ref="fillBlanksAnswerFacade"/>
+    <!--连志民-->
+  </object>
+  <!--“在线练习”卷设置-->
+  <object id="testexerciseController" parent="baseController" type="QzgfFrame.Controllers.Exam.TestExerciseManger.TestExerciseController,QzgfFrame.Controllers" singleton="false">
+    <property name="testexerciseFacade" ref="testexerciseFacade"/>
+    <property name="testexerciseFacadeEx" ref="testexerciseFacadeEx"/>
+    <property name="testFacade" ref="testFacade"/>
+    <property name="courseFacade" ref="courseFacade"/>
+    <property name="examineerangeFacade" ref="examineerangeFacade"/>
+
+    <!--连志民-->
+    <property name="achievementFacade" ref="achievementFacade"/>
+    <property name="testsubjecttypeFacade" ref="testsubjecttypeFacade"/>
+    <property name="testsubjectFacade" ref="testsubjectFacade"/>
+    <property name="subjectFacade" ref="subjectFacade"/>
+    <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+    <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+    <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+    <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+    <property name="answerExamFacade" ref="answerExamFacade"/>
+    <property name="multipleAnswerFacade" ref="multipleAnswerFacade"/>
+    <property name="judgeAnswerFacade" ref="judgeAnswerFacade"/>
+    <property name="fillBlanksAnswerFacade" ref="fillBlanksAnswerFacade"/>
+    <!--连志民-->
+  </object>
+  <!--试卷试题类型-->
+  <object id="testsubjecttypeController" parent="baseController" type="QzgfFrame.Controllers.Exam.TestSubjectTypeManger.TestSubjectTypeController,QzgfFrame.Controllers" singleton="false">
+    <property name="testsubjecttypeFacade" ref="testsubjecttypeFacade"/>
+  </object>
+  <!--试卷试题-->
+  <object id="testsubjectController" parent="baseController" type="QzgfFrame.Controllers.Exam.TestSubjectManger.TestSubjectController,QzgfFrame.Controllers" singleton="false">
+    <property name="testsubjectFacade" ref="testsubjectFacade"/>
+  </object>
+  <!--考生主页-->
+  <object id="examineeController" parent="baseController" type="QzgfFrame.Controllers.Exam.ExamineeManger.ExamineeController,QzgfFrame.Controllers" singleton="false">
+    <property name="userFacade" ref="userFacade"/>
+    <property name="examineeinfoFacade" ref="examineeinfoFacade"/>
+  </object>
+  <!--考生信息-->
+  <object id="examineeinfoController" parent="baseController" type="QzgfFrame.Controllers.Exam.ExamineeInfoManger.ExamineeInfoController,QzgfFrame.Controllers" singleton="false">
+    <property name="personnelFacade" ref="personnelFacade"/>
+    <property name="examineeinfoFacade" ref="examineeinfoFacade"/>
+    <property name="examineeinfoFacadeEx" ref="examineeinfoFacadeEx"/>
+    <property name="examtypeFacade" ref="examtypeFacade"/>
+    <property name="diplomaFacade" ref="diplomaFacade"/>
+  </object>
+  <!--考生范围-->
+  <object id="examineerangeController" parent="baseController" type="QzgfFrame.Controllers.Exam.ExamineeRangeManger.ExamineeRangeController,QzgfFrame.Controllers" singleton="false">
+    <property name="examineerangeFacade" ref="examineerangeFacade"/>
+  </object>
+
+  <!--考生做过的试卷表-->
+  <object id="achievementController" parent="baseController" type="QzgfFrame.Controllers.Exam.AchievementManager.AchievementController,QzgfFrame.Controllers" singleton="false">
+    <property name="achievementFacade" ref="achievementFacade"/>
+    <property name="testFacade" ref="testFacade"/>
+    <property name="courseFacade" ref="courseFacade"/>
+    <property name="testsetFacade" ref="testsetFacade"/>
+    <property name="testsubjecttypeFacade" ref="testsubjecttypeFacade"/>
+    <property name="testsubjectFacade" ref="testsubjectFacade"/>
+    <property name="subjectFacade" ref="subjectFacade"/>
+    <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+    <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+    <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+    <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+    <property name="answerExamFacade" ref="answerExamFacade"/>
+    <property name="judgeAnswerFacade" ref="judgeAnswerFacade"/>
+    <property name="multipleAnswerFacade" ref="multipleAnswerFacade"/>
+    <property name="fillBlanksAnswerFacade" ref="fillBlanksAnswerFacade"/>
+  </object>
+  <!--成绩管理(详表)-->
+  <object id="achievementxController" parent="baseController" type="QzgfFrame.Controllers.Exam.AchievementxManager.AchievementxController,QzgfFrame.Controllers" singleton="false">
+    <property name="achievementxFacade" ref="achievementxFacade"/>
+  </object>
+  <!--在线考试-->
+  <object id="onlineExamController" parent="baseController" type="QzgfFrame.Controllers.Exam.OnlineExamManager.OnlineExamController,QzgfFrame.Controllers" singleton="false">
+    <property name="onlineExamFacade" ref="onlineExamFacade"/>
+    <property name="achievementFacade" ref="achievementFacade"/>
+    <property name="achievementxFacade" ref="achievementxFacade"/>
+    <property name="testFacade" ref="testFacade"/>
+    <property name="testsetFacade" ref="testsetFacade"/>
+    <property name="testtypeFacade" ref="testtypeFacade"/>
+    <property name="testsubjecttypeFacade" ref="testsubjecttypeFacade"/>
+    <property name="testsubjectFacade" ref="testsubjectFacade"/>
+    <property name="subjectFacade" ref="subjectFacade"/>
+    <property name="subjecttypeFacade" ref="subjecttypeFacade"/>
+    <property name="multiplesubjectFacade" ref="multiplesubjectFacade"/>
+    <property name="fillblankssubjectFacade" ref="fillblankssubjectFacade"/>
+    <property name="judgesubjectFacade" ref="judgesubjectFacade"/>
+    <property name="answerExamFacade" ref="answerExamFacade"/>
+    <property name="multipleAnswerFacade" ref="multipleAnswerFacade"/>
+    <property name="judgeAnswerFacade" ref="judgeAnswerFacade"/>
+    <property name="fillBlanksAnswerFacade" ref="fillBlanksAnswerFacade"/>
+  </object>
+
+  <!--========================在线考试end================================-->
+
+  <!--========================仓库管理begin================================-->
+  <object id="inventoryFileController"  parent="baseController" type="QzgfFrame.Controllers.Warehouse.InventoryFileManger.InventoryFileController, QzgfFrame.Controllers" singleton="false">
+    <property name="inventoryFileFacade" ref="inventoryFileFacade"/>
+  </object>
+  <object id="repertotyController"  parent="baseController" type="QzgfFrame.Controllers.Warehouse.RepertotyManger.RepertotyController, QzgfFrame.Controllers" singleton="false">
+    <property name="repertotyFacade" ref="repertotyFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+  </object>
+  <object id="stockController"  parent="baseController" type="QzgfFrame.Controllers.Warehouse.StockManger.StockController, QzgfFrame.Controllers" singleton="false">
+    <property name="stockFacade" ref="stockFacade"/>
+    <property name="stockTypeFacade" ref="stockTypeFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="factoryFacade" ref="factoryFacade"/>
+    <property name="equipModelFacade" ref="equipModelFacade"/>
+    <property name="unitFacade" ref="unitFacade"/>
+  </object>
+  <object id="ioListController"  parent="baseController" type="QzgfFrame.Controllers.Warehouse.IOListManger.IOListController, QzgfFrame.Controllers" singleton="false">
+    <property name="ioListFacade" ref="ioListFacade"/>
+    <property name="ioClassFacade" ref="ioClassFacade"/>
+    <property name="unitFacade" ref="unitFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="ioDetailFacade" ref="ioDetailFacade"/>
+    <property name="ioListFacadeEx" ref="ioListFacadeEx"/>
+  </object>
+  <!--========================仓库管理end================================-->
+  <!--=======================巡检管理begin===============================-->
+  <!--专线巡检周期-->
+  <object id="cycTimeController" parent="baseController" type="QzgfFrame.Controllers.Cop.CycTimeManager.CycTimeController, QzgfFrame.Controllers" singleton="false">
+    <property name="cycTimeFacade" ref="cycTimeFacade"/>
+  </object>
+  <!--专线巡检计划-->
+  <object id="planController" parent="baseController" type="QzgfFrame.Controllers.Cop.PlanManager.PlanController, QzgfFrame.Controllers" singleton="false">
+    <property name="planFacade" ref="planFacade"/>
+    <property name="planFacadeExImpl" ref="planFacadeExImpl"/>
+    <property name="cycTimeFacade" ref="cycTimeFacade"/>
+    <property name="groupClieFacade" ref="groupClieFacade"/>
+    <property name="bizTypeFacade" ref="bizTypeFacade"/>
+    <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+    <property name="dedicateLineFacade" ref="dedicateLineFacade"/>
+  </object>
+  <!--专线巡检登记-->
+  <object id="enrolController" parent="baseController" type="QzgfFrame.Controllers.Cop.EnrolManager.EnrolController, QzgfFrame.Controllers" singleton="false">
+    <property name="enrolFacade" ref="enrolFacade"/>
+    <property name="bizAssuranLeveFacade" ref="bizAssuranLeveFacade"/>
+    <property name="cycTimeFacade" ref="cycTimeFacade"/>
+    <property name="groupClieFacade" ref="groupClieFacade"/>
+    <property name="bizTypeFacade" ref="bizTypeFacade"/>
+    <property name="enrolFacadeEx" ref="enrolFacadeEx"/>
+    <property name="planFacade" ref="planFacade"/>
+    <property name="dedicateLineFacade" ref="dedicateLineFacade"/>
+  </object>
+
+  <!--自助终端巡检周期-->
+  <object id="terminalTimeController" parent="baseController" type="QzgfFrame.Controllers.Cop.TerminalTimeManager.TerminalTimeController, QzgfFrame.Controllers" singleton="false">
+    <property name="terminalTimeFacade" ref="terminalTimeFacade"/>
+  </object>
+  <!--自助终端巡检计划-->
+  <object id="terminalPlanController" parent="baseController" type="QzgfFrame.Controllers.Cop.TerminalPlanManager.TerminalPlanController, QzgfFrame.Controllers" singleton="false">
+    <property name="terminalPlanFacade" ref="terminalPlanFacade"/>
+    <property name="terminalTimeFacade" ref="terminalTimeFacade"/>
+    <property name="outletsTypeFacade" ref="outletsTypeFacade"/>
+    <property name="selfHelpEquipFacade" ref="selfHelpEquipFacade"/>
+  </object>
+  <!--自助终端巡检登记-->
+  <object id="terminalEnrolController" parent="baseController" type="QzgfFrame.Controllers.Cop.TerminalEnrolManager.TerminalEnrolController, QzgfFrame.Controllers" singleton="false">
+    <property name="terminalEnrolFacade" ref="terminalEnrolFacade"/>
+    <property name="terminalEnrolFacadeEx" ref="terminalEnrolFacadeEx"/>
+    <property name="terminalPlanFacade" ref="terminalPlanFacade"/>
+    <property name="terminalTimeFacade" ref="terminalTimeFacade"/>
+    <property name="outletsTypeFacade" ref="outletsTypeFacade"/>
+    <property name="selfHelpEquipFacade" ref="selfHelpEquipFacade"/>
+    <property name="personnelFacade" ref="personnelFacade"/>
+  </object>
+  
+  <!--======================巡检管理end================================-->
+
+  <!--======================督办工单begin================================-->
+  <!--派遣工单-->
+  <object id="sendController" parent="baseController" type="QzgfFrame.Controllers.Supervision.SendManager.SendController, QzgfFrame.Controllers" singleton="false">
+    <property name="sendFacade" ref="sendFacade"/>
+    <property name="ordersFacade" ref="ordersFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+  </object>
+  <!--返回工单-->
+  <object id="backController" parent="baseController" type="QzgfFrame.Controllers.Supervision.BackManager.BackController, QzgfFrame.Controllers" singleton="false">
+    <property name="backFacade" ref="backFacade"/>
+  </object>
+  <!--我的工单-->
+  <object id="ordersController" parent="baseController" type="QzgfFrame.Controllers.Supervision.OrdersManager.OrdersController, QzgfFrame.Controllers" singleton="false">
+    <property name="ordersFacade" ref="ordersFacade"/>
+    <property name="sendFacade" ref="sendFacade"/>
+    <property name="backFacade" ref="backFacade"/>
+  </object>
+  <!--审核工单-->
+  <object id="auditController" parent="baseController" type="QzgfFrame.Controllers.Supervision.AuditManager.AuditController, QzgfFrame.Controllers" singleton="false">
+    <property name="ordersFacade" ref="ordersFacade"/>
+    <property name="sendFacade" ref="sendFacade"/>
+    <property name="backFacade" ref="backFacade"/>
+  </object>
+  <!--======================督办工单end================================-->
+    
+  <!--暂时保留待后整合,提供组合系统信息查询方法处理-->
+  <object id="SystemDataPro" type="QzgfFrame.Controllers.CommonSupport.SystemDataPro,QzgfFrame.Controllers">
+    <property name="menuFacade" ref="menuFacade"/>
+  </object>
+  <object id="currentUser" type="QzgfFrame.Controllers.CommonSupport.CurrentUser,QzgfFrame.Controllers"  singleton="false">
+    <property name="cacheFacade" ref="cacheFacade"/>
+    <property name="userFacade" ref="userFacade"/>
+    <property name="districtFacade" ref="districtFacade"/>
+    <property name="companyFacade" ref="companyFacade"/>
+    <property name="permissionsFacade" ref="permissionsFacade"/>
+    <property name="logFacade" ref="logFacade"/>
+  </object>
+  <object id="currentExaminee" type="QzgfFrame.Controllers.CommonSupport.CurrentExaminee,QzgfFrame.Controllers"  singleton="false">
+    <property name="cacheFacade" ref="cacheFacade"/>
+    <property name="examtypeFacade" ref="examtypeFacade"/>
+    <property name="examineeinfoFacade" ref="examineeinfoFacade"/>
+  </object>
+</objects>
+

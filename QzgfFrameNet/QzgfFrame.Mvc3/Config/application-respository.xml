@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <description>底层连接数据仓库配置文件</description>
+  <!--=====================WebService begin============================== -->
+  <object id="repository.wsenter" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Webservice.Models.Yd170data>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <!--=====================WebSerivce end==============================-->
+
+  <!--=====================系统管理begin==============================-->
+  <!--部门-->
+  <object id="repository.department" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.DepartmentManger.Models.SystemDepartment>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--用户-->
+  <object id="repository.user" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.UserManger.Models.SystemUser>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--用户视图
+    <object id="repository.viewuser" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.UserManger.Models.ViewSystemUser>, QzgfFrame.Utility">
+        <property name="HibernateTemplate" ref="HibernateTemplate"/>
+    </object>
+    -->
+  <!--用户角色-->
+  <object id="repository.userrole" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.UserManger.Models.SystemUserrole>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--菜单-->
+  <object id="repository.menu" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.MenuManger.Models.SystemMenu>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--角色-->
+  <object id="repository.role" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.RoleManger.Models.SystemRole>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--菜单字段-->
+  <object id="repository.menufield" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.MenufieldManger.Models.SystemMenufield>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--关系表-->
+  <object id="repository.relation" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.RelationManger.Models.SystemRelation>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--========权限begin============-->
+  <!--角色模块权限值-->
+  <object id="repository.rolefiledpower" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.PermissionsManger.Models.SystemRolefiledpower>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--角色菜单关系-->
+  <object id="repository.rolemenu" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.PermissionsManger.Models.SystemRolemenu>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--相关视图
+    <object id="repository.viewrolemenu" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.PermissionsManger.Models.ViewSystemRolemenu>, QzgfFrame.Utility">
+        <property name="HibernateTemplate" ref="HibernateTemplate"/>
+    </object>
+    <object id="repository.viewrolepowerval" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.PermissionsManger.Models.ViewSystemRolepowerval>, QzgfFrame.Utility">
+        <property name="HibernateTemplate" ref="HibernateTemplate"/>
+    </object>
+    -->
+  <!--========权限end============-->
+  <!--短信-->
+  <object id="repository.sms" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.SmsManger.Models.TabQywyySmsSend>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--操作日志-->
+  <object id="repository.log" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.System.LogManger.Models.SystemLog>, QzgfFrame.Utility">
+     <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--======================系统管理end================================-->
+
+
+  <!--=======================档案管理begin===============================-->
+	<object id="repository.company" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.CompanyManger.Models.ArchiveCompany>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.district" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.DistrictManger.Models.ArchiveDistrict>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.grid" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.GridManger.Models.ArchiveGrid>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.bizAssuranLeve" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.BizAssuranLeveManger.Models.ArchiveBizAssuranLeve>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.bizType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.BizTypeManger.Models.ArchiveBizType>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.clieScaleGrade" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.ClieScaleGradeManger.Models.ArchiveClieScaleGrade>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.clieServStarLeve" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.ClieServStarLeveManger.Models.ArchiveClieServStarLeve>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.equipModel" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.EquipModelManger.Models.ArchiveEquipModel>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.equipType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.EquipTypeManger.Models.ArchiveEquipType>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.factory" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.FactoryManger.Models.ArchiveFactory>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.networkingMode" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.NetworkingModeManger.Models.ArchiveNetworkingMode>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+  <object id="repository.breakdownType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.BreakdownTypeManger.Models.ArchiveBreakdownType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.component" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.ComponentManger.Models.ArchiveComponent>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.duty" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.DutyManger.Models.ArchiveDuty>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.outletsType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.OutletsTypeManger.Models.ArchiveOutletsType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.meterState" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.MeterStateManger.Models.ArchiveMeterState>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.maintainSpecialty" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.MaintainSpecialtyManger.Models.ArchiveMaintainSpecialty>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.qualificationType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.QualificationTypeManger.Models.ArchiveQualificationType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.signalModel" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.SignalModelManger.Models.ArchiveSignalModel>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.stagnation" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.StagnationManger.Models.ArchiveStagnation>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.use" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.UseManger.Models.ArchiveUse>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.vehicleNature" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.VehicleNatureManger.Models.ArchiveVehicleNature>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.nature" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.NatureManger.Models.ArchiveNature>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.diploma" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.DiplomaManger.Models.ArchiveDiploma>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.certificate" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.CertificateManger.Models.ArchiveCertificate>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.itemProperty" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.ItemPropertyManger.Models.ArchiveItemProperty>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.unit" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.UnitManger.Models.ArchiveUnit>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.ioClass" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.IOClassManger.Models.ArchiveIOClass>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.stockEquipUse" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.StockEquipUseManger.Models.ArchiveStockEquipUse>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.posts" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.PostsManger.Models.ArchivePosts>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.selfHelpEquipModel" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.SelfHelpEquipModelManger.Models.ArchiveSelfHelpEquipModel>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.selfHelpEquipType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.SelfHelpEquipTypeManger.Models.ArchiveSelfHelpEquipType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.selfHelpFactory" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.SelfHelpFactoryManger.Models.ArchiveSelfHelpFactory>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.networkName" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.NetworkNameManger.Models.ArchiveNetworkName>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.saleDepartment" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.SaleDepartmentManger.Models.ArchiveSaleDepartment>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.accessWay" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.AccessWayManger.Models.ArchiveAccessWay>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.buildWay" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.BuildWayManger.Models.ArchiveBuildWay>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.communityType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.CommunityTypeManger.Models.ArchiveCommunityType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.maintainType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.MaintainTypeManger.Models.ArchiveMaintainType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.suppliesType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.SuppliesTypeManger.Models.ArchiveSuppliesType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.stockType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.StockTypeManger.Models.ArchiveStockType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.portType" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.PortTypeManger.Models.ArchivePortType>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.supplier" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Archives.SupplierManger.Models.ArchiveSupplier>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+    <!--========================档案管理end================================-->
+	
+	<!--========================资源管理begin================================-->
+	<object id="repository.dedicateLine" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.DedicateLineManger.Models.ResourceDedicateLine>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+  <object id="repository.lineEquip" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.LineEquipManger.Models.ResourceLineEquip>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+	<object id="repository.equipment" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.EquipmentManger.Models.ResourceEquipment>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+  <object id="repository.clieEquip" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.ClieEquipManger.Models.ResourceClieEquip>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+	<object id="repository.groupClie" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.GroupClieManger.Models.ResourceGroupClie>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+  <object id="repository.clieGrid" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.GroupClieManger.Models.ResourceClieGrid>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+	<object id="repository.numberGroup" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.NumberGroupManger.Models.ResourceNumberGroup>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.otherInfo" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.OtherInfoManger.Models.ResourceOtherInfo>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+	<object id="repository.fiberCore" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.FiberCoreManger.Models.ResourceFiberCore>, QzgfFrame.Utility">
+		<property name="HibernateTemplate" ref="HibernateTemplate"/>
+	</object>
+  <object id="repository.equipfault" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.EquipFaultManger.Models.ResourceEquipFault>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.selfhelpequip" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.SelfHelpEquipManger.Models.ResourceSelfHelpEquip>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.equipcomponent" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.EquipComponentManger.Models.ResourceEquipComponent>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--======人员\车辆\仪器仪表=========-->
+  <object id="repository.vehicle" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.VehicleManger.Models.ResourceVehicle>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.personnel" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.PersonnelManger.Models.ResourcePersonnel>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.apparatus" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.ApparatusManger.Models.ResourceApparatus>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--======170流程的数据=========-->
+  <object id="repository.oneSevenZero" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Resources.OneSevenZeroManger.Models.ResourceOneSevenZero>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--========================资源管理end================================-->
+  <!--=====================小区宽带begin==============================-->
+  <object id="repository.communityManager" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.CommunityManagerManger.Models.SuppliesCommunityManager>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.communityInfo" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.CommunityInfoManger.Models.SuppliesCommunityInfo>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.suppliesStock" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.SuppliesStockManger.Models.SuppliesSuppliesStock>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.collarSupplies" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.CollarSuppliesManger.Models.SuppliesCollarSupplies>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.collar" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.CollarSuppliesManger.Models.SuppliesCollar>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.collarSuppliesDetail" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.CollarSuppliesDetailManger.Models.SuppliesCollarSuppliesDetail>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.distribution" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.DistributionManger.Models.SuppliesDistribution>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.distributionDetail" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.DistributionDetailManger.Models.SuppliesDistributionDetail>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.payStandard" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.PayStandardManger.Models.SuppliesPayStandard>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.register" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.RegisterManger.Models.SuppliesRegister>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.registerDetail" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.RegisterDetailManger.Models.SuppliesRegisterDetail>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.workload" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supplies.WorkloadManger.Models.SuppliesWorkload>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--======================小区宽带end================================-->
+  <!--=====================在线考试begin==============================-->
+  <!--题库管理(主表)-->
+  <object id="repository.subject" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.SubjectManger.Models.ExamSubjectContent>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--试题类型-->
+  <object id="repository.subjecttype" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.SubjectTypeManger.Models.ExamSubjectType>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--科目类型-->
+  <object id="repository.coursetype" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.CourseManger.Models.ExamCourseType>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--等级类型-->
+  <object id="repository.scalegrade" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.ScaleGradeManger.Models.ExamScaleGrade>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--题库管理(选择题详表)-->
+  <object id="repository.multiplesubject" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.MultipleSubjectManger.Models.ExamMultipleSubject>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--题库管理(填空题详表)-->
+  <object id="repository.fillblankssubject" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.FillBlanksSubjectManger.Models.ExamFillBlanksSubject>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--题库管理(判断题详表)-->
+  <object id="repository.judgesubject" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.JudgeSubjectManger.Models.ExamJudgeSubject>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--试卷类型-->
+  <object id="repository.testtype" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.TestTypeManger.Models.ExamTestType>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--考试类型-->
+  <object id="repository.examtype" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.ExamTypeManger.Models.ExamType>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--试卷管理(主表)-->
+  <object id="repository.test" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.TestManger.Models.ExamTestContent>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--试卷管理(试卷设置表)-->
+  <object id="repository.testset" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.TestSetManger.Models.ExamTestSet>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--试卷管理(试卷模拟设置表)-->
+  <object id="repository.testmock" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.TestMockManger.Models.ExamTestMock>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--试卷管理(试卷练习设置表)-->
+  <object id="repository.testexercise" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.TestExerciseManger.Models.ExamTestExercise>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--试卷管理(试卷试题类型表)-->
+  <object id="repository.testsubjecttype" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.TestSubjectTypeManger.Models.ExamTestSubjectType>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--试卷管理(试卷试题表)-->
+  <object id="repository.testsubject" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.TestSubjectManger.Models.ExamTestSubject>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--考生信息表-->
+  <object id="repository.examineeinfo" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.ExamineeInfoManger.Models.ExamExamineeInfo>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--考生范围表-->
+  <object id="repository.examineerange" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.ExamineeRangeManger.Models.ExamExamineeRange>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <!--考生做过的试卷表-->
+  <object id="repository.achievement" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.AchievementManager.Models.ExamAchievement>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--成绩管理(详表)-->
+  <object id="repository.achievementx" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.AchievementxManager.Models.ExamAchievementx>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--考生考试回答表-->
+  <object id="repository.answerExam" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.AnswerExamManager.Models.ExamAnswerExam>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--在线考试-->
+  <object id="repository.onlineExam" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.OnlineExamManager.Models.ExamOnlineExam>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--选择题答案表-->
+  <object id="repository.multipleAnswer" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.MultipleAnswerManager.Models.ExamMultipleAnswer>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--填空题答案表-->
+  <object id="repository.fillBlanksAnswer" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.FillBlanksAnswerManager.Models.ExamFillBlanksAnswer>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--判断题答案表-->
+  <object id="repository.judgeAnswer" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Exam.JudgeAnswerManager.Models.ExamJudgeAnswer>,QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>  <!--========================在线考试end================================-->
+  
+  <!--========================仓库管理begin================================-->
+  <object id="repository.inventoryFile" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Warehouse.InventoryFileManger.Models.WarehouseInventoryFile>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.repertoty" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Warehouse.RepertotyManger.Models.WarehouseRepertoty>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.stock" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Warehouse.StockManger.Models.WarehouseStock>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.repair" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Warehouse.RepairManger.Models.WarehouseRepair>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.ioList" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Warehouse.IOListManger.Models.WarehouseIOList>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.ioDetail" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Warehouse.IODetailManger.Models.WarehouseIODetail>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.inventory" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Warehouse.InventoryManger.Models.WarehouseInventory>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <object id="repository.inventoryDetail" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Warehouse.InventoryDetailManger.Models.WarehouseInventoryDetail>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--========================仓库管理end================================-->
+  <!--=====================巡检管理begin==============================-->
+  <!--专线巡检周期-->
+  <object id="repository.cycTime" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Cop.CycTimeManager.Models.CopCycTime>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--专线巡检计划-->
+  <object id="repository.plan" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Cop.PlanManager.Models.CopPlan>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--专线巡检登记-->
+  <object id="repository.enrol" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Cop.EnrolManager.Models.CopEnrol>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <!--自助终端巡检周期-->
+  <object id="repository.terminalTime" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Cop.TerminalTimeManager.Models.CopTerminalTime>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--自助终端巡检计划-->
+  <object id="repository.terminalPlan" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Cop.TerminalPlanManager.Models.CopTerminalPlan>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--自助终端巡检登记-->
+  <object id="repository.terminalEnrol" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Cop.TerminalEnrolManager.Models.CopTerminalEnrol>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <!--======================巡检管理end================================-->
+
+  <!--=====================督办工单begin==============================-->
+  <!--派遣工单-->
+  <object id="repository.send" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supervision.SendManager.Models.SupervisionSend>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--接单/接单-->
+  <object id="repository.orders" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supervision.OrdersManager.Models.SupervisionOrders>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+  <!--回单-->
+  <object id="repository.back" type="QzgfFrame.Utility.Core.Repository.NHibernateRepository&lt;QzgfFrame.Supervision.BackManager.Models.SupervisionBack>, QzgfFrame.Utility">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <!--======================督办工单end================================-->
+
+
+
+  <!--暂时保留待后整合,提供组合系统信息查询方法处理-->
+    <!--代码仓库,GridViewPager,页面显示层的分离,应用AdoTemplate,目的是 -->
+    <object id="databasehelper" type="QzgfFrame.Utility.DataBase.DataBaseHelper, QzgfFrame.Utility">
+        <property name="AdoTemplate" ref="AdoTemplate"/>
+    </object>
+</objects>

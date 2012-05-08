@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Archives.DistrictManger.Models.ArchiveDistrict
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-form.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Archives/ArchiveDistrict.js" type="text/javascript"></script>  
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Edit", "District", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font">区县名称：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.DistrictName, new { ltype = "text", validate = "{required:true,minlength:2,maxlength:20}" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Right_font">上级结点：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font"><table style="width:100%"><tr> 
+                  <td >  @Html.TextBoxFor(m => m.ParentName, new { validate = "{required:true,minlength:1}", ltype = "text"})
+                        @Html.HiddenFor(m => m.ParentId)
+                         </td><td style="width:85%; text-align:left;"><input type="button" id="selParent" value="选择" style="width:60px;"  class="sel_btn" /></td></tr></table>
+                        
+                        
+                    </td>
+                </tr>
+                <tr>
+                   <td class="Right_font">
+                       类型：<span class="l-verify-star">*</span>
+                    </td>
+                    <td class="Left_font">
+                             @Html.DropDownList("TypeFlag", new List<SelectListItem>{
+                                           (new SelectListItem() {Text = "省汇", Value = "1", Selected = true}),
+                                           (new SelectListItem() {Text = "市级", Value = "2", Selected = true}),
+                                           (new SelectListItem() {Text = "区县", Value = "3", Selected = false}),
+                                           (new SelectListItem() {Text = "驻点", Value = "4", Selected = false})
+                                       }, new { ltype = "select" })
+                    </td>
+               </tr>   
+                <tr>
+                    <td class="Right_font">序 号：</td>
+                    <td class="Left_font">
+                     @Html.TextBoxFor(m=>m.SeqNo)
+                     </td> 
+                </tr></tbody>
+</table>                
+
+    </div> 
+}
+    
+</body>
+</html>

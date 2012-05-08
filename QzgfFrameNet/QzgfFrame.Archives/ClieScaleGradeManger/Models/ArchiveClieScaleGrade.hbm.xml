@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.ClieScaleGradeManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.ClieScaleGradeManger.Models.ArchiveClieScaleGrade,QzgfFrame.Archives" table="tab_clie_scale_grade">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String"  length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="ScaleGradeName" type="String" name="ScaleGradeName" length="8"  not-null="true"/>
+
+	</class>
+</hibernate-mapping>

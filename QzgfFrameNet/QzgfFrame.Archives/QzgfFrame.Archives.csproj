@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{19437E73-E436-4D2F-9D84-916F5FDA9951}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QzgfFrame.Archives</RootNamespace>
+    <AssemblyName>QzgfFrame.Archives</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BizTypeManger\Domain\BizTypeFacade.cs" />
+    <Compile Include="BizTypeManger\Domain\BizTypeFacadeImpl.cs" />
+    <Compile Include="BizTypeManger\Models\ArchiveBizType.cs" />
+    <Compile Include="BreakdownTypeManger\Domain\BreakdownTypeFacade.cs" />
+    <Compile Include="BreakdownTypeManger\Domain\BreakdownTypeFacadeImpl.cs" />
+    <Compile Include="BreakdownTypeManger\Models\ArchiveBreakdownType.cs" />
+    <Compile Include="CertificateManger\Domain\CertificateFacade.cs" />
+    <Compile Include="CertificateManger\Domain\CertificateFacadeImpl.cs" />
+    <Compile Include="CertificateManger\Models\ArchiveCertificate.cs" />
+    <Compile Include="ClieScaleGradeManger\Domain\ClieScaleGradeFacade.cs" />
+    <Compile Include="ClieScaleGradeManger\Domain\ClieScaleGradeFacadeImpl.cs" />
+    <Compile Include="ClieScaleGradeManger\Models\ArchiveClieScaleGrade.cs" />
+    <Compile Include="CompanyManger\Domain\CompanyFacade.cs" />
+    <Compile Include="CompanyManger\Domain\CompanyFacadeImpl.cs" />
+    <Compile Include="CompanyManger\Models\ArchiveCompany.cs" />
+    <Compile Include="ComponentManger\Domain\ComponentFacade.cs" />
+    <Compile Include="ComponentManger\Domain\ComponentFacadeImpl.cs" />
+    <Compile Include="ComponentManger\Models\ArchiveComponent.cs" />
+    <Compile Include="DiplomaManger\Domain\DiplomaFacade.cs" />
+    <Compile Include="DiplomaManger\Domain\DiplomaFacadeImpl.cs" />
+    <Compile Include="DiplomaManger\Models\ArchiveDiploma.cs" />
+    <Compile Include="DistrictManger\Domain\DistrictFacade.cs" />
+    <Compile Include="DistrictManger\Domain\DistrictFacadeImpl.cs" />
+    <Compile Include="DistrictManger\Models\ArchiveDistrict.cs" />
+    <Compile Include="DistrictManger\Models\DistrictCity.cs" />
+    <Compile Include="EquipModelManger\Domain\EquipModelFacade.cs" />
+    <Compile Include="EquipModelManger\Domain\EquipModelFacadeImpl.cs" />
+    <Compile Include="EquipModelManger\Models\ArchiveEquipModel.cs" />
+    <Compile Include="EquipTypeManger\Domain\EquipTypeFacade.cs" />
+    <Compile Include="EquipTypeManger\Domain\EquipTypeFacadeImpl.cs" />
+    <Compile Include="EquipTypeManger\Models\ArchiveEquipType.cs" />
+    <Compile Include="FactoryManger\Domain\FactoryFacade.cs" />
+    <Compile Include="FactoryManger\Domain\FactoryFacadeImpl.cs" />
+    <Compile Include="FactoryManger\Models\ArchiveFactory.cs" />
+    <Compile Include="GridManger\Domain\GridFacade.cs" />
+    <Compile Include="GridManger\Domain\GridFacadeImpl.cs" />
+    <Compile Include="GridManger\Models\ArchiveGrid.cs" />
+    <Compile Include="GridManger\Models\Grid.cs" />
+    <Compile Include="IOClassManger\Domain\IOClassFacade.cs" />
+    <Compile Include="IOClassManger\Domain\IOClassFacadeImpl.cs" />
+    <Compile Include="IOClassManger\Models\ArchiveIOClass.cs" />
+    <Compile Include="ItemPropertyManger\Domain\ItemPropertyFacade.cs" />
+    <Compile Include="ItemPropertyManger\Domain\ItemPropertyFacadeImpl.cs" />
+    <Compile Include="ItemPropertyManger\Models\ArchiveItemProperty.cs" />
+    <Compile Include="NetworkingModeManger\Domain\NetworkingModeFacade.cs" />
+    <Compile Include="NetworkingModeManger\Domain\NetworkingModeFacadeImpl.cs" />
+    <Compile Include="NetworkingModeManger\Models\ArchiveNetworkingMode.cs" />
+    <Compile Include="NetworkNameManger\Domain\NetworkNameFacade.cs" />
+    <Compile Include="NetworkNameManger\Domain\NetworkNameFacadeImpl.cs" />
+    <Compile Include="NetworkNameManger\Models\ArchiveNetworkName.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BizAssuranLeveManger\Domain\BizAssuranLeveFacade.cs" />
+    <Compile Include="BizAssuranLeveManger\Domain\BizAssuranLeveFacadeImpl.cs" />
+    <Compile Include="BizAssuranLeveManger\Models\ArchiveBizAssuranLeve.cs" />
+    <Compile Include="ClieServStarLeveManger\Domain\ClieServStarLeveFacade.cs" />
+    <Compile Include="ClieServStarLeveManger\Domain\ClieServStarLeveFacadeImpl.cs" />
+    <Compile Include="ClieServStarLeveManger\Models\ArchiveClieServStarLeve.cs" />
+    <Compile Include="DutyManger\Domain\DutyFacade.cs" />
+    <Compile Include="DutyManger\Domain\DutyFacadeImpl.cs" />
+    <Compile Include="DutyManger\Models\ArchiveDuty.cs" />
+    <Compile Include="OutletsTypeManger\Domain\OutletsTypeFacade.cs" />
+    <Compile Include="OutletsTypeManger\Domain\OutletsTypeFacadeImpl.cs" />
+    <Compile Include="OutletsTypeManger\Models\ArchiveOutletsType.cs" />
+    <Compile Include="SelfHelpEquipTypeManger\Domain\SelfHelpEquipTypeFacade.cs" />
+    <Compile Include="SelfHelpEquipTypeManger\Domain\SelfHelpEquipTypeFacadeImpl.cs" />
+    <Compile Include="SelfHelpEquipTypeManger\Models\ArchiveSelfHelpEquipType.cs" />
+    <Compile Include="StagnationManger\Domain\StagnationFacade.cs" />
+    <Compile Include="StagnationManger\Domain\StagnationFacadeImpl.cs" />
+    <Compile Include="StagnationManger\Models\ArchiveStagnation.cs" />
+    <Compile Include="MaintainSpecialtyManger\Domain\MaintainSpecialtyFacade.cs" />
+    <Compile Include="MaintainSpecialtyManger\Domain\MaintainSpecialtyFacadeImpl.cs" />
+    <Compile Include="MaintainSpecialtyManger\Models\ArchiveMaintainSpecialty.cs" />
+    <Compile Include="UseManger\Domain\UseFacade.cs" />
+    <Compile Include="UseManger\Domain\UseFacadeImpl.cs" />
+    <Compile Include="UseManger\Models\ArchiveUse.cs" />
+    <Compile Include="MeterStateManger\Domain\MeterStateFacade.cs" />
+    <Compile Include="MeterStateManger\Domain\MeterStateFacadeImpl.cs" />
+    <Compile Include="MeterStateManger\Models\ArchiveMeterState.cs" />
+    <Compile Include="VehicleNatureManger\Domain\VehicleNatureFacade.cs" />
+    <Compile Include="VehicleNatureManger\Domain\VehicleNatureFacadeImpl.cs" />
+    <Compile Include="VehicleNatureManger\Models\ArchiveVehicleNature.cs" />
+    <Compile Include="QualificationTypeManger\Domain\QualificationTypeFacade.cs" />
+    <Compile Include="QualificationTypeManger\Domain\QualificationTypeFacadeImpl.cs" />
+    <Compile Include="QualificationTypeManger\Models\ArchiveQualificationType.cs" />
+    <Compile Include="SignalModelManger\Domain\SignalModelFacade.cs" />
+    <Compile Include="SignalModelManger\Domain\SignalModelFacadeImpl.cs" />
+    <Compile Include="SignalModelManger\Models\ArchiveSignalModel.cs" />
+    <Compile Include="NatureManger\Domain\NatureFacade.cs" />
+    <Compile Include="NatureManger\Domain\NatureFacadeImpl.cs" />
+    <Compile Include="NatureManger\Models\ArchiveNature.cs" />
+    <Compile Include="UnitManger\Domain\UnitFacade.cs" />
+    <Compile Include="UnitManger\Domain\UnitFacadeImpl.cs" />
+    <Compile Include="UnitManger\Models\ArchiveUnit.cs" />
+    <Compile Include="SelfHelpFactoryManger\Domain\SelfHelpFactoryFacade.cs" />
+    <Compile Include="SelfHelpFactoryManger\Domain\SelfHelpFactoryFacadeImpl.cs" />
+    <Compile Include="SelfHelpFactoryManger\Models\ArchiveSelfHelpFactory.cs" />
+    <Compile Include="SelfHelpEquipModelManger\Domain\SelfHelpEquipModelFacade.cs" />
+    <Compile Include="SelfHelpEquipModelManger\Domain\SelfHelpEquipModelFacadeImpl.cs" />
+    <Compile Include="SelfHelpEquipModelManger\Models\ArchiveSelfHelpEquipModel.cs" />
+    <Compile Include="PostsManger\Domain\PostsFacade.cs" />
+    <Compile Include="PostsManger\Domain\PostsFacadeImpl.cs" />
+    <Compile Include="PostsManger\Models\ArchivePosts.cs" />
+    <Compile Include="SaleDepartmentManger\Domain\SaleDepartmentFacade.cs" />
+    <Compile Include="SaleDepartmentManger\Domain\SaleDepartmentFacadeImpl.cs" />
+    <Compile Include="SaleDepartmentManger\Models\ArchiveSaleDepartment.cs" />
+    <Compile Include="AccessWayManger\Domain\AccessWayFacade.cs" />
+    <Compile Include="AccessWayManger\Domain\AccessWayFacadeImpl.cs" />
+    <Compile Include="AccessWayManger\Models\ArchiveAccessWay.cs" />
+    <Compile Include="BuildWayManger\Domain\BuildWayFacade.cs" />
+    <Compile Include="BuildWayManger\Domain\BuildWayFacadeImpl.cs" />
+    <Compile Include="BuildWayManger\Models\ArchiveBuildWay.cs" />
+    <Compile Include="MaintainTypeManger\Domain\MaintainTypeFacade.cs" />
+    <Compile Include="MaintainTypeManger\Domain\MaintainTypeFacadeImpl.cs" />
+    <Compile Include="MaintainTypeManger\Models\ArchiveMaintainType.cs" />
+    <Compile Include="CommunityTypeManger\Domain\CommunityTypeFacade.cs" />
+    <Compile Include="CommunityTypeManger\Domain\CommunityTypeFacadeImpl.cs" />
+    <Compile Include="CommunityTypeManger\Models\ArchiveCommunityType.cs" />
+    <Compile Include="SuppliesTypeManger\Domain\SuppliesTypeFacade.cs" />
+    <Compile Include="SuppliesTypeManger\Domain\SuppliesTypeFacadeImpl.cs" />
+    <Compile Include="SuppliesTypeManger\Models\ArchiveSuppliesType.cs" />
+    <Compile Include="StockEquipUseManger\Domain\StockEquipUseFacade.cs" />
+    <Compile Include="StockEquipUseManger\Domain\StockEquipUseFacadeImpl.cs" />
+    <Compile Include="StockEquipUseManger\Models\ArchiveStockEquipUse.cs" />
+    <Compile Include="StockType\Domain\StockTypeFacade.cs" />
+    <Compile Include="StockType\Domain\StockTypeFacadeImpl.cs" />
+    <Compile Include="StockType\Models\ArchiveStockType.cs" />
+    <Compile Include="PortTypeManger\Domain\PortTypeFacade.cs" />
+    <Compile Include="PortTypeManger\Domain\PortTypeFacadeImpl.cs" />
+    <Compile Include="PortTypeManger\Models\ArchivePortType.cs" />
+    <Compile Include="SupplierManger\Domain\SupplierFacade.cs" />
+    <Compile Include="SupplierManger\Domain\SupplierFacadeImpl.cs" />
+    <Compile Include="SupplierManger\Models\ArchiveSupplier.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DistrictManger\Models\ArchiveDistrict.hbm.xml" />
+    <EmbeddedResource Include="GridManger\Models\ArchiveGrid.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BizTypeManger\Models\ArchiveBizType.hbm.xml" />
+    <EmbeddedResource Include="BizAssuranLeveManger\Models\ArchiveBizAssuranleve.hbm.xml" />
+    <EmbeddedResource Include="ClieServStarLeveManger\Models\ArchiveClieServStarLeve.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EquipModelManger\Models\ArchiveEquipModel.hbm.xml" />
+    <EmbeddedResource Include="EquipTypeManger\Models\ArchiveEquipType.hbm.xml" />
+    <EmbeddedResource Include="FactoryManger\Models\ArchiveFactory.hbm.xml" />
+    <EmbeddedResource Include="NetworkingModeManger\Models\ArchiveNetworkingMode.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QzgfFrame.System\QzgfFrame.System.csproj">
+      <Project>{BF40EFF3-799F-4BF1-98C1-44EAA1EF055F}</Project>
+      <Name>QzgfFrame.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QzgfFrame.Utility\QzgfFrame.Utility.csproj">
+      <Project>{FC01A832-1EF9-447D-8169-06678E0E0BE6}</Project>
+      <Name>QzgfFrame.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BreakdownTypeManger\Models\ArchiveBreakdownType.hbm.xml" />
+    <EmbeddedResource Include="ClieScaleGradeManger\Models\ArchiveClieScaleGrade.hbm.xml" />
+    <EmbeddedResource Include="ComponentManger\Models\ArchiveComponent.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DutyManger\Models\ArchiveDuty.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OutletsTypeManger\Models\ArchiveOutletsType.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StagnationManger\Models\ArchiveStagnation.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MaintainSpecialtyManger\Models\ArchiveMaintainSpecialty.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UseManger\Models\ArchiveUse.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MeterStateManger\Models\ArchiveMeterState.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VehicleNatureManger\Models\ArchiveVehicleNature.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="QualificationTypeManger\Models\ArchiveQualificationType.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SignalModelManger\Models\ArchiveSignalModel.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NatureManger\Models\ArchiveNature.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CertificateManger\Models\ArchiveCertificate.hbm.xml" />
+    <EmbeddedResource Include="DiplomaManger\Models\ArchiveDiploma.hbm.xml" />
+    <EmbeddedResource Include="ItemPropertyManger\Models\ArchiveItemProperty.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CompanyManger\Models\ArchiveCompany.hbm.xml" />
+    <EmbeddedResource Include="IOClassManger\Models\ArchiveIOClass.hbm.xml" />
+    <EmbeddedResource Include="UnitManger\Models\ArchiveUnit.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SelfHelpFactoryManger\Models\ArchiveSelfHelpFactory.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SelfHelpEquipModelManger\Models\ArchiveSelfHelpEquipModel.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PostsManger\Models\ArchivePosts.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SelfHelpEquipTypeManger\Models\ArchiveSelfHelpEquipType.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NetworkNameManger\Models\ArchiveNetworkName.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SaleDepartmentManger\Models\ArchiveSaleDepartment.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AccessWayManger\Models\ArchiveAccessWay.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BuildWayManger\Models\ArchiveBuildWay.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MaintainTypeManger\Models\ArchiveMaintainType.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CommunityTypeManger\Models\ArchiveCommunityType.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SuppliesTypeManger\Models\ArchiveSuppliesType.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StockEquipUseManger\Models\ArchiveStockEquipUse.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StockType\Models\ArchiveStockType.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PortTypeManger\Models\ArchivePortType.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SupplierManger\Models\ArchiveSupplier.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

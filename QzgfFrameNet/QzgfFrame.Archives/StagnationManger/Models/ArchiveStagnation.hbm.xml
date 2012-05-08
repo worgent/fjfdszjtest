@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.StagnationManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.StagnationManger.Models.ArchiveStagnation,QzgfFrame.Archives" table="tab_stagnation">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="StagnationName" type="String" name="StagnationName" length="50"  not-null="true"/>
+		<property column="CompanyId" type="String" name="CompanyId" length="20"  not-null="true"/>
+    <property column="DistrictId" type="String" name="DistrictId" length="20"  not-null="true"/>
+
+	</class>
+</hibernate-mapping>

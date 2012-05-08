@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC01A832-1EF9-447D-8169-06678E0E0BE6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QzgfFrame.Utility</RootNamespace>
+    <AssemblyName>QzgfFrame.Utility</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\QzgfFrame.Mvc3\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop, Version=1.3.1.40711, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\lib\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data, Version=1.3.1.40711, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate30">
+      <HintPath>..\lib\Spring.Data.NHibernate30.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web">
+      <HintPath>..\lib\Spring.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\IRepository.cs" />
+    <Compile Include="Business\NhibernateHelper.cs" />
+    <Compile Include="Common\ExtensionMethods.cs" />
+    <Compile Include="Common\Helpers\CommLoadFile.cs" />
+    <Compile Include="Common\Helpers\CommonHelper.cs" />
+    <Compile Include="Common\Helpers\ControlHelper.cs" />
+    <Compile Include="Common\Helpers\ExceptionHelper.cs" />
+    <Compile Include="Common\Helpers\ReflectionHelper.cs" />
+    <Compile Include="Common\SysContext.cs" />
+    <Compile Include="Core\Aop\ConsoleLoggingAfterAdvice.cs" />
+    <Compile Include="Core\Aop\ConsoleLoggingAroundAdvice.cs" />
+    <Compile Include="Core\Aop\ConsoleLoggingBeforeAdvice.cs" />
+    <Compile Include="Core\Aop\ConsoleLoggingThrowsAdvice.cs" />
+    <Compile Include="Core\Cache\ICache.cs" />
+    <Compile Include="Core\Cache\WebCache.cs" />
+    <Compile Include="Core\Common\CommonHelper.cs" />
+    <Compile Include="Core\Common\Imagecode.cs" />
+    <Compile Include="Core\Constant.cs" />
+    <Compile Include="Core\DomainModel\BaseObject.cs" />
+    <Compile Include="Core\DomainModel\DataFilter.cs" />
+    <Compile Include="Core\DomainModel\Entity.cs" />
+    <Compile Include="Core\DomainModel\InputItem.cs" />
+    <Compile Include="Core\DomainModel\TreeNode.cs" />
+    <Compile Include="Core\JSON\DataTableConverter.cs" />
+    <Compile Include="Core\JSON\JSONHelper.cs" />
+    <Compile Include="Core\QzgfException\DemoHisException.cs" />
+    <Compile Include="Core\QzgfException\EnumDescription.cs" />
+    <Compile Include="Core\QzgfException\ExistException.cs" />
+    <Compile Include="Core\QzgfException\NotNullException.cs" />
+    <Compile Include="Core\QzgfException\RepositoryException.cs" />
+    <Compile Include="Core\QzgfException\ValidationException.cs" />
+    <Compile Include="Core\ExtResultAttribute.cs" />
+    <Compile Include="Core\MvcApplication.cs" />
+    <Compile Include="Core\Repository\IRepository.cs" />
+    <Compile Include="Core\Repository\NHibernateRepository.cs" />
+    <Compile Include="Core\SpringControllerFactory.cs" />
+    <Compile Include="Core\ViewModel\ExtFormLoadData.cs" />
+    <Compile Include="Core\ViewModel\ExtGirdData.cs" />
+    <Compile Include="Core\ViewModel\ExtResult.cs" />
+    <Compile Include="Core\ViewModel\ExtTreeData.cs" />
+    <Compile Include="DataBase\DataBaseHelper.cs" />
+    <Compile Include="DataBase\DataBasePager.cs" />
+    <Compile Include="Entity\EntityAction.cs" />
+    <Compile Include="Entity\EntityBase.cs" />
+    <Compile Include="Entity\EntityHelper.cs" />
+    <Compile Include="Entity\FieldInfo.cs" />
+    <Compile Include="Entity\RecordStatus.cs" />
+    <Compile Include="Entity\ViewEntityBase.cs" />
+    <Compile Include="JSON\DataTableConverter.cs" />
+    <Compile Include="JSON\JSONHelper.cs" />
+    <Compile Include="LigerGrid\GridViewPager.cs" />
+    <Compile Include="Page\PageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\PageInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\CallPostControl.cs" />
+    <Compile Include="Core\MvcViewEngine.cs" />
+    <Compile Include="View\ViewInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

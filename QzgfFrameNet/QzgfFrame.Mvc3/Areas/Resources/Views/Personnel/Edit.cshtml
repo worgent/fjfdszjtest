@@ -1,0 +1,300 @@
+﻿@model QzgfFrame.Resources.PersonnelManger.Models.ResourcePersonnel
+@{
+    
+    ViewBag.Title = "Register";
+}        
+<script src="@Url.Content("~/Content/lib/js/Resources/Personnel.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/lib/json2.js")" type="text/javascript"></script>  
+@using (Html.BeginForm("Edit", "Personnel", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font" width="15%">二维码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.TwoDimensionalCode, new { maxlength = "10", ltype = "text", validate = "{required:false,minlength:1,maxlength:10,number: true}" })
+                    </td>
+                    <td class="Right_font" width="15%">人员姓名：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    @Html.TextBoxFor(m => m.FullName, new { ltype = "text", validate = "{required:true,minlength:1,maxlength:20,isFullName:true}" })
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="Right_font">性 别：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @{
+               var selFalgT = false; var selFalgF = false;
+               if (Model.Sex == 0)
+               {
+                   selFalgT = true;
+                   selFalgF = false;
+               }
+               else
+               {
+                   selFalgT = false;
+                   selFalgF = true;
+               }
+                    }
+                    @Html.RadioButton("Sex", "0", selFalgT)男
+                    @Html.RadioButton("Sex", "1", selFalgF)女
+                    </td> 
+                    <td class="Right_font">出生日期：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @Html.TextBoxFor(m => m.BirthDate, new { ltype = "text", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd',maxDate:'2000-01-1'}); " })
+                    </td>
+                </tr> 
+                
+                <tr>
+                    <td class="Right_font">身份证号：<span class="l-verify-star">*</span></td>
+                     <td class="Left_font" style="width:40%">
+                    <table style="width:100%"><tr><td>
+                    @if (Model.Id != "0")
+                    {
+                        
+                     @Html.HiddenFor(m => m.IDCardNumber) 
+                        @Model.IDCardNumber
+                    }
+                    else
+                    { 
+                    <input type="hidden" id="terimFlag" value="0"/>    
+                     @Html.TextBoxFor(m => m.IDCardNumber, new { maxlength = "18", @class = "dd-text", style = "width:138px;", validate = "{required:true,minlength:15,maxlength:18,isIdCardNo:true}", onblur = "getIdCardNo(this.value);" })
+                    
+                    } </td><td id="showTerim" style="width:75%; text-align:left; color:red"></td>
+                   </tr></table>
+                   </td>
+
+                    <td class="Right_font">手机号码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.MobileNumber, new { maxlength = "12", ltype = "text", validate = "{required:false,isMobile:true}" })
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">学历文凭：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("DiplomaId", (SelectList)ViewData["diploma"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                    <td class="Right_font">人员岗位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("DutyId", (SelectList)ViewData["duty"], new { style = "width:135px", ltype = "select" })
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_font">人员职责：<span class="l-verify-star">&nbsp;</span><span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("PostsId", (SelectList)ViewData["posts"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                   <td class="Right_font">是否骨干 ：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @{
+               var selBFalgT = false; var selBFalgF = false;
+               if (Model.IsBackbone == 0)
+               {
+                   selBFalgT = true;
+                   selBFalgF = false;
+               }
+               else
+               {
+                   selBFalgT = false;
+                   selBFalgF = true;
+               }
+                    }
+                    @Html.RadioButton("IsBackbone", "0", selBFalgT)否
+                    @Html.RadioButton("IsBackbone", "1", selBFalgF)是
+                    </td> 
+                </tr> 
+                
+                <tr>                    
+                   <td class="Right_font">是否自维 ：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" colspan="3">
+                     @{
+               var selMFalgT = false; var selMFalgF = false;
+               if (Model.IsSelfMaintain == 0)
+               {
+                   selMFalgT = true;
+                   selMFalgF = false;
+               }
+               else
+               {
+                   selMFalgT = false;
+                   selMFalgF = true;
+               }
+                    }
+                    @Html.RadioButton("IsSelfMaintain", "0", selMFalgT)否
+                    @Html.RadioButton("IsSelfMaintain", "1", selMFalgF)是
+                    </td> 
+                </tr> 
+                 <tr>
+                   <td class="Right_font">所属地市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("CityId", (SelectList)ViewData["city"], new { style = "width:135px", ltype = "select" })
+                    <input type="hidden" id="bCityId" value="@Model.CityId" /></td>
+                    <td class="Right_font">所属区县：<span class="l-verify-star">*</span></td>
+                     
+                   
+                    <td class="Left_font">
+                     <input type="text" id="DistrictName" name="DistrictName"   validate = "{required:true,minlength:1,maxlength:30}"/>
+                    @Html.HiddenFor(m => m.DistrictId)
+                    <input type="hidden" id="bdistrictid" value="@Model.DistrictId" />
+                    <input type="hidden" id="districts" value="@ViewData["district"]" />
+                    </td> 
+                </tr> 
+                 <tr>
+                    <td class="Right_font">所属公司：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    <input type="text" id="CompanyName" name="CompanyName"  validate = "{required:true,minlength:1,maxlength:30}"/>
+                    @Html.HiddenFor(m => m.CompanyId)
+                    <input type="hidden" id="bcompanyid" value="@Model.CompanyId" />
+                    <input type="hidden" id="curcompany" value="@ViewData["company"]" />
+                    </td>
+                    <td class="Right_font">所属驻点：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font"  style="width:34%"><table style="width:100%"><tr><td>        
+                    <input type="text" id="StagnationName" validate = "{required:false}" />
+                    @Html.HiddenFor(m => m.StagnationId)   
+                   </td><td id="displyzd" style="width:75%; text-align:left;color:Red"></td>
+                   </tr></table>      
+                    </td>
+                </tr>
+                
+                <tr>
+                 <td class="Right_font">所属网格：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font"  style="width:34%">                      
+                    <table style="width:100%"><tr><td>                         
+                    <input type="text" id="GridName"  validate = "{required:false}" />    
+                    @Html.HiddenFor(m => m.GridId) 
+                   </td><td id="displywg" style="width:75%; text-align:left;color:Red"></td>
+                   </tr></table>              
+                    </td> 
+                    <td class="Right_font">维护专业：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("MaintainSpecialtyId", (SelectList)ViewData["maintainSpecialty"], new { style = "width:135px", ltype = "select" })
+                    </td>
+                    
+                </tr>  
+                 <tr>
+                    <td class="Right_font">工作时间 ：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.WorkDate, new { ltype = "text", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td> 
+                    <td class="Right_font">入职时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.EntryDate, new { ltype = "text", validate = "{required:true}", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td>
+                </tr> 
+                <tr>                   
+                    <td class="Right_font">项目名称 ：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.ItemName, new { ltype = "text", validate = "{required:false,minlength:0,maxlength:20}" })
+                    </td> 
+                   <td class="Right_font">项目属性：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                    @Html.DropDownList("ItemPropertyId", (SelectList)ViewData["itemProperty"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                </tr> <tr>
+                    <td class="Right_font">认证资历类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("QualificationTypeId", (SelectList)ViewData["qualificationType"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                    <td class="Right_font">认证编号：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.CertificationNo, new { ltype = "text" })
+                    </td>
+                </tr> 
+                 <tr>
+                  <td class="Right_font">移动公司上岗证1：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("Certificate1", (SelectList)ViewData["certificate"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                    <td class="Right_font">上岗证1颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.CertificateAwardDate1, new { ltype = "text", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td> 
+                </tr> 
+                <tr>
+                  <td class="Right_font">移动公司上岗证2：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("Certificate2", (SelectList)ViewData["certificate"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                    <td class="Right_font">上岗证2颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.CertificateAwardDate2, new { ltype = "text", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td> 
+                </tr> 
+                <tr>
+                  <td class="Right_font">移动公司上岗证3：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("Certificate3", (SelectList)ViewData["certificate"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                    <td class="Right_font">上岗证3颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.CertificateAwardDate3, new { ltype = "text", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td> 
+                </tr> 
+                <tr>
+                  <td class="Right_font">移动公司上岗证4：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("Certificate4", (SelectList)ViewData["certificate"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                    <td class="Right_font">上岗证4颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.CertificateAwardDate4, new { ltype = "text", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td> 
+                </tr> 
+                <tr>
+                  <td class="Right_font">移动公司上岗证5：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("Certificate5", (SelectList)ViewData["certificate"], new { style = "width:135px", ltype = "select" })
+                    </td> 
+                    <td class="Right_font">上岗证5颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.CertificateAwardDate5, new { ltype = "text", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td> 
+                </tr>  
+                <tr>
+                    <td class="Right_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Html.TextAreaFor(m => m.Remark, new { Multiline = true, @class = "l-textarea", size = "80", style = "width:100%", validate = "{required:false,minlength:0,maxlength:100}" })
+                    </td> 
+</tr></tbody>
+</table>  
+<table width="100%"><tr><td style="width:45%"></td>
+<td><input type="submit" value="提 交" id="Button1" class="l-button l-button-submit" /> 
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+   
+    </div> 
+    }

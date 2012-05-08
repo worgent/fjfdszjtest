@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.FiberCoreManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.FiberCoreManger.Models.ResourceFiberCore,QzgfFrame.Resources" table="tab_fiber_core">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="SeqNo" type="String" name="SeqNo" length="10"  not-null="true"/>
+		<property column="BaseStationName" type="String" name="BaseStationName" length="100" />
+		<property column="ODUStation" type="String" name="ODUStation" length="100" />
+		<property column="ToPosition" type="String" name="ToPosition" length="100" /> 
+		<property column="Core" type="String" name="Core" length="100" />
+		<property column="LineNo" type="String" name="LineNo" length="20" />
+		<property column="ClieId" type="String" name="ClieId" length="20"  not-null="true"/>
+    <property column="LineId" type="String" name="LineId" length="20"  not-null="true"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+	</class>
+</hibernate-mapping>

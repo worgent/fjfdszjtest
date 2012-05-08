@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.System.RoleManger.Models" assembly="QzgfFrame.System">
+  <class name="QzgfFrame.System.RoleManger.Models.SystemRole,QzgfFrame.System" table="SYSTEM_ROLE">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String" length="20">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="ROLENAME" type="String" name="Rolename" length="256" />
+    <property column="REMARK" type="String" name="Remark" length="256" />
+    <property column="STATE" type="String" name="State" length="2" />
+    <property column="CREATEMAN" type="String" length="20" name="Createman" />
+    <property column="CREATEDATE" type="DateTime" update="false" name="Createdate" />
+  </class>
+</hibernate-mapping>

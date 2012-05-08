@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Cop.EnrolManager.Models" assembly="QzgfFrame.Cop">
+  <class name="QzgfFrame.Cop.EnrolManager.Models.CopEnrol,QzgfFrame.Cop" table="tab_cop_enrol">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="CopPlanId" type="String" name="CopPlanId" length="50" />
+    <property column="PersonnelId" type="String" name="PersonnelId" length="50" />
+    <property column="CycEnrolTime" type="String" name="CycEnrolTime" length="50"/>
+    <property column="IsDelete" type="int" name="IsDelete" not-null="true"/>
+    <property column="CreateUserId" type="String" name="CreateUserId" length="50" />
+    <property column="CreationTime" type="DateTime" name="CreationTime"/>
+    <property column="DeleteTime" type="DateTime" name="DeleteTime"/>
+    <property column="Personnel" type="String" name="Personnel" length="50" />
+
+    <!--客户信息-->
+    <property column="Address" type="String" name="Address" length="256" />
+    <property column="ConnectStation" type="String" name="ConnectStation" length="256" />
+    <property column="ConnectPort" type="String" name="ConnectPort" length="256" />
+    <property column="Linkman" type="String" name="Linkman" length="50" />
+    <property column="Phone" type="String" name="Phone" length="20" />
+    <!--环境-->
+    <property column="Temperature" type="String" name="Temperature" length="10" />
+    <property column="Humidity" type="String" name="Humidity" length="10" />
+    <property column="OpticalCableLaying" type="String" name="OpticalCableLaying" length="10" />
+    <!--标签（资料准确性）-->
+    <property column="DeviceLabel" type="String" name="DeviceLabel" length="10" />
+    <property column="PowerLabel" type="String" name="PowerLabel" length="10" />
+    <property column="FiberOpticCableLabel" type="String" name="FiberOpticCableLabel" length="10" />
+    <property column="CircuitLabel" type="String" name="CircuitLabel" length="10" />
+    <!--电源（如果属于移动维护）-->
+    <property column="UPSAlarms" type="String" name="UPSAlarms" length="10" />
+    <property column="InverterAlarm" type="String" name="InverterAlarm" length="10" />
+    <property column="ACVoltage" type="String" name="ACVoltage" length="10" />
+    <property column="DCVoltage" type="String" name="DCVoltage" length="10" />
+    <property column="ZeroToVoltage" type="String" name="ZeroToVoltage" length="10" />
+    <property column="EquipmentGrounding" type="String" name="EquipmentGrounding" length="10" />
+    <!--线路检查-->
+    <property column="ConnectCircs" type="String" name="ConnectCircs" length="10" />
+    <property column="ElectricalLineCheck" type="String" name="ElectricalLineCheck" length="10" />
+    <property column="Lineclutter" type="String" name="Lineclutter" length="10" />
+    <property column="IsColligationCircsInGear" type="String" name="IsColligationCircsInGear" length="10" />
+    <!--设备检查-->
+    <property column="IsHiddenTroubleBe" type="String" name="IsHiddenTroubleBe" length="10" />
+    <property column="EquipmentRunStateCheck" type="String" name="EquipmentRunStateCheck" length="10" />
+    <property column="IsDustCatcher" type="String" name="IsDustCatcher" length="10" />
+    <property column="LabelCircs" type="String" name="LabelCircs" length="10" />
+    <property column="IsEnvironmentalHazardsExist" type="String" name="IsEnvironmentalHazardsExist" length="10" />
+    <property column="IsEquipmentEarth" type="String" name="IsEquipmentEarth" length="10" />
+    <property column="EmpennageLabel" type="String" name="EmpennageLabel" length="10" />
+    <property column="PortData" type="String" name="PortData" length="100" />
+    <property column="Entironmentcontent" type="String" name="Entironmentcontent" length="500" />
+    <!--网络测试-->
+    <property column="GatewayMinimumDelay" type="String" name="GatewayMinimumDelay" length="20" />
+    <property column="GatewayMaximumDelay" type="String" name="GatewayMaximumDelay" length="20" />
+    <property column="GatewayAverageDelay" type="String" name="GatewayAverageDelay" length="20" />
+    <property column="GatewaySubstitutionRate" type="String" name="GatewaySubstitutionRate" length="20" />
+    <property column="DnsMinimumDelay" type="String" name="DnsMinimumDelay" length="20" />
+    <property column="DnsMaximumDelay" type="String" name="DnsMaximumDelay" length="20" />
+    <property column="DnsAverageDelay" type="String" name="DnsAverageDelay" length="20" />
+    <property column="DnsSubstitutionRate" type="String" name="DnsSubstitutionRate" length="20" />
+    <property column="NetworkSpeedTest" type="String" name="NetworkSpeedTest" length="20" />
+    <property column="DownloadTest" type="String" name="DownloadTest" length="20" />
+    <!--GPRS专网登陆测试-->
+    <property column="IsNormalLogin" type="String" name="IsNormalLogin" length="10" />
+    <property column="TheAverageDelay" type="String" name="TheAverageDelay" length="20" />
+    <property column="SubstitutionRate" type="String" name="SubstitutionRate" length="20" />
+    <!--IMS专线/VOIP专线-->
+    <property column="PhoneCallTesting" type="String" name="PhoneCallTesting" length="20" />
+    <property column="FaxCallTesting" type="String" name="FaxCallTesting" length="20" />
+    <!--维护情况-->
+    <property column="Problems" type="String" name="Problems" length="256" />
+    <property column="LastProblemSolvingSituations" type="String" name="LastProblemSolvingSituations" length="256" />
+    <property column="OtherInspectionItems" type="String" name="OtherInspectionItems" length="500" />
+    <property column="OperationalRecords" type="String" name="OperationalRecords" length="256" />
+    <property column="OverallAssessment" type="String" name="OverallAssessment" length="256" />
+    <property column="ClientOpinionSignature" type="String" name="ClientOpinionSignature" length="256" />
+    <property column="AttachmentName" type="String" name="AttachmentName" length="256" />
+    <property column="NewAttachmentName" type="String" name="NewAttachmentName" length="256" />
+  </class>
+</hibernate-mapping>

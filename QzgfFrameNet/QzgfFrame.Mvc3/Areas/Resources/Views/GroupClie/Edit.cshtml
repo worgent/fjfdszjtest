@@ -1,0 +1,119 @@
+﻿@model QzgfFrame.Resources.GroupClieManger.Models.ResourceGroupClie
+@{
+    
+    ViewBag.Title = "Register";
+}         
+    <script type="text/javascript">
+        //var CurID =  <%=CurID %>;
+        var Validator = null;
+        $(function () {
+            $("#GridNames").ligerComboBox({ isShowCheckBox: true, isMultiSelect: true,
+                url: '/Archives/Grid/getcombobox',
+                valueFieldID: 'GridIds'
+            });
+            $.metadata.setType("attr", "validate");
+            $("form").ligerForm();
+            deafultValidate($("form"));
+            Validator = $("form").validate();
+        });
+
+        function f_save(frameid) {
+            if (!Validator.form()) return;
+            $.ligerDialog.waitting("正在保存中...");
+            //提交数据
+
+            var fm = $("#newForm");
+            //提交表单  result为返回的数据，success为成功,form为提交的form
+            fm.ajaxSubmit(function (result, success, form) {
+                $.ligerDialog.closeWaitting();
+                if (result.Type) {
+                    $.ligerDialog.success('保存成功!', function () {
+                        parent.window.frames[frameid].f_reload();
+                    });
+                }
+                else {
+                    $.ligerDialog.error(result.Message, function () {
+                    });
+                }
+            });
+        } 
+    </script>
+@using (Html.BeginForm("Edit", "GroupClie", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td  class="Right_font">集团编号：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Html.TextBoxFor(m => m.ClieNo, new { @class = "dd-text", style = "width:138px;" })
+                    
+                    @Html.HiddenFor(m => m.Id)</td>
+                </tr>
+                <tr>
+                    <td class="Right_font">集团名称：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Html.TextBoxFor(m => m.ClieName, new { @class = "dd-text", style = "width:330px;" })
+                    
+                    </td>
+                </tr>
+                <tr>
+                    
+                    <td  class="Right_font">通信地址：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" colspan="3">
+                    @Html.TextBoxFor(m => m.ClieAddress, new { @class = "dd-text", style = "width:330px;" })</td>
+                </tr> 
+                <tr>
+                    
+                    <td  class="Right_font">客户规模：<span class="l-verify-star">*</span></td>
+                    <td  class="Left_font">
+                     @Html.DropDownList("StarLeveId", (SelectList)ViewData["servStarLeve"], new { style = "width:135px", ltype = "select" })
+                   </td>
+                    <td class="Right_font">客户服务等级：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     @Html.DropDownList("ScaleGradeId", (SelectList)ViewData["ScaleGrade"], new { style = "width:135px", ltype = "select" })
+                   </td>
+                </tr> 
+                <tr>
+                    
+                    <td  class="Right_font">客户经理：<span class="l-verify-star">&nbsp;</span></td>
+                    <td  class="Left_font">
+                    @Html.TextBoxFor(m => m.ClieManager, new { @class = "dd-text", style = "width:138px;" })</td>
+                    <td class="Right_font">客户经理联系电话：<span class="l-verify-star">&nbsp;</span></td>
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.ClieManagerTel, new { maxlength = "12", @class = "dd-text", style = "width:138px;" }) </td>
+                </tr> 
+                <tr>
+                    
+                    <td  class="Right_font">所属区县：<span class="l-verify-star">*</span></td>
+                    <td   class="Left_font">
+                    @Html.HiddenFor(m => m.CityId)                    
+                    @Html.HiddenFor(m => m.State)
+                     @Html.DropDownList("DistrictId", (SelectList)ViewData["district"], new { style = "width:135px", ltype = "select" })
+                    </td>
+                    <td class="Right_font">所属单位：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font" >
+                     @Html.DropDownList("CompanyId", (SelectList)ViewData["company"], new { style = "width:135px", ltype = "select" })
+                    </td>
+                </tr> 
+                
+                <tr>
+                    
+                    <td  class="Right_font">所属网格：<span class="l-verify-star">*</span></td>
+                    <td   class="Left_font" colspan="3">
+                    <input type="text"  id="GridNames" name="GridNames" validate = "{required:true,minlength:1}" ltype = "text" />
+                     @Html.HiddenFor(m => m.GridIds)
+                   </td>
+                </tr> 
+               
+                <!--
+                <tr>
+                    <input type="submit" value="Register" />
+                </tr>                
+                 -->
+            </tbody>
+        </table>
+    </div> 
+    }
+    

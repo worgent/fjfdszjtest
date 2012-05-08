@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping  xmlns="urn:nhibernate-mapping-2.2"  default-lazy="false"  namespace="QzgfFrame.System.PermissionsManger.Models" assembly="QzgfFrame.System">
+	<class name="QzgfFrame.System.PermissionsManger.Models.ViewSystemRolemenu" table="VIEW_SYSTEM_ROLEMENU">
+        <composite-id name="CompositeId" class="QzgfFrame.System.PermissionsManger.Models.CompositeId">
+            <key-property column="ID" type="String" name="Id"  length="20" />
+            <key-property column="ROLEID" type="String" name="Roleid" length="20" />
+        </composite-id>
+		<property column="NAME" type="String" name="Name" length="256" />
+		<property column="FATHER" type="String" name="Father" length="20" />
+		<property column="ISCHECK" type="Boolean" name="Ischeck" />
+	</class>
+</hibernate-mapping>

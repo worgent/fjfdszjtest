@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Resources.LineEquipManger.Models" assembly="QzgfFrame.Resources">
+	<class name="QzgfFrame.Resources.LineEquipManger.Models.ResourceLineEquip,QzgfFrame.Resources" table="tab_line_equip">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20" >
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="LineId" type="String" name="LineId" length="20"  not-null="true"/> 
+    <property column="EquipId" type="String" name="EquipId" length="20"  not-null="true"/>
+    <property column="ClieId" type="String" name="ClieId" length="20"  not-null="true"/>
+    <property column="DelFlag" type="short" name="DelFlag"  />
+
+	</class>
+</hibernate-mapping>

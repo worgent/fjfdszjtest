@@ -1,0 +1,260 @@
+﻿@model QzgfFrame.Resources.PersonnelManger.Models.ResourcePersonnel
+@{
+    
+    ViewBag.Title = "Register";
+}    
+@using (Html.BeginForm("Edit", "Personnel", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font" width="15%">二维码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.TwoDimensionalCode 
+<input type="hidden" id="frameid" name="frameid" value="@ViewData["frameid"]" />
+                    </td>
+                    <td class="Right_font" width="15%">人员姓名：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.FullName 
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="Right_font">性 别：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @{
+    var selFalgT = "女";
+               if (Model.Sex == 0)
+               {
+                   selFalgT = "男";
+               }
+               else
+               {
+                   selFalgT = "女";
+               }
+                    }
+                    @selFalgT
+                    </td> 
+                    <td class="Right_font">出生日期：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    
+                     @string.Format("{0:D}", Model.BirthDate)
+                    </td>
+                </tr> 
+                
+                <tr>
+                    <td class="Right_font">身份证号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.IDCardNumber 
+                </td> 
+                    <td class="Right_font">手机号码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.MobileNumber 
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">学历文凭：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["diploma"]
+                    </td> 
+                    <td class="Right_font">人员岗位：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["duty"]
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_font">人员职责：<span class="l-verify-star">&nbsp;</span><span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["posts"]
+                    </td> 
+                   <td class="Right_font">是否骨干 ：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @{
+    var selBFalgT = "是"; 
+               if (Model.IsBackbone == 0)
+               {
+                   selBFalgT = "否";
+               }
+               else
+               {
+                   selBFalgT = "是";
+               }
+                    }
+                    @selBFalgT
+                    </td> 
+                </tr> 
+                <tr>
+                    
+                   <td class="Right_font">是否自维 ：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" colspan="3">
+                     @{
+               var selMFalgT = "是";
+               if (Model.IsSelfMaintain == 0)
+               {
+                   selMFalgT = "否";
+               }
+               else
+               {
+                   selMFalgT = "是";
+               }
+                    }
+                    @selMFalgT
+                    </td> 
+                </tr> 
+                 <tr>
+                   <td class="Right_font">所属地市：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["city"]
+                    </td>
+                    <td class="Right_font">所属区县：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @ViewData["district"]
+                    </td> 
+                </tr> 
+                 <tr>
+                    <td class="Right_font">所属公司：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["company"]
+                    </td>
+                    <td class="Right_font">所属驻点：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["stagnation"]                   
+                    </td>
+                </tr>
+                
+                <tr>
+                 <td class="Right_font">所属网格：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">                      
+                    @ViewData["grid"]     
+                    </td> 
+                    <td class="Right_font">维护专业：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                                         
+                    @ViewData["maintainSpecialty"]     </td>
+                    
+                </tr>  
+                 <tr>
+                    <td class="Right_font">工作时间 ：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @string.Format("{0:D}", Model.WorkDate)
+                    </td> 
+                    <td class="Right_font">入职时间：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @string.Format("{0:D}", Model.EntryDate)
+                    </td>
+                </tr> 
+                <tr>                   
+                    <td class="Right_font">项目名称 ：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.ItemName 
+                    </td> 
+                   <td class="Right_font">项目属性：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font" >
+                     @ViewData["itemProperty"] 
+                    </td> 
+                </tr> <tr>
+                    <td class="Right_font">认证资历类型：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                   @ViewData["qualificationType"] 
+                     </td> 
+                    <td class="Right_font">认证编号：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Model.CertificationNo 
+                    </td>
+                </tr> 
+                 <tr>
+                  <td class="Right_font">移动公司上岗证1：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @ViewData["certificate1"] 
+                    </td> 
+                    <td class="Right_font">上岗证1颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @string.Format("{0:D}", Model.CertificateAwardDate1)
+                    </td> 
+                </tr> 
+                <tr>
+                  <td class="Right_font">移动公司上岗证2：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["certificate2"] 
+                    </td> 
+                    <td class="Right_font">上岗证2颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @string.Format("{0:D}", Model.CertificateAwardDate2)
+                    </td> 
+                </tr> 
+                <tr>
+                  <td class="Right_font">移动公司上岗证3：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @ViewData["certificate3"] 
+                    </td> 
+                    <td class="Right_font">上岗证3颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @string.Format("{0:D}", Model.CertificateAwardDate3)
+                    </td> 
+                </tr> 
+                <tr>
+                  <td class="Right_font">移动公司上岗证4：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @ViewData["certificate4"] 
+                     </td> 
+                    <td class="Right_font">上岗证4颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @string.Format("{0:D}", Model.CertificateAwardDate4)
+                    </td> 
+                </tr> 
+                <tr>
+                  <td class="Right_font">移动公司上岗证5：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @ViewData["certificate5"] 
+                    </td> 
+                    <td class="Right_font">上岗证5颁发时间：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                     @string.Format("{0:D}", Model.CertificateAwardDate5)
+                    </td> 
+                </tr>  
+                <tr>
+                    <td class="Right_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Model.Remark 
+                    </td> 
+</tr></tbody>
+</table>  
+   </div> 
+    }
+    

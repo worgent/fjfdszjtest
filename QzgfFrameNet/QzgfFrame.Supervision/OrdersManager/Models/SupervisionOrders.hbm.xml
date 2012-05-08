@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Supervision.OrdersManager.Models" assembly="QzgfFrame.Supervision">
+  <class name="QzgfFrame.Supervision.OrdersManager.Models.SupervisionOrders,QzgfFrame.Supervision" table="tab_supervision_orders">
+
+    <!-- Primary Key(s) -->
+    <id name="Id" column="ID" type="String">
+      <generator class="assigned"/>
+    </id>
+
+    <!-- Properties -->
+    <property column="SendingObject" type="String" name="SendingObject" length="256" />
+    <property column="OrdersTime" type="DateTime" name="OrdersTime" />
+    <property column="BackTime" type="DateTime" name="BackTime" />
+    <property column="ReBackTime" type="DateTime" name="ReBackTime" />
+    <property column="OrdersOvertimeNum" type="Int32" name="OrdersOvertimeNum" length="20" />
+    <property column="BackOvertimeNum" type="Int32" name="BackOvertimeNum" length="20" />
+    <property column="ReturnNum" type="Int32" name="ReturnNum" length="20" />
+    <property column="AuditStaff" type="String" name="AuditStaff" length="256" />
+    <property column="ReviewedPhone" type="String" name="ReviewedPhone" length="20" />
+    <property column="Status" type="String" name="Status" length="256" />
+    <property column="ApprovalStatus" type="String" name="ApprovalStatus" length="256" />
+    <property column="SendId" type="String" name="SendId" length="50" />
+    <property column="BackAttachmentName" type="String" name="BackAttachmentName" length="50" />
+    <property column="NewBackAttachmentName" type="String" name="NewBackAttachmentName" length="50" />
+    <property column="SendUnitName" type="String" name="SendUnitName" length="256" />
+  </class>
+</hibernate-mapping>

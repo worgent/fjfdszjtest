@@ -1,0 +1,185 @@
+﻿    <!--派遣工单列表-->
+    <script type="text/javascript">
+        //debugger; 调试时使用
+        var gridManager = null;
+        var activeDialog = null;
+        //该功能选项菜单id
+        var frameId = GetUrlParam('_menuid');
+        var saveFrameId = "qzgfframe" + GetUrlParam('_menuid');
+
+        //弹出框
+        function f_openWindow(url, title, width, height) {
+            var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+                { text: '保存', onclick: function (item, dialog) {
+                        dialog.frame.f_save();
+                        dialog.close(); //关闭弹出框
+                        f_reload(); //刷新数据
+                        //debugger;
+                    }
+                },
+                { text: '关闭', onclick: function (item, dialog) {
+                        dialog.close();
+                    }
+                }
+            ], isResize: true, timeParmName: 'a'
+            };
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+
+        function f_openWindow(url, title, width, height, btnname) {
+            if (btnname == null) {
+                var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+                { text: '关闭', onclick: function (item, dialog) {
+                        dialog.close();
+                    }
+                }
+            ], isResize: true, timeParmName: 'a'
+                };
+            }
+            else {
+                var dialogOptions = { width: width, height: height, title: title, url: url, buttons: [
+                        { text: btnname, onclick: function (item, dialog) {
+                                dialog.frame.f_save(saveFrameId);
+                                //f_reload(); //刷新数据
+                            }
+                        },
+                        { text: '关闭', onclick: function (item, dialog) {
+                                dialog.close();
+                            }
+                        }
+                    ], isResize: true, timeParmName: 'a'
+                };
+            }
+            activeDialog = parent.jQuery.ligerDialog.open(dialogOptions);
+        }
+
+        function f_closeWindow(reload) {
+            activeDialog && activeDialog.close();
+            reload && f_reload();
+        }
+        function f_btnClick(item) {
+            switch (item.id) {
+                case "add":
+                    f_add();
+                    break;
+                case "modify":
+                    f_modify();
+                    break;
+                case "delete":
+                    f_delete();
+                    break;
+                case "search": //查询
+                    f_search();
+                    break;
+                default:
+                    $.ligerDialog.alert('暂未实现!');
+                    break;
+            }
+        }
+
+        //查询
+        function f_search() {
+            f_openWindow('/Supervision/Send/Search/?frameid=' + frameId, '查询模块', 700, 250, '查询');
+        }
+
+        //显示添加弹出框
+        function f_add() {
+            window.location.href = "/Supervision/Send/Add/0";
+            //f_openWindow('/Supervision/Send/Edit/0', '添加巡检周期', 600, 350);
+        }
+
+        //显示修改弹出框
+        function f_modify() {
+            //获取所选中的复选框的值
+            var rowsdata = gridManager.getCheckedRows();
+            if (rowsdata.length != 1) {
+                $.ligerDialog.alert('请选择一行记录!');
+                return;
+            }
+            var id = rowsdata[0].Id;
+            window.location.href = '/Supervision/Send/Edit/' + id;
+            //f_openWindow('/Supervision/Send/Edit/' + id, '修改巡检周期', 600, 350);
+        }
+
+        function f_ChooseUnit(id) {
+            window.location.href = '/Supervision/Send/Unit/' + id;
+            //f_openWindow('/Supervision/Send/Unit/' + id, '选择派遣对象', 600, 350);
+        }
+
+        //删除巡检周期
+        function f_delete() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return;
+            }
+
+            $.ligerDialog.confirm("是否确认删除?", "提示", function (ok) {
+                if (ok) {
+                    $.ligerDialog.waitting("正在删除中...");
+                    var idStr = "";
+                    $(rowsdata).each(function (i, item) {
+                        idStr += this.Id;
+                        if (i < rowsdata.length - 1) idStr += ",";
+                    });
+                    $.getJSON('/Supervision/Send/Delete?id=' + idStr, { Rnd: Math.random() }, function (data) {
+                        if (data.Type) {
+                            $.ligerDialog.success("删除成功");
+                        }
+                        else {
+                            $.ligerDialog.error("删除失败!<BR>" + data.Message);
+                        }
+                        $.ligerDialog.closeWaitting();
+                        f_reload();
+                    });
+                } else {
+                    return;
+                }
+            });
+
+        }
+
+        //初始化列表
+        $(function () {
+            f_setToolbar();
+            f_setGrid();
+        });
+
+        //设置操作按钮
+        function f_setToolbar() {
+            SetButtons($("#toolbar"), "/system/menu/GetButton?menuid=20111109170057788785");
+        }
+
+        //设置列表
+        function f_setGrid() {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '操作', name: 'Operating', align: 'left', width: 130, minWidth: 60 },
+                { display: '工单号', name: 'Id', align: 'left', width: 150, minWidth: 60 },
+                { display: '工单主题', name: 'SendTitle', align: 'left', width: 130, minWidth: 60 },
+                { display: '工单内容', name: 'SendContent', align: 'left', width: 130, minWidth: 60 },
+                { display: '派单时间', name: 'DispatchTime', align: 'left', width: 130, minWidth: 60 }
+                ], dataAction: 'server',
+                url: "/Supervision/Send/GridPager",
+                sortName: 'id',
+                sortOrder: 'desc',
+                width: '99%',
+                height: '100%', 
+                pageSize: 30,
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+        function f_reload() {
+            gridManager && gridManager.loadData(true);
+        }
+    </script>
+<form id="form1" runat="server">
+    <div id="topmenu"></div>
+    <div id="toolbar"></div>
+    <div id="searchbar"></div>
+    <div id="maingrid"></div>
+</form>

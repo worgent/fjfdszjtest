@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Exam.SubjectManger.Models" assembly="QzgfFrame.Exam">
+	<class name="QzgfFrame.Exam.SubjectManger.Models.ExamSubjectContent,QzgfFrame.Exam" table="TAB_SUBJECT_CONTENT">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+		
+		<!-- Properties -->
+		<property column="CONTENT" type="String" name="Content" length="256"/>
+    <property column="CREATORID" type="String" name="CreatorId" length="256" />
+		<property column="CREATETIME" type="DateTime" name="CreateTime" />
+		<property column="SCALEGRADEID" type="String" name="ScaleGradeId" length="256" />
+		<property column="TYPEID" type="String" name="TypeId" length="256" />
+    <property column="COURSETYPEID" type="String" name="CourseTypeId" length="256" />
+  </class>
+</hibernate-mapping>

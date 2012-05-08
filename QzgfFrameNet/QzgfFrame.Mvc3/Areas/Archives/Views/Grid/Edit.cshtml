@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Archives.GridManger.Models.ArchiveGrid
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-form.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Archives/ArchiveEdit.js" type="text/javascript"></script>  
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Edit", "Grid", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font">网格编号：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.GridCode, new { ltype = "text", validate = "{required:true,minlength:2,maxlength:9}" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Right_font">网格名称：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.GridName, new { ltype = "text", validate = "{required:true,minlength:2,maxlength:20}" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">所属区县：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     @Html.DropDownList("DistrictId", (SelectList)ViewData["seldistrict"], new { ltype = "select" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">所属办事驻点：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                     @Html.DropDownList("OfficeId", (SelectList)ViewData["seloffice"], new { ltype = "select" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">维护性质：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Html.DropDownList("NatureId", (SelectList)ViewData["selnature"], new { ltype = "select" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">代维单位：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">
+                    @Html.DropDownList("CompanyId", (SelectList)ViewData["selcompany"], new { ltype = "select" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">合做伙伴：<span class="l-verify-star"> </span></td>
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.Partners, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:10}" })
+                    </td> 
+                </tr> 
+                <tr>
+                    <td class="Right_font">网格地域：<span class="l-verify-star"> </span></td>
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.GridArea, new { ltype = "text", validate = "{required:false,minlength:1,maxlength:20}" })
+                    </td> 
+               </tr></tbody>
+</table>                  
+
+    </div> 
+    }
+    
+</body>
+</html>

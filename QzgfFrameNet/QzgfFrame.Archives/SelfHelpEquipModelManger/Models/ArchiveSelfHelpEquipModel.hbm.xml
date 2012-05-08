@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Archives.CityManger.Models" assembly="QzgfFrame.Archives">
+	<class name="QzgfFrame.Archives.SelfHelpEquipModelManger.Models.ArchiveSelfHelpEquipModel,QzgfFrame.Archives" table="tab_selfhelp_equip_model">
+
+		<!-- Primary Key(s) -->
+		<id name="Id" column="ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="ModelName" type="String" name="ModelName" length="50"  not-null="true"/>
+		<property column="SelfHelpFactoryId" type="String" name="SelfHelpFactoryId" length="20"  not-null="true"/>
+		<property column="SelfHelpEquipTypeId" type="String" name="SelfHelpEquipTypeId" length="20"  not-null="true"/>
+
+	</class>
+</hibernate-mapping>

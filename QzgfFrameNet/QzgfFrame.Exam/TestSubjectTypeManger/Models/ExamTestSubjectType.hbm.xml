@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="false" namespace="QzgfFrame.Exam.TestSubjectTypeManger.Models" assembly="QzgfFrame.Exam">
+	<class name="QzgfFrame.Exam.TestSubjectTypeManger.Models.ExamTestSubjectType,QzgfFrame.Exam" table="TAB_TEST_SUBJECT_TYPE">
+
+		<!-- Primary Key(s) -->
+		<id name="ID" column="ID" type="String">
+			<generator class="assigned"/>
+		</id>
+    <!-- Properties -->
+		<property column="TESTID" type="String" name="TestID" length="256"/>
+    <property column="SUBJECTTYPEID" type="String" name="SubjectTypeID" length="256"/>
+    <property column="TYPENAME" type="String" name="TypeName" length="256"/>
+    <property column="EXPLANATION" type="String" name="Explaination" length="256"/>
+    <property column="ORDERNO" type="String" name="OrderNo" length="256" />
+  </class>
+</hibernate-mapping>

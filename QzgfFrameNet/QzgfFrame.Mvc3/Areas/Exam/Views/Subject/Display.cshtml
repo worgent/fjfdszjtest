@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-common.css" rel="stylesheet" type="text/css" /> 
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-dialog.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-grid.css" rel="stylesheet"  type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-form.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.3.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        //debugger;
+        var gridManager = null;
+        var activeDialog = null;
+        var typeID = "";
+        var courseTypeID = "";
+//        var obj = window.dialogArguments;  //dialogArguments只能在mode和modeless窗口中才能使用，可以传递传递任意类型的值
+//        var typeID = obj.typeid;                //试题类型
+//        var courseTypeID = obj.coursetypeid;    //科目类型
+        $(function () {
+            typeID = $("#typeID").val();                //试题类型
+            courseTypeID = $("#courseTypeID").val();    //科目类型
+            f_setGrid();
+        });
+
+        function f_setGrid() {
+            gridManager = $("#maingrid").ligerGrid({
+                columns: [
+                { display: '试题内容', name: 'Content',align: 'left', width: 400, minWidth: 300 },
+                { display: '题型', name: 'SubjectType', align: 'left', width: 90, minWidth: 60 },
+                { display: '科目类型', name: 'CourseName', align: 'left', width: 120, minWidth: 100 },
+                { display: '难易度', name: 'ScaleGradeType', align: 'left', width: 60, minWidth: 30 }
+                ], dataAction: 'server',
+                //url: "../../Service/BillListData.ashx?Action=GetGridView&gridviewname=tab_city", sortName: 'id',
+                url: "/Exam/Subject/gridpager", sortName: 'id',
+                width: '99%', pageSize: 10,
+                parms: [{ name: "gridsearch", value: typeID + "," + courseTypeID}],
+//                onCheckRow: function (checked, data, rowindex, rowobj) {
+//                    f_getdata();
+//                },
+                checkbox: true,
+                heightDiff: -9,
+                onError: function (a, b) {
+                    debugger
+                }
+            });
+        }
+
+
+        function f_reload() {
+            gridManager && gridManger.loadData(true);
+        }
+
+        function f_getdata() {
+            var rowsdata = gridManager.getCheckedRows();
+            if (!rowsdata.length) {
+                $.ligerDialog.alert('请先选择行!');
+                return null;
+            }
+            var ary = new Array();
+
+            $(rowsdata).each(function (i, item) {
+                var subject = new Object();
+                subject["ID"] = this.ID;
+                subject["Content"] = this.Content;
+                subject["SubjectType"] = this.SubjectType
+                ary.push(subject);
+            });
+            return ary;
+        }
+        function f_search() {
+            gridManager.loadData(f_getWhere());
+        }
+
+        function f_getWhere() {
+            if (!gridManager) return null;
+            var clause = function (rowdata, rowindex) {
+                var key = $("#SubjectTypeID").find("option:selected").text();
+                return rowdata.SubjectType.indexOf(key) > -1;
+            };
+            alert(clause);
+            return clause;
+        }
+
+    </script>
+     <style type="text/css"> 
+         #maingrid{ margin:0 auto;}
+        #toolbar{margin:2px auto;width:99%; background:#F3F8F9;border: 1px solid #B6D3E0; height:30px; line-height:30px;}
+        #toolbar .l-toolbar-item{ margin-top:4px;}
+    </style>
+    </head>
+<body>
+    <form id="form1" runat="server">
+    <div id="searchbar"></div>
+    <div id="maingrid"></div>
+    <input type="hidden" id="typeID" value="@ViewBag.typeID" />
+    <input type="hidden" id="courseTypeID" value="@ViewBag.courseTypeID" />
+    </form>
+</body>
+</html>

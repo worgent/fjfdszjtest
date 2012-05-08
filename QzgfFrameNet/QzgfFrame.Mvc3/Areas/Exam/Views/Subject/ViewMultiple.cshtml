@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Exam.SubjectManger.Models.SubjectContent
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Lib/css/autoSearchText.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //debugger;
+        function f_windowclose() {
+            window.location.href = "/Exam/Subject/";
+        } 
+    </script>
+</head>
+<body style=" padding:1px;">
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0"  width="100%" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font">试题类型：</td>
+                    <td class="Left_font">选择题</td>
+                </tr>
+                <tr>
+                    <td class="Right_font">试题内容：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">@Model.ExamSubContent.Content</td>
+                </tr>
+                 <tr>
+                    <td class="Right_font">选项：<span class="l-verify-star">*</span></td>
+                    <td class="leftfont">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"  id="subjectFrame">
+                      <tr class="hno">
+                        <td style="width:4%"></td>
+                        <td style="width:90%">&nbsp;选项内容：</td>
+                        <td style="width:6%"><div align='center'>答案</div></td>                 
+                      </tr>
+@{var j = 1;}
+ @foreach (var n in Model.MultipleSubject as IList<QzgfFrame.Exam.MultipleSubjectManger.Models.ExamMultipleSubject>)
+ {
+     var SignItemn = "SignItem" + j; var No = "";
+        
+                     <tr id='@SignItemn' class="bno">
+                        @{switch (@n.OrderNo)
+                          {
+                              case "1": { No = "A"; break; }
+                              case "2": { No = "B"; break; }
+                              case "3": { No = "C"; break; }
+                              case "4": { No = "D"; break; }
+                              case "5": { No = "E"; break; }
+                              case "6": { No = "F"; break; }
+                              case "7": { No = "G"; break; }
+                              case "8": { No = "H"; break; }
+                              case "9": { No = "I"; break; }
+                              case "10": { No = "J"; break; }
+                              case "11": { No = "K"; break; }
+                              case "12": { No = "L"; break; }
+                              case "13": { No = "M"; break; }
+                              case "14": { No = "N"; break; }
+                              case "15": { No = "O"; break; }
+                              case "16": { No = "P"; break; }
+                              case "17": { No = "Q"; break; }
+                              case "18": { No = "R"; break; }                          
+                          }
+                         }
+                        <td><div align='center'><span>@No：</span></div></td>
+                        <td>&nbsp;@n.MultipleContent</td>               
+                        <td>
+                        <div align='center'>
+                        @if(@n.Answer==true)
+                        {
+                          <span style="color:Red">正确</span>
+                        }  
+                        </div>                 
+                        </td>                    
+                     </tr>
+                        j++;
+ }
+                   </table>
+                   </td>
+                </tr>
+                <tr>
+                    <td class="Right_font" width="12%">试题等级：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font"> @Model.ScaleGradeType</td>
+                </tr>
+                <tr>
+                    <td class="Right_font" width="12%">科目类型：<span class="l-verify-star">*</span></td>
+                    <td class="Left_font">@Model.CourseName</td>
+                </tr>               
+            </tbody>
+        </table>
+    </div> 
+    <table width="100%">
+       <tr>
+          <td style="width:45%"></td>
+          <td><input type="button" value="返 回" class="l-button l-button-test" onclick="f_windowclose()"/></td>
+       </tr>
+    </table>
+</body>
+</html>

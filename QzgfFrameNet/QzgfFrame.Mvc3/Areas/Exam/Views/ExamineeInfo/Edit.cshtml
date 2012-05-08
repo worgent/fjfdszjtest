@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Exam.ExamineeInfoManger.Models.ExamineeInfo 
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title> 
+    <link href="../../../../Content/Lib/css/EditStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+     <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/addmethod.js" type="text/javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Exam/ExamineeInfo.js" type="text/javascript"></script> 
+    <script type="text/javascript">
+            //debugger; //调试时使用
+    </script>
+</head>
+<body style=" padding:1px;">
+
+@using (Html.BeginForm("Edit", "ExamineeInfo", FormMethod.Post, new { name = "newForm", id = "newForm" }))
+{
+    <input name='state' type='hidden' id='state' value='@ViewBag.state' />
+    @Html.HiddenFor(m => m.ExamExamineeInfo.ID)
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <table cellpadding="0" border="0" cellspacing="0" class="edittable">
+            <tbody>
+                <tr>
+                    <td class="Right_font">考试类型：<span class="l-verify-star">*</span></td>                    
+                    <td class="Left_font">
+                    @Html.DropDownList("ExamExamineeInfo.ExamTypeID", (SelectList)ViewBag.selexamtype)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Right_font" >考生姓名：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                      <table>
+                         <tr>
+                            <td>@Html.TextBoxFor(m => m.ExamExamineeInfo.FullName, new { ltype = "text", validate = "{required:true,minlength:1,maxlength:10}" })</td>
+                            <td><input type="button" value="选择人员信息" id="selPersonnel" class="l-button l-button-test" onclick="f_selPersonnel()" /></td>
+                         </tr>
+                      </table>
+                    </td>
+                    <td class="Right_font">性 别：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @{
+               var selFalgT = false; var selFalgF = false;
+               if (Model.ExamExamineeInfo.Sex == 0)
+               {
+                   selFalgT = true;
+                   selFalgF = false;
+               }
+               else
+               {
+                   selFalgT = false;
+                   selFalgF = true;
+               }
+                    }
+                    @Html.RadioButton("ExamExamineeInfo.Sex", "0", selFalgT)男
+                    @Html.RadioButton("ExamExamineeInfo.Sex", "1", selFalgF)女
+                    </td> 
+                </tr>
+                <tr>
+                    <td class="Right_font">
+                        考试登录名：<span class="l-verify-star">*</span>
+                    </td>
+                    <td class="Left_font">
+                        
+                        @if (Model == null || Model.ExamExamineeInfo.ID == "0")
+                        {
+                            @Html.TextAreaFor(m => m.ExamExamineeInfo.LoginName, new { @class = "dd-text", style = "overflow:auto;width:160px;", validate = "{required:true,minlength:1,maxlength:20,remote:'/exam/examineeinfo/Isloginnameexist?r='+new Date().getTime(),messages:{required:'请输入用户名',remote:'用户名已经存在!'}}", ltype = "text" })
+
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(m => m.ExamExamineeInfo.LoginName, new { @class = "dd-text", ltype = "text", style = "overflow:auto;width:160px;" })
+                         }
+                    </td>
+                     <td class="Right_font">身份证号：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextAreaFor(m => m.ExamExamineeInfo.IDCardNumber, new { @class = "dd-text", style = "overflow:auto;width:140px;", ltype = "text", validate = "{required:true,isIdCardNo:true}", autocomplete = "off", rows = "1", cols = "19", onpropertychange = "if(value.length>18) value=value.substr(0,18)" })  
+                    </td> 
+                   
+                </tr>                
+                <tr>
+                    <td class="Right_font">
+                        密码：<span class="l-verify-star">*</span>
+                    </td>
+                    <td class="Left_font">
+                        @Html.PasswordFor(m => m.ExamExamineeInfo.PassWord, new { validate = "{required:true,minlength:1}", ltype = "text" })
+                    </td>
+                    <td class="Right_font">手机号码：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.TextBoxFor(m => m.ExamExamineeInfo.MobileNumber, new { maxlength = "12", ltype = "text", validate = "{required:false,isMobile:true}" })
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="Right_font">学历文凭：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                    @Html.DropDownList("ExamExamineeInfo.DiplomaID", (SelectList)ViewBag.diploma, new { style = "width:135px" })
+                    </td> 
+                                     
+                    <td class="Right_font">出生日期：<span class="l-verify-star">*</span></td>
+                     
+                    <td class="Left_font">
+                     @Html.TextBoxFor(m => m.ExamExamineeInfo.BirthDate, new { ltype = "text", onfocus = "WdatePicker({dateFmt:'yyyy-M-dd'}); " })
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="Right_font">备注：<span class="l-verify-star">&nbsp;</span></td>
+                     
+                    <td class="Left_font" colspan="4">
+                    @Html.TextAreaFor(m => m.ExamExamineeInfo.Remark, new { Multiline = true, size = "80", style = "width:100%", ltype = "text" })
+                    </td> 
+</tr></tbody>
+</table>  
+<table width="100%"><tr><td style="width:45%"></td>
+<td><input type="submit" value="提 交" id="Button1" class="l-button l-button-submit" /> 
+<input type="button" value="返 回" class="l-button l-button-test" onclick="javascript:f_windowclose();"/></td></tr></table>                  
+   
+    </div> 
+    }
+    
+</body>
+</html>

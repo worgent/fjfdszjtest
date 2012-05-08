@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+@model QzgfFrame.Exam.TestManger.Models.TestContent
+@{
+    
+    ViewBag.Title = "Register";
+}       
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>模拟考试页面</title> 
+    <link href="../../../../Content/Lib/css/Exam/ViewTest.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Silvery/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <script src="../../../../Lib/jquery/jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="../../../../Lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>  
+    <script src="../../../../Lib/ligerUI/js/plugins/ligerLayout.js" type="text/javascript"></script>  
+    <script src="../../../../Lib/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../../../../lib/json2.js" type="text/javascript"></script>
+    <script src="../../../../Lib/jquery/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+    <script src="../../../../Lib/MyDatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../../Content/Lib/js/common.js" type="text/javascript"></script>
+    <script src="../../../../Content/lib/js/Exercises.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        debugger;
+        var Validator = null;
+        var SysSecond;
+        var InterValObj;
+
+        $(function () {
+            $("#newForm").ligerForm();
+            deafultValidate($("#newForm"));
+            var options = {
+                dataType: 'json',      //期望服务器的的回应的类型。null、"xml"、"script"或者"json"其中之一。
+                beforeSubmit: showRequest,
+                error: showError,
+                success: showResponse
+            };
+            $('#newForm').ajaxForm(options);
+
+            $.metadata.setType("attr", "validate");
+
+            //考试倒计时
+            SysSecond = parseInt($("#hbnTimeLength").val()); //这里获取倒计时的起始时间  
+            //window.setInterval功能：按照指定的周期（以毫秒计）来调用函数或计算表达式。
+            InterValObj = window.setInterval(SetRemainTime, 1000); //间隔函数，1秒执行  
+        });
+
+        //考试倒计时,将时间减去1秒，计算天、时、分、秒  
+        function SetRemainTime() {
+            if (SysSecond > 0) {
+                SysSecond = SysSecond - 1;
+                //Math.floor数学函数，求一个浮点数的地板，就是求一个最接近它的整数，它的值小于或等于这个浮点数。
+                var second = Math.floor(SysSecond % 60);             // 计算秒      
+                var minite = Math.floor((SysSecond / 60) % 60);      //计算分  
+                var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时  
+
+                $("#remainTime").html("考试剩余时间:" + hour + "小时" + minite + "分" + second + "秒");
+            } else {
+                //剩余时间小于或等于0的时候，就停止间隔函数;window.clearInterval取消由setInterval()方法设置的定时器。
+                window.clearInterval(InterValObj);
+
+                //考试时间结束后,将不可以再答题
+                $("input[name!='subsubmit']").attr("readonly", "readonly");
+            }
+        }
+
+        //提交成功时的数据
+        function showRequest(formData, jqForm, options) {
+            var tableNum = $("#tableNum").val() - 1;
+            $("#exercisesData").val(JSON2.stringify(GetExercisesData(tableNum)));
+            $.ligerDialog.waitting("正在保存中...");
+            return true;
+        }
+
+        //提交出错返回信息
+        function showError(data) {
+            alert("showError " + data.Message);
+        }
+
+        //提交成功后跳转
+        function showResponse(data, status) {
+            if (data.Type) {
+                $.ligerDialog.success(data.Message);
+                window.location.href = "/Exam/TestMock/SelectExam";
+            }
+            else {
+                $.ligerDialog.closeWaitting();
+                alert(data.Message);
+            }
+        }
+
+    </script>
+</head>
+<body style=" padding:4px;">
+<div>
+    <div id="remainTime" style="font-size:20px;font-weight:800;color:#FF9900"></div>  
+    @Html.Hidden("hbnTimeLength", @ViewData["hbnTimeLength"])
+
+    <div id="top" class="top">
+        <div id="testname" class="testname">
+                <span class="testnametxt">@Model.ExamTestContent.Name</span></div>
+        <div id="testpoints" class="testpoints">
+            <table class="testpoints_table">
+                <tr>
+                    <td class="testpoints_table_td">
+                        试卷总分：@Model.ExamTestContent.Points
+                    </td>
+                    <td class="testpoints_table_td">
+                        试卷类型：@Model.TestType
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div> 
+ 
+ @using (Html.BeginForm("Mock", "TestMock", FormMethod.Post, new { enctype = "multipart/form-data", name = "newForm", id = "newForm" }))
+ {
+        <div id="preview"  class="papers">
+            @Html.HiddenFor(m => m.ExamTestMock.ID)
+            @Html.HiddenFor(m=>m.ExamTestContent.ID)
+              @{var l = 1; var tableNo = 1;}
+              @foreach (var n in Model.TestSubjectsType as IList<QzgfFrame.Exam.TestSubjectTypeManger.Models.TestSubjectType>)
+              {
+                  var previewtypeOrderNo = "previewtypeOrderNo" + l;
+                <ul id="@previewtypeOrderNo">
+                    <li class="li_tt">@n.ExamTestSubjectType.TypeName</li>
+                  @{var h = 1;}
+                  @{foreach (var m in n.TestSubjects as IList<QzgfFrame.Exam.TestSubjectManger.Models.ExamTestSubject>)
+                    {
+                        var previewsubjectOrderNo = "previewsubjectOrderNo" + tableNo;
+                <li class="li_bc">
+                      <table id='@previewsubjectOrderNo'>
+                      <tr>
+                        <td class="td_Qnumber" valign="top">
+                            @m.OrderNo
+                            @Html.Hidden("hdnTypeName", n.ExamTestSubjectType.TypeName)
+                            @Html.Hidden("hdnSubjectID", m.SubjectID)
+                        </td>
+                        <td>@n.SubjectContents[h - 1].ExamSubContent.Content <span style="color: Red">(@m.Score 分)</span></td>
+                      </tr>
+                       @{var type = n.SubjectContents[h - 1].SubjectType;
+                         var g = 1;
+                         var trMultiples = "";
+                         var trFillBlanks = "";
+                         var trJudges = "";
+                         var Answer = "Answer" + h;//将选择题的radio分组
+                         var JudgesAnswer = "JudgesAnswer" + h;//将判断题的radio分组
+                         switch (type)
+                         {
+                             case "选择题":
+                                 var Multiples = n.SubjectContents[h - 1].MultipleSubject as IList<QzgfFrame.Exam.MultipleSubjectManger.Models.ExamMultipleSubject>;
+
+                                 foreach (var o in Multiples)
+                                 {
+                                     var multiplesOrderNo = "OrderNo" + g; var multiplesAnswer = "multiplesAnswer" + g;
+                                     trMultiples = "testSignItemn" + g;
+                                     var MultiplesTestSubjectId = "MultiplesTestSubjectId" + g;
+                                     var MultiplesSubjectTypeID = "MultiplesSubjectTypeID" + g;
+                                     var No = "";
+                                  <tr id='@trMultiples'>
+                                    <td>
+                                        <input name='@multiplesOrderNo' type='hidden' id='@multiplesOrderNo' value="@o.OrderNo"  />
+                                         @{switch (@o.OrderNo)
+                                          {
+                                              case "1": { No = "A："; break; }
+                                              case "2": { No = "B："; break; }
+                                              case "3": { No = "C："; break; }
+                                              case "4": { No = "D："; break; }
+                                              case "5": { No = "E："; break; }
+                                              case "6": { No = "F："; break; }
+                                              case "7": { No = "G："; break; }
+                                              case "8": { No = "H："; break; }
+                                              case "9": { No = "I："; break; }
+                                              case "10": { No = "J："; break; }
+                                              case "11": { No = "K："; break; }
+                                              case "12": { No = "L："; break; }
+                                              case "13": { No = "M："; break; }
+                                              case "14": { No = "N："; break; }
+                                              case "15": { No = "O："; break; }
+                                              case "16": { No = "P："; break; }
+                                              case "17": { No = "Q："; break; }
+                                              case "18": { No = "R："; break; }
+                                          }
+                                        }
+                                        <input name='@MultiplesTestSubjectId' type='hidden' id='@MultiplesTestSubjectId' value="@m.ID"  />
+                                        <input name='@MultiplesSubjectTypeID' type='hidden' id='@MultiplesSubjectTypeID' value="@n.ExamTestSubjectType.SubjectTypeID"  />
+                                    </td>
+                                    <td>
+                                       @No<input name='@Answer'  id='@multiplesAnswer' value="@o.OrderNo"  type="radio" /> @o.MultipleContent
+                                        
+                                    </td>
+                                  </tr>
+                                                                                                                      g++;
+                                 }
+                                 break;
+                             case "填空题":
+                                 var FillBlanks = n.SubjectContents[h - 1].FillBlanksSubject as IList<QzgfFrame.Exam.FillBlanksSubjectManger.Models.ExamFillBlanksSubject>;
+                                 foreach (var o in FillBlanks)
+                                 {
+                                     var fillblanksOrderNo = "OrderNo" + g; var fillblanksAnswer = "fillblanksAnswer" + g;
+                                     trFillBlanks = "testSignItemn" + g;
+                                     var FillBlanksTestSubjectId = "FillBlanksTestSubjectId" + g;
+                                     var FillBlanksSubjectTypeID = "FillBlanksSubjectTypeID" + g;
+                                  <tr id='@trFillBlanks'>
+                                    <td>
+                                        <input name='@fillblanksOrderNo' type='hidden' id='@fillblanksOrderNo' value="@o.OrderNo"  />
+                                        <input name='@FillBlanksTestSubjectId' type='hidden' id='@FillBlanksTestSubjectId' value="@m.ID"  />
+                                        <input name='@FillBlanksSubjectTypeID' type='hidden' id='@FillBlanksSubjectTypeID' value="@n.ExamTestSubjectType.SubjectTypeID"  />
+                                    </td>
+                                    <td>
+                                        (@o.OrderNo)．<input name='@fillblanksAnswer' id='@fillblanksAnswer' type='text' size='50'/>
+                                    </td>
+                                  </tr>
+                                                                       g++;
+                                 }
+                                 break;
+                             case "判断题":
+                                 var Judges = n.SubjectContents[h - 1].JudgeSubject as IList<QzgfFrame.Exam.JudgeSubjectManger.Models.ExamJudgeSubject>;
+                                 foreach (var o in Judges)
+                                 {
+                                     var judgesTrue = "judgesTrue" + g;
+                                     var judgesFalse = "judgesFalse" + g;
+                                     trJudges = "testSignItemn" + g;
+                                     var JudgesOrderNo = "JudgesOrderNo" + g;
+                                     var JudgesTestSubjectId = "JudgesTestSubjectId" + g;
+                                     var JudgesSubjectTypeID = "JudgesSubjectTypeID" + g;
+                                  <tr id='@trJudges'>   
+                                    <td>
+                                        <input name='@JudgesTestSubjectId' type='hidden' id='@JudgesTestSubjectId' value="@m.ID"  />
+                                        <input name='@JudgesSubjectTypeID' type='hidden' id='@JudgesSubjectTypeID' value="@n.ExamTestSubjectType.SubjectTypeID"  />
+                                    </td>
+                                    <td>
+                                        <input name='@JudgesAnswer'  id='@judgesTrue'  type="radio" value="1"  />正确
+                                        <input name='@JudgesAnswer'  id='@judgesFalse'  type="radio" value="0"  />错误
+                                    </td>
+                                  </tr>
+                                                                    g++;
+                                 }
+                                 break;
+                         }
+                      }                                   
+                      </table>
+                    </li>
+                         h++;
+                         tableNo++;
+                    }
+                }
+                  </ul>
+                    l++;
+              }
+              @Html.Hidden("tableNum", @tableNo)
+              @Html.HiddenFor(m => m.exercisesData)
+       </div> 
+    <table width="100%">
+        <tr>
+            <td style="width:45%"></td>
+            <td>
+                <input type="submit" value="提 交" name="subsubmit"  id="subsubmit" size="40" class="l-button l-button-submit" style=" float:left"/>
+                <input type="button" value="返 回" onclick="javascript:history.back()" class="l-button l-button-test"style=" float:left"/>
+            </td>
+        </tr>
+    </table>                  
+ }           
+  </div>
+    
+</body>
+</html>
